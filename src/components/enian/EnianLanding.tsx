@@ -71,6 +71,7 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
 function Hero() {
   return (
     <section
+      id="top"
       className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 pb-20 pt-10 sm:pt-16"
       style={{
         background:

@@ -132,6 +132,72 @@
   --sidebar-ring: oklch(0.551 0.027 264.364);
 }
 
+/* ───── E 人 I 碎念 — Neon Broadcast Studio tokens ───── */
+:root {
+  --studio-bg: oklch(0.16 0.03 270);
+  --studio-surface: oklch(0.22 0.04 275);
+  --studio-surface-2: oklch(0.27 0.05 278);
+  --studio-border: oklch(0.45 0.08 280 / 0.4);
+  --studio-text: oklch(0.96 0.01 250);
+  --studio-text-muted: oklch(0.72 0.03 260);
+  --neon-cyan: oklch(0.85 0.16 200);
+  --neon-magenta: oklch(0.72 0.25 330);
+  --neon-lime: oklch(0.9 0.2 130);
+  --neon-amber: oklch(0.85 0.18 80);
+  --gradient-neon: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
+  --shadow-neon-cyan: 0 0 24px -4px color-mix(in oklab, var(--neon-cyan) 60%, transparent);
+  --shadow-neon-magenta: 0 0 24px -4px color-mix(in oklab, var(--neon-magenta) 60%, transparent);
+  --font-mono-display: ui-monospace, "JetBrains Mono", "Fira Code", "SF Mono", Menlo, monospace;
+}
+
+@theme inline {
+  --color-studio-bg: var(--studio-bg);
+  --color-studio-surface: var(--studio-surface);
+  --color-studio-surface-2: var(--studio-surface-2);
+  --color-studio-border: var(--studio-border);
+  --color-studio-text: var(--studio-text);
+  --color-studio-text-muted: var(--studio-text-muted);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-magenta: var(--neon-magenta);
+  --color-neon-lime: var(--neon-lime);
+  --color-neon-amber: var(--neon-amber);
+}
+
+@keyframes enian-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.55; }
+}
+
+.enian-pulse-dot {
+  animation: enian-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes enian-scan {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100%); }
+}
+
+.enian-scanlines::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 3px,
+    color-mix(in oklab, var(--neon-cyan) 6%, transparent) 3px,
+    color-mix(in oklab, var(--neon-cyan) 6%, transparent) 4px
+  );
+  opacity: 0.35;
+  mix-blend-mode: screen;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .enian-pulse-dot { animation: none; }
+  .enian-scanlines::before { display: none; }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);

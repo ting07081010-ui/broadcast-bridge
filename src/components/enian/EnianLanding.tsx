@@ -51,7 +51,7 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
     spotify: "S",
     apple: "",
     youtube: "▶",
-    threads: "@",
+    facebook: "f",
     instagram: "IG",
   };
   return (

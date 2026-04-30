@@ -164,7 +164,7 @@ function Hero() {
 // ─────────── WHO FOR ───────────
 function WhoFor() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="who-for" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-4xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
@@ -197,7 +197,7 @@ function WhoFor() {
 // ─────────── TOPICS ───────────
 function Topics() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="topics" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
@@ -241,7 +241,7 @@ function Topics() {
 // ─────────── SCHEDULE ───────────
 function Schedule() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20">
+    <section id="schedule" className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
@@ -282,7 +282,7 @@ function Schedule() {
 // ─────────── FIRST LISTEN ───────────
 function FirstListen() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="first-listen" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
@@ -409,7 +409,7 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
 // ─────────── ABOUT HOST ───────────
 function AboutHost() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="about-host" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[auto,1fr] md:items-center">
         <img
           src={PODCAST.avatarUrl}
@@ -444,7 +444,7 @@ function AboutHost() {
 function Mission() {
   const pct = Math.min(100, Math.round((MISSION.current / MISSION.goal) * 100));
   return (
-    <section className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
+    <section id="mission" className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
       style={{
         background:
           "radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-magenta) 25%, transparent), transparent 60%), var(--studio-surface)",

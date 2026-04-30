@@ -1,4 +1,3 @@
-import { Link } from "@tanstack/react-router";
 import {
   Headphones,
   Play,
@@ -24,6 +23,9 @@ import {
   type PlatformKey,
 } from "@/lib/enian/constants";
 import type { Episode } from "@/server/episodes.functions";
+import TopNav from "./TopNav";
+import Faq from "./Faq";
+import Contact from "./Contact";
 
 const TOPIC_ICONS: Record<string, typeof Shield> = {
   INFOSEC: Shield,
@@ -69,6 +71,7 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
 function Hero() {
   return (
     <section
+      id="top"
       className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 pb-20 pt-10 sm:pt-16"
       style={{
         background:
@@ -118,6 +121,8 @@ function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href={PRIMARY_CTA.href}
+                data-event="click_cta_primary"
+                data-location="hero"
                 className="inline-flex items-center gap-2 rounded-full bg-[var(--neon-cyan)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-cyan)] transition hover:scale-[1.02] hover:brightness-110"
               >
                 <Headphones className="h-5 w-5" />
@@ -125,6 +130,8 @@ function Hero() {
               </a>
               <a
                 href={SECONDARY_CTA.href}
+                data-event="click_cta_secondary"
+                data-location="hero"
                 className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--neon-magenta)] px-6 py-3 text-base font-semibold text-[var(--neon-magenta)] transition hover:bg-[var(--neon-magenta)] hover:text-[var(--studio-bg)]"
               >
                 <Play className="h-4 w-4" />
@@ -145,6 +152,7 @@ function Hero() {
               className="h-44 w-44 rounded-full border-4 border-[var(--neon-cyan)] object-cover shadow-[var(--shadow-neon-cyan)] sm:h-52 sm:w-52"
               loading="eager"
               decoding="async"
+              fetchPriority="high"
             />
           </div>
         </div>
@@ -156,7 +164,7 @@ function Hero() {
 // ─────────── WHO FOR ───────────
 function WhoFor() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="who-for" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-4xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
@@ -189,7 +197,7 @@ function WhoFor() {
 // ─────────── TOPICS ───────────
 function Topics() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="topics" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
@@ -233,7 +241,7 @@ function Topics() {
 // ─────────── SCHEDULE ───────────
 function Schedule() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20">
+    <section id="schedule" className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
@@ -274,7 +282,7 @@ function Schedule() {
 // ─────────── FIRST LISTEN ───────────
 function FirstListen() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="first-listen" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <p
           className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
@@ -401,7 +409,7 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
 // ─────────── ABOUT HOST ───────────
 function AboutHost() {
   return (
-    <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
+    <section id="about-host" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[auto,1fr] md:items-center">
         <img
           src={PODCAST.avatarUrl}
@@ -436,7 +444,7 @@ function AboutHost() {
 function Mission() {
   const pct = Math.min(100, Math.round((MISSION.current / MISSION.goal) * 100));
   return (
-    <section className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
+    <section id="mission" className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
       style={{
         background:
           "radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-magenta) 25%, transparent), transparent 60%), var(--studio-surface)",
@@ -474,6 +482,7 @@ function Mission() {
 
         <a
           href="#tune-in"
+          data-event="click_cta_mission"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--neon-magenta)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-magenta)] transition hover:scale-[1.02]"
         >
           <Headphones className="h-5 w-5" />
@@ -578,17 +587,22 @@ export default function EnianLanding({
   source: string;
 }) {
   return (
-    <main className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
-      <Hero />
-      <WhoFor />
-      <Topics />
-      <Schedule />
-      <FirstListen />
-      <Episodes episodes={episodes} source={source} />
-      <AboutHost />
-      <Mission />
-      <TuneIn />
-      <Footer />
-    </main>
+    <>
+      <TopNav />
+      <main id="main" className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
+        <Hero />
+        <WhoFor />
+        <Topics />
+        <Schedule />
+        <FirstListen />
+        <Episodes episodes={episodes} source={source} />
+        <AboutHost />
+        <Mission />
+        <TuneIn />
+        <Faq />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   );
 }

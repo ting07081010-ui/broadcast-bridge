@@ -43,10 +43,12 @@ export const Route = createRootRoute({
       { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/cbaac245-6ad7-4344-a4d5-10c155ff9933" },
     ],
     links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
+      { rel: "stylesheet", href: appCss },
+      { rel: "canonical", href: "https://emting.life/" },
+      { rel: "preconnect", href: "https://feeds.soundon.fm" },
+      { rel: "preconnect", href: "https://open.spotify.com" },
+      { rel: "preconnect", href: "https://podcasts.apple.com" },
+      { rel: "preconnect", href: "https://www.youtube.com" },
     ],
   }),
   shellComponent: RootShell,
@@ -54,14 +56,36 @@ export const Route = createRootRoute({
   notFoundComponent: NotFoundComponent,
 });
 
+const TRACKING_SCRIPT = `(function(){
+  window.dataLayer = window.dataLayer || [];
+  function track(name, payload){ try { window.dataLayer.push(Object.assign({event:name}, payload||{})); } catch(e){} }
+  document.addEventListener('click', function(e){
+    var el = e.target && (e.target.closest ? e.target.closest('[data-event]') : null);
+    if(!el) return;
+    var name = el.getAttribute('data-event');
+    if(!name) return;
+    var payload = {};
+    for (var i=0; i<el.attributes.length; i++){
+      var a = el.attributes[i];
+      if (a.name.indexOf('data-') === 0 && a.name !== 'data-event'){
+        payload[a.name.slice(5)] = a.value;
+      }
+    }
+    if (el.tagName === 'A' && el.href) payload.href = el.href;
+    track(name, payload);
+  }, { passive: true });
+})();`;
+
 function RootShell({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="zh-TW">
       <head>
         <HeadContent />
       </head>
       <body>
+        <a href="#main" className="enian-skip-link">跳到主要內容</a>
         {children}
+        <script dangerouslySetInnerHTML={{ __html: TRACKING_SCRIPT }} />
         <Scripts />
       </body>
     </html>

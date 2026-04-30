@@ -587,17 +587,22 @@ export default function EnianLanding({
   source: string;
 }) {
   return (
-    <main className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
-      <Hero />
-      <WhoFor />
-      <Topics />
-      <Schedule />
-      <FirstListen />
-      <Episodes episodes={episodes} source={source} />
-      <AboutHost />
-      <Mission />
-      <TuneIn />
-      <Footer />
-    </main>
+    <>
+      <TopNav />
+      <main id="main" className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
+        <Hero />
+        <WhoFor />
+        <Topics />
+        <Schedule />
+        <FirstListen />
+        <Episodes episodes={episodes} source={source} />
+        <AboutHost />
+        <Mission />
+        <TuneIn />
+        <Faq />
+        <Contact />
+        <Footer />
+      </main>
+    </>
   );
 }

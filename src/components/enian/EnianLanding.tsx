@@ -152,6 +152,7 @@ function Hero() {
               className="h-44 w-44 rounded-full border-4 border-[var(--neon-cyan)] object-cover shadow-[var(--shadow-neon-cyan)] sm:h-52 sm:w-52"
               loading="eager"
               decoding="async"
+              fetchPriority="high"
             />
           </div>
         </div>

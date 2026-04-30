@@ -121,6 +121,8 @@ function Hero() {
             <div className="mt-8 flex flex-wrap items-center gap-3">
               <a
                 href={PRIMARY_CTA.href}
+                data-event="click_cta_primary"
+                data-location="hero"
                 className="inline-flex items-center gap-2 rounded-full bg-[var(--neon-cyan)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-cyan)] transition hover:scale-[1.02] hover:brightness-110"
               >
                 <Headphones className="h-5 w-5" />
@@ -128,6 +130,8 @@ function Hero() {
               </a>
               <a
                 href={SECONDARY_CTA.href}
+                data-event="click_cta_secondary"
+                data-location="hero"
                 className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--neon-magenta)] px-6 py-3 text-base font-semibold text-[var(--neon-magenta)] transition hover:bg-[var(--neon-magenta)] hover:text-[var(--studio-bg)]"
               >
                 <Play className="h-4 w-4" />

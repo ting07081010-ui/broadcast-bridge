@@ -8,14 +8,15 @@ export const PODCAST = {
   frequency: "FM 92.1 MHz",
   avatarUrl: "https://www.supergalen.com/assets/img/guild/e_nian/avatar.webp",
   // 收到正式 RSS 後填入；空字串會 fallback 到範例集數
-  rssFeedUrl: "",
+  rssFeedUrl:
+    "https://feeds.soundon.fm/podcasts/58307692-4c89-43fa-b4e0-43f6e6fdc152.xml",
 };
 
 export type PlatformKey =
   | "spotify"
   | "apple"
   | "youtube"
-  | "threads"
+  | "facebook"
   | "instagram";
 
 export const PLATFORMS: Array<{
@@ -27,26 +28,26 @@ export const PLATFORMS: Array<{
   {
     key: "spotify",
     name: "Spotify",
-    url: "#",
+    url: "https://open.spotify.com/show/2w7JIM47VMQZ3dyCVwvpAF",
     description: "在 Spotify 收聽 / 訂閱",
   },
   {
     key: "apple",
     name: "Apple Podcasts",
-    url: "#",
+    url: "https://podcasts.apple.com/tw/podcast/e%E4%BA%BAi%E7%A2%8E%E5%94%B8/id1752405503",
     description: "在 Apple Podcasts 收聽 / 訂閱",
   },
   {
     key: "youtube",
     name: "YouTube",
-    url: "#",
+    url: "https://www.youtube.com/channel/UC59PKXHHazdIDsLn-9EJ6jQ/",
     description: "在 YouTube 觀看 / 訂閱",
   },
   {
-    key: "threads",
-    name: "Threads",
-    url: "#",
-    description: "在 Threads 追蹤主持人",
+    key: "facebook",
+    name: "Facebook",
+    url: "https://www.facebook.com/profile.php?id=61560657516667",
+    description: "在 Facebook 追蹤主持人",
   },
   {
     key: "instagram",

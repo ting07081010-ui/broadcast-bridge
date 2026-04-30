@@ -482,6 +482,7 @@ function Mission() {
 
         <a
           href="#tune-in"
+          data-event="click_cta_mission"
           className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--neon-magenta)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-magenta)] transition hover:scale-[1.02]"
         >
           <Headphones className="h-5 w-5" />

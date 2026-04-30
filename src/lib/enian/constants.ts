@@ -132,3 +132,60 @@ export const MISSION = {
   copy:
     "這不是單純的訂閱數字，而是一個小型廣播基地：集結 500 位願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來。",
 };
+
+export const NAV_LINKS: Array<{ href: string; label: string }> = [
+  { href: "#who-for", label: "適合誰" },
+  { href: "#schedule", label: "節目單" },
+  { href: "#latest-episodes", label: "最新集數" },
+  { href: "#faq", label: "FAQ" },
+  { href: "#tune-in", label: "訂閱" },
+];
+
+export const FAQ: Array<{ q: string; a: string }> = [
+  {
+    q: "節目多久更新一次？",
+    a: "每週一到週六、每天一個固定單元；週日休息充電。實際更新時間以各平台 RSS 為準。",
+  },
+  {
+    q: "在哪些平台可以聽？",
+    a: "Spotify、Apple Podcasts、YouTube 都有上架。FB 與 IG 同步發布幕後與短內容。捲到下方「選擇你的收聽平台」即可一鍵訂閱。",
+  },
+  {
+    q: "想當來賓 / 投稿議題怎麼聯絡？",
+    a: "歡迎來信 hi@supergalen.com，或在 Instagram @emmanuel_love_sharing 私訊。請簡述背景、想聊的主題與聯絡方式即可。",
+  },
+  {
+    q: "節目會講宗教嗎？會不會很硬？",
+    a: "會聊基督信仰，但用日常生活角度切入，不說教、不強推；非信仰背景的聽眾也常常覺得有共鳴。",
+  },
+  {
+    q: "為什麼叫「E 人 I 碎念」？",
+    a: "主持人是 MBTI 的 E 人，能量需要靠講話釋放；但內容常常是 I 人式的觀察與內省。一邊吵一邊安靜，剛剛好。",
+  },
+];
+
+export const CONTACT = {
+  email: "hi@supergalen.com",
+  instagramDm: "https://www.instagram.com/emmanuel_love_sharing/",
+  channels: [
+    {
+      title: "來賓邀約",
+      desc: "想上節目聊聊你的專業 / 故事 / 觀點，歡迎來信。",
+      action: "寄信給我們",
+      href: "mailto:hi@supergalen.com?subject=%5B來賓邀約%5D",
+    },
+    {
+      title: "品牌合作",
+      desc: "業配、聯名、活動、課程合作皆可洽談。",
+      action: "洽談合作",
+      href: "mailto:hi@supergalen.com?subject=%5B品牌合作%5D",
+    },
+    {
+      title: "聽眾回饋",
+      desc: "想許願主題、回應某一集、純粹打招呼都可以。",
+      action: "IG 私訊",
+      href: "https://www.instagram.com/emmanuel_love_sharing/",
+    },
+  ],
+};
+

@@ -90,12 +90,9 @@ function Hero() {
             <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-[var(--neon-lime)]" />
             <span className="text-[var(--neon-lime)]">TRANSMISSION ACTIVE</span>
           </div>
-          <a
-            href="https://www.supergalen.com/guild/"
-            className="hover:text-[var(--neon-cyan)] transition-colors"
-          >
-            ← GUILD HALL
-          </a>
+          <span className="font-mono opacity-60" style={{ fontFamily: "var(--font-mono-display)" }}>
+            EMTING.LIFE
+          </span>
         </div>
 
         <div className="grid gap-10 md:grid-cols-[1fr,auto] md:items-center">
@@ -539,20 +536,14 @@ function Footer() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           <a
-            href="https://www.supergalen.com/guild/"
-            className="hover:text-[var(--neon-cyan)]"
-          >
-            ← 回 Guild Hall
-          </a>
-          <a
-            href="mailto:hi@supergalen.com"
+            href="mailto:contact@emting.life"
             className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
           >
             <Mail className="h-4 w-4" /> 合作 / 投稿
           </a>
         </div>
         <p className="text-xs opacity-60">
-          © {new Date().getFullYear()} {PODCAST.name} · SuperGalen Guild
+          © {new Date().getFullYear()} {PODCAST.name} · emting.life
         </p>
       </div>
     </footer>

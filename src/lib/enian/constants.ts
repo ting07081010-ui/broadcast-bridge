@@ -101,31 +101,7 @@ export const SCHEDULE: Array<{
   { day: "SAT", unit: "週末碎念包", topic: "一週總結 / 輕鬆收尾" },
 ];
 
-export const FIRST_LISTEN: Array<{
-  epNo: string;
-  title: string;
-  desc: string;
-  tags: string[];
-}> = [
-  {
-    epNo: "EP001",
-    title: "為什麼我開始碎念？",
-    desc: "從一個腦袋停不下來的 E 人，聊到為什麼自言自語也可以是一種整理世界的方法。",
-    tags: ["節目起點", "生活觀察"],
-  },
-  {
-    epNo: "EP002",
-    title: "資安其實離你很近",
-    desc: "密碼、詐騙、個資外洩，不只是工程師的事，而是每個家庭都該懂一點的生活常識。",
-    tags: ["資安", "科技生活"],
-  },
-  {
-    epNo: "EP003",
-    title: "在家庭與信仰之間，找到自己的節奏",
-    desc: "工作、家人、信仰、興趣，怎麼擺都不夠用。一集講講我自己怎麼把節奏調回來。",
-    tags: ["家庭", "信仰"],
-  },
-];
+// (FIRST_LISTEN 已移除：第一次來推薦集數現在直接從 RSS 取最新 3 集，避免 hard-coded 文案。)
 
 export const MISSION = {
   // 顯示文案；數字進度條已移除，避免冷啟動時呈現 0/500 的負面觀感

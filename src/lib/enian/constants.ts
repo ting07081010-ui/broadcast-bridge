@@ -1,13 +1,14 @@
 // 集中管理 E 人 I 碎念 Podcast 落地頁的所有常數
 // 收到實際連結後直接替換以下 URL 即可
 
+import avatarImg from "@/assets/enian-avatar.jpg";
+
 export const PODCAST = {
   name: "E 人 I 碎念",
   tagline: "一個有點宅、很愛講、但認真生活的 Podcast",
   hostName: "大E (Emmanuel)",
   frequency: "FM 92.1 MHz",
-  avatarUrl: "https://www.supergalen.com/assets/img/guild/e_nian/avatar.webp",
-  // 收到正式 RSS 後填入；空字串會 fallback 到範例集數
+  avatarUrl: avatarImg,
   rssFeedUrl:
     "https://feeds.soundon.fm/podcasts/58307692-4c89-43fa-b4e0-43f6e6fdc152.xml",
 };
@@ -100,37 +101,12 @@ export const SCHEDULE: Array<{
   { day: "SAT", unit: "週末碎念包", topic: "一週總結 / 輕鬆收尾" },
 ];
 
-export const FIRST_LISTEN: Array<{
-  epNo: string;
-  title: string;
-  desc: string;
-  tags: string[];
-}> = [
-  {
-    epNo: "EP001",
-    title: "為什麼我開始碎念？",
-    desc: "從一個腦袋停不下來的 E 人，聊到為什麼自言自語也可以是一種整理世界的方法。",
-    tags: ["節目起點", "生活觀察"],
-  },
-  {
-    epNo: "EP002",
-    title: "資安其實離你很近",
-    desc: "密碼、詐騙、個資外洩，不只是工程師的事，而是每個家庭都該懂一點的生活常識。",
-    tags: ["資安", "科技生活"],
-  },
-  {
-    epNo: "EP003",
-    title: "在家庭與信仰之間，找到自己的節奏",
-    desc: "工作、家人、信仰、興趣，怎麼擺都不夠用。一集講講我自己怎麼把節奏調回來。",
-    tags: ["家庭", "信仰"],
-  },
-];
+// (FIRST_LISTEN 已移除：第一次來推薦集數現在直接從 RSS 取最新 3 集，避免 hard-coded 文案。)
 
 export const MISSION = {
-  goal: 500,
-  current: 0, // 之後可改為動態
+  // 顯示文案；數字進度條已移除，避免冷啟動時呈現 0/500 的負面觀感
   copy:
-    "這不是單純的訂閱數字，而是一個小型廣播基地：集結 500 位願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來。",
+    "這不是單純的訂閱數字，而是一個小型廣播基地：集結願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來，成為早期共建者。",
 };
 
 export const NAV_LINKS: Array<{ href: string; label: string }> = [
@@ -152,7 +128,7 @@ export const FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "想當來賓 / 投稿議題怎麼聯絡？",
-    a: "歡迎來信 hi@supergalen.com，或在 Instagram @emmanuel_love_sharing 私訊。請簡述背景、想聊的主題與聯絡方式即可。",
+    a: "歡迎來信 contact@emting.life，或在 Instagram @emmanuel_love_sharing 私訊。請簡述背景、想聊的主題與聯絡方式即可。",
   },
   {
     q: "節目會講宗教嗎？會不會很硬？",
@@ -165,20 +141,20 @@ export const FAQ: Array<{ q: string; a: string }> = [
 ];
 
 export const CONTACT = {
-  email: "hi@supergalen.com",
+  email: "contact@emting.life",
   instagramDm: "https://www.instagram.com/emmanuel_love_sharing/",
   channels: [
     {
       title: "來賓邀約",
       desc: "想上節目聊聊你的專業 / 故事 / 觀點，歡迎來信。",
       action: "寄信給我們",
-      href: "mailto:hi@supergalen.com?subject=%5B來賓邀約%5D",
+      href: "mailto:contact@emting.life?subject=%5B來賓邀約%5D",
     },
     {
       title: "品牌合作",
       desc: "業配、聯名、活動、課程合作皆可洽談。",
       action: "洽談合作",
-      href: "mailto:hi@supergalen.com?subject=%5B品牌合作%5D",
+      href: "mailto:contact@emting.life?subject=%5B品牌合作%5D",
     },
     {
       title: "聽眾回饋",

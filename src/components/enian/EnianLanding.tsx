@@ -18,7 +18,6 @@ import {
   WHO_FOR,
   TOPICS,
   SCHEDULE,
-  FIRST_LISTEN,
   MISSION,
   type PlatformKey,
 } from "@/lib/enian/constants";
@@ -91,12 +90,9 @@ function Hero() {
             <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-[var(--neon-lime)]" />
             <span className="text-[var(--neon-lime)]">TRANSMISSION ACTIVE</span>
           </div>
-          <a
-            href="https://www.supergalen.com/guild/"
-            className="hover:text-[var(--neon-cyan)] transition-colors"
-          >
-            ← GUILD HALL
-          </a>
+          <span className="font-mono opacity-60" style={{ fontFamily: "var(--font-mono-display)" }}>
+            EMTING.LIFE
+          </span>
         </div>
 
         <div className="grid gap-10 md:grid-cols-[1fr,auto] md:items-center">
@@ -280,7 +276,9 @@ function Schedule() {
 }
 
 // ─────────── FIRST LISTEN ───────────
-function FirstListen() {
+function FirstListen({ episodes }: { episodes: Episode[] }) {
+  const picks = episodes.slice(0, 3);
+  if (picks.length === 0) return null;
   return (
     <section id="first-listen" className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20">
       <div className="mx-auto max-w-5xl">
@@ -291,47 +289,44 @@ function FirstListen() {
           // FIRST_TIME_HERE
         </p>
         <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
-          第一次來，先聽這 3 集
+          第一次來，先聽這幾集
         </h2>
         <p className="mt-3 text-[var(--studio-text-muted)]">
-          不知道從哪集開始？這 3 集最能快速認識節目調性。
+          不知道從哪集開始？這幾集最能快速認識節目調性。
         </p>
         <div className="mt-8 grid gap-4 md:grid-cols-3">
-          {FIRST_LISTEN.map((ep) => (
-            <a
-              key={ep.epNo}
-              href="#tune-in"
-              data-event="click_episode_card"
-              data-ep={ep.epNo}
-              className="group flex flex-col rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
-            >
-              <span
-                className="font-mono text-xs tracking-widest text-[var(--neon-magenta)]"
-                style={{ fontFamily: "var(--font-mono-display)" }}
+          {picks.map((ep, idx) => {
+            const label = ep.episodeNumber
+              ? `EP${String(ep.episodeNumber).padStart(3, "0")}`
+              : `EP${String(idx + 1).padStart(3, "0")}`;
+            return (
+              <a
+                key={ep.id}
+                href={ep.link || "#tune-in"}
+                target={ep.link?.startsWith("http") ? "_blank" : undefined}
+                rel={ep.link?.startsWith("http") ? "noopener noreferrer" : undefined}
+                data-event="click_episode_card"
+                data-ep={label}
+                className="group flex flex-col rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
               >
-                {ep.epNo}
-              </span>
-              <h3 className="mt-2 text-lg font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
-                {ep.title}
-              </h3>
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                {ep.desc}
-              </p>
-              <div className="mt-4 flex flex-wrap items-center gap-2">
-                {ep.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-full bg-[var(--studio-surface-2)] px-2.5 py-0.5 text-xs text-[var(--studio-text-muted)]"
-                  >
-                    #{t}
-                  </span>
-                ))}
-              </div>
-              <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--neon-cyan)]">
-                收聽本集 <ExternalLink className="h-3.5 w-3.5" />
-              </span>
-            </a>
-          ))}
+                <span
+                  className="font-mono text-xs tracking-widest text-[var(--neon-magenta)]"
+                  style={{ fontFamily: "var(--font-mono-display)" }}
+                >
+                  {label}
+                </span>
+                <h3 className="mt-2 text-lg font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
+                  {ep.title}
+                </h3>
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                  {ep.description}
+                </p>
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--neon-cyan)]">
+                  收聽本集 <ExternalLink className="h-3.5 w-3.5" />
+                </span>
+              </a>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -440,9 +435,8 @@ function AboutHost() {
   );
 }
 
-// ─────────── MISSION 500 ───────────
+// ─────────── MISSION ───────────
 function Mission() {
-  const pct = Math.min(100, Math.round((MISSION.current / MISSION.goal) * 100));
   return (
     <section id="mission" className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
       style={{
@@ -458,27 +452,11 @@ function Mission() {
           // MISSION_OBJECTIVE
         </p>
         <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
-          加入 500 聽眾任務
+          加入廣播基地，一起共建
         </h2>
         <p className="mt-5 text-base leading-relaxed text-[var(--studio-text-muted)]">
           {MISSION.copy}
         </p>
-
-        <div className="mt-8 rounded-xl border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5">
-          <div
-            className="flex items-center justify-between font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-            style={{ fontFamily: "var(--font-mono-display)" }}
-          >
-            <span>CURRENT: {MISSION.current}</span>
-            <span>TARGET: {MISSION.goal} SUBS</span>
-          </div>
-          <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--studio-surface-2)]">
-            <div
-              className="h-full transition-all"
-              style={{ width: `${pct}%`, background: "var(--gradient-neon)" }}
-            />
-          </div>
-        </div>
 
         <a
           href="#tune-in"
@@ -558,20 +536,14 @@ function Footer() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           <a
-            href="https://www.supergalen.com/guild/"
-            className="hover:text-[var(--neon-cyan)]"
-          >
-            ← 回 Guild Hall
-          </a>
-          <a
-            href="mailto:hi@supergalen.com"
+            href="mailto:contact@emting.life"
             className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
           >
             <Mail className="h-4 w-4" /> 合作 / 投稿
           </a>
         </div>
         <p className="text-xs opacity-60">
-          © {new Date().getFullYear()} {PODCAST.name} · SuperGalen Guild
+          © {new Date().getFullYear()} {PODCAST.name} · emting.life
         </p>
       </div>
     </footer>
@@ -594,7 +566,7 @@ export default function EnianLanding({
         <WhoFor />
         <Topics />
         <Schedule />
-        <FirstListen />
+        <FirstListen episodes={episodes} />
         <Episodes episodes={episodes} source={source} />
         <AboutHost />
         <Mission />

@@ -440,9 +440,8 @@ function AboutHost() {
   );
 }
 
-// ─────────── MISSION 500 ───────────
+// ─────────── MISSION ───────────
 function Mission() {
-  const pct = Math.min(100, Math.round((MISSION.current / MISSION.goal) * 100));
   return (
     <section id="mission" className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
       style={{
@@ -458,27 +457,11 @@ function Mission() {
           // MISSION_OBJECTIVE
         </p>
         <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
-          加入 500 聽眾任務
+          加入廣播基地，一起共建
         </h2>
         <p className="mt-5 text-base leading-relaxed text-[var(--studio-text-muted)]">
           {MISSION.copy}
         </p>
-
-        <div className="mt-8 rounded-xl border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5">
-          <div
-            className="flex items-center justify-between font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-            style={{ fontFamily: "var(--font-mono-display)" }}
-          >
-            <span>CURRENT: {MISSION.current}</span>
-            <span>TARGET: {MISSION.goal} SUBS</span>
-          </div>
-          <div className="mt-3 h-2 overflow-hidden rounded-full bg-[var(--studio-surface-2)]">
-            <div
-              className="h-full transition-all"
-              style={{ width: `${pct}%`, background: "var(--gradient-neon)" }}
-            />
-          </div>
-        </div>
 
         <a
           href="#tune-in"

@@ -18,7 +18,6 @@ import {
   WHO_FOR,
   TOPICS,
   SCHEDULE,
-  FIRST_LISTEN,
   MISSION,
   type PlatformKey,
 } from "@/lib/enian/constants";

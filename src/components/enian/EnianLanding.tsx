@@ -553,13 +553,150 @@ function Footer() {
   );
 }
 
+// ─────────── YOUTUBE LATEST ───────────
+function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
+  if (!videos || videos.length === 0) return null;
+  const channelUrl = PLATFORMS.find((p) => p.key === "youtube")?.url ?? "#";
+  return (
+    <section
+      id="youtube"
+      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+    >
+      <div className="mx-auto max-w-5xl">
+        <p
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
+          style={{ fontFamily: "var(--font-mono-display)" }}
+        >
+          // LATEST_VIDEOS
+        </p>
+        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
+          YouTube 最新影片
+        </h2>
+        <p className="mt-3 text-[var(--studio-text-muted)]">
+          想看影片版？最新幾集都在這。
+        </p>
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {videos.map((v) => (
+            <a
+              key={v.id}
+              href={v.url}
+              target="_blank"
+              rel="noreferrer"
+              data-event="click_youtube_video"
+              data-video-id={v.id}
+              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] transition hover:-translate-y-0.5 hover:border-[var(--neon-amber)] hover:shadow-[0_0_30px_-5px_var(--neon-amber)]"
+            >
+              <div className="relative aspect-video overflow-hidden bg-[var(--studio-surface-2)]">
+                <img
+                  src={v.thumbnail}
+                  alt={v.title}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover transition group-hover:scale-105"
+                />
+                <span className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--neon-amber)] text-[var(--studio-bg)] shadow-lg">
+                    <Play className="h-6 w-6 fill-current" />
+                  </span>
+                </span>
+              </div>
+              <div className="flex flex-1 flex-col gap-2 p-4">
+                <h3 className="line-clamp-2 text-base font-bold leading-snug text-[var(--studio-text)] group-hover:text-[var(--neon-amber)]">
+                  {v.title}
+                </h3>
+                {v.publishedAt && (
+                  <span
+                    className="font-mono text-xs text-[var(--studio-text-muted)]"
+                    style={{ fontFamily: "var(--font-mono-display)" }}
+                  >
+                    {formatDate(v.publishedAt)}
+                  </span>
+                )}
+              </div>
+            </a>
+          ))}
+        </div>
+
+        <div className="mt-8 text-center">
+          <a
+            href={channelUrl}
+            target="_blank"
+            rel="noreferrer"
+            data-event="click_youtube_channel"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--neon-amber)] px-6 py-3 text-base font-semibold text-[var(--neon-amber)] transition hover:bg-[var(--neon-amber)] hover:text-[var(--studio-bg)]"
+          >
+            前往 YouTube 頻道 <ExternalLink className="h-4 w-4" />
+          </a>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+// ─────────── SOCIAL FOLLOW ───────────
+function SocialFollow() {
+  return (
+    <section
+      id="social"
+      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
+    >
+      <div className="mx-auto max-w-4xl">
+        <p
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
+          style={{ fontFamily: "var(--font-mono-display)" }}
+        >
+          // SOCIAL_FOLLOW
+        </p>
+        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
+          在社群追蹤主持人
+        </h2>
+        <p className="mt-3 text-[var(--studio-text-muted)]">
+          短內容、節目幕後與即時想法都在這幾個平台。
+        </p>
+
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {SOCIAL_LINKS.map((s) => (
+            <a
+              key={s.key}
+              href={s.url}
+              target="_blank"
+              rel="noreferrer"
+              data-event="click_social"
+              data-platform={s.key}
+              aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
+              className="group flex items-center gap-4 rounded-xl border border-[var(--studio-border)] bg-[var(--studio-bg)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
+            >
+              <PlatformGlyph keyName={s.key} />
+              <div className="flex-1 min-w-0">
+                <div className="text-base font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-magenta)]">
+                  {s.name}
+                </div>
+                <div
+                  className="truncate font-mono text-xs text-[var(--studio-text-muted)]"
+                  style={{ fontFamily: "var(--font-mono-display)" }}
+                >
+                  {s.handle} · {s.description}
+                </div>
+              </div>
+              <ExternalLink className="h-4 w-4 shrink-0 text-[var(--studio-text-muted)] group-hover:text-[var(--neon-magenta)]" />
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 // ─────────── PAGE ───────────
 export default function EnianLanding({
   episodes,
   source,
+  videos,
 }: {
   episodes: Episode[];
   source: string;
+  videos: YouTubeVideo[];
 }) {
   return (
     <>
@@ -574,6 +711,8 @@ export default function EnianLanding({
         <AboutHost />
         <Mission />
         <TuneIn />
+        <YouTubeLatest videos={videos} />
+        <SocialFollow />
         <Faq />
         <Contact />
         <Footer />

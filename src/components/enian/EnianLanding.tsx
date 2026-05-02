@@ -19,9 +19,11 @@ import {
   TOPICS,
   SCHEDULE,
   MISSION,
+  SOCIAL_LINKS,
   type PlatformKey,
 } from "@/lib/enian/constants";
 import type { Episode } from "@/server/episodes.functions";
+import type { YouTubeVideo } from "@/server/youtube.functions";
 import TopNav from "./TopNav";
 import Faq from "./Faq";
 import Contact from "./Contact";
@@ -54,6 +56,7 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
     youtube: "▶",
     facebook: "f",
     instagram: "IG",
+    threads: "@",
   };
   return (
     <span

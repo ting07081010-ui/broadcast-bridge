@@ -18,7 +18,48 @@ export type PlatformKey =
   | "apple"
   | "youtube"
   | "facebook"
-  | "instagram";
+  | "instagram"
+  | "threads";
+
+export type SocialLink = {
+  key: Extract<PlatformKey, "threads" | "instagram" | "facebook" | "youtube">;
+  name: string;
+  handle: string;
+  url: string;
+  description: string;
+};
+
+// 跨平台社群追蹤（與訂閱用 PLATFORMS 區分；用於 SocialFollow 區塊）
+export const SOCIAL_LINKS: SocialLink[] = [
+  {
+    key: "threads",
+    name: "Threads",
+    handle: "@emmanuel_love_sharing",
+    url: "https://www.threads.net/@emmanuel_love_sharing",
+    description: "短碎念、節目幕後、即時想法",
+  },
+  {
+    key: "instagram",
+    name: "Instagram",
+    handle: "@emmanuel_love_sharing",
+    url: "https://www.instagram.com/emmanuel_love_sharing/",
+    description: "節目花絮、生活快照",
+  },
+  {
+    key: "facebook",
+    name: "Facebook",
+    handle: "E 人 I 碎念",
+    url: "https://www.facebook.com/profile.php?id=61560657516667",
+    description: "公告、長文討論、社群互動",
+  },
+  {
+    key: "youtube",
+    name: "YouTube",
+    handle: "@EmingLife",
+    url: "https://www.youtube.com/channel/UC59PKXHHazdIDsLn-9EJ6jQ/",
+    description: "完整影片版節目",
+  },
+];
 
 export const PLATFORMS: Array<{
   key: PlatformKey;

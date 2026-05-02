@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import EnianLanding from "@/components/enian/EnianLanding";
 import { getEpisodes } from "@/server/episodes.functions";
+import { getYouTubeVideos } from "@/server/youtube.functions";
 import { PODCAST, PLATFORMS } from "@/lib/enian/constants";
 
 const SEO_TITLE = "E 人 I 碎念｜科技、信仰、家庭與生活觀察 Podcast";
@@ -9,7 +10,13 @@ const SEO_DESC =
 const SITE_URL = "https://emting.life/";
 
 export const Route = createFileRoute("/")({
-  loader: () => getEpisodes(),
+  loader: async () => {
+    const [episodes, youtube] = await Promise.all([
+      getEpisodes(),
+      getYouTubeVideos(),
+    ]);
+    return { ...episodes, videos: youtube.videos };
+  },
   head: () => ({
     meta: [
       { title: SEO_TITLE },
@@ -47,6 +54,6 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
-  const { episodes, source } = Route.useLoaderData();
-  return <EnianLanding episodes={episodes} source={source} />;
+  const { episodes, source, videos } = Route.useLoaderData();
+  return <EnianLanding episodes={episodes} source={source} videos={videos} />;
 }

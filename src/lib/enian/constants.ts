@@ -9,17 +9,10 @@ export const PODCAST = {
   hostName: "大E (Emmanuel)",
   frequency: "FM 92.1 MHz",
   avatarUrl: avatarImg,
-  rssFeedUrl:
-    "https://feeds.soundon.fm/podcasts/58307692-4c89-43fa-b4e0-43f6e6fdc152.xml",
+  rssFeedUrl: "https://feeds.soundon.fm/podcasts/58307692-4c89-43fa-b4e0-43f6e6fdc152.xml",
 };
 
-export type PlatformKey =
-  | "spotify"
-  | "apple"
-  | "youtube"
-  | "facebook"
-  | "instagram"
-  | "threads";
+export type PlatformKey = "spotify" | "apple" | "youtube" | "facebook" | "instagram" | "threads";
 
 export type SocialLink = {
   key: Extract<PlatformKey, "threads" | "instagram" | "facebook" | "youtube">;
@@ -101,13 +94,13 @@ export const PLATFORMS: Array<{
 
 // Hero 主 / 次 CTA 預設指向 Spotify / 最新一集 anchor
 export const PRIMARY_CTA = {
-  label: "立即訂閱 Podcast",
+  label: "選平台立即訂閱",
   href: "#tune-in",
 };
 
 export const SECONDARY_CTA = {
-  label: "先聽最新一集",
-  href: "#latest-episodes",
+  label: "先聽三集推薦",
+  href: "#first-listen",
 };
 
 export const WHO_FOR: string[] = [
@@ -146,8 +139,7 @@ export const SCHEDULE: Array<{
 
 export const MISSION = {
   // 顯示文案；數字進度條已移除，避免冷啟動時呈現 0/500 的負面觀感
-  copy:
-    "這不是單純的訂閱數字，而是一個小型廣播基地：集結願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來，成為早期共建者。",
+  copy: "這不是單純的訂閱數字，而是一個小型廣播基地：集結願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來，成為早期共建者。",
 };
 
 export const NAV_LINKS: Array<{ href: string; label: string }> = [
@@ -205,4 +197,3 @@ export const CONTACT = {
     },
   ],
 };
-

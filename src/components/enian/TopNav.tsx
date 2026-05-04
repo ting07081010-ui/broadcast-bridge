@@ -48,7 +48,7 @@ export default function TopNav() {
               href={l.href}
               data-event="click_nav"
               data-target={l.href.replace("#", "")}
-              className="rounded-md px-3 py-1.5 text-sm text-[var(--studio-text-muted)] transition hover:text-[var(--neon-cyan)]"
+              className="rounded-full px-3 py-1.5 text-sm text-[var(--studio-text-muted)] transition hover:bg-[var(--studio-surface)] hover:text-[var(--studio-text)]"
             >
               {l.label}
             </a>
@@ -56,7 +56,7 @@ export default function TopNav() {
           <a
             href="#tune-in"
             data-event="click_nav_cta"
-            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[var(--neon-cyan)] px-3.5 py-1.5 text-sm font-bold text-[var(--studio-bg)] transition hover:brightness-110"
+            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-text)] px-3.5 py-1.5 text-sm font-bold text-[var(--studio-bg)] transition hover:opacity-90"
           >
             <Headphones className="h-3.5 w-3.5" />
             訂閱

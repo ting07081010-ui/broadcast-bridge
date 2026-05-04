@@ -43,10 +43,6 @@ export const Route = createRootRoute({
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.ico", type: "image/svg+xml" },
       { rel: "canonical", href: "https://emting.life/" },
-      { rel: "preconnect", href: "https://feeds.soundon.fm" },
-      { rel: "preconnect", href: "https://open.spotify.com" },
-      { rel: "preconnect", href: "https://podcasts.apple.com" },
-      { rel: "preconnect", href: "https://www.youtube.com" },
     ],
   }),
   shellComponent: RootShell,
@@ -81,7 +77,9 @@ function RootShell({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <a href="#main" className="enian-skip-link">跳到主要內容</a>
+        <a href="#main" className="enian-skip-link">
+          跳到主要內容
+        </a>
         {children}
         <script dangerouslySetInnerHTML={{ __html: TRACKING_SCRIPT }} />
         <Scripts />

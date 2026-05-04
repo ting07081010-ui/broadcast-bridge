@@ -134,19 +134,32 @@
 
 /* ───── E 人 I 碎念 — Neon Broadcast Studio tokens ───── */
 :root {
-  --studio-bg: oklch(0.16 0.03 270);
-  --studio-surface: oklch(0.22 0.04 275);
-  --studio-surface-2: oklch(0.27 0.05 278);
-  --studio-border: oklch(0.45 0.08 280 / 0.4);
-  --studio-text: oklch(0.96 0.01 250);
-  --studio-text-muted: oklch(0.72 0.03 260);
-  --neon-cyan: oklch(0.85 0.16 200);
-  --neon-magenta: oklch(0.72 0.25 330);
-  --neon-lime: oklch(0.9 0.2 130);
-  --neon-amber: oklch(0.85 0.18 80);
-  --gradient-neon: linear-gradient(135deg, var(--neon-cyan), var(--neon-magenta));
-  --shadow-neon-cyan: 0 0 24px -4px color-mix(in oklab, var(--neon-cyan) 60%, transparent);
-  --shadow-neon-magenta: 0 0 24px -4px color-mix(in oklab, var(--neon-magenta) 60%, transparent);
+  --studio-bg: oklch(0.17 0.004 286);
+  --studio-surface: oklch(0.22 0.004 286);
+  --studio-surface-2: oklch(0.26 0.006 286);
+  --studio-border: oklch(0.32 0.008 286 / 0.8);
+  --studio-text: oklch(0.99 0 0);
+  --studio-text-muted: oklch(0.72 0 0);
+  --neon-cyan: oklch(0.67 0.17 251);
+  --neon-magenta: oklch(0.68 0.24 327);
+  --neon-lime: oklch(0.74 0.18 148);
+  --neon-amber: oklch(0.76 0.18 45);
+  --gradient-neon: linear-gradient(
+    135deg,
+    var(--neon-magenta),
+    oklch(0.58 0.23 286),
+    var(--neon-amber)
+  );
+  --shadow-neon-cyan:
+    0 0 0 1px color-mix(in oklab, var(--neon-cyan) 32%, transparent),
+    0 18px 48px -24px color-mix(in oklab, var(--neon-cyan) 45%, transparent);
+  --shadow-neon-magenta:
+    0 0 0 1px color-mix(in oklab, var(--neon-magenta) 28%, transparent),
+    0 18px 48px -24px color-mix(in oklab, var(--neon-magenta) 40%, transparent);
+  --font-display:
+    "GT Walsheim Framer Medium", "GT Walsheim Medium", "Inter", "SF Pro Display", system-ui,
+    sans-serif;
+  --font-body: "Inter Variable", "Inter", "SF Pro Text", system-ui, sans-serif;
   --font-mono-display: ui-monospace, "JetBrains Mono", "Fira Code", "SF Mono", Menlo, monospace;
 }
 
@@ -164,8 +177,13 @@
 }
 
 @keyframes enian-pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.55; }
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.55;
+  }
 }
 
 .enian-pulse-dot {
@@ -173,8 +191,12 @@
 }
 
 @keyframes enian-scan {
-  0% { transform: translateY(-100%); }
-  100% { transform: translateY(100%); }
+  0% {
+    transform: translateY(-100%);
+  }
+  100% {
+    transform: translateY(100%);
+  }
 }
 
 .enian-scanlines::before {
@@ -194,9 +216,15 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .enian-pulse-dot { animation: none; }
-  .enian-scanlines::before { display: none; }
-  html { scroll-behavior: auto; }
+  .enian-pulse-dot {
+    animation: none;
+  }
+  .enian-scanlines::before {
+    display: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }
 
 html {
@@ -234,5 +262,6 @@ section[id] {
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
+    font-family: var(--font-body);
   }
 }

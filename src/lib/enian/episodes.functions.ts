@@ -1,4 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeaders } from "@tanstack/react-start/server";
 import { XMLParser } from "fast-xml-parser";
 import { PODCAST } from "@/lib/enian/constants";
 
@@ -13,12 +14,24 @@ export type Episode = {
   episodeNumber?: number;
 };
 
+type ParsedEpisodeItem = {
+  title?: unknown;
+  description?: unknown;
+  link?: unknown;
+  pubDate?: unknown;
+  guid?: unknown;
+  enclosure?: unknown;
+  "itunes:summary"?: unknown;
+  "content:encoded"?: unknown;
+  "itunes:duration"?: unknown;
+  "itunes:episode"?: unknown;
+};
+
 const FALLBACK_EPISODES: Episode[] = [
   {
     id: "fallback-1",
     title: "EP001｜為什麼我開始碎念？",
-    description:
-      "從一個腦袋停不下來的 E 人，聊到為什麼自言自語也可以是一種整理世界的方法。",
+    description: "從一個腦袋停不下來的 E 人，聊到為什麼自言自語也可以是一種整理世界的方法。",
     pubDate: "",
     link: "#tune-in",
     episodeNumber: 1,
@@ -26,8 +39,7 @@ const FALLBACK_EPISODES: Episode[] = [
   {
     id: "fallback-2",
     title: "EP002｜資安其實離你很近",
-    description:
-      "密碼、詐騙、個資外洩，不只是工程師的事，而是每個家庭都該懂一點的生活常識。",
+    description: "密碼、詐騙、個資外洩，不只是工程師的事，而是每個家庭都該懂一點的生活常識。",
     pubDate: "",
     link: "#tune-in",
     episodeNumber: 2,
@@ -89,6 +101,33 @@ function parseDuration(value: unknown): number | undefined {
   return undefined;
 }
 
+function getEnclosureUrl(enclosure: unknown): string | undefined {
+  if (Array.isArray(enclosure)) {
+    const firstItem = enclosure[0];
+    if (typeof firstItem === "object" && firstItem !== null) {
+      const url = (firstItem as Record<string, unknown>)["@_url"];
+      return typeof url === "string" && url ? url : undefined;
+    }
+    return undefined;
+  }
+
+  if (typeof enclosure === "object" && enclosure !== null) {
+    const url = (enclosure as Record<string, unknown>)["@_url"];
+    return typeof url === "string" && url ? url : undefined;
+  }
+
+  return undefined;
+}
+
+function getGuidValue(guid: unknown): string | undefined {
+  if (typeof guid === "string" && guid) return guid;
+  if (typeof guid === "object" && guid !== null) {
+    const text = (guid as Record<string, unknown>)["#text"];
+    return typeof text === "string" && text ? text : undefined;
+  }
+  return undefined;
+}
+
 export const getEpisodes = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ episodes: Episode[]; source: "rss" | "fallback"; error?: string }> => {
     const url = PODCAST.rssFeedUrl;
@@ -97,6 +136,8 @@ export const getEpisodes = createServerFn({ method: "GET" }).handler(
     }
 
     try {
+      setResponseHeaders(new Headers({ "Cache-Control": "public, max-age=300, s-maxage=300" }));
+
       const res = await fetch(url, {
         headers: { "User-Agent": "EnianPodcastSite/1.0" },
       });
@@ -117,23 +158,18 @@ export const getEpisodes = createServerFn({ method: "GET" }).handler(
       }
       const list = Array.isArray(items) ? items : [items];
 
-      const episodes: Episode[] = list.slice(0, 8).map((item: any, idx: number) => {
-        const enclosure = item.enclosure;
-        const audioUrl =
-          enclosure?.["@_url"] ?? (Array.isArray(enclosure) ? enclosure[0]?.["@_url"] : undefined);
-        const rawDesc =
-          item["itunes:summary"] ?? item.description ?? item["content:encoded"] ?? "";
+      const episodes: Episode[] = list.slice(0, 8).map((item: ParsedEpisodeItem, idx: number) => {
+        const audioUrl = getEnclosureUrl(item.enclosure);
+        const rawDesc = item["itunes:summary"] ?? item.description ?? item["content:encoded"] ?? "";
         return {
-          id: String(item.guid?.["#text"] ?? item.guid ?? item.link ?? `ep-${idx}`),
+          id: getGuidValue(item.guid) ?? String(item.link ?? `ep-${idx}`),
           title: String(item.title ?? "").trim(),
           description: stripHtml(String(rawDesc)).slice(0, 160),
           pubDate: String(item.pubDate ?? ""),
           link: String(item.link ?? audioUrl ?? "#"),
           audioUrl,
           durationSec: parseDuration(item["itunes:duration"]),
-          episodeNumber: item["itunes:episode"]
-            ? Number(item["itunes:episode"])
-            : undefined,
+          episodeNumber: item["itunes:episode"] ? Number(item["itunes:episode"]) : undefined,
         };
       });
 
@@ -146,5 +182,5 @@ export const getEpisodes = createServerFn({ method: "GET" }).handler(
         error: err instanceof Error ? err.message : "unknown",
       };
     }
-  }
+  },
 );

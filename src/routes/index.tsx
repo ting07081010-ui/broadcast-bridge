@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import EnianLanding from "@/components/enian/EnianLanding";
-import { getEpisodes } from "@/server/episodes.functions";
-import { getYouTubeVideos } from "@/server/youtube.functions";
+import { getEpisodes } from "@/lib/enian/episodes.functions";
+import { getYouTubeVideos } from "@/lib/enian/youtube.functions";
 import { PODCAST, PLATFORMS } from "@/lib/enian/constants";
 
 const SEO_TITLE = "E 人 I 碎念｜科技、信仰、家庭與生活觀察 Podcast";

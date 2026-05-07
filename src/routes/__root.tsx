@@ -38,6 +38,7 @@ export const Route = createRootRoute({
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: "Ｅ人Ｉ碎念" },
       { name: "twitter:description", content: "一個有點宅、很愛講、但認真生活的 Podcast" },
+      { name: "google-site-verification", content: "Nd33MaCJb1v-7srB1kINB7F_K8sR5FAANzZZni4hE3s" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

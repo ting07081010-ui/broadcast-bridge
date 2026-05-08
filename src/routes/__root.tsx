@@ -1,6 +1,19 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { createServerFn } from "@tanstack/react-start";
+import { setResponseHeaders } from "@tanstack/react-start/server";
 
 import appCss from "../styles.css?url";
+
+const applySecurityHeaders = createServerFn({ method: "GET" }).handler(async () => {
+  setResponseHeaders({
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
+    "X-Content-Type-Options": "nosniff",
+    "X-Frame-Options": "SAMEORIGIN",
+    "Referrer-Policy": "strict-origin-when-cross-origin",
+    "Permissions-Policy": "camera=(), microphone=(), geolocation=(), interest-cohort=()",
+  });
+  return null;
+});
 
 function NotFoundComponent() {
   return (
@@ -25,6 +38,11 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  beforeLoad: async () => {
+    if (typeof window === "undefined") {
+      try { await applySecurityHeaders(); } catch {}
+    }
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },

@@ -38,6 +38,11 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
+  beforeLoad: async () => {
+    if (typeof window === "undefined") {
+      try { await applySecurityHeaders(); } catch {}
+    }
+  },
   head: () => ({
     meta: [
       { charSet: "utf-8" },

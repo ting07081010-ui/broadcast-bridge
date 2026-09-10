@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import { Menu, Radio, X, Headphones } from "lucide-react";
+import { useLocation } from "@tanstack/react-router";
 import { NAV_LINKS, PODCAST } from "@/lib/enian/constants";
 
 export default function TopNav() {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const logoHref = isHome ? "#top" : "/";
+  const navHref = (href: string) => (isHome ? href : `/${href}`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -25,7 +30,7 @@ export default function TopNav() {
     >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a
-          href="#top"
+          href={logoHref}
           className="flex items-center gap-2 text-[var(--studio-text)]"
           data-event="click_nav"
           data-target="logo"
@@ -45,7 +50,7 @@ export default function TopNav() {
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
-              href={l.href}
+              href={navHref(l.href)}
               data-event="click_nav"
               data-target={l.href.replace("#", "")}
               className="rounded-full px-3 py-1.5 text-sm text-[var(--studio-text-muted)] transition hover:bg-[var(--studio-surface)] hover:text-[var(--studio-text)]"
@@ -54,7 +59,7 @@ export default function TopNav() {
             </a>
           ))}
           <a
-            href="#tune-in"
+            href={navHref("#tune-in")}
             data-event="click_nav_cta"
             className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-text)] px-3.5 py-1.5 text-sm font-bold text-[var(--studio-bg)] transition hover:opacity-90"
           >
@@ -83,7 +88,7 @@ export default function TopNav() {
             {NAV_LINKS.map((l) => (
               <li key={l.href}>
                 <a
-                  href={l.href}
+                  href={navHref(l.href)}
                   onClick={close}
                   data-event="click_nav"
                   data-target={l.href.replace("#", "")}

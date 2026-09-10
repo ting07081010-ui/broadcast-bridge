@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
+import { Route as PodcastRecommendationsRouteImport } from './routes/podcast-recommendations'
 import { Route as FaviconDoticoRouteImport } from './routes/favicon[.]ico'
 import { Route as IndexRouteImport } from './routes/index'
 
@@ -22,6 +23,11 @@ const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
 const RobotsDottxtRoute = RobotsDottxtRouteImport.update({
   id: '/robots.txt',
   path: '/robots.txt',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PodcastRecommendationsRoute = PodcastRecommendationsRouteImport.update({
+  id: '/podcast-recommendations',
+  path: '/podcast-recommendations',
   getParentRoute: () => rootRouteImport,
 } as any)
 const FaviconDoticoRoute = FaviconDoticoRouteImport.update({
@@ -38,12 +44,14 @@ const IndexRoute = IndexRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/favicon.ico': typeof FaviconDoticoRoute
+  '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/favicon.ico': typeof FaviconDoticoRoute
+  '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
@@ -51,20 +59,38 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/favicon.ico': typeof FaviconDoticoRoute
+  '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/favicon.ico' | '/robots.txt' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/favicon.ico'
+    | '/podcast-recommendations'
+    | '/robots.txt'
+    | '/sitemap.xml'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/favicon.ico' | '/robots.txt' | '/sitemap.xml'
-  id: '__root__' | '/' | '/favicon.ico' | '/robots.txt' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/favicon.ico'
+    | '/podcast-recommendations'
+    | '/robots.txt'
+    | '/sitemap.xml'
+  id:
+    | '__root__'
+    | '/'
+    | '/favicon.ico'
+    | '/podcast-recommendations'
+    | '/robots.txt'
+    | '/sitemap.xml'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   FaviconDoticoRoute: typeof FaviconDoticoRoute
+  PodcastRecommendationsRoute: typeof PodcastRecommendationsRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
 }
@@ -83,6 +109,13 @@ declare module '@tanstack/react-router' {
       path: '/robots.txt'
       fullPath: '/robots.txt'
       preLoaderRoute: typeof RobotsDottxtRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/podcast-recommendations': {
+      id: '/podcast-recommendations'
+      path: '/podcast-recommendations'
+      fullPath: '/podcast-recommendations'
+      preLoaderRoute: typeof PodcastRecommendationsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/favicon.ico': {
@@ -105,6 +138,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   FaviconDoticoRoute: FaviconDoticoRoute,
+  PodcastRecommendationsRoute: PodcastRecommendationsRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
 }

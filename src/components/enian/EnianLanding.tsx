@@ -750,6 +750,13 @@ function Footer() {
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           <a
+            href="/podcast-recommendations"
+            data-event="click_footer_recommendations"
+            className="hover:text-[var(--neon-cyan)]"
+          >
+            Podcast 推薦
+          </a>
+          <a
             href="mailto:contact@emting.life"
             className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
           >

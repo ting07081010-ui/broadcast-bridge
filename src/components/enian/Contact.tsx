@@ -20,11 +20,11 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-border bg-background p-5">
+          <div className="rounded-xl border border-border bg-background p-5">
             <p className="text-[13px] font-medium text-muted-foreground">快速聯絡</p>
             <a
               href={`mailto:${CONTACT.email}`}
-              className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition hover:opacity-90"
+              className="mt-4 inline-flex w-full items-center justify-center rounded-lg bg-foreground px-5 py-3 text-sm font-semibold text-background transition hover:opacity-90"
             >
               直接寄信到 {CONTACT.email}
             </a>
@@ -32,7 +32,7 @@ export default function Contact() {
               href={CONTACT.instagramDm}
               target="_blank"
               rel="noreferrer"
-              className="mt-3 inline-flex w-full items-center justify-center rounded-full border border-border bg-surface px-5 py-3 text-sm font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
+              className="mt-3 inline-flex w-full items-center justify-center rounded-lg border border-border bg-surface px-5 py-3 text-sm font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
             >
               也可以走 Instagram 私訊
             </a>
@@ -54,7 +54,7 @@ export default function Contact() {
                 rel={isExternal ? "noreferrer" : undefined}
                 data-event="click_contact"
                 data-channel={c.title}
-                className="group flex flex-col rounded-[1.5rem] border border-border bg-background p-5 transition hover:-translate-y-0.5 hover:border-accent"
+                className="group flex flex-col rounded-xl border border-border bg-background p-5 transition hover:border-accent"
               >
                 <Icon className="h-6 w-6 text-accent" aria-hidden="true" />
                 <h3 className="mt-3 text-lg font-bold text-foreground">{c.title}</h3>

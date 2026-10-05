@@ -62,7 +62,7 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
   return (
     <span
       aria-hidden="true"
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-2 font-mono text-base font-bold text-accent-2"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-2 font-mono text-base font-bold text-accent-2"
     >
       {map[keyName] || "•"}
     </span>
@@ -112,7 +112,7 @@ function Hero() {
                 href={PRIMARY_CTA.href}
                 data-event="click_cta_primary"
                 data-location="hero"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:scale-[1.02] hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
               >
                 <Headphones className="h-5 w-5" />
                 {PRIMARY_CTA.label}
@@ -121,7 +121,7 @@ function Hero() {
                 href={SECONDARY_CTA.href}
                 data-event="click_cta_secondary"
                 data-location="hero"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
               >
                 <Play className="h-4 w-4" />
                 {SECONDARY_CTA.label}
@@ -132,7 +132,7 @@ function Hero() {
               {proofItems.map((item, idx) => (
                 <div
                   key={item}
-                  className="rounded-[1.25rem] border border-border bg-surface/88 p-4 text-sm leading-relaxed text-foreground"
+                  className="rounded-xl border border-border bg-surface/88 p-4 text-sm leading-relaxed text-foreground"
                 >
                   <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                     0{idx + 1}
@@ -144,8 +144,8 @@ function Hero() {
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-[1.75rem] border border-border bg-surface p-3">
-              <div className="rounded-[1.4rem] bg-surface-2 p-6 text-foreground">
+            <div className="rounded-xl border border-border bg-surface p-3">
+              <div className="rounded-xl bg-surface-2 p-6 text-foreground">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p className="text-[13px] font-medium text-muted-foreground">主持人</p>
@@ -157,7 +157,7 @@ function Hero() {
                     width={96}
                     height={96}
                     sizes="96px"
-                    className="h-24 w-24 rounded-[1.5rem] border border-border object-cover"
+                    className="h-24 w-24 rounded-xl border border-border object-cover"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
@@ -170,14 +170,14 @@ function Hero() {
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-[1.75rem] border border-border bg-surface p-5 text-foreground">
+              <div className="rounded-xl border border-border bg-surface p-5 text-foreground">
                 <p className="text-[13px] font-medium text-muted-foreground">為什麼聽</p>
                 <p className="mt-10 max-w-[12rem] text-2xl font-semibold leading-tight">
                   通勤時段也能聽懂的中文深度內容。
                 </p>
               </div>
 
-              <div className="rounded-[1.75rem] border border-border bg-surface p-5 text-foreground">
+              <div className="rounded-xl border border-border bg-surface p-5 text-foreground">
                 <p className="text-[13px] font-medium text-muted-foreground">每週節奏</p>
                 <p className="mt-3 text-lg font-semibold leading-snug">
                   一週六天，一天一個固定節目單元。
@@ -298,12 +298,12 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-border bg-surface p-5">
+          <div className="rounded-xl border border-border bg-surface p-5">
             <p className="text-[13px] font-medium text-muted-foreground">從這裡開始</p>
             <ol className="mt-4 space-y-3">
               {steps.map((step, idx) => (
                 <li key={step} className="flex gap-3 text-sm leading-relaxed text-foreground">
-                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-2 font-mono text-[11px] text-muted-foreground">
+                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-surface-2 font-mono text-[11px] text-muted-foreground">
                     0{idx + 1}
                   </span>
                   <span>{step}</span>
@@ -326,11 +326,11 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
                 rel={ep.link?.startsWith("http") ? "noopener noreferrer" : undefined}
                 data-event="click_episode_card"
                 data-ep={label}
-                className="group flex flex-col rounded-[1.5rem] border border-border bg-surface p-5 transition hover:border-accent"
+                className="group flex flex-col rounded-xl border border-border bg-surface p-5 transition hover:border-accent"
               >
                 <div className="flex items-center justify-between gap-3">
                   <span className="font-mono text-xs tracking-widest text-accent">{label}</span>
-                  <span className="rounded-full border border-border px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
+                  <span className="rounded-lg border border-border px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
                     {idx === 0 ? "先從這集試" : "下一集入口"}
                   </span>
                 </div>
@@ -348,14 +348,14 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
           })}
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-border bg-surface px-5 py-4">
+        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-surface px-5 py-4">
           <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
             三集裡只要有一集讓你想聽完，就直接去選平台訂閱；之後每次更新，你就不用再回首頁找。
           </p>
           <a
             href="#tune-in"
             data-event="click_cta_after_first_listen"
-            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
           >
             下一步選平台
             <Headphones className="h-4 w-4" />
@@ -465,7 +465,7 @@ function Mission() {
         <a
           href="#tune-in"
           data-event="click_cta_mission"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
+          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
         >
           <Headphones className="h-5 w-5" />
           加入廣播基地
@@ -511,7 +511,7 @@ function TuneIn() {
           {listeningPlatforms.map((platform) => (
             <div
               key={`${platform.key}-guide`}
-              className="rounded-[1.5rem] border border-border bg-surface p-5"
+              className="rounded-xl border border-border bg-surface p-5"
             >
               <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                 {platformGuide[platform.key]?.tag ?? platform.name}
@@ -534,7 +534,7 @@ function TuneIn() {
               data-event="click_platform"
               data-platform={p.key}
               aria-label={`${p.description}（${p.name}）`}
-              className="group flex items-center gap-4 rounded-[1.5rem] border border-border bg-surface p-4 transition hover:-translate-y-0.5 hover:border-accent-2"
+              className="group flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition hover:border-accent-2"
             >
               <PlatformGlyph keyName={p.key} />
               <div className="flex-1">
@@ -613,7 +613,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
               rel="noreferrer"
               data-event="click_youtube_video"
               data-video-id={v.id}
-              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:-translate-y-0.5 hover:border-accent"
+              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-accent"
             >
               <div className="relative aspect-video overflow-hidden bg-surface-2">
                 <img
@@ -625,10 +625,10 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
                   loading="lazy"
                   decoding="async"
                   fetchPriority="low"
-                  className="h-full w-full object-cover transition group-hover:scale-105"
+                  className="h-full w-full object-cover transition"
                 />
                 <span className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-accent text-background">
                     <Play className="h-6 w-6 fill-current" />
                   </span>
                 </span>
@@ -653,7 +653,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
             target="_blank"
             rel="noreferrer"
             data-event="click_youtube_channel"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-accent px-6 py-3 text-base font-semibold text-accent transition hover:bg-accent hover:text-background"
+            className="inline-flex items-center gap-2 rounded-lg border-2 border-accent px-6 py-3 text-base font-semibold text-accent transition hover:bg-accent hover:text-background"
           >
             前往 YouTube 頻道 <ExternalLink className="h-4 w-4" />
           </a>
@@ -686,14 +686,14 @@ function SocialFollow() {
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-border bg-background p-5">
+          <div className="rounded-xl border border-border bg-background p-5">
             <p className="text-[13px] font-medium text-muted-foreground">小提醒</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               想完整收聽每一集，還是建議先到上方平台訂閱；社群比較適合追幕後內容與主持人的即時狀態。
             </p>
             <a
               href="#tune-in"
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
+              className="mt-4 inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
             >
               <Headphones className="h-4 w-4" />
               回到收聽平台
@@ -711,7 +711,7 @@ function SocialFollow() {
               data-event="click_social"
               data-platform={s.key}
               aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
-              className="group flex items-start gap-4 rounded-[1.5rem] border border-border bg-background p-5 transition hover:-translate-y-0.5 hover:border-accent"
+              className="group flex items-start gap-4 rounded-xl border border-border bg-background p-5 transition hover:border-accent"
             >
               <PlatformGlyph keyName={s.key} />
               <div className="min-w-0 flex-1">

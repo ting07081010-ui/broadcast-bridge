@@ -25,7 +25,7 @@ export default function Faq() {
 
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           {assurances.map((item, idx) => (
-            <div key={item} className="rounded-[1.25rem] border border-border bg-surface p-4">
+            <div key={item} className="rounded-xl border border-border bg-surface p-4">
               <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                 FAQ 0{idx + 1}
               </p>
@@ -37,7 +37,7 @@ export default function Faq() {
         <Accordion
           type="single"
           collapsible
-          className="mt-8 rounded-[1.5rem] border border-border bg-surface px-3"
+          className="mt-8 rounded-xl border border-border bg-surface px-3"
         >
           {FAQ.map((item, idx) => (
             <AccordionItem

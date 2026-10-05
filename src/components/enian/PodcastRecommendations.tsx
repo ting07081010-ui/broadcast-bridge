@@ -151,7 +151,7 @@ export default function PodcastRecommendations() {
           <div className="mx-auto max-w-5xl">
             <a
               href="/"
-              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:border-accent-2 hover:text-accent-2"
+              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:border-accent-2 hover:text-accent-2"
             >
               <ArrowLeft className="h-4 w-4" />
               回到首頁
@@ -183,7 +183,7 @@ export default function PodcastRecommendations() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveCategory(cat)}
-                    className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
+                    className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
                       active
                         ? "bg-foreground text-background"
                         : "border border-border bg-surface text-muted-foreground hover:border-accent-2 hover:text-accent-2"
@@ -199,9 +199,9 @@ export default function PodcastRecommendations() {
               {filtered.map((rec) => (
                 <article
                   key={rec.name}
-                  className="flex flex-col rounded-[1.5rem] border border-border bg-surface p-5 transition hover:border-accent-2"
+                  className="flex flex-col rounded-xl border border-border bg-surface p-5 transition hover:border-accent-2"
                 >
-                  <span className="w-fit rounded-full border border-border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-accent-2">
+                  <span className="w-fit rounded-lg border border-border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-accent-2">
                     {rec.category}
                   </span>
                   <h2 className="mt-3 text-xl font-bold text-foreground">{rec.name}</h2>
@@ -219,7 +219,7 @@ export default function PodcastRecommendations() {
                     rel="noreferrer"
                     data-event="click_podcast_rec"
                     data-podcast={rec.name}
-                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-live hover:text-live"
+                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-live hover:text-live"
                   >
                     在 Spotify 搜尋
                     <ExternalLink className="h-4 w-4" />
@@ -244,14 +244,14 @@ export default function PodcastRecommendations() {
               <a
                 href="/#tune-in"
                 data-event="click_cta_rec_page"
-                className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
               >
                 <Headphones className="h-5 w-5" />
                 訂閱 E 人 I 碎念
               </a>
               <a
                 href="/"
-                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
+                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
               >
                 <ArrowLeft className="h-4 w-4" />
                 回到首頁

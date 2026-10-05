@@ -142,12 +142,12 @@ export const MISSION = {
   copy: "這不是單純的訂閱數字，而是一個小型廣播基地：集結願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來，成為早期共建者。",
 };
 
+// 「訂閱」不放在文字連結裡：頂欄只保留一顆訂閱按鈕（見 TopNav）。
 export const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "#who-for", label: "適合誰" },
   { href: "#schedule", label: "節目單" },
   { href: "#latest-episodes", label: "最新集數" },
   { href: "#faq", label: "FAQ" },
-  { href: "#tune-in", label: "訂閱" },
 ];
 
 export const FAQ: Array<{ q: string; a: string }> = [

@@ -1,6 +1,16 @@
 import type { ReactNode } from "react";
-import { AtSign, AudioLines, Camera, MonitorPlay, Podcast, ThumbsUp } from "lucide-react";
-import type { PlatformKey } from "@/lib/enian/constants";
+import {
+  AtSign,
+  AudioLines,
+  Camera,
+  Mail,
+  MonitorPlay,
+  Podcast,
+  Radio,
+  ThumbsUp,
+} from "lucide-react";
+import { CONTACT, PODCAST, type PlatformKey } from "@/lib/enian/constants";
+import { CONTAINER } from "@/lib/enian/ui";
 import { cn } from "@/lib/utils";
 
 /** 區塊眉題：短中文標籤＋一小段琥珀刻度線（取代原本的 `// CODE_LABEL`）。 */
@@ -73,5 +83,37 @@ export function PlatformIcon({
     >
       <Icon className="h-5 w-5" />
     </span>
+  );
+}
+
+/** 頁尾底列：品牌、頁面專屬連結（children）、合作信箱與版權。兩個頁面共用。 */
+export function FooterBar({ children }: { children?: ReactNode }) {
+  return (
+    <div className="border-t border-border">
+      <div
+        className={cn(
+          CONTAINER,
+          "flex flex-col gap-4 py-6 text-sm text-muted-foreground md:flex-row md:items-center md:justify-between",
+        )}
+      >
+        <p className="flex items-center gap-2.5">
+          <Radio className="h-4 w-4 text-accent" aria-hidden="true" />
+          <span className="font-medium text-foreground">{PODCAST.name}</span>
+          <span className="font-mono text-xs tracking-wider">{PODCAST.frequency}</span>
+        </p>
+        <nav className="flex flex-wrap items-center gap-x-6 gap-y-2" aria-label="頁尾">
+          {children}
+          <a
+            href={`mailto:${CONTACT.email}`}
+            className="inline-flex items-center gap-1.5 transition-colors duration-200 hover:text-foreground"
+          >
+            <Mail className="h-4 w-4" aria-hidden="true" /> 合作 / 投稿
+          </a>
+        </nav>
+        <p className="text-[13px]">
+          © {new Date().getFullYear()} {PODCAST.name} · emting.life
+        </p>
+      </div>
+    </div>
   );
 }

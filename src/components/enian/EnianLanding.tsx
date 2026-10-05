@@ -322,89 +322,67 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
   const picks = episodes.slice(0, 3);
   if (picks.length === 0) return null;
 
-  const steps = [
-    "先點一集試聽，確認你喜歡這個聊天節奏。",
-    "喜歡再選一個你每天會打開的 app 訂閱。",
-    "之後讓平台自動推新集，不用每次重新找。",
-  ];
-
   return (
-    <section id="first-listen" className="border-b border-border bg-background px-6 py-20">
-      <div className="mx-auto max-w-5xl">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),280px] lg:items-start">
-          <div>
-            <Eyebrow>先聽一集</Eyebrow>
-            <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
-              第一次來，這樣開始最快。
-            </h2>
-            <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
-              不用先研究整個節目庫。先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。
-            </p>
-          </div>
+    <section id="first-listen" className="border-b border-border bg-surface">
+      <div className={cn(CONTAINER, SECTION_Y)}>
+        <SectionHeader
+          eyebrow="先聽一集"
+          title="第一次來，這樣開始最快。"
+          lead="先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。"
+        />
 
-          <div className="rounded-xl border border-border bg-surface p-5">
-            <p className="text-[13px] font-medium text-muted-foreground">從這裡開始</p>
-            <ol className="mt-4 space-y-3">
-              {steps.map((step, idx) => (
-                <li key={step} className="flex gap-3 text-sm leading-relaxed text-foreground">
-                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-lg bg-surface-2 font-mono text-[11px] text-muted-foreground">
-                    0{idx + 1}
-                  </span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <ol className={cn(SCROLL_ROW, "mt-8")}>
           {picks.map((ep, idx) => {
             const label = ep.episodeNumber
               ? `EP${String(ep.episodeNumber).padStart(3, "0")}`
               : `EP${String(idx + 1).padStart(3, "0")}`;
+            const isExternal = ep.link?.startsWith("http");
+            const duration = formatDuration(ep.durationSec);
             return (
-              <a
-                key={ep.id}
-                href={ep.link || "#tune-in"}
-                target={ep.link?.startsWith("http") ? "_blank" : undefined}
-                rel={ep.link?.startsWith("http") ? "noopener noreferrer" : undefined}
-                data-event="click_episode_card"
-                data-ep={label}
-                className="group flex flex-col rounded-xl border border-border bg-surface p-5 transition hover:border-accent"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span className="font-mono text-xs tracking-widest text-accent">{label}</span>
-                  <span className="rounded-lg border border-border px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
-                    {idx === 0 ? "先從這集試" : "下一集入口"}
+              <li key={ep.id} className={SCROLL_ROW_ITEM}>
+                <a
+                  href={ep.link || "#tune-in"}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  data-event="click_episode_card"
+                  data-ep={label}
+                  className="group flex h-full flex-col rounded-xl border border-border bg-background p-5 transition-colors duration-200 hover:border-accent"
+                >
+                  <div className="flex min-h-7 items-center justify-between gap-3 text-[13px]">
+                    <span className="font-semibold tabular-nums text-accent">{label}</span>
+                    {idx === 0 && (
+                      <span className="rounded-md bg-surface-2 px-2 py-1 text-xs font-medium text-foreground">
+                        先從這集試
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-3 line-clamp-3 flex-1 text-[17px] font-semibold leading-[1.45] text-foreground">
+                    {ep.title}
+                  </h3>
+                  <span className="mt-5 flex items-center gap-3 text-sm font-semibold text-foreground">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-background">
+                      <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                    </span>
+                    收聽
+                    {duration && (
+                      <span className="font-normal tabular-nums text-muted-foreground">
+                        {duration}
+                      </span>
+                    )}
                   </span>
-                </div>
-                <h3 className="mt-2 text-lg font-bold text-foreground group-hover:text-accent-2">
-                  {ep.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {ep.description}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent-2">
-                  收聽本集 <ExternalLink className="h-3.5 w-3.5" />
-                </span>
-              </a>
+                </a>
+              </li>
             );
           })}
-        </div>
+        </ol>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-xl border border-border bg-surface px-5 py-4">
-          <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
-            三集裡只要有一集讓你想聽完，就直接去選平台訂閱；之後每次更新，你就不用再回首頁找。
-          </p>
-          <a
-            href="#tune-in"
-            data-event="click_cta_after_first_listen"
-            className="inline-flex items-center gap-2 rounded-lg bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
-          >
+        <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[15px] text-muted-foreground">
+          <span>有一集讓你想聽完，就直接去選平台訂閱。</span>
+          <a href="#tune-in" data-event="click_cta_after_first_listen" className={TEXT_LINK}>
             下一步選平台
-            <Headphones className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
-        </div>
+        </p>
       </div>
     </section>
   );
@@ -796,10 +774,10 @@ export default function EnianLanding({
       <TopNav />
       <main id="main" className="min-h-screen bg-background text-foreground">
         <Hero />
+        <FirstListen episodes={episodes} />
         <WhoFor />
         <Topics />
         <Schedule />
-        <FirstListen episodes={episodes} />
         <Episodes episodes={episodes} source={source} />
         <AboutHost />
         <Mission />

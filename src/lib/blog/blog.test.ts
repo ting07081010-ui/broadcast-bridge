@@ -243,3 +243,16 @@ test("Notion 頁面：中文主題對應 slug；已發布文章的網址凍結�
   const trashed = pageToPost({ ...page, in_trash: true }, blocks);
   assert.equal(isPublic(trashed, new Date("2026-10-06T12:00:00+08:00")), false);
 });
+
+test("同步腳本：從檔頭讀出 PNG 與 GIF 尺寸，無法辨識的格式回傳 null", async () => {
+  const { imageSize } = await import("../../../scripts/sync-blog.ts");
+  const png = new Uint8Array(24);
+  png.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  new DataView(png.buffer).setUint32(16, 720);
+  new DataView(png.buffer).setUint32(20, 360);
+  assert.deepEqual(imageSize(png), { width: 720, height: 360 });
+  const gif = new Uint8Array(16);
+  gif.set([0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x40, 0x01, 0xf0, 0x00]);
+  assert.deepEqual(imageSize(gif), { width: 320, height: 240 });
+  assert.equal(imageSize(new Uint8Array(32)), null);
+});

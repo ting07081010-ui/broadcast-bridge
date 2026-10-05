@@ -4,7 +4,8 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Headphones } from "lucide-react";
 import TopNav from "@/components/enian/TopNav";
 import { FooterBar } from "@/components/enian/primitives";
 import type { PostPage as PostPageData } from "@/lib/blog/posts.functions";
-import { formatDate, weekdayLabel } from "@/lib/blog/time";
+import { formatDate, isoWeekKey, weekdayLabel } from "@/lib/blog/time";
+import { TOPICS } from "@/lib/blog/topics";
 import type { PostSummary } from "@/lib/blog/types";
 import { cn } from "@/lib/utils";
 import PostBody from "./PostBody";
@@ -46,6 +47,7 @@ export default function PostPage({
   const { post, summary, toc, newer, older } = data;
   const [theme, toggleTheme] = useReaderTheme();
   const bodyRef = useRef<HTMLDivElement>(null);
+  const weekKey = isoWeekKey(post.date);
 
   return (
     <>
@@ -173,8 +175,11 @@ export default function PostPage({
                 <Headphones className="h-4 w-4" aria-hidden="true" />
                 選平台訂閱
               </a>
-              <Link to="/blog" className={QUIET_LINK}>
-                回到全部碎念
+              <Link to="/blog/week/$weekKey" params={{ weekKey }} className={QUIET_LINK}>
+                這一週的索引
+              </Link>
+              <Link to="/blog/topic/$topic" params={{ topic: post.topic }} className={QUIET_LINK}>
+                更多「{TOPICS[post.topic].name}」
               </Link>
             </div>
           </footer>

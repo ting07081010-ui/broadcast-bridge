@@ -291,24 +291,25 @@ function WhoFor() {
 // ─────────── SCHEDULE ───────────
 function Schedule() {
   return (
-    <section id="schedule" className="border-b border-border bg-surface px-6 py-20">
-      <div className="mx-auto max-w-5xl">
-        <Eyebrow>節目單</Eyebrow>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">每週節目頻道</h2>
-        <p className="mt-3 text-muted-foreground">一週六天、每天一個固定單元，固定時段陪你度過。</p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <section id="schedule" className="border-b border-border">
+      <div className={cn(CONTAINER, SECTION_Y)}>
+        <SectionHeader
+          eyebrow="節目單"
+          title="每週節目頻道"
+          lead="一週六天、每天一個固定單元，固定時段陪你度過。"
+        />
+        {/* 單一外框＋髮線分隔的節目表，取代六張獨立卡片 */}
+        <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {SCHEDULE.map((s) => (
-            <div key={s.day} className="rounded-lg border border-border bg-background p-4">
-              <div className="flex items-baseline justify-between">
-                <span className="font-mono text-sm font-bold tracking-widest text-accent-2">
-                  {s.day}
-                </span>
-                <span className="text-xs text-muted-foreground">{s.topic}</span>
+            <li key={s.day} className="flex items-baseline gap-4 bg-background p-5 sm:p-6">
+              <span className="w-9 shrink-0 text-sm font-semibold text-accent">{s.day}</span>
+              <div>
+                <h3 className="text-[17px] font-semibold leading-snug text-foreground">{s.unit}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{s.topic}</p>
               </div>
-              <h3 className="mt-2 text-lg font-bold text-foreground">{s.unit}</h3>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );

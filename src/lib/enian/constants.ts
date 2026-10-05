@@ -127,12 +127,12 @@ export const SCHEDULE: Array<{
   unit: string;
   topic: string;
 }> = [
-  { day: "MON", unit: "職場開播日", topic: "職場 / 專業分享" },
-  { day: "TUE", unit: "生活亂入中", topic: "生活 / 家庭 / 趣事" },
-  { day: "WED", unit: "信仰對頻時間", topic: "信仰 / 心靈對話" },
-  { day: "THU", unit: "宅宅科技局", topic: "科技 / AI / 宅文化" },
-  { day: "FRI", unit: "來賓亂入時段", topic: "來賓 / 訪談特輯" },
-  { day: "SAT", unit: "週末碎念包", topic: "一週總結 / 輕鬆收尾" },
+  { day: "週一", unit: "職場開播日", topic: "職場 / 專業分享" },
+  { day: "週二", unit: "生活亂入中", topic: "生活 / 家庭 / 趣事" },
+  { day: "週三", unit: "信仰對頻時間", topic: "信仰 / 心靈對話" },
+  { day: "週四", unit: "宅宅科技局", topic: "科技 / AI / 宅文化" },
+  { day: "週五", unit: "來賓亂入時段", topic: "來賓 / 訪談特輯" },
+  { day: "週六", unit: "週末碎念包", topic: "一週總結 / 輕鬆收尾" },
 ];
 
 // (FIRST_LISTEN 已移除：第一次來推薦集數現在直接從 RSS 取最新 3 集，避免 hard-coded 文案。)

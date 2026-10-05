@@ -92,14 +92,14 @@ export const PLATFORMS: Array<{
   },
 ];
 
-// Hero 主 / 次 CTA 預設指向 Spotify / 最新一集 anchor
+// Hero 主 / 次 CTA：首頁轉換路徑為「先聽一集 → 選平台訂閱」
 export const PRIMARY_CTA = {
-  label: "選平台立即訂閱",
+  label: "選平台訂閱",
   href: "#tune-in",
 };
 
 export const SECONDARY_CTA = {
-  label: "先聽三集推薦",
+  label: "先聽一集",
   href: "#first-listen",
 };
 
@@ -127,12 +127,12 @@ export const SCHEDULE: Array<{
   unit: string;
   topic: string;
 }> = [
-  { day: "MON", unit: "職場開播日", topic: "職場 / 專業分享" },
-  { day: "TUE", unit: "生活亂入中", topic: "生活 / 家庭 / 趣事" },
-  { day: "WED", unit: "信仰對頻時間", topic: "信仰 / 心靈對話" },
-  { day: "THU", unit: "宅宅科技局", topic: "科技 / AI / 宅文化" },
-  { day: "FRI", unit: "來賓亂入時段", topic: "來賓 / 訪談特輯" },
-  { day: "SAT", unit: "週末碎念包", topic: "一週總結 / 輕鬆收尾" },
+  { day: "週一", unit: "職場開播日", topic: "職場 / 專業分享" },
+  { day: "週二", unit: "生活亂入中", topic: "生活 / 家庭 / 趣事" },
+  { day: "週三", unit: "信仰對頻時間", topic: "信仰 / 心靈對話" },
+  { day: "週四", unit: "宅宅科技局", topic: "科技 / AI / 宅文化" },
+  { day: "週五", unit: "來賓亂入時段", topic: "來賓 / 訪談特輯" },
+  { day: "週六", unit: "週末碎念包", topic: "一週總結 / 輕鬆收尾" },
 ];
 
 // (FIRST_LISTEN 已移除：第一次來推薦集數現在直接從 RSS 取最新 3 集，避免 hard-coded 文案。)
@@ -142,12 +142,12 @@ export const MISSION = {
   copy: "這不是單純的訂閱數字，而是一個小型廣播基地：集結願意一起思考、一起笑、一起認真生活的聽眾。如果你也喜歡科技、信仰、家庭與生活觀察，歡迎調頻進來，成為早期共建者。",
 };
 
+// 「訂閱」不放在文字連結裡：頂欄只保留一顆訂閱按鈕（見 TopNav）。
 export const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "#who-for", label: "適合誰" },
   { href: "#schedule", label: "節目單" },
   { href: "#latest-episodes", label: "最新集數" },
   { href: "#faq", label: "FAQ" },
-  { href: "#tune-in", label: "訂閱" },
 ];
 
 export const FAQ: Array<{ q: string; a: string }> = [

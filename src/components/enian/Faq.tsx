@@ -5,73 +5,38 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { FAQ } from "@/lib/enian/constants";
+import { CONTAINER, SECTION_Y } from "@/lib/enian/ui";
+import { cn } from "@/lib/utils";
+import { SectionHeader } from "./primitives";
 
 export default function Faq() {
-  const assurances = [
-    "每週一到週六固定更新",
-    "Spotify、Apple Podcasts、YouTube 都能收聽",
-    "非信仰背景也能輕鬆聽懂",
-  ];
-
   return (
-    <section
-      id="faq"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-3xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-          aria-hidden="true"
-        >
-          // FREQUENT_QUESTIONS
-        </p>
-        <h2
-          className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-        >
-          訂閱前常見問題。
-        </h2>
-        <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
-          先把最常見的疑問看完，你會更容易判斷這個節目是不是你的菜。
-        </p>
+    <section id="faq" className="border-b border-border">
+      <div
+        className={cn(
+          CONTAINER,
+          SECTION_Y,
+          "grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:gap-16",
+        )}
+      >
+        <SectionHeader
+          eyebrow="常見問題"
+          title="訂閱前常見問題。"
+          lead="先把最常見的疑問看完，你會更容易判斷這個節目是不是你的菜。"
+        />
 
-        <div className="mt-8 grid gap-3 sm:grid-cols-3">
-          {assurances.map((item, idx) => (
-            <div
-              key={item}
-              className="rounded-[1.25rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-4"
-            >
-              <p
-                className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                style={{ fontFamily: "var(--font-mono-display)" }}
-              >
-                FAQ 0{idx + 1}
-              </p>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text)]">{item}</p>
-            </div>
-          ))}
-        </div>
-
-        <Accordion
-          type="single"
-          collapsible
-          className="mt-8 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] px-3"
-        >
+        {/* 只留手風琴：原本的三張摘要卡與 Hero 信任條重複，已移除 */}
+        <Accordion type="single" collapsible className="border-t border-border">
           {FAQ.map((item, idx) => (
-            <AccordionItem
-              key={item.q}
-              value={`faq-${idx}`}
-              className="border-b border-[var(--studio-border)] last:border-b-0"
-            >
+            <AccordionItem key={item.q} value={`faq-${idx}`} className="border-b border-border">
               <AccordionTrigger
                 data-event="click_faq"
                 data-faq={item.q}
-                className="px-3 text-left text-base font-semibold text-[var(--studio-text)] hover:text-[var(--neon-cyan)]"
+                className="gap-4 py-5 text-left text-base font-medium text-foreground transition-colors duration-200 hover:text-accent hover:no-underline sm:text-[17px]"
               >
                 {item.q}
               </AccordionTrigger>
-              <AccordionContent className="px-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+              <AccordionContent className="pb-5 pr-8 text-[15px] leading-relaxed text-muted-foreground sm:text-base sm:leading-relaxed">
                 {item.a}
               </AccordionContent>
             </AccordionItem>

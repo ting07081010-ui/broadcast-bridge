@@ -1,14 +1,13 @@
 import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
   Headphones,
   Play,
-  Radio,
   Shield,
   Home as HomeIcon,
   HeartHandshake,
   Newspaper,
-  CheckCircle2,
-  Mail,
-  ExternalLink,
 } from "lucide-react";
 import {
   PODCAST,
@@ -24,7 +23,19 @@ import {
 } from "@/lib/enian/constants";
 import type { Episode } from "@/lib/enian/episodes.functions";
 import type { YouTubeVideo } from "@/lib/enian/youtube.functions";
+import { dedupeVideos, stripHashtags } from "@/lib/enian/videos";
+import {
+  BTN_PRIMARY,
+  BTN_SECONDARY,
+  CONTAINER,
+  SCROLL_ROW,
+  SCROLL_ROW_ITEM,
+  SECTION_Y,
+  TEXT_LINK,
+} from "@/lib/enian/ui";
+import { cn } from "@/lib/utils";
 import TopNav from "./TopNav";
+import { Eyebrow, FooterBar, PlatformIcon, SectionHeader } from "./primitives";
 import Faq from "./Faq";
 import Contact from "./Contact";
 
@@ -48,28 +59,60 @@ function formatDuration(sec?: number): string {
   return `${m} 分鐘`;
 }
 
-function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
-  // 簡單字母 / icon 標識，不依賴外部 brand SVG
-  const map: Record<PlatformKey, string> = {
-    spotify: "S",
-    apple: "",
-    youtube: "▶",
-    facebook: "f",
-    instagram: "IG",
-    threads: "@",
-  };
+// ─────────── HERO ───────────
+const DIAL_MIN_MHZ = 88;
+const DIAL_MAX_MHZ = 108;
+const DIAL_LABELS = [88, 92, 96, 100, 104, 108];
+
+/** FM 調頻刻度：指針停在節目頻率上（純裝飾，取代原本的彩色光暈）。 */
+function TunerDial() {
+  const station = Number.parseFloat(PODCAST.frequency.replace(/[^\d.]/g, "")) || 92.1;
+  const x = (mhz: number) => 10 + ((mhz - DIAL_MIN_MHZ) / (DIAL_MAX_MHZ - DIAL_MIN_MHZ)) * 280;
+  const ticks = Array.from(
+    { length: (DIAL_MAX_MHZ - DIAL_MIN_MHZ) * 2 + 1 },
+    (_, i) => DIAL_MIN_MHZ + i / 2,
+  );
   return (
-    <span
-      aria-hidden="true"
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--studio-surface-2)] font-mono text-base font-bold text-[var(--neon-cyan)]"
-      style={{ fontFamily: "var(--font-mono-display)" }}
-    >
-      {map[keyName] || "•"}
-    </span>
+    <svg viewBox="0 0 300 46" className="mt-5 w-full" aria-hidden="true">
+      {ticks.map((mhz) => {
+        const isLabelled = mhz % 4 === 0;
+        const isWhole = Number.isInteger(mhz);
+        return (
+          <line
+            key={mhz}
+            x1={x(mhz)}
+            x2={x(mhz)}
+            y1={isLabelled ? 8 : isWhole ? 15 : 19}
+            y2={26}
+            strokeWidth={1}
+            className={isLabelled ? "stroke-muted-foreground" : "stroke-border"}
+          />
+        );
+      })}
+      {DIAL_LABELS.map((mhz) => (
+        <text
+          key={mhz}
+          x={x(mhz)}
+          y={42}
+          textAnchor="middle"
+          className="fill-muted-foreground font-mono text-[9px]"
+        >
+          {mhz}
+        </text>
+      ))}
+      <line
+        x1={x(station)}
+        x2={x(station)}
+        y1={3}
+        y2={30}
+        strokeWidth={2}
+        strokeLinecap="round"
+        className="stroke-accent"
+      />
+    </svg>
   );
 }
 
-// ─────────── HERO ───────────
 function Hero() {
   const proofItems = [
     "週一到週六固定更新",
@@ -78,207 +121,91 @@ function Hero() {
   ];
 
   return (
-    <section
-      id="top"
-      className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 pb-20 pt-10 sm:pt-16"
-      style={{
-        background:
-          "radial-gradient(circle at 18% 14%, color-mix(in oklab, var(--neon-magenta) 34%, transparent), transparent 38%), radial-gradient(circle at 83% 16%, color-mix(in oklab, var(--neon-amber) 28%, transparent), transparent 34%), radial-gradient(circle at 68% 58%, color-mix(in oklab, var(--neon-cyan) 18%, transparent), transparent 42%), var(--studio-bg)",
-      }}
-    >
-      <div className="mx-auto max-w-6xl">
-        {/* Top status bar */}
-        <div
-          className="mb-10 flex flex-wrap items-center justify-between gap-3 font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          <div className="flex items-center gap-2">
-            <Radio className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
-            <span>{PODCAST.frequency}</span>
-            <span className="mx-2 opacity-40">//</span>
-            <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-[var(--neon-lime)]" />
-            <span className="text-[var(--neon-lime)]">TRANSMISSION ACTIVE</span>
+    <section id="top" className="enian-hero-glow border-b border-border">
+      <div
+        className={cn(
+          CONTAINER,
+          "grid gap-10 pb-12 pt-8 sm:pt-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center lg:gap-14 lg:pb-20 lg:pt-20",
+        )}
+      >
+        <div>
+          <p className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-medium text-muted-foreground">
+            <span className="inline-flex items-center gap-2 font-mono text-xs tracking-wider text-live">
+              <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
+              {PODCAST.frequency}
+            </span>
+            <span aria-hidden="true" className="h-3 w-px bg-border" />
+            <span>中文 Podcast・週一到週六更新</span>
+          </p>
+          <h1 className="text-balance text-[34px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground sm:text-[44px] xl:text-[52px]">
+            把科技、信仰與家庭，
+            <br className="hidden sm:block" />
+            聊成你每天都想打開的一集。
+          </h1>
+          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-foreground sm:text-lg sm:leading-relaxed">
+            《{PODCAST.name}》由 {PODCAST.hostName} 主持，
+            用白話又有梗的方式拆解科技、資安、家庭、信仰與社會觀察。
+          </p>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base sm:leading-relaxed">
+            通勤、開車、做家事的空檔，聽一個不裝懂、也不說教的中文 Podcast。
+          </p>
+
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={PRIMARY_CTA.href}
+              data-event="click_cta_primary"
+              data-location="hero"
+              className={BTN_PRIMARY}
+            >
+              <Headphones className="h-4 w-4" aria-hidden="true" />
+              {PRIMARY_CTA.label}
+            </a>
+            <a
+              href={SECONDARY_CTA.href}
+              data-event="click_cta_secondary"
+              data-location="hero"
+              className={BTN_SECONDARY}
+            >
+              <Play className="h-4 w-4" aria-hidden="true" />
+              {SECONDARY_CTA.label}
+            </a>
           </div>
-          <span className="font-mono opacity-60" style={{ fontFamily: "var(--font-mono-display)" }}>
-            EMTING.LIFE
-          </span>
         </div>
 
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px] lg:items-end">
-          <div className="max-w-3xl">
-            <p
-              className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              PODCAST // zh-TW // MON-SAT
-            </p>
-            <h1
-              className="text-[3.6rem] font-medium leading-[0.92] text-[var(--studio-text)] sm:text-[4.75rem] lg:text-[6rem]"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.045em" }}
-            >
-              把科技、信仰與家庭，
-              <br className="hidden sm:block" />
-              聊成你每天都想打開的一集。
-            </h1>
-            <p className="mt-5 text-xl font-semibold text-[var(--studio-text)] sm:text-2xl">
-              《{PODCAST.name}》由 {PODCAST.hostName} 主持，
-              用白話又有梗的方式拆解科技、資安、家庭、信仰與社會觀察。
-            </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--studio-text-muted)] sm:text-lg">
-              如果你想在通勤、開車、做家事的空檔，聽到一個不裝懂、也不說教的中文 Podcast，
-              這裡就是入口。每週一到週六更新，讓你每天都有一個值得打開的新主題。
-            </p>
-
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href={PRIMARY_CTA.href}
-                data-event="click_cta_primary"
-                data-location="hero"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] transition hover:scale-[1.02] hover:opacity-90"
-              >
-                <Headphones className="h-5 w-5" />
-                {PRIMARY_CTA.label}
-              </a>
-              <a
-                href={SECONDARY_CTA.href}
-                data-event="click_cta_secondary"
-                data-location="hero"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-3 text-base font-semibold text-[var(--studio-text)] transition hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
-              >
-                <Play className="h-4 w-4" />
-                {SECONDARY_CTA.label}
-              </a>
-            </div>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {proofItems.map((item, idx) => (
-                <div
-                  key={item}
-                  className="rounded-[1.25rem] border border-[var(--studio-border)] bg-[color-mix(in_oklab,var(--studio-surface)_88%,transparent)] p-4 text-sm leading-relaxed text-[var(--studio-text)]"
-                >
-                  <div
-                    className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
-                  >
-                    0{idx + 1}
-                  </div>
-                  <p className="mt-2">{item}</p>
-                </div>
-              ))}
+        <aside className="rounded-xl border border-border bg-surface p-5 sm:p-6">
+          <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-5">
+            <img
+              src={PODCAST.avatarUrl}
+              alt={`${PODCAST.name} 主持人 ${PODCAST.hostName} 頭像`}
+              width={112}
+              height={112}
+              sizes="(min-width: 1024px) 112px, 64px"
+              className="h-16 w-16 rounded-xl border border-border object-cover lg:h-28 lg:w-28"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+            <div>
+              <p className="text-[13px] font-medium text-muted-foreground">主持人</p>
+              <p className="mt-1 text-xl font-semibold tracking-tight text-foreground">
+                {PODCAST.hostName}
+              </p>
             </div>
           </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-3">
-              <div
-                className="rounded-[1.4rem] p-6 text-[var(--studio-text)]"
-                style={{
-                  background:
-                    "radial-gradient(circle at top left, color-mix(in oklab, var(--neon-magenta) 52%, transparent), transparent 36%), linear-gradient(160deg, color-mix(in oklab, var(--neon-magenta) 22%, var(--studio-surface-2)), color-mix(in oklab, var(--neon-cyan) 14%, var(--studio-bg)))",
-                }}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p
-                      className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/70"
-                      style={{ fontFamily: "var(--font-mono-display)" }}
-                    >
-                      HOSTED BY
-                    </p>
-                    <h2
-                      className="mt-2 text-3xl font-medium leading-none"
-                      style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.04em" }}
-                    >
-                      {PODCAST.hostName}
-                    </h2>
-                  </div>
-                  <img
-                    src={PODCAST.avatarUrl}
-                    alt={`${PODCAST.name} 主持人 ${PODCAST.hostName} 頭像`}
-                    width={96}
-                    height={96}
-                    sizes="96px"
-                    className="h-24 w-24 rounded-[1.5rem] border border-white/15 object-cover"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                  />
-                </div>
-                <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/78">
-                  {PODCAST.tagline}。把太複雜的議題，講成能在日常裡真正聽懂的內容。
-                </p>
-              </div>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div
-                className="rounded-[1.75rem] p-5 text-[var(--studio-text)]"
-                style={{
-                  background:
-                    "linear-gradient(155deg, color-mix(in oklab, var(--neon-amber) 82%, black 18%), color-mix(in oklab, var(--neon-magenta) 64%, black 36%))",
-                }}
-              >
-                <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/70"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
-                >
-                  WHY LISTEN
-                </p>
-                <p className="mt-10 max-w-[12rem] text-2xl font-semibold leading-tight">
-                  通勤時段也能聽懂的中文深度內容。
-                </p>
-              </div>
-
-              <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 text-[var(--studio-text)]">
-                <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
-                >
-                  THIS WEEK
-                </p>
-                <p className="mt-3 text-lg font-semibold leading-snug">
-                  一週六天，一天一個固定節目單元。
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                  想先試水溫，直接按「先聽三集推薦」；想穩定追更新，就直接選你常用的平台訂閱。
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            {PODCAST.tagline}。把太複雜的議題，講成能在日常裡真正聽懂的內容。
+          </p>
+          <TunerDial />
+        </aside>
       </div>
-    </section>
-  );
-}
 
-// ─────────── WHO FOR ───────────
-function WhoFor() {
-  return (
-    <section
-      id="who-for"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-4xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          // AUDIENCE_MATCH
-        </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
-          這個節目適合誰？
-        </h2>
-        <p className="mt-3 text-[var(--studio-text-muted)]">
-          5 秒自我辨識：如果以下任何一項打到你，這個頻道就是為你開的。
-        </p>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-          {WHO_FOR.map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-3 rounded-lg border border-[var(--studio-border)] bg-[var(--studio-surface)] p-4 text-[var(--studio-text)]"
-            >
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--neon-lime)]" />
-              <span className="leading-relaxed">{item}</span>
+      {/* 信任條：三個文字事實，不再用大卡 */}
+      <div className={CONTAINER}>
+        <ul className="grid gap-x-8 gap-y-2.5 border-t border-border py-5 text-sm text-muted-foreground sm:grid-cols-3">
+          {proofItems.map((item) => (
+            <li key={item} className="flex items-start gap-2.5">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+              <span>{item}</span>
             </li>
           ))}
         </ul>
@@ -287,43 +214,50 @@ function WhoFor() {
   );
 }
 
-// ─────────── TOPICS ───────────
-function Topics() {
+// ─────────── WHO FOR ＋ TOPICS ───────────
+function WhoFor() {
   return (
-    <section
-      id="topics"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-5xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          // CONTENT_MODULES
-        </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">四大內容主軸</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {TOPICS.map((t) => {
-            const Icon = TOPIC_ICONS[t.code] ?? Shield;
-            return (
-              <div
-                key={t.code}
-                className="rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
+    <section id="who-for" className="border-b border-border">
+      <div className={cn(CONTAINER, SECTION_Y, "grid gap-12 lg:grid-cols-2 lg:gap-16")}>
+        <div>
+          <SectionHeader
+            eyebrow="聽眾"
+            title="這個節目適合誰？"
+            lead="以下任何一項打到你，這個頻道就是為你開的。"
+          />
+          <ul className="mt-7 divide-y divide-border border-y border-border">
+            {WHO_FOR.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 py-3.5 text-[15px] leading-relaxed text-foreground sm:text-base"
               >
-                <Icon className="h-7 w-7 text-[var(--neon-cyan)]" />
-                <p
-                  className="mt-3 font-mono text-xs tracking-widest text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
-                >
-                  ▶ {t.code}
-                </p>
-                <h3 className="mt-1 text-lg font-bold text-[var(--studio-text)]">{t.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                  {t.desc}
-                </p>
-              </div>
-            );
-          })}
+                <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 保留 #topics 錨點：外部可能已分享連結 */}
+        <div id="topics">
+          <Eyebrow>內容主軸</Eyebrow>
+          <h3 className="text-[22px] font-semibold leading-[1.3] tracking-tight text-foreground sm:text-2xl">
+            四大內容主軸
+          </h3>
+          <ul className="mt-7 grid grid-cols-2 gap-3 sm:gap-4">
+            {TOPICS.map((t) => {
+              const Icon = TOPIC_ICONS[t.code] ?? Shield;
+              return (
+                <li key={t.code} className="rounded-xl border border-border bg-surface p-4 sm:p-5">
+                  <Icon className="h-5 w-5 text-accent-2" aria-hidden="true" />
+                  <h4 className="mt-3 text-base font-semibold text-foreground sm:text-[17px]">
+                    {t.title}
+                  </h4>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>
@@ -333,40 +267,25 @@ function Topics() {
 // ─────────── SCHEDULE ───────────
 function Schedule() {
   return (
-    <section
-      id="schedule"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-5xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          // BROADCAST_SCHEDULE
-        </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">每週節目頻道</h2>
-        <p className="mt-3 text-[var(--studio-text-muted)]">
-          一週六天、每天一個固定單元，固定時段陪你度過。
-        </p>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <section id="schedule" className="border-b border-border">
+      <div className={cn(CONTAINER, SECTION_Y)}>
+        <SectionHeader
+          eyebrow="節目單"
+          title="每週節目頻道"
+          lead="一週六天、每天一個固定單元，固定時段陪你度過。"
+        />
+        {/* 單一外框＋髮線分隔的節目表，取代六張獨立卡片 */}
+        <ol className="mt-8 grid gap-px overflow-hidden rounded-xl border border-border bg-border sm:grid-cols-2 lg:grid-cols-3">
           {SCHEDULE.map((s) => (
-            <div
-              key={s.day}
-              className="rounded-lg border border-[var(--studio-border)] bg-[var(--studio-bg)] p-4"
-            >
-              <div className="flex items-baseline justify-between">
-                <span
-                  className="font-mono text-sm font-bold tracking-widest text-[var(--neon-cyan)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
-                >
-                  {s.day}
-                </span>
-                <span className="text-xs text-[var(--studio-text-muted)]">{s.topic}</span>
+            <li key={s.day} className="flex items-baseline gap-4 bg-background p-5 sm:p-6">
+              <span className="w-9 shrink-0 text-sm font-semibold text-accent">{s.day}</span>
+              <div>
+                <h3 className="text-[17px] font-semibold leading-snug text-foreground">{s.unit}</h3>
+                <p className="mt-1 text-sm text-muted-foreground">{s.topic}</p>
               </div>
-              <h3 className="mt-2 text-lg font-bold text-[var(--studio-text)]">{s.unit}</h3>
-            </div>
+            </li>
           ))}
-        </div>
+        </ol>
       </div>
     </section>
   );
@@ -377,116 +296,67 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
   const picks = episodes.slice(0, 3);
   if (picks.length === 0) return null;
 
-  const steps = [
-    "先點一集試聽，確認你喜歡這個聊天節奏。",
-    "喜歡再選一個你每天會打開的 app 訂閱。",
-    "之後讓平台自動推新集，不用每次重新找。",
-  ];
-
   return (
-    <section
-      id="first-listen"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-5xl">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),280px] lg:items-start">
-          <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              // FIRST_TIME_HERE
-            </p>
-            <h2
-              className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-            >
-              第一次來，這樣開始最快。
-            </h2>
-            <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
-              不用先研究整個節目庫。先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。
-            </p>
-          </div>
+    <section id="first-listen" className="border-b border-border bg-surface">
+      <div className={cn(CONTAINER, SECTION_Y)}>
+        <SectionHeader
+          eyebrow="先聽一集"
+          title="第一次來，這樣開始最快。"
+          lead="先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。"
+        />
 
-          <div className="rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5">
-            <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              START HERE
-            </p>
-            <ol className="mt-4 space-y-3">
-              {steps.map((step, idx) => (
-                <li
-                  key={step}
-                  className="flex gap-3 text-sm leading-relaxed text-[var(--studio-text)]"
-                >
-                  <span
-                    className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--studio-surface-2)] font-mono text-[11px] text-[var(--studio-text-muted)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
-                  >
-                    0{idx + 1}
-                  </span>
-                  <span>{step}</span>
-                </li>
-              ))}
-            </ol>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <ol className={cn(SCROLL_ROW, "mt-8")}>
           {picks.map((ep, idx) => {
             const label = ep.episodeNumber
               ? `EP${String(ep.episodeNumber).padStart(3, "0")}`
               : `EP${String(idx + 1).padStart(3, "0")}`;
+            const isExternal = ep.link?.startsWith("http");
+            const duration = formatDuration(ep.durationSec);
             return (
-              <a
-                key={ep.id}
-                href={ep.link || "#tune-in"}
-                target={ep.link?.startsWith("http") ? "_blank" : undefined}
-                rel={ep.link?.startsWith("http") ? "noopener noreferrer" : undefined}
-                data-event="click_episode_card"
-                data-ep={label}
-                className="group flex flex-col rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
-              >
-                <div className="flex items-center justify-between gap-3">
-                  <span
-                    className="font-mono text-xs tracking-widest text-[var(--neon-magenta)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
-                  >
-                    {label}
+              <li key={ep.id} className={SCROLL_ROW_ITEM}>
+                <a
+                  href={ep.link || "#tune-in"}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
+                  data-event="click_episode_card"
+                  data-ep={label}
+                  className="group flex h-full flex-col rounded-xl border border-border bg-background p-5 transition-colors duration-200 hover:border-accent"
+                >
+                  <div className="flex min-h-7 items-center justify-between gap-3 text-[13px]">
+                    <span className="font-semibold tabular-nums text-accent">{label}</span>
+                    {idx === 0 && (
+                      <span className="rounded-md bg-surface-2 px-2 py-1 text-xs font-medium text-foreground">
+                        先從這集試
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-3 line-clamp-3 flex-1 text-[17px] font-semibold leading-[1.45] text-foreground">
+                    {ep.title}
+                  </h3>
+                  <span className="mt-5 flex items-center gap-3 text-sm font-semibold text-foreground">
+                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-background">
+                      <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                    </span>
+                    收聽
+                    {duration && (
+                      <span className="font-normal tabular-nums text-muted-foreground">
+                        {duration}
+                      </span>
+                    )}
                   </span>
-                  <span className="rounded-full border border-[var(--studio-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--studio-text-muted)]">
-                    {idx === 0 ? "先從這集試" : "下一集入口"}
-                  </span>
-                </div>
-                <h3 className="mt-2 text-lg font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
-                  {ep.title}
-                </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                  {ep.description}
-                </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--neon-cyan)]">
-                  收聽本集 <ExternalLink className="h-3.5 w-3.5" />
-                </span>
-              </a>
+                </a>
+              </li>
             );
           })}
-        </div>
+        </ol>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] px-5 py-4">
-          <p className="flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-            三集裡只要有一集讓你想聽完，就直接去選平台訂閱；之後每次更新，你就不用再回首頁找。
-          </p>
-          <a
-            href="#tune-in"
-            data-event="click_cta_after_first_listen"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-5 py-2.5 text-sm font-semibold text-[var(--studio-bg)] transition hover:opacity-90"
-          >
+        <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[15px] text-muted-foreground">
+          <span>有一集讓你想聽完，就直接去選平台訂閱。</span>
+          <a href="#tune-in" data-event="click_cta_after_first_listen" className={TEXT_LINK}>
             下一步選平台
-            <Headphones className="h-4 w-4" />
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
-        </div>
+        </p>
       </div>
     </section>
   );
@@ -495,64 +365,53 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
 // ─────────── EPISODES (RSS) ───────────
 function Episodes({ episodes, source }: { episodes: Episode[]; source: string }) {
   return (
-    <section
-      id="latest-episodes"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-5xl">
+    <section id="latest-episodes" className="border-b border-border bg-surface">
+      <div className={cn(CONTAINER, SECTION_Y)}>
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-lime)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              // LATEST_EPISODES
-            </p>
-            <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">最新集數</h2>
-          </div>
+          <SectionHeader eyebrow="集數" title="最新集數" />
           {source === "fallback" && (
-            <span
-              className="font-mono text-xs text-[var(--studio-text-muted)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              // 暫顯示範例集數，待 RSS 設定
-            </span>
+            <span className="text-[13px] text-muted-foreground">暫顯示範例集數，待 RSS 設定</span>
           )}
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {episodes.map((ep) => (
-            <a
-              key={ep.id}
-              href={ep.link || "#tune-in"}
-              target={ep.link?.startsWith("http") ? "_blank" : undefined}
-              rel={ep.link?.startsWith("http") ? "noreferrer" : undefined}
-              data-event="click_episode_card"
-              className="group flex flex-col rounded-xl border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5 transition hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
-            >
-              <div
-                className="flex items-center gap-3 font-mono text-xs text-[var(--studio-text-muted)]"
-                style={{ fontFamily: "var(--font-mono-display)" }}
-              >
-                {ep.episodeNumber && (
-                  <span className="text-[var(--neon-cyan)]">
-                    EP{String(ep.episodeNumber).padStart(3, "0")}
+        {/* 重列表、輕卡片：左 EP＋日期，中標題，右時長／箭頭 */}
+        <ol className="mt-8 divide-y divide-border border-y border-border">
+          {episodes.map((ep) => {
+            const isExternal = ep.link?.startsWith("http");
+            const duration = formatDuration(ep.durationSec);
+            return (
+              <li key={ep.id}>
+                <a
+                  href={ep.link || "#tune-in"}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noreferrer" : undefined}
+                  data-event="click_episode_card"
+                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 py-4 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:gap-x-6 sm:py-5"
+                >
+                  <span className="col-span-2 flex items-center gap-3 text-[13px] tabular-nums text-muted-foreground sm:col-span-1">
+                    {ep.episodeNumber && (
+                      <span className="font-semibold text-accent">
+                        EP{String(ep.episodeNumber).padStart(3, "0")}
+                      </span>
+                    )}
+                    {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
+                    {duration && <span className="sm:hidden">{duration}</span>}
                   </span>
-                )}
-                {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
-                {ep.durationSec && <span>{formatDuration(ep.durationSec)}</span>}
-              </div>
-              <h3 className="mt-2 text-lg font-bold leading-snug text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
-                {ep.title}
-              </h3>
-              {ep.description && (
-                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                  {ep.description}
-                </p>
-              )}
-            </a>
-          ))}
-        </div>
+                  <h3 className="line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors duration-200 group-hover:text-accent sm:text-[17px]">
+                    {ep.title}
+                  </h3>
+                  <span className="flex items-center gap-4 text-[13px] tabular-nums text-muted-foreground">
+                    {duration && <span className="hidden sm:inline">{duration}</span>}
+                    <ArrowUpRight
+                      className="h-4 w-4 transition-colors duration-200 group-hover:text-accent"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );
@@ -561,35 +420,33 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
 // ─────────── ABOUT HOST ───────────
 function AboutHost() {
   return (
-    <section
-      id="about-host"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[auto,1fr] md:items-center">
+    <section id="about-host" className="border-b border-border">
+      <div
+        className={cn(
+          CONTAINER,
+          SECTION_Y,
+          "grid gap-8 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14",
+        )}
+      >
         <img
           src={PODCAST.avatarUrl}
           alt={`${PODCAST.hostName} 主持人照`}
-          width={160}
-          height={160}
-          sizes="160px"
-          className="mx-auto h-40 w-40 rounded-2xl border-2 border-[var(--neon-magenta)] object-cover shadow-[var(--shadow-neon-magenta)] md:mx-0"
+          width={208}
+          height={208}
+          sizes="(min-width: 640px) 208px, 144px"
+          className="h-36 w-36 rounded-2xl border border-border object-cover sm:h-52 sm:w-52"
           loading="lazy"
           decoding="async"
         />
-        <div>
-          <p
-            className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-            style={{ fontFamily: "var(--font-mono-display)" }}
-          >
-            // HOST_ANALYSIS
-          </p>
-          <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">關於主持人</h2>
-          <p className="mt-2 text-lg font-semibold text-[var(--studio-text)]">
-            {PODCAST.hostName} ／ TYPE: E 人 (Extravert)
-          </p>
-          <p className="mt-4 leading-relaxed text-[var(--studio-text-muted)]">
+        <div className="max-w-2xl">
+          <Eyebrow>主持人</Eyebrow>
+          <h2 className="text-[26px] font-semibold leading-[1.25] tracking-tight text-foreground sm:text-[32px]">
+            關於主持人
+          </h2>
+          <p className="mt-2 text-lg font-medium text-foreground">{PODCAST.hostName}</p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
             雖然外表看起來有點宅宅的，但內心充滿了 E
-            人能量。喜歡碎碎念，是因為腦袋運轉太快——如果不說出來會過熱。 「I 碎念」是為了釋放 E
+            人能量。喜歡碎碎念，是因為腦袋運轉太快——如果不說出來會過熱。「I 碎念」是為了釋放 E
             能量。日常涉獵資安、AI、家庭、信仰與社會時事，把生活中的小事拆成值得思考的大事。
           </p>
         </div>
@@ -598,347 +455,205 @@ function AboutHost() {
   );
 }
 
-// ─────────── MISSION ───────────
-function Mission() {
-  return (
-    <section
-      id="mission"
-      className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
-      style={{
-        background:
-          "radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-magenta) 25%, transparent), transparent 60%), var(--studio-surface)",
-      }}
-    >
-      <div className="mx-auto max-w-3xl text-center">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          // MISSION_OBJECTIVE
-        </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
-          加入廣播基地，一起共建
-        </h2>
-        <p className="mt-5 text-base leading-relaxed text-[var(--studio-text-muted)]">
-          {MISSION.copy}
-        </p>
-
-        <a
-          href="#tune-in"
-          data-event="click_cta_mission"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--neon-magenta)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-magenta)] transition hover:scale-[1.02]"
-        >
-          <Headphones className="h-5 w-5" />
-          加入廣播基地
-        </a>
-      </div>
-    </section>
-  );
-}
-
 // ─────────── TUNE IN ───────────
-function TuneIn() {
-  const listeningPlatforms = PLATFORMS.filter((platform) =>
-    ["spotify", "apple", "youtube"].includes(platform.key),
-  );
+const LISTENING_PLATFORMS: PlatformKey[] = ["spotify", "apple", "youtube"];
 
-  const platformGuide: Record<string, { tag: string; copy: string }> = {
-    spotify: {
-      tag: "通勤最順手",
-      copy: "如果你大多是在走路、開車、運動時收聽，Spotify 通常是最直接的入口。",
-    },
-    apple: {
-      tag: "Apple 生態最省事",
-      copy: "iPhone、AirPods、CarPlay 使用者，選 Apple Podcasts 會最無痛。",
-    },
-    youtube: {
-      tag: "想看影片就選這個",
-      copy: "如果你想順便看到主持人畫面或把節目當長影片播放，直接走 YouTube。",
-    },
-  };
+// 每個平台一句適合情境
+const PLATFORM_NOTES: Partial<Record<PlatformKey, string>> = {
+  spotify: "通勤最順手",
+  apple: "Apple 生態最省事",
+  youtube: "想看影片就選這個",
+};
+
+function TuneIn() {
+  const listeningPlatforms = PLATFORMS.filter((p) => LISTENING_PLATFORMS.includes(p.key));
 
   return (
-    <section
-      id="tune-in"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-4xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          // TUNE_IN_NOW
-        </p>
-        <h2
-          className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-        >
-          選一個你真的會打開的收聽平台。
-        </h2>
-        <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
-          不用每個都追。只要挑一個你每天最常打開的 app，按下訂閱，就能穩定收到每一集更新。
-        </p>
+    <section id="tune-in" className="border-b border-border bg-surface">
+      <div
+        className={cn(
+          CONTAINER,
+          SECTION_Y,
+          "grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-16",
+        )}
+      >
+        <SectionHeader
+          eyebrow="訂閱"
+          title="選一個你真的會打開的收聽平台。"
+          lead="不用每個都追。挑一個你每天最常打開的 app 按下訂閱，就能穩定收到每一集更新。"
+        />
 
-        <div className="mt-8 grid gap-3 md:grid-cols-3">
-          {listeningPlatforms.map((platform) => (
-            <div
-              key={`${platform.key}-guide`}
-              className="rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5"
-            >
-              <p
-                className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                style={{ fontFamily: "var(--font-mono-display)" }}
-              >
-                {platformGuide[platform.key]?.tag ?? platform.name}
-              </p>
-              <h3 className="mt-3 text-lg font-semibold text-[var(--studio-text)]">
-                {platform.name}
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                {platformGuide[platform.key]?.copy ?? platform.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {listeningPlatforms.map((p) => (
-            <a
-              key={p.key}
-              href={p.url}
-              target={p.url.startsWith("http") ? "_blank" : undefined}
-              rel={p.url.startsWith("http") ? "noreferrer" : undefined}
-              data-event="click_platform"
-              data-platform={p.key}
-              aria-label={`${p.description}（${p.name}）`}
-              className="group flex items-center gap-4 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
-            >
-              <PlatformGlyph keyName={p.key} />
-              <div className="flex-1">
-                <div className="text-base font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
-                  {p.name}
-                </div>
-                <div className="mt-1 text-xs text-[var(--studio-text-muted)]">{p.description}</div>
-              </div>
-              <ExternalLink className="h-4 w-4 text-[var(--studio-text-muted)] group-hover:text-[var(--neon-cyan)]" />
-            </a>
-          ))}
-        </div>
-
-        <p className="mt-6 text-sm text-[var(--studio-text-muted)]">
-          Facebook、Instagram、Threads
-          這類社群入口我保留在下方社群區塊；這裡只放真正拿來收聽的三個平台，讓你更快做決定。
-        </p>
+        <ul className="grid gap-3">
+          {listeningPlatforms.map((p) => {
+            const isExternal = p.url.startsWith("http");
+            return (
+              <li key={p.key}>
+                <a
+                  href={p.url}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noreferrer" : undefined}
+                  data-event="click_platform"
+                  data-platform={p.key}
+                  aria-label={`${p.description}（${p.name}）`}
+                  className="group flex items-center gap-4 rounded-xl border border-border bg-background p-4 transition-colors duration-200 hover:border-accent sm:p-5"
+                >
+                  <PlatformIcon platform={p.key} />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[17px] font-semibold leading-snug text-foreground">
+                      {p.name}
+                    </span>
+                    <span className="mt-0.5 block text-sm text-muted-foreground">
+                      {PLATFORM_NOTES[p.key] ?? p.description}
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    className="h-5 w-5 shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
 }
 
-// ─────────── FOOTER ───────────
+// ─────────── FOOTER（含廣播基地＋社群）───────────
 function Footer() {
   return (
-    <footer className="bg-[var(--studio-bg)] px-6 py-12 text-[var(--studio-text-muted)]">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center text-sm">
-        <div
-          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          <Radio className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
-          <span>{PODCAST.frequency}</span>
-          <span className="opacity-40">//</span>
-          <span>{PODCAST.name}</span>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          <a
-            href="/podcast-recommendations"
-            data-event="click_footer_recommendations"
-            className="hover:text-[var(--neon-cyan)]"
-          >
-            Podcast 推薦
-          </a>
-          <a
-            href="mailto:contact@emting.life"
-            className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
-          >
-            <Mail className="h-4 w-4" /> 合作 / 投稿
+    <footer className="bg-background text-foreground">
+      <div className={cn(CONTAINER, "grid gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-16")}>
+        {/* TODO(host): 「加入廣播基地」是否有實際社群產品待確認；目前依規劃預設降為次要文字 CTA。 */}
+        <div id="mission" className="max-w-md">
+          <Eyebrow>廣播基地</Eyebrow>
+          <p className="text-xl font-semibold leading-snug tracking-tight">
+            加入廣播基地，一起共建
+          </p>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{MISSION.copy}</p>
+          <a href="#tune-in" data-event="click_cta_mission" className={cn(TEXT_LINK, "mt-4")}>
+            加入廣播基地
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
-        <p className="text-xs opacity-60">
-          © {new Date().getFullYear()} {PODCAST.name} · emting.life
-        </p>
+
+        <div id="social">
+          <Eyebrow>社群</Eyebrow>
+          <p className="text-xl font-semibold leading-snug tracking-tight">
+            想看幕後與碎念，再追社群。
+          </p>
+          <ul className="mt-4 grid gap-x-8 border-t border-border sm:grid-cols-2">
+            {SOCIAL_LINKS.map((s) => (
+              <li key={s.key} className="border-b border-border">
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-event="click_social"
+                  data-platform={s.key}
+                  aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
+                  className="group flex items-center gap-3 py-3"
+                >
+                  <PlatformIcon platform={s.key} className="h-9 w-9" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[15px] font-medium leading-snug">{s.name}</span>
+                    <span className="block truncate text-[13px] text-muted-foreground">
+                      {s.handle}
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    className="h-4 w-4 shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+
+      <FooterBar>
+        <a
+          href="/podcast-recommendations"
+          data-event="click_footer_recommendations"
+          className="transition-colors duration-200 hover:text-foreground"
+        >
+          Podcast 推薦
+        </a>
+      </FooterBar>
     </footer>
   );
 }
 
 // ─────────── YOUTUBE LATEST ───────────
 function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
-  if (!videos || videos.length === 0) return null;
+  // 同一集的雙影片只留一支，最多 3 支
+  const picks = dedupeVideos(videos ?? [], 3);
+  if (picks.length === 0) return null;
   const channelUrl = PLATFORMS.find((p) => p.key === "youtube")?.url ?? "#";
   return (
-    <section
-      id="youtube"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-5xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
-        >
-          // LATEST_VIDEOS
-        </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
-          YouTube 最新影片
-        </h2>
-        <p className="mt-3 text-[var(--studio-text-muted)]">想看影片版？最新幾集都在這。</p>
-
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {videos.map((v) => (
-            <a
-              key={v.id}
-              href={v.url}
-              target="_blank"
-              rel="noreferrer"
-              data-event="click_youtube_video"
-              data-video-id={v.id}
-              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] transition hover:-translate-y-0.5 hover:border-[var(--neon-amber)] hover:shadow-[0_0_30px_-5px_var(--neon-amber)]"
-            >
-              <div className="relative aspect-video overflow-hidden bg-[var(--studio-surface-2)]">
-                <img
-                  src={v.thumbnail}
-                  alt={v.title}
-                  width={480}
-                  height={360}
-                  sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  className="h-full w-full object-cover transition group-hover:scale-105"
-                />
-                <span className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--neon-amber)] text-[var(--studio-bg)] shadow-lg">
-                    <Play className="h-6 w-6 fill-current" />
-                  </span>
-                </span>
-              </div>
-              <div className="flex flex-1 flex-col gap-2 p-4">
-                <h3 className="line-clamp-2 text-base font-bold leading-snug text-[var(--studio-text)] group-hover:text-[var(--neon-amber)]">
-                  {v.title}
-                </h3>
-                {v.publishedAt && (
-                  <span
-                    className="font-mono text-xs text-[var(--studio-text-muted)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
-                  >
-                    {formatDate(v.publishedAt)}
-                  </span>
-                )}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
+    <section id="youtube" className="border-b border-border">
+      <div className={cn(CONTAINER, SECTION_Y)}>
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+          <SectionHeader
+            eyebrow="影片版"
+            title="YouTube 最新影片"
+            lead="想看影片版？最新幾集都在這。"
+          />
           <a
             href={channelUrl}
             target="_blank"
             rel="noreferrer"
             data-event="click_youtube_channel"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--neon-amber)] px-6 py-3 text-base font-semibold text-[var(--neon-amber)] transition hover:bg-[var(--neon-amber)] hover:text-[var(--studio-bg)]"
+            className={BTN_SECONDARY}
           >
-            前往 YouTube 頻道 <ExternalLink className="h-4 w-4" />
+            前往 YouTube 頻道 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
-      </div>
-    </section>
-  );
-}
 
-// ─────────── SOCIAL FOLLOW ───────────
-function SocialFollow() {
-  const socialNotes: Record<string, string> = {
-    threads: "看主持人的短想法與即時碎念",
-    instagram: "看節目花絮、生活片段與限時互動",
-    facebook: "看公告、較完整的貼文與社群討論",
-    youtube: "看影片版與可分享的長內容",
-  };
-
-  return (
-    <section
-      id="social"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
-    >
-      <div className="mx-auto max-w-4xl">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),260px] lg:items-start">
-          <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              // SOCIAL_FOLLOW
-            </p>
-            <h2
-              className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
-            >
-              想看幕後與碎念，再追社群。
-            </h2>
-            <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
-              社群這一區不是主收聽入口，而是節目外延伸：短想法、幕後花絮、影片片段和即時互動都在這裡。
-            </p>
-          </div>
-
-          <div className="rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5">
-            <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
-            >
-              GOOD TO KNOW
-            </p>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-              想完整收聽每一集，還是建議先到上方平台訂閱；社群比較適合追幕後內容與主持人的即時狀態。
-            </p>
-            <a
-              href="#tune-in"
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--studio-border)] bg-[var(--studio-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--studio-text)] transition hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
-            >
-              <Headphones className="h-4 w-4" />
-              回到收聽平台
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
-          {SOCIAL_LINKS.map((s) => (
-            <a
-              key={s.key}
-              href={s.url}
-              target="_blank"
-              rel="noreferrer"
-              data-event="click_social"
-              data-platform={s.key}
-              aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
-              className="group flex items-start gap-4 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5 transition hover:-translate-y-0.5 hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
-            >
-              <PlatformGlyph keyName={s.key} />
-              <div className="min-w-0 flex-1">
-                <div className="text-base font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-magenta)]">
-                  {s.name}
-                </div>
-                <div
-                  className="mt-1 truncate font-mono text-xs text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
+        <ul className={cn(SCROLL_ROW, "mt-8")}>
+          {picks.map((v) => {
+            const title = stripHashtags(v.title);
+            return (
+              <li key={v.id} className={SCROLL_ROW_ITEM}>
+                <a
+                  href={v.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-event="click_youtube_video"
+                  data-video-id={v.id}
+                  className="group block"
                 >
-                  {s.handle}
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
-                  {socialNotes[s.key] ?? s.description}
-                </p>
-              </div>
-              <ExternalLink className="h-4 w-4 shrink-0 text-[var(--studio-text-muted)] group-hover:text-[var(--neon-magenta)]" />
-            </a>
-          ))}
-        </div>
+                  <div className="relative aspect-video overflow-hidden rounded-xl border border-border bg-surface-2">
+                    <img
+                      src={v.thumbnail}
+                      alt={title}
+                      width={480}
+                      height={360}
+                      sizes="(min-width: 768px) 360px, 80vw"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
+                      className="h-full w-full object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg bg-background/85 text-foreground transition-colors duration-200 group-hover:bg-accent group-hover:text-background">
+                      <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                    </span>
+                  </div>
+                  <h3 className="mt-3 line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors duration-200 group-hover:text-accent">
+                    {title}
+                  </h3>
+                  {v.publishedAt && (
+                    <span className="mt-1.5 block text-[13px] tabular-nums text-muted-foreground">
+                      {formatDate(v.publishedAt)}
+                    </span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );
@@ -957,22 +672,19 @@ export default function EnianLanding({
   return (
     <>
       <TopNav />
-      <main id="main" className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
+      <main id="main" className="min-h-screen bg-background text-foreground">
         <Hero />
-        <WhoFor />
-        <Topics />
-        <Schedule />
         <FirstListen episodes={episodes} />
+        <WhoFor />
+        <Schedule />
         <Episodes episodes={episodes} source={source} />
         <AboutHost />
-        <Mission />
         <TuneIn />
         <YouTubeLatest videos={videos} />
-        <SocialFollow />
         <Faq />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

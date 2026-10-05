@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Menu, Radio, X, Headphones } from "lucide-react";
 import { useLocation } from "@tanstack/react-router";
 import { NAV_LINKS, PODCAST } from "@/lib/enian/constants";
+import { BTN_PRIMARY, BTN_SM, CONTAINER } from "@/lib/enian/ui";
+import { cn } from "@/lib/utils";
 
 export default function TopNav() {
   const [open, setOpen] = useState(false);
@@ -22,77 +24,84 @@ export default function TopNav() {
 
   return (
     <header
-      className={`sticky top-0 z-50 border-b transition-colors ${
-        scrolled
-          ? "border-[var(--studio-border)] bg-[color-mix(in_oklab,var(--studio-bg)_85%,transparent)] backdrop-blur"
-          : "border-transparent bg-transparent"
-      }`}
+      className={cn(
+        "sticky top-0 z-50 border-b transition-colors duration-200",
+        scrolled || open
+          ? "border-border bg-background/90 backdrop-blur"
+          : "border-transparent bg-background",
+      )}
     >
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
+      <div className={cn(CONTAINER, "flex h-14 items-center justify-between gap-3")}>
         <a
           href={logoHref}
-          className="flex items-center gap-2 text-[var(--studio-text)]"
+          className="flex items-center gap-2.5 text-foreground"
           data-event="click_nav"
           data-target="logo"
         >
-          <Radio className="h-4 w-4 text-[var(--neon-cyan)]" aria-hidden="true" />
+          <Radio className="h-4 w-4 text-accent" aria-hidden="true" />
+          <span className="text-[15px] font-semibold tracking-tight">{PODCAST.name}</span>
           <span
-            className="font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-            style={{ fontFamily: "var(--font-mono-display)" }}
+            className="hidden font-mono text-xs tracking-wider text-muted-foreground sm:inline"
             aria-hidden="true"
           >
             {PODCAST.frequency}
           </span>
-          <span className="ml-1 text-sm font-bold">{PODCAST.name}</span>
         </a>
 
-        <nav className="hidden items-center gap-1 md:flex" aria-label="主導覽">
-          {NAV_LINKS.map((l) => (
-            <a
-              key={l.href}
-              href={navHref(l.href)}
-              data-event="click_nav"
-              data-target={l.href.replace("#", "")}
-              className="rounded-full px-3 py-1.5 text-sm text-[var(--studio-text-muted)] transition hover:bg-[var(--studio-surface)] hover:text-[var(--studio-text)]"
-            >
-              {l.label}
-            </a>
-          ))}
+        <div className="flex items-center gap-2">
+          <nav className="mr-2 hidden items-center gap-6 md:flex" aria-label="主導覽">
+            {NAV_LINKS.map((l) => (
+              <a
+                key={l.href}
+                href={navHref(l.href)}
+                data-event="click_nav"
+                data-target={l.href.replace("#", "")}
+                className="text-sm text-muted-foreground transition-colors duration-200 hover:text-foreground"
+              >
+                {l.label}
+              </a>
+            ))}
+          </nav>
+
+          {/* 全站導覽只保留這一顆訂閱鈕 */}
           <a
             href={navHref("#tune-in")}
+            onClick={close}
             data-event="click_nav_cta"
-            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-text)] px-3.5 py-1.5 text-sm font-bold text-[var(--studio-bg)] transition hover:opacity-90"
+            className={cn(BTN_PRIMARY, BTN_SM)}
           >
-            <Headphones className="h-3.5 w-3.5" />
+            <Headphones className="h-4 w-4" aria-hidden="true" />
             訂閱
           </a>
-        </nav>
 
-        <button
-          type="button"
-          aria-label={open ? "關閉選單" : "開啟選單"}
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="rounded-md border border-[var(--studio-border)] p-2 text-[var(--studio-text)] md:hidden"
-        >
-          {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-        </button>
+          <button
+            type="button"
+            aria-label={open ? "關閉選單" : "開啟選單"}
+            aria-expanded={open}
+            aria-controls="mobile-nav"
+            onClick={() => setOpen((v) => !v)}
+            className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
+          >
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
+          </button>
+        </div>
       </div>
 
       {open && (
         <nav
-          className="border-t border-[var(--studio-border)] bg-[var(--studio-bg)] md:hidden"
+          id="mobile-nav"
+          className="border-t border-border bg-background md:hidden"
           aria-label="行動裝置主導覽"
         >
-          <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
+          <ul className={cn(CONTAINER, "flex flex-col py-2")}>
             {NAV_LINKS.map((l) => (
-              <li key={l.href}>
+              <li key={l.href} className="border-b border-border last:border-b-0">
                 <a
                   href={navHref(l.href)}
                   onClick={close}
                   data-event="click_nav"
                   data-target={l.href.replace("#", "")}
-                  className="block rounded-md px-3 py-2.5 text-sm text-[var(--studio-text)] hover:bg-[var(--studio-surface)]"
+                  className="block py-3.5 text-[15px] text-foreground"
                 >
                   {l.label}
                 </a>

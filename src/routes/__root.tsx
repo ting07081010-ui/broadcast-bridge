@@ -4,6 +4,9 @@ import { setResponseHeaders } from "@tanstack/react-start/server";
 
 import appCss from "../styles.css?url";
 
+// TODO(host): 品牌名寫法待定案；目前採規劃預設值，站內統一半形「E 人 I 碎念」（各平台上的名稱不動）。
+const SITE_NAME = "E 人 I 碎念";
+
 const applySecurityHeaders = createServerFn({ method: "GET" }).handler(async () => {
   setResponseHeaders({
     "Strict-Transport-Security": "max-age=31536000; includeSubDomains; preload",
@@ -47,15 +50,16 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Ｅ人Ｉ碎念" },
+      { title: SITE_NAME },
       { name: "description", content: "一個有點宅、很愛講、但認真生活的 Podcast" },
-      { property: "og:title", content: "Ｅ人Ｉ碎念" },
+      { property: "og:title", content: SITE_NAME },
       { property: "og:description", content: "一個有點宅、很愛講、但認真生活的 Podcast" },
       { property: "og:type", content: "website" },
-      { property: "og:site_name", content: "Ｅ人Ｉ碎念" },
+      { property: "og:site_name", content: SITE_NAME },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:title", content: "Ｅ人Ｉ碎念" },
+      { name: "twitter:title", content: SITE_NAME },
       { name: "twitter:description", content: "一個有點宅、很愛講、但認真生活的 Podcast" },
+      { name: "theme-color", content: "#121214" },
       { name: "google-site-verification", content: "Nd33MaCJb1v-7srB1kINB7F_K8sR5FAANzZZni4hE3s" },
     ],
     links: [

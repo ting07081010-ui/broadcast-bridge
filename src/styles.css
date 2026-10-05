@@ -1,6 +1,7 @@
 @import "tailwindcss" source(none);
 @source "../src";
 @import "tw-animate-css";
+@import "./blog.css";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -124,6 +125,16 @@
 }
 
 @theme inline {
+  /* 閱讀層（紙感／夜讀）與主題色，數值定義在 blog.css */
+  --color-paper: var(--paper-bg);
+  --color-paper-surface: var(--paper-surface);
+  --color-paper-border: var(--paper-border);
+  --color-ink: var(--paper-text);
+  --color-ink-muted: var(--paper-muted);
+  --color-ink-accent: var(--paper-accent);
+  --color-reader-primary: var(--primary-bg);
+  --color-reader-primary-text: var(--primary-text);
+  --color-topic: var(--topic-color);
   --color-surface: var(--surface);
   --color-surface-2: var(--surface-2);
   --color-accent-2: var(--accent-2);

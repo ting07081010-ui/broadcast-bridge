@@ -1,8 +1,9 @@
 import { useState, useMemo } from "react";
-import { ArrowLeft, ExternalLink, Headphones, Radio } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, ChevronRight, Headphones } from "lucide-react";
 import TopNav from "./TopNav";
-import { Eyebrow } from "./primitives";
-import { PODCAST } from "@/lib/enian/constants";
+import { Eyebrow, FooterBar, SectionHeader } from "./primitives";
+import { BTN_PRIMARY, BTN_SECONDARY, CONTAINER, SECTION_Y } from "@/lib/enian/ui";
+import { cn } from "@/lib/utils";
 
 const spotifySearch = (q: string) =>
   `https://open.spotify.com/search/${encodeURIComponent(q)}/podcasts`;
@@ -99,36 +100,13 @@ const RECOMMENDATIONS: Rec[] = [
   },
 ];
 
-function Footer() {
-  return (
-    <footer className="bg-background px-6 py-12 text-muted-foreground">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center text-sm">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          <Radio className="h-3.5 w-3.5 text-accent-2" />
-          <span>{PODCAST.frequency}</span>
-          <span aria-hidden="true" className="opacity-40">
-            ·
-          </span>
-          <span>{PODCAST.name}</span>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          <a href="/" className="inline-flex items-center gap-1 hover:text-accent-2">
-            <ArrowLeft className="h-4 w-4" /> 回到首頁
-          </a>
-          <a
-            href="mailto:contact@emting.life"
-            className="inline-flex items-center gap-1 hover:text-accent-2"
-          >
-            合作 / 投稿
-          </a>
-        </div>
-        <p className="text-xs opacity-60">
-          © {new Date().getFullYear()} {PODCAST.name} · emting.life
-        </p>
-      </div>
-    </footer>
-  );
-}
+// 無封面圖時用低飽和色點區分分類（全部取自同一組色票）
+const CATEGORY_DOT: Record<string, string> = {
+  科技與資安觀察: "bg-accent-2",
+  家庭與親子教養: "bg-accent",
+  基督信仰與生活: "bg-live",
+  社會觀點與深度對話: "bg-muted-foreground",
+};
 
 export default function PodcastRecommendations() {
   const [activeCategory, setActiveCategory] = useState("全部");
@@ -144,26 +122,31 @@ export default function PodcastRecommendations() {
     <>
       <TopNav />
       <main id="main" className="min-h-screen bg-background text-foreground">
-        <section
-          id="top"
-          className="relative overflow-hidden border-b border-border bg-background px-6 pb-16 pt-10"
-        >
-          <div className="mx-auto max-w-5xl">
-            <a
-              href="/"
-              className="inline-flex items-center gap-1.5 rounded-lg border border-border bg-surface px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:border-accent-2 hover:text-accent-2"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              回到首頁
-            </a>
+        <section id="top" className="border-b border-border">
+          <div className={cn(CONTAINER, "pb-12 pt-8 sm:pb-16 sm:pt-12")}>
+            <nav aria-label="麵包屑" className="mb-8 text-sm text-muted-foreground">
+              <ol className="flex items-center gap-1.5">
+                <li>
+                  <a href="/" className="transition-colors duration-200 hover:text-foreground">
+                    首頁
+                  </a>
+                </li>
+                <li aria-hidden="true">
+                  <ChevronRight className="h-3.5 w-3.5" />
+                </li>
+                <li aria-current="page" className="text-foreground">
+                  Podcast 推薦
+                </li>
+              </ol>
+            </nav>
 
-            <Eyebrow className="mt-8">主持人私藏</Eyebrow>
-            <h1 className="max-w-3xl text-4xl font-medium leading-[0.95] text-foreground sm:text-5xl lg:text-6xl">
+            <Eyebrow>主持人私藏</Eyebrow>
+            <h1 className="max-w-3xl text-[30px] font-semibold leading-[1.25] tracking-[-0.02em] text-foreground sm:text-[40px]">
               Podcast 推薦：
               <br className="hidden sm:block" />
               主持人私藏的下一個訂閱清單。
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-[17px]">
               這不是演算法排行榜，而是 Emmanuel 根據《E 人 I
               碎念》的內容主軸——科技、資安、家庭、信仰、社會觀察——親自挑選的中文 Podcast
               清單。每則都附原創短評，幫你快速判斷哪一個節目最適合現在的你。
@@ -171,9 +154,13 @@ export default function PodcastRecommendations() {
           </div>
         </section>
 
-        <section className="border-b border-border bg-background px-6 py-16">
-          <div className="mx-auto max-w-5xl">
-            <div className="flex flex-wrap gap-2" role="tablist" aria-label="推薦分類">
+        <section className="border-b border-border">
+          <div className={cn(CONTAINER, "py-10 sm:py-14")}>
+            <div
+              className="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
+              role="tablist"
+              aria-label="推薦分類"
+            >
               {CATEGORIES.map((cat) => {
                 const active = cat === activeCategory;
                 return (
@@ -183,11 +170,12 @@ export default function PodcastRecommendations() {
                     role="tab"
                     aria-selected={active}
                     onClick={() => setActiveCategory(cat)}
-                    className={`rounded-lg px-4 py-2 text-sm font-semibold transition ${
+                    className={cn(
+                      "min-h-10 shrink-0 rounded-lg px-4 text-sm font-medium transition-colors duration-200",
                       active
                         ? "bg-foreground text-background"
-                        : "border border-border bg-surface text-muted-foreground hover:border-accent-2 hover:text-accent-2"
-                    }`}
+                        : "border border-border text-muted-foreground hover:border-muted-foreground hover:text-foreground",
+                    )}
                   >
                     {cat}
                   </button>
@@ -195,23 +183,29 @@ export default function PodcastRecommendations() {
               })}
             </div>
 
-            <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {filtered.map((rec) => (
                 <article
                   key={rec.name}
-                  className="flex flex-col rounded-xl border border-border bg-surface p-5 transition hover:border-accent-2"
+                  className="flex flex-col rounded-xl border border-border bg-surface p-5 sm:p-6"
                 >
-                  <span className="w-fit rounded-lg border border-border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-accent-2">
+                  <p className="flex items-center gap-2 text-[13px] font-medium text-muted-foreground">
+                    <span
+                      aria-hidden="true"
+                      className={cn("h-2 w-2 rounded-[2px]", CATEGORY_DOT[rec.category])}
+                    />
                     {rec.category}
-                  </span>
-                  <h2 className="mt-3 text-xl font-bold text-foreground">{rec.name}</h2>
+                  </p>
+                  <h2 className="mt-3 text-xl font-semibold leading-snug tracking-tight text-foreground">
+                    {rec.name}
+                  </h2>
                   <p className="mt-1 text-sm text-muted-foreground">主持人：{rec.hosts}</p>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
+                  <p className="mt-4 flex-1 text-[15px] leading-relaxed text-muted-foreground">
                     {rec.why}
                   </p>
-                  <div className="mt-4 rounded-xl bg-background p-3">
+                  <div className="mt-5 border-t border-border pt-4">
                     <p className="text-[13px] font-medium text-muted-foreground">適合</p>
-                    <p className="mt-1 text-sm text-foreground">{rec.bestFor}</p>
+                    <p className="mt-1 text-sm leading-relaxed text-foreground">{rec.bestFor}</p>
                   </div>
                   <a
                     href={rec.searchUrl}
@@ -219,10 +213,10 @@ export default function PodcastRecommendations() {
                     rel="noreferrer"
                     data-event="click_podcast_rec"
                     data-podcast={rec.name}
-                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-lg border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-live hover:text-live"
+                    className={cn(BTN_SECONDARY, "mt-5 min-h-11 text-sm")}
                   >
                     在 Spotify 搜尋
-                    <ExternalLink className="h-4 w-4" />
+                    <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
                   </a>
                 </article>
               ))}
@@ -230,38 +224,34 @@ export default function PodcastRecommendations() {
           </div>
         </section>
 
-        <section className="border-b border-border bg-surface px-6 py-20">
-          <div className="mx-auto max-w-3xl text-center">
-            <Eyebrow>E 人 I 碎念</Eyebrow>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-              找到喜歡的節目後，也歡迎回來這裡。
-            </h2>
-            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
-              《E 人 I
-              碎念》每週一到週六更新，用白話又有梗的方式聊科技、資安、家庭、信仰與社會觀察。如果你從這份推薦清單找到共鳴，這裡大概也會是你的頻率。
-            </p>
-            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <a
-                href="/#tune-in"
-                data-event="click_cta_rec_page"
-                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
-              >
-                <Headphones className="h-5 w-5" />
+        <section className="border-b border-border bg-surface">
+          <div className={cn(CONTAINER, SECTION_Y)}>
+            <SectionHeader
+              eyebrow="E 人 I 碎念"
+              title="找到喜歡的節目後，也歡迎回來這裡。"
+              lead="《E 人 I 碎念》每週一到週六更新，用白話又有梗的方式聊科技、資安、家庭、信仰與社會觀察。如果你從這份推薦清單找到共鳴，這裡大概也會是你的頻率。"
+            />
+            <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+              <a href="/#tune-in" data-event="click_cta_rec_page" className={BTN_PRIMARY}>
+                <Headphones className="h-4 w-4" aria-hidden="true" />
                 訂閱 E 人 I 碎念
               </a>
-              <a
-                href="/"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
-              >
-                <ArrowLeft className="h-4 w-4" />
+              <a href="/" className={BTN_SECONDARY}>
+                <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 回到首頁
               </a>
             </div>
           </div>
         </section>
-
-        <Footer />
       </main>
+
+      <footer className="bg-background">
+        <FooterBar>
+          <a href="/" className="transition-colors duration-200 hover:text-foreground">
+            回到首頁
+          </a>
+        </FooterBar>
+      </footer>
     </>
   );
 }

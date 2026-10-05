@@ -109,13 +109,12 @@ const RECOMMENDATIONS: Rec[] = [
 
 function Footer() {
   return (
-    <footer className="bg-[var(--studio-bg)] px-6 py-12 text-[var(--studio-text-muted)]">
+    <footer className="bg-background px-6 py-12 text-muted-foreground">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center text-sm">
         <div
-          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground"
         >
-          <Radio className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
+          <Radio className="h-3.5 w-3.5 text-accent-2" />
           <span>{PODCAST.frequency}</span>
           <span className="opacity-40">//</span>
           <span>{PODCAST.name}</span>
@@ -123,13 +122,13 @@ function Footer() {
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
           <a
             href="/"
-            className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
+            className="inline-flex items-center gap-1 hover:text-accent-2"
           >
             <ArrowLeft className="h-4 w-4" /> 回到首頁
           </a>
           <a
             href="mailto:contact@emting.life"
-            className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
+            className="inline-flex items-center gap-1 hover:text-accent-2"
           >
             合作 / 投稿
           </a>
@@ -155,42 +154,40 @@ export default function PodcastRecommendations() {
   return (
     <>
       <TopNav />
-      <main id="main" className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
+      <main id="main" className="min-h-screen bg-background text-foreground">
         <section
           id="top"
-          className="relative overflow-hidden border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 pb-16 pt-10"
+          className="relative overflow-hidden border-b border-border bg-background px-6 pb-16 pt-10"
         >
           <div className="mx-auto max-w-5xl">
             <a
               href="/"
-              className="inline-flex items-center gap-1.5 rounded-full border border-[var(--studio-border)] bg-[var(--studio-surface)] px-4 py-2 text-sm font-semibold text-[var(--studio-text-muted)] transition hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
+              className="inline-flex items-center gap-1.5 rounded-full border border-border bg-surface px-4 py-2 text-sm font-semibold text-muted-foreground transition hover:border-accent-2 hover:text-accent-2"
             >
               <ArrowLeft className="h-4 w-4" />
               回到首頁
             </a>
 
             <p
-              className="mb-3 mt-8 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="mb-3 mt-8 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
             >
               // CURATED_BY_HOST
             </p>
             <h1
-              className="max-w-3xl text-4xl font-medium leading-[0.95] text-[var(--studio-text)] sm:text-5xl lg:text-6xl"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.04em" }}
+              className="max-w-3xl text-4xl font-medium leading-[0.95] text-foreground sm:text-5xl lg:text-6xl"
             >
               Podcast 推薦：
               <br className="hidden sm:block" />
               主持人私藏的下一個訂閱清單。
             </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--studio-text-muted)]">
+            <p className="mt-5 max-w-2xl text-lg leading-relaxed text-muted-foreground">
               這不是演算法排行榜，而是 Emmanuel 根據《E 人 I 碎念》的內容主軸——科技、資安、家庭、信仰、社會觀察——親自挑選的中文 Podcast
               清單。每則都附原創短評，幫你快速判斷哪一個節目最適合現在的你。
             </p>
           </div>
         </section>
 
-        <section className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-16">
+        <section className="border-b border-border bg-background px-6 py-16">
           <div className="mx-auto max-w-5xl">
             <div
               className="flex flex-wrap gap-2"
@@ -208,8 +205,8 @@ export default function PodcastRecommendations() {
                     onClick={() => setActiveCategory(cat)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                       active
-                        ? "bg-[var(--studio-text)] text-[var(--studio-bg)]"
-                        : "border border-[var(--studio-border)] bg-[var(--studio-surface)] text-[var(--studio-text-muted)] hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
+                        ? "bg-foreground text-background"
+                        : "border border-border bg-surface text-muted-foreground hover:border-accent-2 hover:text-accent-2"
                     }`}
                   >
                     {cat}
@@ -222,31 +219,29 @@ export default function PodcastRecommendations() {
               {filtered.map((rec) => (
                 <article
                   key={rec.name}
-                  className="flex flex-col rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
+                  className="flex flex-col rounded-[1.5rem] border border-border bg-surface p-5 transition hover:border-accent-2"
                 >
                   <span
-                    className="w-fit rounded-full border border-[var(--studio-border)] px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-[var(--neon-cyan)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
+                    className="w-fit rounded-full border border-border px-2.5 py-1 text-[11px] font-semibold uppercase tracking-wider text-accent-2"
                   >
                     {rec.category}
                   </span>
-                  <h2 className="mt-3 text-xl font-bold text-[var(--studio-text)]">
+                  <h2 className="mt-3 text-xl font-bold text-foreground">
                     {rec.name}
                   </h2>
-                  <p className="mt-1 text-sm text-[var(--studio-text-muted)]">
+                  <p className="mt-1 text-sm text-muted-foreground">
                     主持人：{rec.hosts}
                   </p>
-                  <p className="mt-4 flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                  <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {rec.why}
                   </p>
-                  <div className="mt-4 rounded-xl bg-[var(--studio-bg)] p-3">
+                  <div className="mt-4 rounded-xl bg-background p-3">
                     <p
-                      className="font-mono text-[11px] uppercase tracking-[0.2em] text-[var(--studio-text-muted)]"
-                      style={{ fontFamily: "var(--font-mono-display)" }}
+                      className="font-mono text-[11px] uppercase tracking-[0.2em] text-muted-foreground"
                     >
                       BEST FOR
                     </p>
-                    <p className="mt-1 text-sm text-[var(--studio-text)]">{rec.bestFor}</p>
+                    <p className="mt-1 text-sm text-foreground">{rec.bestFor}</p>
                   </div>
                   <a
                     href={rec.searchUrl}
@@ -254,7 +249,7 @@ export default function PodcastRecommendations() {
                     rel="noreferrer"
                     data-event="click_podcast_rec"
                     data-podcast={rec.name}
-                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-full border border-[var(--studio-border)] bg-[var(--studio-bg)] px-4 py-2.5 text-sm font-semibold text-[var(--studio-text)] transition hover:border-[var(--neon-lime)] hover:text-[var(--neon-lime)]"
+                    className="mt-4 inline-flex items-center justify-center gap-2 rounded-full border border-border bg-background px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-live hover:text-live"
                   >
                     在 Spotify 搜尋
                     <ExternalLink className="h-4 w-4" />
@@ -265,32 +260,31 @@ export default function PodcastRecommendations() {
           </div>
         </section>
 
-        <section className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20">
+        <section className="border-b border-border bg-surface px-6 py-20">
           <div className="mx-auto max-w-3xl text-center">
             <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
             >
               // BACK_TO_EMTING
             </p>
-            <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
               找到喜歡的節目後，也歡迎回來這裡。
             </h2>
-            <p className="mt-4 text-base leading-relaxed text-[var(--studio-text-muted)]">
+            <p className="mt-4 text-base leading-relaxed text-muted-foreground">
               《E 人 I 碎念》每週一到週六更新，用白話又有梗的方式聊科技、資安、家庭、信仰與社會觀察。如果你從這份推薦清單找到共鳴，這裡大概也會是你的頻率。
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <a
                 href="/#tune-in"
                 data-event="click_cta_rec_page"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] transition hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
               >
                 <Headphones className="h-5 w-5" />
                 訂閱 E 人 I 碎念
               </a>
               <a
                 href="/"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-3 text-base font-semibold text-[var(--studio-text)] transition hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-background px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
               >
                 <ArrowLeft className="h-4 w-4" />
                 回到首頁

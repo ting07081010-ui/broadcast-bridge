@@ -24,21 +24,20 @@ export default function TopNav() {
     <header
       className={`sticky top-0 z-50 border-b transition-colors ${
         scrolled
-          ? "border-[var(--studio-border)] bg-[color-mix(in_oklab,var(--studio-bg)_85%,transparent)] backdrop-blur"
+          ? "border-border bg-background/85 backdrop-blur"
           : "border-transparent bg-transparent"
       }`}
     >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4 sm:px-6">
         <a
           href={logoHref}
-          className="flex items-center gap-2 text-[var(--studio-text)]"
+          className="flex items-center gap-2 text-foreground"
           data-event="click_nav"
           data-target="logo"
         >
-          <Radio className="h-4 w-4 text-[var(--neon-cyan)]" aria-hidden="true" />
+          <Radio className="h-4 w-4 text-accent-2" aria-hidden="true" />
           <span
-            className="font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-            style={{ fontFamily: "var(--font-mono-display)" }}
+            className="font-mono text-xs uppercase tracking-widest text-muted-foreground"
             aria-hidden="true"
           >
             {PODCAST.frequency}
@@ -53,7 +52,7 @@ export default function TopNav() {
               href={navHref(l.href)}
               data-event="click_nav"
               data-target={l.href.replace("#", "")}
-              className="rounded-full px-3 py-1.5 text-sm text-[var(--studio-text-muted)] transition hover:bg-[var(--studio-surface)] hover:text-[var(--studio-text)]"
+              className="rounded-full px-3 py-1.5 text-sm text-muted-foreground transition hover:bg-surface hover:text-foreground"
             >
               {l.label}
             </a>
@@ -61,7 +60,7 @@ export default function TopNav() {
           <a
             href={navHref("#tune-in")}
             data-event="click_nav_cta"
-            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[var(--studio-text)] px-3.5 py-1.5 text-sm font-bold text-[var(--studio-bg)] transition hover:opacity-90"
+            className="ml-2 inline-flex items-center gap-1.5 rounded-full bg-foreground px-3.5 py-1.5 text-sm font-bold text-background transition hover:opacity-90"
           >
             <Headphones className="h-3.5 w-3.5" />
             訂閱
@@ -73,7 +72,7 @@ export default function TopNav() {
           aria-label={open ? "關閉選單" : "開啟選單"}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
-          className="rounded-md border border-[var(--studio-border)] p-2 text-[var(--studio-text)] md:hidden"
+          className="rounded-md border border-border p-2 text-foreground md:hidden"
         >
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
@@ -81,7 +80,7 @@ export default function TopNav() {
 
       {open && (
         <nav
-          className="border-t border-[var(--studio-border)] bg-[var(--studio-bg)] md:hidden"
+          className="border-t border-border bg-background md:hidden"
           aria-label="行動裝置主導覽"
         >
           <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
@@ -92,7 +91,7 @@ export default function TopNav() {
                   onClick={close}
                   data-event="click_nav"
                   data-target={l.href.replace("#", "")}
-                  className="block rounded-md px-3 py-2.5 text-sm text-[var(--studio-text)] hover:bg-[var(--studio-surface)]"
+                  className="block rounded-md px-3 py-2.5 text-sm text-foreground hover:bg-surface"
                 >
                   {l.label}
                 </a>

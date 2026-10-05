@@ -61,8 +61,7 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
   return (
     <span
       aria-hidden="true"
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[var(--studio-surface-2)] font-mono text-base font-bold text-[var(--neon-cyan)]"
-      style={{ fontFamily: "var(--font-mono-display)" }}
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-surface-2 font-mono text-base font-bold text-accent-2"
     >
       {map[keyName] || "•"}
     </span>
@@ -80,22 +79,21 @@ function Hero() {
   return (
     <section
       id="top"
-      className="enian-scanlines enian-hero-glow relative overflow-hidden border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 pb-20 pt-10 sm:pt-16"
+      className="enian-scanlines enian-hero-glow relative overflow-hidden border-b border-border bg-background px-6 pb-20 pt-10 sm:pt-16"
     >
       <div className="mx-auto max-w-6xl">
         {/* Top status bar */}
         <div
-          className="mb-10 flex flex-wrap items-center justify-between gap-3 font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-10 flex flex-wrap items-center justify-between gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground"
         >
           <div className="flex items-center gap-2">
-            <Radio className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
+            <Radio className="h-3.5 w-3.5 text-accent-2" />
             <span>{PODCAST.frequency}</span>
             <span className="mx-2 opacity-40">//</span>
-            <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-[var(--neon-lime)]" />
-            <span className="text-[var(--neon-lime)]">TRANSMISSION ACTIVE</span>
+            <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
+            <span className="text-live">TRANSMISSION ACTIVE</span>
           </div>
-          <span className="font-mono opacity-60" style={{ fontFamily: "var(--font-mono-display)" }}>
+          <span className="font-mono opacity-60">
             EMTING.LIFE
           </span>
         </div>
@@ -103,24 +101,22 @@ function Hero() {
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px] lg:items-end">
           <div className="max-w-3xl">
             <p
-              className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
             >
               PODCAST // zh-TW // MON-SAT
             </p>
             <h1
-              className="text-[3.6rem] font-medium leading-[0.92] text-[var(--studio-text)] sm:text-[4.75rem] lg:text-[6rem]"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.045em" }}
+              className="text-[3.6rem] font-medium leading-[0.92] text-foreground sm:text-[4.75rem] lg:text-[6rem]"
             >
               把科技、信仰與家庭，
               <br className="hidden sm:block" />
               聊成你每天都想打開的一集。
             </h1>
-            <p className="mt-5 text-xl font-semibold text-[var(--studio-text)] sm:text-2xl">
+            <p className="mt-5 text-xl font-semibold text-foreground sm:text-2xl">
               《{PODCAST.name}》由 {PODCAST.hostName} 主持，
               用白話又有梗的方式拆解科技、資安、家庭、信仰與社會觀察。
             </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-[var(--studio-text-muted)] sm:text-lg">
+            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
               如果你想在通勤、開車、做家事的空檔，聽到一個不裝懂、也不說教的中文 Podcast，
               這裡就是入口。每週一到週六更新，讓你每天都有一個值得打開的新主題。
             </p>
@@ -130,7 +126,7 @@ function Hero() {
                 href={PRIMARY_CTA.href}
                 data-event="click_cta_primary"
                 data-location="hero"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] transition hover:scale-[1.02] hover:opacity-90"
+                className="inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:scale-[1.02] hover:opacity-90"
               >
                 <Headphones className="h-5 w-5" />
                 {PRIMARY_CTA.label}
@@ -139,7 +135,7 @@ function Hero() {
                 href={SECONDARY_CTA.href}
                 data-event="click_cta_secondary"
                 data-location="hero"
-                className="inline-flex items-center gap-2 rounded-full border border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-3 text-base font-semibold text-[var(--studio-text)] transition hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
+                className="inline-flex items-center gap-2 rounded-full border border-border bg-surface px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
               >
                 <Play className="h-4 w-4" />
                 {SECONDARY_CTA.label}
@@ -150,11 +146,10 @@ function Hero() {
               {proofItems.map((item, idx) => (
                 <div
                   key={item}
-                  className="rounded-[1.25rem] border border-[var(--studio-border)] bg-[color-mix(in_oklab,var(--studio-surface)_88%,transparent)] p-4 text-sm leading-relaxed text-[var(--studio-text)]"
+                  className="rounded-[1.25rem] border border-border bg-surface/88 p-4 text-sm leading-relaxed text-foreground"
                 >
                   <div
-                    className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
+                    className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
                   >
                     0{idx + 1}
                   </div>
@@ -165,19 +160,17 @@ function Hero() {
           </div>
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-3">
-              <div className="rounded-[1.4rem] bg-[var(--studio-surface-2)] p-6 text-[var(--studio-text)]">
+            <div className="rounded-[1.75rem] border border-border bg-surface p-3">
+              <div className="rounded-[1.4rem] bg-surface-2 p-6 text-foreground">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p
-                      className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                      style={{ fontFamily: "var(--font-mono-display)" }}
+                      className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
                     >
                       HOSTED BY
                     </p>
                     <h2
                       className="mt-2 text-3xl font-medium leading-none"
-                      style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.04em" }}
                     >
                       {PODCAST.hostName}
                     </h2>
@@ -188,23 +181,22 @@ function Hero() {
                     width={96}
                     height={96}
                     sizes="96px"
-                    className="h-24 w-24 rounded-[1.5rem] border border-[var(--studio-border)] object-cover"
+                    className="h-24 w-24 rounded-[1.5rem] border border-border object-cover"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
                   />
                 </div>
-                <p className="mt-6 max-w-xs text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
                   {PODCAST.tagline}。把太複雜的議題，講成能在日常裡真正聽懂的內容。
                 </p>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 text-[var(--studio-text)]">
+              <div className="rounded-[1.75rem] border border-border bg-surface p-5 text-foreground">
                 <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
+                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
                 >
                   WHY LISTEN
                 </p>
@@ -213,17 +205,16 @@ function Hero() {
                 </p>
               </div>
 
-              <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 text-[var(--studio-text)]">
+              <div className="rounded-[1.75rem] border border-border bg-surface p-5 text-foreground">
                 <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
+                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
                 >
                   THIS WEEK
                 </p>
                 <p className="mt-3 text-lg font-semibold leading-snug">
                   一週六天，一天一個固定節目單元。
                 </p>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   想先試水溫，直接按「先聽三集推薦」；想穩定追更新，就直接選你常用的平台訂閱。
                 </p>
               </div>
@@ -240,28 +231,27 @@ function WhoFor() {
   return (
     <section
       id="who-for"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+      className="border-b border-border bg-background px-6 py-20"
     >
       <div className="mx-auto max-w-4xl">
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
         >
           // AUDIENCE_MATCH
         </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
           這個節目適合誰？
         </h2>
-        <p className="mt-3 text-[var(--studio-text-muted)]">
+        <p className="mt-3 text-muted-foreground">
           5 秒自我辨識：如果以下任何一項打到你，這個頻道就是為你開的。
         </p>
         <ul className="mt-8 grid gap-3 sm:grid-cols-2">
           {WHO_FOR.map((item) => (
             <li
               key={item}
-              className="flex items-start gap-3 rounded-lg border border-[var(--studio-border)] bg-[var(--studio-surface)] p-4 text-[var(--studio-text)]"
+              className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4 text-foreground"
             >
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-[var(--neon-lime)]" />
+              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-live" />
               <span className="leading-relaxed">{item}</span>
             </li>
           ))}
@@ -276,33 +266,31 @@ function Topics() {
   return (
     <section
       id="topics"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+      className="border-b border-border bg-background px-6 py-20"
     >
       <div className="mx-auto max-w-5xl">
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
         >
           // CONTENT_MODULES
         </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">四大內容主軸</h2>
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">四大內容主軸</h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TOPICS.map((t) => {
             const Icon = TOPIC_ICONS[t.code] ?? Shield;
             return (
               <div
                 key={t.code}
-                className="rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
+                className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent-2"
               >
-                <Icon className="h-7 w-7 text-[var(--neon-cyan)]" />
+                <Icon className="h-7 w-7 text-accent-2" />
                 <p
-                  className="mt-3 font-mono text-xs tracking-widest text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
+                  className="mt-3 font-mono text-xs tracking-widest text-muted-foreground"
                 >
                   ▶ {t.code}
                 </p>
-                <h3 className="mt-1 text-lg font-bold text-[var(--studio-text)]">{t.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                <h3 className="mt-1 text-lg font-bold text-foreground">{t.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                   {t.desc}
                 </p>
               </div>
@@ -319,35 +307,33 @@ function Schedule() {
   return (
     <section
       id="schedule"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
+      className="border-b border-border bg-surface px-6 py-20"
     >
       <div className="mx-auto max-w-5xl">
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
         >
           // BROADCAST_SCHEDULE
         </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">每週節目頻道</h2>
-        <p className="mt-3 text-[var(--studio-text-muted)]">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">每週節目頻道</h2>
+        <p className="mt-3 text-muted-foreground">
           一週六天、每天一個固定單元，固定時段陪你度過。
         </p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {SCHEDULE.map((s) => (
             <div
               key={s.day}
-              className="rounded-lg border border-[var(--studio-border)] bg-[var(--studio-bg)] p-4"
+              className="rounded-lg border border-border bg-background p-4"
             >
               <div className="flex items-baseline justify-between">
                 <span
-                  className="font-mono text-sm font-bold tracking-widest text-[var(--neon-cyan)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
+                  className="font-mono text-sm font-bold tracking-widest text-accent-2"
                 >
                   {s.day}
                 </span>
-                <span className="text-xs text-[var(--studio-text-muted)]">{s.topic}</span>
+                <span className="text-xs text-muted-foreground">{s.topic}</span>
               </div>
-              <h3 className="mt-2 text-lg font-bold text-[var(--studio-text)]">{s.unit}</h3>
+              <h3 className="mt-2 text-lg font-bold text-foreground">{s.unit}</h3>
             </div>
           ))}
         </div>
@@ -370,32 +356,29 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
   return (
     <section
       id="first-listen"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+      className="border-b border-border bg-background px-6 py-20"
     >
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),280px] lg:items-start">
           <div>
             <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
             >
               // FIRST_TIME_HERE
             </p>
             <h2
-              className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+              className="text-3xl font-medium text-foreground sm:text-4xl"
             >
               第一次來，這樣開始最快。
             </h2>
-            <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
+            <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
               不用先研究整個節目庫。先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5">
+          <div className="rounded-[1.5rem] border border-border bg-surface p-5">
             <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
             >
               START HERE
             </p>
@@ -403,11 +386,10 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
               {steps.map((step, idx) => (
                 <li
                   key={step}
-                  className="flex gap-3 text-sm leading-relaxed text-[var(--studio-text)]"
+                  className="flex gap-3 text-sm leading-relaxed text-foreground"
                 >
                   <span
-                    className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[var(--studio-surface-2)] font-mono text-[11px] text-[var(--studio-text-muted)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
+                    className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-2 font-mono text-[11px] text-muted-foreground"
                   >
                     0{idx + 1}
                   </span>
@@ -431,26 +413,25 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
                 rel={ep.link?.startsWith("http") ? "noopener noreferrer" : undefined}
                 data-event="click_episode_card"
                 data-ep={label}
-                className="group flex flex-col rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 transition hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
+                className="group flex flex-col rounded-[1.5rem] border border-border bg-surface p-5 transition hover:border-accent"
               >
                 <div className="flex items-center justify-between gap-3">
                   <span
-                    className="font-mono text-xs tracking-widest text-[var(--neon-magenta)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
+                    className="font-mono text-xs tracking-widest text-accent"
                   >
                     {label}
                   </span>
-                  <span className="rounded-full border border-[var(--studio-border)] px-2.5 py-1 text-[11px] font-medium text-[var(--studio-text-muted)]">
+                  <span className="rounded-full border border-border px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
                     {idx === 0 ? "先從這集試" : "下一集入口"}
                   </span>
                 </div>
-                <h3 className="mt-2 text-lg font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
+                <h3 className="mt-2 text-lg font-bold text-foreground group-hover:text-accent-2">
                   {ep.title}
                 </h3>
-                <p className="mt-2 flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                   {ep.description}
                 </p>
-                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-[var(--neon-cyan)]">
+                <span className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-accent-2">
                   收聽本集 <ExternalLink className="h-3.5 w-3.5" />
                 </span>
               </a>
@@ -458,14 +439,14 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
           })}
         </div>
 
-        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] px-5 py-4">
-          <p className="flex-1 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+        <div className="mt-8 flex flex-wrap items-center gap-3 rounded-[1.5rem] border border-border bg-surface px-5 py-4">
+          <p className="flex-1 text-sm leading-relaxed text-muted-foreground">
             三集裡只要有一集讓你想聽完，就直接去選平台訂閱；之後每次更新，你就不用再回首頁找。
           </p>
           <a
             href="#tune-in"
             data-event="click_cta_after_first_listen"
-            className="inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-5 py-2.5 text-sm font-semibold text-[var(--studio-bg)] transition hover:opacity-90"
+            className="inline-flex items-center gap-2 rounded-full bg-foreground px-5 py-2.5 text-sm font-semibold text-background transition hover:opacity-90"
           >
             下一步選平台
             <Headphones className="h-4 w-4" />
@@ -481,23 +462,21 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
   return (
     <section
       id="latest-episodes"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
+      className="border-b border-border bg-surface px-6 py-20"
     >
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
             <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-lime)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-live"
             >
               // LATEST_EPISODES
             </p>
-            <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">最新集數</h2>
+            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">最新集數</h2>
           </div>
           {source === "fallback" && (
             <span
-              className="font-mono text-xs text-[var(--studio-text-muted)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="font-mono text-xs text-muted-foreground"
             >
               // 暫顯示範例集數，待 RSS 設定
             </span>
@@ -512,25 +491,24 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
               target={ep.link?.startsWith("http") ? "_blank" : undefined}
               rel={ep.link?.startsWith("http") ? "noreferrer" : undefined}
               data-event="click_episode_card"
-              className="group flex flex-col rounded-xl border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5 transition hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
+              className="group flex flex-col rounded-xl border border-border bg-background p-5 transition hover:border-accent-2"
             >
               <div
-                className="flex items-center gap-3 font-mono text-xs text-[var(--studio-text-muted)]"
-                style={{ fontFamily: "var(--font-mono-display)" }}
+                className="flex items-center gap-3 font-mono text-xs text-muted-foreground"
               >
                 {ep.episodeNumber && (
-                  <span className="text-[var(--neon-cyan)]">
+                  <span className="text-accent-2">
                     EP{String(ep.episodeNumber).padStart(3, "0")}
                   </span>
                 )}
                 {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
                 {ep.durationSec && <span>{formatDuration(ep.durationSec)}</span>}
               </div>
-              <h3 className="mt-2 text-lg font-bold leading-snug text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
+              <h3 className="mt-2 text-lg font-bold leading-snug text-foreground group-hover:text-accent-2">
                 {ep.title}
               </h3>
               {ep.description && (
-                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
                   {ep.description}
                 </p>
               )}
@@ -547,7 +525,7 @@ function AboutHost() {
   return (
     <section
       id="about-host"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+      className="border-b border-border bg-background px-6 py-20"
     >
       <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[auto,1fr] md:items-center">
         <img
@@ -556,22 +534,21 @@ function AboutHost() {
           width={160}
           height={160}
           sizes="160px"
-          className="mx-auto h-40 w-40 rounded-2xl border-2 border-[var(--neon-magenta)] object-cover shadow-[var(--shadow-neon-magenta)] md:mx-0"
+          className="mx-auto h-40 w-40 rounded-2xl border-2 border-accent object-cover md:mx-0"
           loading="lazy"
           decoding="async"
         />
         <div>
           <p
-            className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-            style={{ fontFamily: "var(--font-mono-display)" }}
+            className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
           >
             // HOST_ANALYSIS
           </p>
-          <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">關於主持人</h2>
-          <p className="mt-2 text-lg font-semibold text-[var(--studio-text)]">
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">關於主持人</h2>
+          <p className="mt-2 text-lg font-semibold text-foreground">
             {PODCAST.hostName} ／ TYPE: E 人 (Extravert)
           </p>
-          <p className="mt-4 leading-relaxed text-[var(--studio-text-muted)]">
+          <p className="mt-4 leading-relaxed text-muted-foreground">
             雖然外表看起來有點宅宅的，但內心充滿了 E
             人能量。喜歡碎碎念，是因為腦袋運轉太快——如果不說出來會過熱。 「I 碎念」是為了釋放 E
             能量。日常涉獵資安、AI、家庭、信仰與社會時事，把生活中的小事拆成值得思考的大事。
@@ -587,26 +564,25 @@ function Mission() {
   return (
     <section
       id="mission"
-      className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
+      className="enian-scanlines relative overflow-hidden border-b border-border bg-surface px-6 py-20"
     >
       <div className="mx-auto max-w-3xl text-center">
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
         >
           // MISSION_OBJECTIVE
         </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
           加入廣播基地，一起共建
         </h2>
-        <p className="mt-5 text-base leading-relaxed text-[var(--studio-text-muted)]">
+        <p className="mt-5 text-base leading-relaxed text-muted-foreground">
           {MISSION.copy}
         </p>
 
         <a
           href="#tune-in"
           data-event="click_cta_mission"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] transition hover:opacity-90"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
         >
           <Headphones className="h-5 w-5" />
           加入廣播基地
@@ -640,22 +616,20 @@ function TuneIn() {
   return (
     <section
       id="tune-in"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+      className="border-b border-border bg-background px-6 py-20"
     >
       <div className="mx-auto max-w-4xl">
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-cyan)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
         >
           // TUNE_IN_NOW
         </p>
         <h2
-          className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-          style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+          className="text-3xl font-medium text-foreground sm:text-4xl"
         >
           選一個你真的會打開的收聽平台。
         </h2>
-        <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
+        <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
           不用每個都追。只要挑一個你每天最常打開的 app，按下訂閱，就能穩定收到每一集更新。
         </p>
 
@@ -663,18 +637,17 @@ function TuneIn() {
           {listeningPlatforms.map((platform) => (
             <div
               key={`${platform.key}-guide`}
-              className="rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5"
+              className="rounded-[1.5rem] border border-border bg-surface p-5"
             >
               <p
-                className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-                style={{ fontFamily: "var(--font-mono-display)" }}
+                className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
               >
                 {platformGuide[platform.key]?.tag ?? platform.name}
               </p>
-              <h3 className="mt-3 text-lg font-semibold text-[var(--studio-text)]">
+              <h3 className="mt-3 text-lg font-semibold text-foreground">
                 {platform.name}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {platformGuide[platform.key]?.copy ?? platform.description}
               </p>
             </div>
@@ -691,21 +664,21 @@ function TuneIn() {
               data-event="click_platform"
               data-platform={p.key}
               aria-label={`${p.description}（${p.name}）`}
-              className="group flex items-center gap-4 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-4 transition hover:-translate-y-0.5 hover:border-[var(--neon-cyan)] hover:shadow-[var(--shadow-neon-cyan)]"
+              className="group flex items-center gap-4 rounded-[1.5rem] border border-border bg-surface p-4 transition hover:-translate-y-0.5 hover:border-accent-2"
             >
               <PlatformGlyph keyName={p.key} />
               <div className="flex-1">
-                <div className="text-base font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-cyan)]">
+                <div className="text-base font-bold text-foreground group-hover:text-accent-2">
                   {p.name}
                 </div>
-                <div className="mt-1 text-xs text-[var(--studio-text-muted)]">{p.description}</div>
+                <div className="mt-1 text-xs text-muted-foreground">{p.description}</div>
               </div>
-              <ExternalLink className="h-4 w-4 text-[var(--studio-text-muted)] group-hover:text-[var(--neon-cyan)]" />
+              <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent-2" />
             </a>
           ))}
         </div>
 
-        <p className="mt-6 text-sm text-[var(--studio-text-muted)]">
+        <p className="mt-6 text-sm text-muted-foreground">
           Facebook、Instagram、Threads
           這類社群入口我保留在下方社群區塊；這裡只放真正拿來收聽的三個平台，讓你更快做決定。
         </p>
@@ -717,13 +690,12 @@ function TuneIn() {
 // ─────────── FOOTER ───────────
 function Footer() {
   return (
-    <footer className="bg-[var(--studio-bg)] px-6 py-12 text-[var(--studio-text-muted)]">
+    <footer className="bg-background px-6 py-12 text-muted-foreground">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center text-sm">
         <div
-          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-[var(--studio-text-muted)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground"
         >
-          <Radio className="h-3.5 w-3.5 text-[var(--neon-cyan)]" />
+          <Radio className="h-3.5 w-3.5 text-accent-2" />
           <span>{PODCAST.frequency}</span>
           <span className="opacity-40">//</span>
           <span>{PODCAST.name}</span>
@@ -732,13 +704,13 @@ function Footer() {
           <a
             href="/podcast-recommendations"
             data-event="click_footer_recommendations"
-            className="hover:text-[var(--neon-cyan)]"
+            className="hover:text-accent-2"
           >
             Podcast 推薦
           </a>
           <a
             href="mailto:contact@emting.life"
-            className="inline-flex items-center gap-1 hover:text-[var(--neon-cyan)]"
+            className="inline-flex items-center gap-1 hover:text-accent-2"
           >
             <Mail className="h-4 w-4" /> 合作 / 投稿
           </a>
@@ -758,19 +730,18 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
   return (
     <section
       id="youtube"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 py-20"
+      className="border-b border-border bg-background px-6 py-20"
     >
       <div className="mx-auto max-w-5xl">
         <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-amber)]"
-          style={{ fontFamily: "var(--font-mono-display)" }}
+          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
         >
           // LATEST_VIDEOS
         </p>
-        <h2 className="text-3xl font-bold text-[var(--studio-text)] sm:text-4xl">
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
           YouTube 最新影片
         </h2>
-        <p className="mt-3 text-[var(--studio-text-muted)]">想看影片版？最新幾集都在這。</p>
+        <p className="mt-3 text-muted-foreground">想看影片版？最新幾集都在這。</p>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
           {videos.map((v) => (
@@ -781,9 +752,9 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
               rel="noreferrer"
               data-event="click_youtube_video"
               data-video-id={v.id}
-              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] transition hover:-translate-y-0.5 hover:border-[var(--neon-amber)]"
+              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:-translate-y-0.5 hover:border-accent"
             >
-              <div className="relative aspect-video overflow-hidden bg-[var(--studio-surface-2)]">
+              <div className="relative aspect-video overflow-hidden bg-surface-2">
                 <img
                   src={v.thumbnail}
                   alt={v.title}
@@ -796,19 +767,18 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
                   className="h-full w-full object-cover transition group-hover:scale-105"
                 />
                 <span className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--neon-amber)] text-[var(--studio-bg)]">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-accent text-background">
                     <Play className="h-6 w-6 fill-current" />
                   </span>
                 </span>
               </div>
               <div className="flex flex-1 flex-col gap-2 p-4">
-                <h3 className="line-clamp-2 text-base font-bold leading-snug text-[var(--studio-text)] group-hover:text-[var(--neon-amber)]">
+                <h3 className="line-clamp-2 text-base font-bold leading-snug text-foreground group-hover:text-accent">
                   {v.title}
                 </h3>
                 {v.publishedAt && (
                   <span
-                    className="font-mono text-xs text-[var(--studio-text-muted)]"
-                    style={{ fontFamily: "var(--font-mono-display)" }}
+                    className="font-mono text-xs text-muted-foreground"
                   >
                     {formatDate(v.publishedAt)}
                   </span>
@@ -824,7 +794,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
             target="_blank"
             rel="noreferrer"
             data-event="click_youtube_channel"
-            className="inline-flex items-center gap-2 rounded-full border-2 border-[var(--neon-amber)] px-6 py-3 text-base font-semibold text-[var(--neon-amber)] transition hover:bg-[var(--neon-amber)] hover:text-[var(--studio-bg)]"
+            className="inline-flex items-center gap-2 rounded-full border-2 border-accent px-6 py-3 text-base font-semibold text-accent transition hover:bg-accent hover:text-background"
           >
             前往 YouTube 頻道 <ExternalLink className="h-4 w-4" />
           </a>
@@ -846,41 +816,38 @@ function SocialFollow() {
   return (
     <section
       id="social"
-      className="border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
+      className="border-b border-border bg-surface px-6 py-20"
     >
       <div className="mx-auto max-w-4xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),260px] lg:items-start">
           <div>
             <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-[var(--neon-magenta)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
             >
               // SOCIAL_FOLLOW
             </p>
             <h2
-              className="text-3xl font-medium text-[var(--studio-text)] sm:text-4xl"
-              style={{ fontFamily: "var(--font-display)", letterSpacing: "-0.03em" }}
+              className="text-3xl font-medium text-foreground sm:text-4xl"
             >
               想看幕後與碎念，再追社群。
             </h2>
-            <p className="mt-3 max-w-2xl text-[var(--studio-text-muted)] sm:text-lg">
+            <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
               社群這一區不是主收聽入口，而是節目外延伸：短想法、幕後花絮、影片片段和即時互動都在這裡。
             </p>
           </div>
 
-          <div className="rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5">
+          <div className="rounded-[1.5rem] border border-border bg-background p-5">
             <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
-              style={{ fontFamily: "var(--font-mono-display)" }}
+              className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
             >
               GOOD TO KNOW
             </p>
-            <p className="mt-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               想完整收聽每一集，還是建議先到上方平台訂閱；社群比較適合追幕後內容與主持人的即時狀態。
             </p>
             <a
               href="#tune-in"
-              className="mt-4 inline-flex items-center gap-2 rounded-full border border-[var(--studio-border)] bg-[var(--studio-surface)] px-4 py-2.5 text-sm font-semibold text-[var(--studio-text)] transition hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
+              className="mt-4 inline-flex items-center gap-2 rounded-full border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
             >
               <Headphones className="h-4 w-4" />
               回到收聽平台
@@ -898,24 +865,23 @@ function SocialFollow() {
               data-event="click_social"
               data-platform={s.key}
               aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
-              className="group flex items-start gap-4 rounded-[1.5rem] border border-[var(--studio-border)] bg-[var(--studio-bg)] p-5 transition hover:-translate-y-0.5 hover:border-[var(--neon-magenta)] hover:shadow-[var(--shadow-neon-magenta)]"
+              className="group flex items-start gap-4 rounded-[1.5rem] border border-border bg-background p-5 transition hover:-translate-y-0.5 hover:border-accent"
             >
               <PlatformGlyph keyName={s.key} />
               <div className="min-w-0 flex-1">
-                <div className="text-base font-bold text-[var(--studio-text)] group-hover:text-[var(--neon-magenta)]">
+                <div className="text-base font-bold text-foreground group-hover:text-accent">
                   {s.name}
                 </div>
                 <div
-                  className="mt-1 truncate font-mono text-xs text-[var(--studio-text-muted)]"
-                  style={{ fontFamily: "var(--font-mono-display)" }}
+                  className="mt-1 truncate font-mono text-xs text-muted-foreground"
                 >
                   {s.handle}
                 </div>
-                <p className="mt-3 text-sm leading-relaxed text-[var(--studio-text-muted)]">
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
                   {socialNotes[s.key] ?? s.description}
                 </p>
               </div>
-              <ExternalLink className="h-4 w-4 shrink-0 text-[var(--studio-text-muted)] group-hover:text-[var(--neon-magenta)]" />
+              <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-accent" />
             </a>
           ))}
         </div>
@@ -937,7 +903,7 @@ export default function EnianLanding({
   return (
     <>
       <TopNav />
-      <main id="main" className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
+      <main id="main" className="min-h-screen bg-background text-foreground">
         <Hero />
         <WhoFor />
         <Topics />

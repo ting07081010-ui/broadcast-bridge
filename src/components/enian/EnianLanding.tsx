@@ -444,27 +444,33 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
 // ─────────── ABOUT HOST ───────────
 function AboutHost() {
   return (
-    <section id="about-host" className="border-b border-border bg-background px-6 py-20">
-      <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[auto,1fr] md:items-center">
+    <section id="about-host" className="border-b border-border">
+      <div
+        className={cn(
+          CONTAINER,
+          SECTION_Y,
+          "grid gap-8 md:grid-cols-[auto_minmax(0,1fr)] md:items-center md:gap-14",
+        )}
+      >
         <img
           src={PODCAST.avatarUrl}
           alt={`${PODCAST.hostName} 主持人照`}
-          width={160}
-          height={160}
-          sizes="160px"
-          className="mx-auto h-40 w-40 rounded-2xl border-2 border-accent object-cover md:mx-0"
+          width={208}
+          height={208}
+          sizes="(min-width: 640px) 208px, 144px"
+          className="h-36 w-36 rounded-2xl border border-border object-cover sm:h-52 sm:w-52"
           loading="lazy"
           decoding="async"
         />
-        <div>
+        <div className="max-w-2xl">
           <Eyebrow>主持人</Eyebrow>
-          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">關於主持人</h2>
-          <p className="mt-2 text-lg font-semibold text-foreground">
-            {PODCAST.hostName} ／ TYPE: E 人 (Extravert)
-          </p>
-          <p className="mt-4 leading-relaxed text-muted-foreground">
+          <h2 className="text-[26px] font-semibold leading-[1.25] tracking-tight text-foreground sm:text-[32px]">
+            關於主持人
+          </h2>
+          <p className="mt-2 text-lg font-medium text-foreground">{PODCAST.hostName}</p>
+          <p className="mt-4 text-base leading-relaxed text-muted-foreground sm:text-[17px]">
             雖然外表看起來有點宅宅的，但內心充滿了 E
-            人能量。喜歡碎碎念，是因為腦袋運轉太快——如果不說出來會過熱。 「I 碎念」是為了釋放 E
+            人能量。喜歡碎碎念，是因為腦袋運轉太快——如果不說出來會過熱。「I 碎念」是為了釋放 E
             能量。日常涉獵資安、AI、家庭、信仰與社會時事，把生活中的小事拆成值得思考的大事。
           </p>
         </div>

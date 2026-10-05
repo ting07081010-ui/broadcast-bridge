@@ -10,11 +10,11 @@
  * The @theme inline block maps CSS custom properties to Tailwind utility
  * classes (e.g. --color-primary -> bg-primary, text-primary).
  *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
+ * The :root block defines the actual color values using oklch.
+ * All colors MUST use oklch format. The site is dark-only.
  *
  * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
+ * 1. Add the variable to :root
  * 2. Register it in @theme inline as --color-<name>: var(--<name>)
  */
 
@@ -62,108 +62,91 @@
 }
 
 :root {
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.129 0.042 264.695);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.129 0.042 264.695);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.129 0.042 264.695);
-  --primary: oklch(0.208 0.042 265.755);
-  --primary-foreground: oklch(0.984 0.003 247.858);
-  --secondary: oklch(0.968 0.007 247.896);
-  --secondary-foreground: oklch(0.208 0.042 265.755);
-  --muted: oklch(0.968 0.007 247.896);
-  --muted-foreground: oklch(0.554 0.046 257.417);
-  --accent: oklch(0.968 0.007 247.896);
-  --accent-foreground: oklch(0.208 0.042 265.755);
-  --destructive: oklch(0.577 0.245 27.325);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(0.929 0.013 255.508);
-  --input: oklch(0.929 0.013 255.508);
-  --ring: oklch(0.704 0.04 256.788);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.984 0.003 247.858);
-  --sidebar-foreground: oklch(0.129 0.042 264.695);
-  --sidebar-primary: oklch(0.208 0.042 265.755);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.968 0.007 247.896);
-  --sidebar-accent-foreground: oklch(0.208 0.042 265.755);
-  --sidebar-border: oklch(0.929 0.013 255.508);
-  --sidebar-ring: oklch(0.704 0.04 256.788);
+  color-scheme: dark;
+
+  /* ───── E 人 I 碎念 — Night Radio Human（夜間電台・紙感人情）─────
+   * 單一暖琥珀主色＋紙白文字＋青灰輔色；預設不使用漸層。
+   * 對比（WCAG 2.x）：text/bg 16.6、text-muted/bg 7.0、accent/bg 6.7、accent-2/bg 6.6。
+   * 禁用：紙白字放在琥珀底（僅 2.5:1）；琥珀底一律配 --bg 深字。
+   */
+  --bg: oklch(0.1831 0.004 285.99); /* #121214 */
+  --surface: oklch(0.2277 0.0057 285.93); /* #1c1c1f */
+  --surface-2: oklch(0.2702 0.0073 285.9); /* #26262a */
+  --border: oklch(0.3507 0.0103 285.86); /* #3a3a40 */
+  --text: oklch(0.9585 0.0098 87.47); /* #f4f1ea 紙白 */
+  --text-muted: oklch(0.7011 0.0129 79.77); /* #a39e96 暖灰 */
+  --accent: oklch(0.6952 0.121 58.83); /* #d4894a 暖琥珀 */
+  --accent-2: oklch(0.6819 0.0553 239.98); /* #7a9eb8 青灰 */
+  --live: oklch(0.6965 0.1016 148.72); /* #6faf7a */
+  --danger: oklch(0.6396 0.1336 10.23); /* #cf6679 */
+
+  --radius: 0.75rem;
+  --shadow-soft: 0 8px 24px oklch(0 0 0 / 0.35);
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* shadcn 語意 token 對應到同一組色票（全站僅深色模式） */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --card: var(--surface);
+  --card-foreground: var(--text);
+  --popover: var(--surface);
+  --popover-foreground: var(--text);
+  --primary: var(--text);
+  --primary-foreground: var(--bg);
+  --secondary: var(--surface-2);
+  --secondary-foreground: var(--text);
+  --muted: var(--surface-2);
+  --muted-foreground: var(--text-muted);
+  --accent-foreground: var(--bg);
+  --destructive: var(--danger);
+  --destructive-foreground: var(--bg);
+  --input: var(--border);
+  --ring: var(--accent);
+  --chart-1: var(--accent);
+  --chart-2: var(--accent-2);
+  --chart-3: var(--live);
+  --chart-4: var(--text-muted);
+  --chart-5: var(--danger);
+  --sidebar: var(--surface);
+  --sidebar-foreground: var(--text);
+  --sidebar-primary: var(--text);
+  --sidebar-primary-foreground: var(--bg);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--text);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--accent);
+
+  /* 過渡期別名：舊類名一次換膚、零破版（清理階段刪除） */
+  --studio-bg: var(--bg);
+  --studio-surface: var(--surface);
+  --studio-surface-2: var(--surface-2);
+  --studio-border: var(--border);
+  --studio-text: var(--text);
+  --studio-text-muted: var(--text-muted);
+  --neon-cyan: var(--accent-2);
+  --neon-amber: var(--accent);
+  --neon-magenta: var(--accent);
+  --neon-lime: var(--live);
+  --gradient-neon: none;
+  --shadow-neon-cyan: none;
+  --shadow-neon-magenta: none;
+  --font-display: var(--font-sans);
+  --font-body: var(--font-sans);
+  --font-mono-display: var(--font-mono);
 }
 
-.dark {
-  --background: oklch(0.129 0.042 264.695);
-  --foreground: oklch(0.984 0.003 247.858);
-  --card: oklch(0.208 0.042 265.755);
-  --card-foreground: oklch(0.984 0.003 247.858);
-  --popover: oklch(0.208 0.042 265.755);
-  --popover-foreground: oklch(0.984 0.003 247.858);
-  --primary: oklch(0.929 0.013 255.508);
-  --primary-foreground: oklch(0.208 0.042 265.755);
-  --secondary: oklch(0.279 0.041 260.031);
-  --secondary-foreground: oklch(0.984 0.003 247.858);
-  --muted: oklch(0.279 0.041 260.031);
-  --muted-foreground: oklch(0.704 0.04 256.788);
-  --accent: oklch(0.279 0.041 260.031);
-  --accent-foreground: oklch(0.984 0.003 247.858);
-  --destructive: oklch(0.704 0.191 22.216);
-  --destructive-foreground: oklch(0.984 0.003 247.858);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.551 0.027 264.364);
-  --chart-1: oklch(0.488 0.243 264.376);
-  --chart-2: oklch(0.696 0.17 162.48);
-  --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
-  --sidebar: oklch(0.208 0.042 265.755);
-  --sidebar-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-accent: oklch(0.279 0.041 260.031);
-  --sidebar-accent-foreground: oklch(0.984 0.003 247.858);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.551 0.027 264.364);
-}
-
-/* ───── E 人 I 碎念 — Neon Broadcast Studio tokens ───── */
-:root {
-  --studio-bg: oklch(0.17 0.004 286);
-  --studio-surface: oklch(0.22 0.004 286);
-  --studio-surface-2: oklch(0.26 0.006 286);
-  --studio-border: oklch(0.32 0.008 286 / 0.8);
-  --studio-text: oklch(0.99 0 0);
-  --studio-text-muted: oklch(0.72 0 0);
-  --neon-cyan: oklch(0.67 0.17 251);
-  --neon-magenta: oklch(0.68 0.24 327);
-  --neon-lime: oklch(0.74 0.18 148);
-  --neon-amber: oklch(0.76 0.18 45);
-  --gradient-neon: linear-gradient(
-    135deg,
-    var(--neon-magenta),
-    oklch(0.58 0.23 286),
-    var(--neon-amber)
-  );
-  --shadow-neon-cyan:
-    0 0 0 1px color-mix(in oklab, var(--neon-cyan) 32%, transparent),
-    0 18px 48px -24px color-mix(in oklab, var(--neon-cyan) 45%, transparent);
-  --shadow-neon-magenta:
-    0 0 0 1px color-mix(in oklab, var(--neon-magenta) 28%, transparent),
-    0 18px 48px -24px color-mix(in oklab, var(--neon-magenta) 40%, transparent);
-  --font-display:
-    "GT Walsheim Framer Medium", "GT Walsheim Medium", "Inter", "SF Pro Display", system-ui,
-    sans-serif;
-  --font-body: "Inter Variable", "Inter", "SF Pro Text", system-ui, sans-serif;
-  --font-mono-display: ui-monospace, "JetBrains Mono", "Fira Code", "SF Mono", Menlo, monospace;
+@theme {
+  /* Inter 負責英數，繁中交給系統字；Mono 僅用於頻率／Live 狀態 */
+  --font-sans:
+    "Inter", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
 @theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-accent-2: var(--accent-2);
+  --color-live: var(--live);
   --color-studio-bg: var(--studio-bg);
   --color-studio-surface: var(--studio-surface);
   --color-studio-surface-2: var(--studio-surface-2);
@@ -235,6 +218,15 @@ section[id] {
   scroll-margin-top: 4.5rem;
 }
 
+/* 首屏唯一光暈：單色、透明度 ≤ 8% */
+.enian-hero-glow {
+  background-image: radial-gradient(
+    60% 70% at 85% 0%,
+    color-mix(in oklab, var(--accent) 8%, transparent),
+    transparent 70%
+  );
+}
+
 .enian-skip-link {
   position: absolute;
   left: 1rem;
@@ -262,6 +254,6 @@ section[id] {
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
-    font-family: var(--font-body);
+    font-family: var(--font-sans);
   }
 }

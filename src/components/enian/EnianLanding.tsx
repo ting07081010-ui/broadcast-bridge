@@ -80,11 +80,7 @@ function Hero() {
   return (
     <section
       id="top"
-      className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 pb-20 pt-10 sm:pt-16"
-      style={{
-        background:
-          "radial-gradient(circle at 18% 14%, color-mix(in oklab, var(--neon-magenta) 34%, transparent), transparent 38%), radial-gradient(circle at 83% 16%, color-mix(in oklab, var(--neon-amber) 28%, transparent), transparent 34%), radial-gradient(circle at 68% 58%, color-mix(in oklab, var(--neon-cyan) 18%, transparent), transparent 42%), var(--studio-bg)",
-      }}
+      className="enian-scanlines enian-hero-glow relative overflow-hidden border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 pb-20 pt-10 sm:pt-16"
     >
       <div className="mx-auto max-w-6xl">
         {/* Top status bar */}
@@ -170,17 +166,11 @@ function Hero() {
 
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
             <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-3">
-              <div
-                className="rounded-[1.4rem] p-6 text-[var(--studio-text)]"
-                style={{
-                  background:
-                    "radial-gradient(circle at top left, color-mix(in oklab, var(--neon-magenta) 52%, transparent), transparent 36%), linear-gradient(160deg, color-mix(in oklab, var(--neon-magenta) 22%, var(--studio-surface-2)), color-mix(in oklab, var(--neon-cyan) 14%, var(--studio-bg)))",
-                }}
-              >
+              <div className="rounded-[1.4rem] bg-[var(--studio-surface-2)] p-6 text-[var(--studio-text)]">
                 <div className="flex items-center justify-between gap-4">
                   <div>
                     <p
-                      className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/70"
+                      className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
                       style={{ fontFamily: "var(--font-mono-display)" }}
                     >
                       HOSTED BY
@@ -198,28 +188,22 @@ function Hero() {
                     width={96}
                     height={96}
                     sizes="96px"
-                    className="h-24 w-24 rounded-[1.5rem] border border-white/15 object-cover"
+                    className="h-24 w-24 rounded-[1.5rem] border border-[var(--studio-border)] object-cover"
                     loading="eager"
                     decoding="async"
                     fetchPriority="high"
                   />
                 </div>
-                <p className="mt-6 max-w-xs text-sm leading-relaxed text-white/78">
+                <p className="mt-6 max-w-xs text-sm leading-relaxed text-[var(--studio-text-muted)]">
                   {PODCAST.tagline}。把太複雜的議題，講成能在日常裡真正聽懂的內容。
                 </p>
               </div>
             </div>
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div
-                className="rounded-[1.75rem] p-5 text-[var(--studio-text)]"
-                style={{
-                  background:
-                    "linear-gradient(155deg, color-mix(in oklab, var(--neon-amber) 82%, black 18%), color-mix(in oklab, var(--neon-magenta) 64%, black 36%))",
-                }}
-              >
+              <div className="rounded-[1.75rem] border border-[var(--studio-border)] bg-[var(--studio-surface)] p-5 text-[var(--studio-text)]">
                 <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-white/70"
+                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-[var(--studio-text-muted)]"
                   style={{ fontFamily: "var(--font-mono-display)" }}
                 >
                   WHY LISTEN
@@ -603,11 +587,7 @@ function Mission() {
   return (
     <section
       id="mission"
-      className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] px-6 py-20"
-      style={{
-        background:
-          "radial-gradient(circle at 50% 0%, color-mix(in oklab, var(--neon-magenta) 25%, transparent), transparent 60%), var(--studio-surface)",
-      }}
+      className="enian-scanlines relative overflow-hidden border-b border-[var(--studio-border)] bg-[var(--studio-surface)] px-6 py-20"
     >
       <div className="mx-auto max-w-3xl text-center">
         <p
@@ -626,7 +606,7 @@ function Mission() {
         <a
           href="#tune-in"
           data-event="click_cta_mission"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--neon-magenta)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-magenta)] transition hover:scale-[1.02]"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] transition hover:opacity-90"
         >
           <Headphones className="h-5 w-5" />
           加入廣播基地
@@ -801,7 +781,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
               rel="noreferrer"
               data-event="click_youtube_video"
               data-video-id={v.id}
-              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] transition hover:-translate-y-0.5 hover:border-[var(--neon-amber)] hover:shadow-[0_0_30px_-5px_var(--neon-amber)]"
+              className="group flex flex-col overflow-hidden rounded-xl border border-[var(--studio-border)] bg-[var(--studio-surface)] transition hover:-translate-y-0.5 hover:border-[var(--neon-amber)]"
             >
               <div className="relative aspect-video overflow-hidden bg-[var(--studio-surface-2)]">
                 <img
@@ -816,7 +796,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
                   className="h-full w-full object-cover transition group-hover:scale-105"
                 />
                 <span className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--neon-amber)] text-[var(--studio-bg)] shadow-lg">
+                  <span className="flex h-14 w-14 items-center justify-center rounded-full bg-[var(--neon-amber)] text-[var(--studio-bg)]">
                     <Play className="h-6 w-6 fill-current" />
                   </span>
                 </span>

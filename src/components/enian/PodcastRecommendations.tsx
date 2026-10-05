@@ -158,11 +158,7 @@ export default function PodcastRecommendations() {
       <main id="main" className="min-h-screen bg-[var(--studio-bg)] text-[var(--studio-text)]">
         <section
           id="top"
-          className="relative overflow-hidden border-b border-[var(--studio-border)] px-6 pb-16 pt-10"
-          style={{
-            background:
-              "radial-gradient(circle at 18% 14%, color-mix(in oklab, var(--neon-magenta) 28%, transparent), transparent 38%), radial-gradient(circle at 83% 16%, color-mix(in oklab, var(--neon-amber) 22%, transparent), transparent 34%), radial-gradient(circle at 68% 58%, color-mix(in oklab, var(--neon-cyan) 14%, transparent), transparent 42%), var(--studio-bg)",
-          }}
+          className="relative overflow-hidden border-b border-[var(--studio-border)] bg-[var(--studio-bg)] px-6 pb-16 pt-10"
         >
           <div className="mx-auto max-w-5xl">
             <a
@@ -212,7 +208,7 @@ export default function PodcastRecommendations() {
                     onClick={() => setActiveCategory(cat)}
                     className={`rounded-full px-4 py-2 text-sm font-semibold transition ${
                       active
-                        ? "bg-[var(--neon-magenta)] text-[var(--studio-bg)]"
+                        ? "bg-[var(--studio-text)] text-[var(--studio-bg)]"
                         : "border border-[var(--studio-border)] bg-[var(--studio-surface)] text-[var(--studio-text-muted)] hover:border-[var(--neon-cyan)] hover:text-[var(--neon-cyan)]"
                     }`}
                   >
@@ -287,7 +283,7 @@ export default function PodcastRecommendations() {
               <a
                 href="/#tune-in"
                 data-event="click_cta_rec_page"
-                className="inline-flex items-center gap-2 rounded-full bg-[var(--neon-magenta)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] shadow-[var(--shadow-neon-magenta)] transition hover:scale-[1.02]"
+                className="inline-flex items-center gap-2 rounded-full bg-[var(--studio-text)] px-7 py-3.5 text-base font-bold text-[var(--studio-bg)] transition hover:opacity-90"
               >
                 <Headphones className="h-5 w-5" />
                 訂閱 E 人 I 碎念

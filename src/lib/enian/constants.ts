@@ -92,14 +92,14 @@ export const PLATFORMS: Array<{
   },
 ];
 
-// Hero 主 / 次 CTA 預設指向 Spotify / 最新一集 anchor
+// Hero 主 / 次 CTA：首頁轉換路徑為「先聽一集 → 選平台訂閱」
 export const PRIMARY_CTA = {
-  label: "選平台立即訂閱",
+  label: "選平台訂閱",
   href: "#tune-in",
 };
 
 export const SECONDARY_CTA = {
-  label: "先聽三集推薦",
+  label: "先聽一集",
   href: "#first-listen",
 };
 

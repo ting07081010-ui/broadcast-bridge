@@ -130,18 +130,19 @@
   --color-live: var(--live);
 }
 
+/* 全站唯一的常駐動畫：Live 點呼吸，2s、opacity 0.4–1 */
 @keyframes enian-pulse {
   0%,
   100% {
     opacity: 1;
   }
   50% {
-    opacity: 0.55;
+    opacity: 0.4;
   }
 }
 
 .enian-pulse-dot {
-  animation: enian-pulse 1.8s ease-in-out infinite;
+  animation: enian-pulse 2s ease-in-out infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {

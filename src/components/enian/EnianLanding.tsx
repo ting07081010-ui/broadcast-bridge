@@ -84,6 +84,59 @@ function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
 }
 
 // ─────────── HERO ───────────
+const DIAL_MIN_MHZ = 88;
+const DIAL_MAX_MHZ = 108;
+const DIAL_LABELS = [88, 92, 96, 100, 104, 108];
+
+/** FM 調頻刻度：指針停在節目頻率上（純裝飾，取代原本的彩色光暈）。 */
+function TunerDial() {
+  const station = Number.parseFloat(PODCAST.frequency.replace(/[^\d.]/g, "")) || 92.1;
+  const x = (mhz: number) => 10 + ((mhz - DIAL_MIN_MHZ) / (DIAL_MAX_MHZ - DIAL_MIN_MHZ)) * 280;
+  const ticks = Array.from(
+    { length: (DIAL_MAX_MHZ - DIAL_MIN_MHZ) * 2 + 1 },
+    (_, i) => DIAL_MIN_MHZ + i / 2,
+  );
+  return (
+    <svg viewBox="0 0 300 46" className="mt-5 w-full" aria-hidden="true">
+      {ticks.map((mhz) => {
+        const isLabelled = mhz % 4 === 0;
+        const isWhole = Number.isInteger(mhz);
+        return (
+          <line
+            key={mhz}
+            x1={x(mhz)}
+            x2={x(mhz)}
+            y1={isLabelled ? 8 : isWhole ? 15 : 19}
+            y2={26}
+            strokeWidth={1}
+            className={isLabelled ? "stroke-muted-foreground" : "stroke-border"}
+          />
+        );
+      })}
+      {DIAL_LABELS.map((mhz) => (
+        <text
+          key={mhz}
+          x={x(mhz)}
+          y={42}
+          textAnchor="middle"
+          className="fill-muted-foreground font-mono text-[9px]"
+        >
+          {mhz}
+        </text>
+      ))}
+      <line
+        x1={x(station)}
+        x2={x(station)}
+        y1={3}
+        y2={30}
+        strokeWidth={2}
+        strokeLinecap="round"
+        className="stroke-accent"
+      />
+    </svg>
+  );
+}
+
 function Hero() {
   const proofItems = [
     "週一到週六固定更新",
@@ -92,117 +145,94 @@ function Hero() {
   ];
 
   return (
-    <section
-      id="top"
-      className="enian-hero-glow relative overflow-hidden border-b border-border bg-background px-6 pb-20 pt-10 sm:pt-16"
-    >
-      <div className="mx-auto max-w-6xl">
-        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px] lg:items-end">
-          <div className="max-w-3xl">
-            <p className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-medium text-muted-foreground">
-              <span className="inline-flex items-center gap-2 font-mono text-xs tracking-wider text-live">
-                <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
-                {PODCAST.frequency}
-              </span>
-              <span aria-hidden="true" className="h-3 w-px bg-border" />
-              <span>中文 Podcast・週一到週六更新</span>
-            </p>
-            <h1 className="text-[3.6rem] font-medium leading-[0.92] text-foreground sm:text-[4.75rem] lg:text-[6rem]">
-              把科技、信仰與家庭，
-              <br className="hidden sm:block" />
-              聊成你每天都想打開的一集。
-            </h1>
-            <p className="mt-5 text-xl font-semibold text-foreground sm:text-2xl">
-              《{PODCAST.name}》由 {PODCAST.hostName} 主持，
-              用白話又有梗的方式拆解科技、資安、家庭、信仰與社會觀察。
-            </p>
-            <p className="mt-4 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
-              如果你想在通勤、開車、做家事的空檔，聽到一個不裝懂、也不說教的中文 Podcast，
-              這裡就是入口。每週一到週六更新，讓你每天都有一個值得打開的新主題。
-            </p>
+    <section id="top" className="enian-hero-glow border-b border-border">
+      <div
+        className={cn(
+          CONTAINER,
+          "grid gap-10 pb-12 pt-8 sm:pt-14 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-center lg:gap-14 lg:pb-20 lg:pt-20",
+        )}
+      >
+        <div>
+          <p className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-medium text-muted-foreground">
+            <span className="inline-flex items-center gap-2 font-mono text-xs tracking-wider text-live">
+              <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
+              {PODCAST.frequency}
+            </span>
+            <span aria-hidden="true" className="h-3 w-px bg-border" />
+            <span>中文 Podcast・週一到週六更新</span>
+          </p>
+          <h1 className="text-[34px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground sm:text-[44px] xl:text-[52px]">
+            把科技、信仰與家庭，
+            <br className="hidden sm:block" />
+            聊成你每天都想打開的一集。
+          </h1>
+          <p className="mt-5 max-w-xl text-[17px] leading-relaxed text-foreground sm:text-lg sm:leading-relaxed">
+            《{PODCAST.name}》由 {PODCAST.hostName} 主持，
+            用白話又有梗的方式拆解科技、資安、家庭、信仰與社會觀察。
+          </p>
+          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-muted-foreground sm:text-base sm:leading-relaxed">
+            通勤、開車、做家事的空檔，聽一個不裝懂、也不說教的中文 Podcast。
+          </p>
 
-            <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href={PRIMARY_CTA.href}
-                data-event="click_cta_primary"
-                data-location="hero"
-                className="inline-flex items-center gap-2 rounded-lg bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
-              >
-                <Headphones className="h-5 w-5" />
-                {PRIMARY_CTA.label}
-              </a>
-              <a
-                href={SECONDARY_CTA.href}
-                data-event="click_cta_secondary"
-                data-location="hero"
-                className="inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-6 py-3 text-base font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
-              >
-                <Play className="h-4 w-4" />
-                {SECONDARY_CTA.label}
-              </a>
-            </div>
-
-            <div className="mt-8 grid gap-3 sm:grid-cols-3">
-              {proofItems.map((item, idx) => (
-                <div
-                  key={item}
-                  className="rounded-xl border border-border bg-surface/88 p-4 text-sm leading-relaxed text-foreground"
-                >
-                  <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                    0{idx + 1}
-                  </div>
-                  <p className="mt-2">{item}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-            <div className="rounded-xl border border-border bg-surface p-3">
-              <div className="rounded-xl bg-surface-2 p-6 text-foreground">
-                <div className="flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-[13px] font-medium text-muted-foreground">主持人</p>
-                    <h2 className="mt-2 text-3xl font-medium leading-none">{PODCAST.hostName}</h2>
-                  </div>
-                  <img
-                    src={PODCAST.avatarUrl}
-                    alt={`${PODCAST.name} 主持人 ${PODCAST.hostName} 頭像`}
-                    width={96}
-                    height={96}
-                    sizes="96px"
-                    className="h-24 w-24 rounded-xl border border-border object-cover"
-                    loading="eager"
-                    decoding="async"
-                    fetchPriority="high"
-                  />
-                </div>
-                <p className="mt-6 max-w-xs text-sm leading-relaxed text-muted-foreground">
-                  {PODCAST.tagline}。把太複雜的議題，講成能在日常裡真正聽懂的內容。
-                </p>
-              </div>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
-              <div className="rounded-xl border border-border bg-surface p-5 text-foreground">
-                <p className="text-[13px] font-medium text-muted-foreground">為什麼聽</p>
-                <p className="mt-10 max-w-[12rem] text-2xl font-semibold leading-tight">
-                  通勤時段也能聽懂的中文深度內容。
-                </p>
-              </div>
-
-              <div className="rounded-xl border border-border bg-surface p-5 text-foreground">
-                <p className="text-[13px] font-medium text-muted-foreground">每週節奏</p>
-                <p className="mt-3 text-lg font-semibold leading-snug">
-                  一週六天，一天一個固定節目單元。
-                </p>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  想先試水溫，直接按「先聽三集推薦」；想穩定追更新，就直接選你常用的平台訂閱。
-                </p>
-              </div>
-            </div>
+          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
+            <a
+              href={PRIMARY_CTA.href}
+              data-event="click_cta_primary"
+              data-location="hero"
+              className={BTN_PRIMARY}
+            >
+              <Headphones className="h-4 w-4" aria-hidden="true" />
+              {PRIMARY_CTA.label}
+            </a>
+            <a
+              href={SECONDARY_CTA.href}
+              data-event="click_cta_secondary"
+              data-location="hero"
+              className={BTN_SECONDARY}
+            >
+              <Play className="h-4 w-4" aria-hidden="true" />
+              {SECONDARY_CTA.label}
+            </a>
           </div>
         </div>
+
+        <aside className="rounded-xl border border-border bg-surface p-5 sm:p-6">
+          <div className="flex items-center gap-4 lg:flex-col lg:items-start lg:gap-5">
+            <img
+              src={PODCAST.avatarUrl}
+              alt={`${PODCAST.name} 主持人 ${PODCAST.hostName} 頭像`}
+              width={112}
+              height={112}
+              sizes="(min-width: 1024px) 112px, 64px"
+              className="h-16 w-16 rounded-xl border border-border object-cover lg:h-28 lg:w-28"
+              loading="eager"
+              decoding="async"
+              fetchPriority="high"
+            />
+            <div>
+              <p className="text-[13px] font-medium text-muted-foreground">主持人</p>
+              <p className="mt-1 text-xl font-semibold tracking-tight text-foreground">
+                {PODCAST.hostName}
+              </p>
+            </div>
+          </div>
+          <p className="mt-4 text-[15px] leading-relaxed text-muted-foreground">
+            {PODCAST.tagline}。把太複雜的議題，講成能在日常裡真正聽懂的內容。
+          </p>
+          <TunerDial />
+        </aside>
+      </div>
+
+      {/* 信任條：三個文字事實，不再用大卡 */}
+      <div className={CONTAINER}>
+        <ul className="grid gap-x-8 gap-y-2.5 border-t border-border py-5 text-sm text-muted-foreground sm:grid-cols-3">
+          {proofItems.map((item) => (
+            <li key={item} className="flex items-start gap-2.5">
+              <Check className="mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
       </div>
     </section>
   );

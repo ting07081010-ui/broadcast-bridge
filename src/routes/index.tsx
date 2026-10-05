@@ -31,6 +31,7 @@ export const Route = createFileRoute("/")({
       { name: "twitter:description", content: SEO_DESC },
       { name: "twitter:image", content: new URL(PODCAST.avatarUrl, SITE_URL).href },
     ],
+    links: [{ rel: "canonical", href: SITE_URL }],
     scripts: [
       {
         type: "application/ld+json",

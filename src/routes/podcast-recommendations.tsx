@@ -20,6 +20,7 @@ export const Route = createFileRoute("/podcast-recommendations")({
       { name: "twitter:title", content: SEO_TITLE },
       { name: "twitter:description", content: SEO_DESC },
     ],
+    links: [{ rel: "canonical", href: PAGE_URL }],
     scripts: [
       {
         type: "application/ld+json",

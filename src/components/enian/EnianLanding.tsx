@@ -1,4 +1,7 @@
 import {
+  ArrowRight,
+  ArrowUpRight,
+  Check,
   Headphones,
   Play,
   Radio,
@@ -24,8 +27,19 @@ import {
 } from "@/lib/enian/constants";
 import type { Episode } from "@/lib/enian/episodes.functions";
 import type { YouTubeVideo } from "@/lib/enian/youtube.functions";
+import { dedupeVideos, stripHashtags } from "@/lib/enian/videos";
+import {
+  BTN_PRIMARY,
+  BTN_SECONDARY,
+  CONTAINER,
+  SCROLL_ROW,
+  SCROLL_ROW_ITEM,
+  SECTION_Y,
+  TEXT_LINK,
+} from "@/lib/enian/ui";
+import { cn } from "@/lib/utils";
 import TopNav from "./TopNav";
-import { Eyebrow } from "./primitives";
+import { Eyebrow, PlatformIcon, SectionHeader } from "./primitives";
 import Faq from "./Faq";
 import Contact from "./Contact";
 
@@ -595,69 +609,72 @@ function Footer() {
 
 // ─────────── YOUTUBE LATEST ───────────
 function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
-  if (!videos || videos.length === 0) return null;
+  // 同一集的雙影片只留一支，最多 3 支
+  const picks = dedupeVideos(videos ?? [], 3);
+  if (picks.length === 0) return null;
   const channelUrl = PLATFORMS.find((p) => p.key === "youtube")?.url ?? "#";
   return (
-    <section id="youtube" className="border-b border-border bg-background px-6 py-20">
-      <div className="mx-auto max-w-5xl">
-        <Eyebrow>影片版</Eyebrow>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">YouTube 最新影片</h2>
-        <p className="mt-3 text-muted-foreground">想看影片版？最新幾集都在這。</p>
-
-        <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {videos.map((v) => (
-            <a
-              key={v.id}
-              href={v.url}
-              target="_blank"
-              rel="noreferrer"
-              data-event="click_youtube_video"
-              data-video-id={v.id}
-              className="group flex flex-col overflow-hidden rounded-xl border border-border bg-surface transition hover:border-accent"
-            >
-              <div className="relative aspect-video overflow-hidden bg-surface-2">
-                <img
-                  src={v.thumbnail}
-                  alt={v.title}
-                  width={480}
-                  height={360}
-                  sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
-                  loading="lazy"
-                  decoding="async"
-                  fetchPriority="low"
-                  className="h-full w-full object-cover transition"
-                />
-                <span className="absolute inset-0 flex items-center justify-center opacity-0 transition group-hover:opacity-100">
-                  <span className="flex h-14 w-14 items-center justify-center rounded-lg bg-accent text-background">
-                    <Play className="h-6 w-6 fill-current" />
-                  </span>
-                </span>
-              </div>
-              <div className="flex flex-1 flex-col gap-2 p-4">
-                <h3 className="line-clamp-2 text-base font-bold leading-snug text-foreground group-hover:text-accent">
-                  {v.title}
-                </h3>
-                {v.publishedAt && (
-                  <span className="font-mono text-xs text-muted-foreground">
-                    {formatDate(v.publishedAt)}
-                  </span>
-                )}
-              </div>
-            </a>
-          ))}
-        </div>
-
-        <div className="mt-8 text-center">
+    <section id="youtube" className="border-b border-border">
+      <div className={cn(CONTAINER, SECTION_Y)}>
+        <div className="flex flex-wrap items-end justify-between gap-x-8 gap-y-5">
+          <SectionHeader
+            eyebrow="影片版"
+            title="YouTube 最新影片"
+            lead="想看影片版？最新幾集都在這。"
+          />
           <a
             href={channelUrl}
             target="_blank"
             rel="noreferrer"
             data-event="click_youtube_channel"
-            className="inline-flex items-center gap-2 rounded-lg border-2 border-accent px-6 py-3 text-base font-semibold text-accent transition hover:bg-accent hover:text-background"
+            className={BTN_SECONDARY}
           >
-            前往 YouTube 頻道 <ExternalLink className="h-4 w-4" />
+            前往 YouTube 頻道 <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
+
+        <ul className={cn(SCROLL_ROW, "mt-8")}>
+          {picks.map((v) => {
+            const title = stripHashtags(v.title);
+            return (
+              <li key={v.id} className={SCROLL_ROW_ITEM}>
+                <a
+                  href={v.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-event="click_youtube_video"
+                  data-video-id={v.id}
+                  className="group block"
+                >
+                  <div className="relative aspect-video overflow-hidden rounded-xl border border-border bg-surface-2">
+                    <img
+                      src={v.thumbnail}
+                      alt={v.title}
+                      width={480}
+                      height={360}
+                      sizes="(min-width: 768px) 360px, 80vw"
+                      loading="lazy"
+                      decoding="async"
+                      fetchPriority="low"
+                      className="h-full w-full object-cover"
+                    />
+                    <span className="absolute bottom-3 left-3 flex h-9 w-9 items-center justify-center rounded-lg bg-background/85 text-foreground transition-colors duration-200 group-hover:bg-accent group-hover:text-background">
+                      <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                    </span>
+                  </div>
+                  <h3 className="mt-3 line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors duration-200 group-hover:text-accent">
+                    {title}
+                  </h3>
+                  {v.publishedAt && (
+                    <span className="mt-1.5 block text-[13px] tabular-nums text-muted-foreground">
+                      {formatDate(v.publishedAt)}
+                    </span>
+                  )}
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

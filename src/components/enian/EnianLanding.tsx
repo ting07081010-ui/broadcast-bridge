@@ -389,50 +389,53 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
 // ─────────── EPISODES (RSS) ───────────
 function Episodes({ episodes, source }: { episodes: Episode[]; source: string }) {
   return (
-    <section id="latest-episodes" className="border-b border-border bg-surface px-6 py-20">
-      <div className="mx-auto max-w-5xl">
+    <section id="latest-episodes" className="border-b border-border bg-surface">
+      <div className={cn(CONTAINER, SECTION_Y)}>
         <div className="flex flex-wrap items-end justify-between gap-3">
-          <div>
-            <Eyebrow>集數</Eyebrow>
-            <h2 className="text-3xl font-bold text-foreground sm:text-4xl">最新集數</h2>
-          </div>
+          <SectionHeader eyebrow="集數" title="最新集數" />
           {source === "fallback" && (
-            <span className="font-mono text-xs text-muted-foreground">
-              暫顯示範例集數，待 RSS 設定
-            </span>
+            <span className="text-[13px] text-muted-foreground">暫顯示範例集數，待 RSS 設定</span>
           )}
         </div>
 
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {episodes.map((ep) => (
-            <a
-              key={ep.id}
-              href={ep.link || "#tune-in"}
-              target={ep.link?.startsWith("http") ? "_blank" : undefined}
-              rel={ep.link?.startsWith("http") ? "noreferrer" : undefined}
-              data-event="click_episode_card"
-              className="group flex flex-col rounded-xl border border-border bg-background p-5 transition hover:border-accent-2"
-            >
-              <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground">
-                {ep.episodeNumber && (
-                  <span className="text-accent-2">
-                    EP{String(ep.episodeNumber).padStart(3, "0")}
+        {/* 重列表、輕卡片：左 EP＋日期，中標題，右時長／箭頭 */}
+        <ol className="mt-8 divide-y divide-border border-y border-border">
+          {episodes.map((ep) => {
+            const isExternal = ep.link?.startsWith("http");
+            const duration = formatDuration(ep.durationSec);
+            return (
+              <li key={ep.id}>
+                <a
+                  href={ep.link || "#tune-in"}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noreferrer" : undefined}
+                  data-event="click_episode_card"
+                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 py-4 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:gap-x-6 sm:py-5"
+                >
+                  <span className="col-span-2 flex items-center gap-3 text-[13px] tabular-nums text-muted-foreground sm:col-span-1">
+                    {ep.episodeNumber && (
+                      <span className="font-semibold text-accent">
+                        EP{String(ep.episodeNumber).padStart(3, "0")}
+                      </span>
+                    )}
+                    {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
+                    {duration && <span className="sm:hidden">{duration}</span>}
                   </span>
-                )}
-                {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
-                {ep.durationSec && <span>{formatDuration(ep.durationSec)}</span>}
-              </div>
-              <h3 className="mt-2 text-lg font-bold leading-snug text-foreground group-hover:text-accent-2">
-                {ep.title}
-              </h3>
-              {ep.description && (
-                <p className="mt-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
-                  {ep.description}
-                </p>
-              )}
-            </a>
-          ))}
-        </div>
+                  <h3 className="line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors duration-200 group-hover:text-accent sm:text-[17px]">
+                    {ep.title}
+                  </h3>
+                  <span className="flex items-center gap-4 text-[13px] tabular-nums text-muted-foreground">
+                    {duration && <span className="hidden sm:inline">{duration}</span>}
+                    <ArrowUpRight
+                      className="h-4 w-4 transition-colors duration-200 group-hover:text-accent"
+                      aria-hidden="true"
+                    />
+                  </span>
+                </a>
+              </li>
+            );
+          })}
+        </ol>
       </div>
     </section>
   );

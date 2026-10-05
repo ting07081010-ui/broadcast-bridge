@@ -39,7 +39,7 @@ import {
 } from "@/lib/enian/ui";
 import { cn } from "@/lib/utils";
 import TopNav from "./TopNav";
-import { Eyebrow, PlatformIcon, SectionHeader } from "./primitives";
+import { Eyebrow, FooterBar, PlatformIcon, SectionHeader } from "./primitives";
 import Faq from "./Faq";
 import Contact from "./Contact";
 
@@ -479,31 +479,6 @@ function AboutHost() {
   );
 }
 
-// ─────────── MISSION ───────────
-function Mission() {
-  return (
-    <section
-      id="mission"
-      className="relative overflow-hidden border-b border-border bg-surface px-6 py-20"
-    >
-      <div className="mx-auto max-w-3xl text-center">
-        <Eyebrow>廣播基地</Eyebrow>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">加入廣播基地，一起共建</h2>
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground">{MISSION.copy}</p>
-
-        <a
-          href="#tune-in"
-          data-event="click_cta_mission"
-          className="mt-8 inline-flex items-center gap-2 rounded-lg bg-foreground px-7 py-3.5 text-base font-bold text-background transition hover:opacity-90"
-        >
-          <Headphones className="h-5 w-5" />
-          加入廣播基地
-        </a>
-      </div>
-    </section>
-  );
-}
-
 // ─────────── TUNE IN ───────────
 const LISTENING_PLATFORMS: PlatformKey[] = ["spotify", "apple", "youtube"];
 
@@ -569,38 +544,68 @@ function TuneIn() {
   );
 }
 
-// ─────────── FOOTER ───────────
+// ─────────── FOOTER（含廣播基地＋社群）───────────
 function Footer() {
   return (
-    <footer className="bg-background px-6 py-12 text-muted-foreground">
-      <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center text-sm">
-        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
-          <Radio className="h-3.5 w-3.5 text-accent-2" />
-          <span>{PODCAST.frequency}</span>
-          <span aria-hidden="true" className="opacity-40">
-            ·
-          </span>
-          <span>{PODCAST.name}</span>
-        </div>
-        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
-          <a
-            href="/podcast-recommendations"
-            data-event="click_footer_recommendations"
-            className="hover:text-accent-2"
-          >
-            Podcast 推薦
-          </a>
-          <a
-            href="mailto:contact@emting.life"
-            className="inline-flex items-center gap-1 hover:text-accent-2"
-          >
-            <Mail className="h-4 w-4" /> 合作 / 投稿
+    <footer className="bg-background text-foreground">
+      <div className={cn(CONTAINER, "grid gap-12 py-14 lg:grid-cols-2 lg:gap-16 lg:py-16")}>
+        {/* TODO(host): 「加入廣播基地」是否有實際社群產品待確認；目前依規劃預設降為次要文字 CTA。 */}
+        <div id="mission" className="max-w-md">
+          <Eyebrow>廣播基地</Eyebrow>
+          <p className="text-xl font-semibold leading-snug tracking-tight">
+            加入廣播基地，一起共建
+          </p>
+          <p className="mt-3 text-[15px] leading-relaxed text-muted-foreground">{MISSION.copy}</p>
+          <a href="#tune-in" data-event="click_cta_mission" className={cn(TEXT_LINK, "mt-4")}>
+            加入廣播基地
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
-        <p className="text-xs opacity-60">
-          © {new Date().getFullYear()} {PODCAST.name} · emting.life
-        </p>
+
+        <div id="social">
+          <Eyebrow>社群</Eyebrow>
+          <p className="text-xl font-semibold leading-snug tracking-tight">
+            想看幕後與碎念，再追社群。
+          </p>
+          <ul className="mt-4 grid gap-x-8 border-t border-border sm:grid-cols-2">
+            {SOCIAL_LINKS.map((s) => (
+              <li key={s.key} className="border-b border-border">
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  data-event="click_social"
+                  data-platform={s.key}
+                  aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
+                  className="group flex items-center gap-3 py-3"
+                >
+                  <PlatformIcon platform={s.key} className="h-9 w-9" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[15px] font-medium leading-snug">{s.name}</span>
+                    <span className="block truncate text-[13px] text-muted-foreground">
+                      {s.handle}
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    className="h-4 w-4 shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
       </div>
+
+      <FooterBar>
+        <a
+          href="/podcast-recommendations"
+          data-event="click_footer_recommendations"
+          className="transition-colors duration-200 hover:text-foreground"
+        >
+          Podcast 推薦
+        </a>
+      </FooterBar>
     </footer>
   );
 }
@@ -678,77 +683,6 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
   );
 }
 
-// ─────────── SOCIAL FOLLOW ───────────
-function SocialFollow() {
-  const socialNotes: Record<string, string> = {
-    threads: "看主持人的短想法與即時碎念",
-    instagram: "看節目花絮、生活片段與限時互動",
-    facebook: "看公告、較完整的貼文與社群討論",
-    youtube: "看影片版與可分享的長內容",
-  };
-
-  return (
-    <section id="social" className="border-b border-border bg-surface px-6 py-20">
-      <div className="mx-auto max-w-4xl">
-        <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),260px] lg:items-start">
-          <div>
-            <Eyebrow>社群</Eyebrow>
-            <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
-              想看幕後與碎念，再追社群。
-            </h2>
-            <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
-              社群這一區不是主收聽入口，而是節目外延伸：短想法、幕後花絮、影片片段和即時互動都在這裡。
-            </p>
-          </div>
-
-          <div className="rounded-xl border border-border bg-background p-5">
-            <p className="text-[13px] font-medium text-muted-foreground">小提醒</p>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-              想完整收聽每一集，還是建議先到上方平台訂閱；社群比較適合追幕後內容與主持人的即時狀態。
-            </p>
-            <a
-              href="#tune-in"
-              className="mt-4 inline-flex items-center gap-2 rounded-lg border border-border bg-surface px-4 py-2.5 text-sm font-semibold text-foreground transition hover:border-accent-2 hover:text-accent-2"
-            >
-              <Headphones className="h-4 w-4" />
-              回到收聽平台
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-8 grid gap-3 sm:grid-cols-2">
-          {SOCIAL_LINKS.map((s) => (
-            <a
-              key={s.key}
-              href={s.url}
-              target="_blank"
-              rel="noreferrer"
-              data-event="click_social"
-              data-platform={s.key}
-              aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
-              className="group flex items-start gap-4 rounded-xl border border-border bg-background p-5 transition hover:border-accent"
-            >
-              <PlatformGlyph keyName={s.key} />
-              <div className="min-w-0 flex-1">
-                <div className="text-base font-bold text-foreground group-hover:text-accent">
-                  {s.name}
-                </div>
-                <div className="mt-1 truncate font-mono text-xs text-muted-foreground">
-                  {s.handle}
-                </div>
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                  {socialNotes[s.key] ?? s.description}
-                </p>
-              </div>
-              <ExternalLink className="h-4 w-4 shrink-0 text-muted-foreground group-hover:text-accent" />
-            </a>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
-
 // ─────────── PAGE ───────────
 export default function EnianLanding({
   episodes,
@@ -769,14 +703,12 @@ export default function EnianLanding({
         <Schedule />
         <Episodes episodes={episodes} source={source} />
         <AboutHost />
-        <Mission />
         <TuneIn />
         <YouTubeLatest videos={videos} />
-        <SocialFollow />
         <Faq />
         <Contact />
-        <Footer />
       </main>
+      <Footer />
     </>
   );
 }

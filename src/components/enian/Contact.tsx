@@ -1,3 +1,4 @@
+import { Eyebrow } from "./primitives";
 import { ArrowUpRight, Mic, Handshake, MessageCircle } from "lucide-react";
 import { CONTACT } from "@/lib/enian/constants";
 
@@ -5,22 +6,12 @@ const ICONS = [Mic, Handshake, MessageCircle];
 
 export default function Contact() {
   return (
-    <section
-      id="contact"
-      className="border-b border-border bg-surface px-6 py-20"
-    >
+    <section id="contact" className="border-b border-border bg-surface px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),320px] lg:items-start">
           <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
-              aria-hidden="true"
-            >
-              // CONTACT_CHANNELS
-            </p>
-            <h2
-              className="text-3xl font-medium text-foreground sm:text-4xl"
-            >
+            <Eyebrow>聯絡</Eyebrow>
+            <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
               想合作、投稿，或只是想聊聊？
             </h2>
             <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
@@ -30,11 +21,7 @@ export default function Contact() {
           </div>
 
           <div className="rounded-[1.5rem] border border-border bg-background p-5">
-            <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-            >
-              QUICK CONTACT
-            </p>
+            <p className="text-[13px] font-medium text-muted-foreground">快速聯絡</p>
             <a
               href={`mailto:${CONTACT.email}`}
               className="mt-4 inline-flex w-full items-center justify-center rounded-full bg-foreground px-5 py-3 text-sm font-semibold text-background transition hover:opacity-90"

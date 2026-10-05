@@ -4,6 +4,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { Eyebrow } from "./primitives";
 import { FAQ } from "@/lib/enian/constants";
 
 export default function Faq() {
@@ -14,35 +15,18 @@ export default function Faq() {
   ];
 
   return (
-    <section
-      id="faq"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="faq" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto max-w-3xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-          aria-hidden="true"
-        >
-          // FREQUENT_QUESTIONS
-        </p>
-        <h2
-          className="text-3xl font-medium text-foreground sm:text-4xl"
-        >
-          訂閱前常見問題。
-        </h2>
+        <Eyebrow>常見問題</Eyebrow>
+        <h2 className="text-3xl font-medium text-foreground sm:text-4xl">訂閱前常見問題。</h2>
         <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
           先把最常見的疑問看完，你會更容易判斷這個節目是不是你的菜。
         </p>
 
         <div className="mt-8 grid gap-3 sm:grid-cols-3">
           {assurances.map((item, idx) => (
-            <div
-              key={item}
-              className="rounded-[1.25rem] border border-border bg-surface p-4"
-            >
-              <p
-                className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-              >
+            <div key={item} className="rounded-[1.25rem] border border-border bg-surface p-4">
+              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                 FAQ 0{idx + 1}
               </p>
               <p className="mt-2 text-sm leading-relaxed text-foreground">{item}</p>

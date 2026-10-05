@@ -79,10 +79,7 @@ export default function TopNav() {
       </div>
 
       {open && (
-        <nav
-          className="border-t border-border bg-background md:hidden"
-          aria-label="行動裝置主導覽"
-        >
+        <nav className="border-t border-border bg-background md:hidden" aria-label="行動裝置主導覽">
           <ul className="mx-auto flex max-w-6xl flex-col px-4 py-2">
             {NAV_LINKS.map((l) => (
               <li key={l.href}>

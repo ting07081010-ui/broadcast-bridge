@@ -25,6 +25,7 @@ import {
 import type { Episode } from "@/lib/enian/episodes.functions";
 import type { YouTubeVideo } from "@/lib/enian/youtube.functions";
 import TopNav from "./TopNav";
+import { Eyebrow } from "./primitives";
 import Faq from "./Faq";
 import Contact from "./Contact";
 
@@ -79,35 +80,20 @@ function Hero() {
   return (
     <section
       id="top"
-      className="enian-scanlines enian-hero-glow relative overflow-hidden border-b border-border bg-background px-6 pb-20 pt-10 sm:pt-16"
+      className="enian-hero-glow relative overflow-hidden border-b border-border bg-background px-6 pb-20 pt-10 sm:pt-16"
     >
       <div className="mx-auto max-w-6xl">
-        {/* Top status bar */}
-        <div
-          className="mb-10 flex flex-wrap items-center justify-between gap-3 font-mono text-xs uppercase tracking-widest text-muted-foreground"
-        >
-          <div className="flex items-center gap-2">
-            <Radio className="h-3.5 w-3.5 text-accent-2" />
-            <span>{PODCAST.frequency}</span>
-            <span className="mx-2 opacity-40">//</span>
-            <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
-            <span className="text-live">TRANSMISSION ACTIVE</span>
-          </div>
-          <span className="font-mono opacity-60">
-            EMTING.LIFE
-          </span>
-        </div>
-
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr),360px] lg:items-end">
           <div className="max-w-3xl">
-            <p
-              className="mb-4 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
-            >
-              PODCAST // zh-TW // MON-SAT
+            <p className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-medium text-muted-foreground">
+              <span className="inline-flex items-center gap-2 font-mono text-xs tracking-wider text-live">
+                <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
+                {PODCAST.frequency}
+              </span>
+              <span aria-hidden="true" className="h-3 w-px bg-border" />
+              <span>中文 Podcast・週一到週六更新</span>
             </p>
-            <h1
-              className="text-[3.6rem] font-medium leading-[0.92] text-foreground sm:text-[4.75rem] lg:text-[6rem]"
-            >
+            <h1 className="text-[3.6rem] font-medium leading-[0.92] text-foreground sm:text-[4.75rem] lg:text-[6rem]">
               把科技、信仰與家庭，
               <br className="hidden sm:block" />
               聊成你每天都想打開的一集。
@@ -148,9 +134,7 @@ function Hero() {
                   key={item}
                   className="rounded-[1.25rem] border border-border bg-surface/88 p-4 text-sm leading-relaxed text-foreground"
                 >
-                  <div
-                    className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-                  >
+                  <div className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                     0{idx + 1}
                   </div>
                   <p className="mt-2">{item}</p>
@@ -164,16 +148,8 @@ function Hero() {
               <div className="rounded-[1.4rem] bg-surface-2 p-6 text-foreground">
                 <div className="flex items-center justify-between gap-4">
                   <div>
-                    <p
-                      className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-                    >
-                      HOSTED BY
-                    </p>
-                    <h2
-                      className="mt-2 text-3xl font-medium leading-none"
-                    >
-                      {PODCAST.hostName}
-                    </h2>
+                    <p className="text-[13px] font-medium text-muted-foreground">主持人</p>
+                    <h2 className="mt-2 text-3xl font-medium leading-none">{PODCAST.hostName}</h2>
                   </div>
                   <img
                     src={PODCAST.avatarUrl}
@@ -195,22 +171,14 @@ function Hero() {
 
             <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-1">
               <div className="rounded-[1.75rem] border border-border bg-surface p-5 text-foreground">
-                <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-                >
-                  WHY LISTEN
-                </p>
+                <p className="text-[13px] font-medium text-muted-foreground">為什麼聽</p>
                 <p className="mt-10 max-w-[12rem] text-2xl font-semibold leading-tight">
                   通勤時段也能聽懂的中文深度內容。
                 </p>
               </div>
 
               <div className="rounded-[1.75rem] border border-border bg-surface p-5 text-foreground">
-                <p
-                  className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-                >
-                  THIS WEEK
-                </p>
+                <p className="text-[13px] font-medium text-muted-foreground">每週節奏</p>
                 <p className="mt-3 text-lg font-semibold leading-snug">
                   一週六天，一天一個固定節目單元。
                 </p>
@@ -229,19 +197,10 @@ function Hero() {
 // ─────────── WHO FOR ───────────
 function WhoFor() {
   return (
-    <section
-      id="who-for"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="who-for" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto max-w-4xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-        >
-          // AUDIENCE_MATCH
-        </p>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-          這個節目適合誰？
-        </h2>
+        <Eyebrow>聽眾</Eyebrow>
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">這個節目適合誰？</h2>
         <p className="mt-3 text-muted-foreground">
           5 秒自我辨識：如果以下任何一項打到你，這個頻道就是為你開的。
         </p>
@@ -264,16 +223,9 @@ function WhoFor() {
 // ─────────── TOPICS ───────────
 function Topics() {
   return (
-    <section
-      id="topics"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="topics" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
-        >
-          // CONTENT_MODULES
-        </p>
+        <Eyebrow>內容主軸</Eyebrow>
         <h2 className="text-3xl font-bold text-foreground sm:text-4xl">四大內容主軸</h2>
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {TOPICS.map((t) => {
@@ -284,15 +236,8 @@ function Topics() {
                 className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent-2"
               >
                 <Icon className="h-7 w-7 text-accent-2" />
-                <p
-                  className="mt-3 font-mono text-xs tracking-widest text-muted-foreground"
-                >
-                  ▶ {t.code}
-                </p>
                 <h3 className="mt-1 text-lg font-bold text-foreground">{t.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  {t.desc}
-                </p>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
               </div>
             );
           })}
@@ -305,30 +250,16 @@ function Topics() {
 // ─────────── SCHEDULE ───────────
 function Schedule() {
   return (
-    <section
-      id="schedule"
-      className="border-b border-border bg-surface px-6 py-20"
-    >
+    <section id="schedule" className="border-b border-border bg-surface px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-        >
-          // BROADCAST_SCHEDULE
-        </p>
+        <Eyebrow>節目單</Eyebrow>
         <h2 className="text-3xl font-bold text-foreground sm:text-4xl">每週節目頻道</h2>
-        <p className="mt-3 text-muted-foreground">
-          一週六天、每天一個固定單元，固定時段陪你度過。
-        </p>
+        <p className="mt-3 text-muted-foreground">一週六天、每天一個固定單元，固定時段陪你度過。</p>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
           {SCHEDULE.map((s) => (
-            <div
-              key={s.day}
-              className="rounded-lg border border-border bg-background p-4"
-            >
+            <div key={s.day} className="rounded-lg border border-border bg-background p-4">
               <div className="flex items-baseline justify-between">
-                <span
-                  className="font-mono text-sm font-bold tracking-widest text-accent-2"
-                >
+                <span className="font-mono text-sm font-bold tracking-widest text-accent-2">
                   {s.day}
                 </span>
                 <span className="text-xs text-muted-foreground">{s.topic}</span>
@@ -354,21 +285,12 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
   ];
 
   return (
-    <section
-      id="first-listen"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="first-listen" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),280px] lg:items-start">
           <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-            >
-              // FIRST_TIME_HERE
-            </p>
-            <h2
-              className="text-3xl font-medium text-foreground sm:text-4xl"
-            >
+            <Eyebrow>先聽一集</Eyebrow>
+            <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
               第一次來，這樣開始最快。
             </h2>
             <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
@@ -377,20 +299,11 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
           </div>
 
           <div className="rounded-[1.5rem] border border-border bg-surface p-5">
-            <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-            >
-              START HERE
-            </p>
+            <p className="text-[13px] font-medium text-muted-foreground">從這裡開始</p>
             <ol className="mt-4 space-y-3">
               {steps.map((step, idx) => (
-                <li
-                  key={step}
-                  className="flex gap-3 text-sm leading-relaxed text-foreground"
-                >
-                  <span
-                    className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-2 font-mono text-[11px] text-muted-foreground"
-                  >
+                <li key={step} className="flex gap-3 text-sm leading-relaxed text-foreground">
+                  <span className="mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-surface-2 font-mono text-[11px] text-muted-foreground">
                     0{idx + 1}
                   </span>
                   <span>{step}</span>
@@ -416,11 +329,7 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
                 className="group flex flex-col rounded-[1.5rem] border border-border bg-surface p-5 transition hover:border-accent"
               >
                 <div className="flex items-center justify-between gap-3">
-                  <span
-                    className="font-mono text-xs tracking-widest text-accent"
-                  >
-                    {label}
-                  </span>
+                  <span className="font-mono text-xs tracking-widest text-accent">{label}</span>
                   <span className="rounded-full border border-border px-2.5 py-1 text-[11px] font-medium text-muted-foreground">
                     {idx === 0 ? "先從這集試" : "下一集入口"}
                   </span>
@@ -460,25 +369,16 @@ function FirstListen({ episodes }: { episodes: Episode[] }) {
 // ─────────── EPISODES (RSS) ───────────
 function Episodes({ episodes, source }: { episodes: Episode[]; source: string }) {
   return (
-    <section
-      id="latest-episodes"
-      className="border-b border-border bg-surface px-6 py-20"
-    >
+    <section id="latest-episodes" className="border-b border-border bg-surface px-6 py-20">
       <div className="mx-auto max-w-5xl">
         <div className="flex flex-wrap items-end justify-between gap-3">
           <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-live"
-            >
-              // LATEST_EPISODES
-            </p>
+            <Eyebrow>集數</Eyebrow>
             <h2 className="text-3xl font-bold text-foreground sm:text-4xl">最新集數</h2>
           </div>
           {source === "fallback" && (
-            <span
-              className="font-mono text-xs text-muted-foreground"
-            >
-              // 暫顯示範例集數，待 RSS 設定
+            <span className="font-mono text-xs text-muted-foreground">
+              暫顯示範例集數，待 RSS 設定
             </span>
           )}
         </div>
@@ -493,9 +393,7 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
               data-event="click_episode_card"
               className="group flex flex-col rounded-xl border border-border bg-background p-5 transition hover:border-accent-2"
             >
-              <div
-                className="flex items-center gap-3 font-mono text-xs text-muted-foreground"
-              >
+              <div className="flex items-center gap-3 font-mono text-xs text-muted-foreground">
                 {ep.episodeNumber && (
                   <span className="text-accent-2">
                     EP{String(ep.episodeNumber).padStart(3, "0")}
@@ -523,10 +421,7 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
 // ─────────── ABOUT HOST ───────────
 function AboutHost() {
   return (
-    <section
-      id="about-host"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="about-host" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto grid max-w-5xl gap-10 md:grid-cols-[auto,1fr] md:items-center">
         <img
           src={PODCAST.avatarUrl}
@@ -539,11 +434,7 @@ function AboutHost() {
           decoding="async"
         />
         <div>
-          <p
-            className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
-          >
-            // HOST_ANALYSIS
-          </p>
+          <Eyebrow>主持人</Eyebrow>
           <h2 className="text-3xl font-bold text-foreground sm:text-4xl">關於主持人</h2>
           <p className="mt-2 text-lg font-semibold text-foreground">
             {PODCAST.hostName} ／ TYPE: E 人 (Extravert)
@@ -564,20 +455,12 @@ function Mission() {
   return (
     <section
       id="mission"
-      className="enian-scanlines relative overflow-hidden border-b border-border bg-surface px-6 py-20"
+      className="relative overflow-hidden border-b border-border bg-surface px-6 py-20"
     >
       <div className="mx-auto max-w-3xl text-center">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-        >
-          // MISSION_OBJECTIVE
-        </p>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-          加入廣播基地，一起共建
-        </h2>
-        <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-          {MISSION.copy}
-        </p>
+        <Eyebrow>廣播基地</Eyebrow>
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">加入廣播基地，一起共建</h2>
+        <p className="mt-5 text-base leading-relaxed text-muted-foreground">{MISSION.copy}</p>
 
         <a
           href="#tune-in"
@@ -614,19 +497,10 @@ function TuneIn() {
   };
 
   return (
-    <section
-      id="tune-in"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="tune-in" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto max-w-4xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent-2"
-        >
-          // TUNE_IN_NOW
-        </p>
-        <h2
-          className="text-3xl font-medium text-foreground sm:text-4xl"
-        >
+        <Eyebrow>訂閱</Eyebrow>
+        <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
           選一個你真的會打開的收聽平台。
         </h2>
         <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
@@ -639,14 +513,10 @@ function TuneIn() {
               key={`${platform.key}-guide`}
               className="rounded-[1.5rem] border border-border bg-surface p-5"
             >
-              <p
-                className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-              >
+              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
                 {platformGuide[platform.key]?.tag ?? platform.name}
               </p>
-              <h3 className="mt-3 text-lg font-semibold text-foreground">
-                {platform.name}
-              </h3>
+              <h3 className="mt-3 text-lg font-semibold text-foreground">{platform.name}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
                 {platformGuide[platform.key]?.copy ?? platform.description}
               </p>
@@ -692,12 +562,12 @@ function Footer() {
   return (
     <footer className="bg-background px-6 py-12 text-muted-foreground">
       <div className="mx-auto flex max-w-5xl flex-col items-center gap-4 text-center text-sm">
-        <div
-          className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground"
-        >
+        <div className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest text-muted-foreground">
           <Radio className="h-3.5 w-3.5 text-accent-2" />
           <span>{PODCAST.frequency}</span>
-          <span className="opacity-40">//</span>
+          <span aria-hidden="true" className="opacity-40">
+            ·
+          </span>
           <span>{PODCAST.name}</span>
         </div>
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2">
@@ -728,19 +598,10 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
   if (!videos || videos.length === 0) return null;
   const channelUrl = PLATFORMS.find((p) => p.key === "youtube")?.url ?? "#";
   return (
-    <section
-      id="youtube"
-      className="border-b border-border bg-background px-6 py-20"
-    >
+    <section id="youtube" className="border-b border-border bg-background px-6 py-20">
       <div className="mx-auto max-w-5xl">
-        <p
-          className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-        >
-          // LATEST_VIDEOS
-        </p>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">
-          YouTube 最新影片
-        </h2>
+        <Eyebrow>影片版</Eyebrow>
+        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">YouTube 最新影片</h2>
         <p className="mt-3 text-muted-foreground">想看影片版？最新幾集都在這。</p>
 
         <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
@@ -777,9 +638,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
                   {v.title}
                 </h3>
                 {v.publishedAt && (
-                  <span
-                    className="font-mono text-xs text-muted-foreground"
-                  >
+                  <span className="font-mono text-xs text-muted-foreground">
                     {formatDate(v.publishedAt)}
                   </span>
                 )}
@@ -814,21 +673,12 @@ function SocialFollow() {
   };
 
   return (
-    <section
-      id="social"
-      className="border-b border-border bg-surface px-6 py-20"
-    >
+    <section id="social" className="border-b border-border bg-surface px-6 py-20">
       <div className="mx-auto max-w-4xl">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr),260px] lg:items-start">
           <div>
-            <p
-              className="mb-3 font-mono text-xs uppercase tracking-[0.3em] text-accent"
-            >
-              // SOCIAL_FOLLOW
-            </p>
-            <h2
-              className="text-3xl font-medium text-foreground sm:text-4xl"
-            >
+            <Eyebrow>社群</Eyebrow>
+            <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
               想看幕後與碎念，再追社群。
             </h2>
             <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
@@ -837,11 +687,7 @@ function SocialFollow() {
           </div>
 
           <div className="rounded-[1.5rem] border border-border bg-background p-5">
-            <p
-              className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground"
-            >
-              GOOD TO KNOW
-            </p>
+            <p className="text-[13px] font-medium text-muted-foreground">小提醒</p>
             <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
               想完整收聽每一集，還是建議先到上方平台訂閱；社群比較適合追幕後內容與主持人的即時狀態。
             </p>
@@ -872,9 +718,7 @@ function SocialFollow() {
                 <div className="text-base font-bold text-foreground group-hover:text-accent">
                   {s.name}
                 </div>
-                <div
-                  className="mt-1 truncate font-mono text-xs text-muted-foreground"
-                >
+                <div className="mt-1 truncate font-mono text-xs text-muted-foreground">
                   {s.handle}
                 </div>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">

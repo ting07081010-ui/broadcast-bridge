@@ -115,13 +115,11 @@
   --sidebar-accent-foreground: var(--text);
   --sidebar-border: var(--border);
   --sidebar-ring: var(--accent);
-
 }
 
 @theme {
   /* Inter 負責英數，繁中交給系統字；Mono 僅用於頻率／Live 狀態 */
-  --font-sans:
-    "Inter", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
+  --font-sans: "Inter", "PingFang TC", "Noto Sans TC", "Microsoft JhengHei", system-ui, sans-serif;
   --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 }
 
@@ -146,37 +144,9 @@
   animation: enian-pulse 1.8s ease-in-out infinite;
 }
 
-@keyframes enian-scan {
-  0% {
-    transform: translateY(-100%);
-  }
-  100% {
-    transform: translateY(100%);
-  }
-}
-
-.enian-scanlines::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 3px,
-    color-mix(in oklab, var(--accent-2) 6%, transparent) 3px,
-    color-mix(in oklab, var(--accent-2) 6%, transparent) 4px
-  );
-  opacity: 0.35;
-  mix-blend-mode: screen;
-}
-
 @media (prefers-reduced-motion: reduce) {
   .enian-pulse-dot {
     animation: none;
-  }
-  .enian-scanlines::before {
-    display: none;
   }
   html {
     scroll-behavior: auto;

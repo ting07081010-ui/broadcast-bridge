@@ -679,7 +679,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
                   <div className="relative aspect-video overflow-hidden rounded-xl border border-border bg-surface-2">
                     <img
                       src={v.thumbnail}
-                      alt={v.title}
+                      alt={title}
                       width={480}
                       height={360}
                       sizes="(min-width: 768px) 360px, 80vw"

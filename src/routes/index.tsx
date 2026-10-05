@@ -30,7 +30,6 @@ export const Route = createFileRoute("/")({
       { name: "twitter:title", content: SEO_TITLE },
       { name: "twitter:description", content: SEO_DESC },
       { name: "twitter:image", content: new URL(PODCAST.avatarUrl, SITE_URL).href },
-      { name: "theme-color", content: "#1a0d2e" },
     ],
     scripts: [
       {

@@ -145,7 +145,15 @@
   animation: enian-pulse 2s ease-in-out infinite;
 }
 
+/* 減少動態：停掉所有動畫與轉場（Live 點變靜態點） */
 @media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
   .enian-pulse-dot {
     animation: none;
   }
@@ -158,7 +166,9 @@ html {
   scroll-behavior: smooth;
 }
 
-section[id] {
+/* 錨點捲動時避開 sticky 頂欄 */
+main [id],
+footer [id] {
   scroll-margin-top: 4.5rem;
 }
 
@@ -174,20 +184,18 @@ section[id] {
 .enian-skip-link {
   position: absolute;
   left: 1rem;
-  top: -3rem;
+  top: -4rem;
   z-index: 100;
-  padding: 0.5rem 0.75rem;
-  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  border-radius: var(--radius);
   background: var(--text);
   color: var(--bg);
-  font-weight: 700;
+  font-weight: 600;
   font-size: 0.875rem;
-  transition: top 0.2s ease;
+  transition: top 0.2s var(--ease-out);
 }
 .enian-skip-link:focus {
   top: 0.75rem;
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
 }
 
 @layer base {
@@ -199,5 +207,19 @@ section[id] {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* 鍵盤焦點：所有可點元素統一 2px 琥珀 ring、offset 2px */
+  :where(a, button, summary, [role="tab"], [tabindex]):focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+    border-radius: calc(var(--radius) - 4px);
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--accent) 40%, transparent);
+    color: var(--text);
   }
 }

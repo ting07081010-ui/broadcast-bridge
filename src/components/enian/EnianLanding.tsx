@@ -238,53 +238,50 @@ function Hero() {
   );
 }
 
-// ─────────── WHO FOR ───────────
+// ─────────── WHO FOR ＋ TOPICS ───────────
 function WhoFor() {
   return (
-    <section id="who-for" className="border-b border-border bg-background px-6 py-20">
-      <div className="mx-auto max-w-4xl">
-        <Eyebrow>聽眾</Eyebrow>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">這個節目適合誰？</h2>
-        <p className="mt-3 text-muted-foreground">
-          5 秒自我辨識：如果以下任何一項打到你，這個頻道就是為你開的。
-        </p>
-        <ul className="mt-8 grid gap-3 sm:grid-cols-2">
-          {WHO_FOR.map((item) => (
-            <li
-              key={item}
-              className="flex items-start gap-3 rounded-lg border border-border bg-surface p-4 text-foreground"
-            >
-              <CheckCircle2 className="mt-0.5 h-5 w-5 shrink-0 text-live" />
-              <span className="leading-relaxed">{item}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </section>
-  );
-}
-
-// ─────────── TOPICS ───────────
-function Topics() {
-  return (
-    <section id="topics" className="border-b border-border bg-background px-6 py-20">
-      <div className="mx-auto max-w-5xl">
-        <Eyebrow>內容主軸</Eyebrow>
-        <h2 className="text-3xl font-bold text-foreground sm:text-4xl">四大內容主軸</h2>
-        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {TOPICS.map((t) => {
-            const Icon = TOPIC_ICONS[t.code] ?? Shield;
-            return (
-              <div
-                key={t.code}
-                className="rounded-xl border border-border bg-surface p-5 transition hover:border-accent-2"
+    <section id="who-for" className="border-b border-border">
+      <div className={cn(CONTAINER, SECTION_Y, "grid gap-12 lg:grid-cols-2 lg:gap-16")}>
+        <div>
+          <SectionHeader
+            eyebrow="聽眾"
+            title="這個節目適合誰？"
+            lead="以下任何一項打到你，這個頻道就是為你開的。"
+          />
+          <ul className="mt-7 divide-y divide-border border-y border-border">
+            {WHO_FOR.map((item) => (
+              <li
+                key={item}
+                className="flex items-start gap-3 py-3.5 text-[15px] leading-relaxed text-foreground sm:text-base"
               >
-                <Icon className="h-7 w-7 text-accent-2" />
-                <h3 className="mt-1 text-lg font-bold text-foreground">{t.title}</h3>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
-              </div>
-            );
-          })}
+                <Check className="mt-1 h-4 w-4 shrink-0 text-accent" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        {/* 保留 #topics 錨點：外部可能已分享連結 */}
+        <div id="topics">
+          <Eyebrow>內容主軸</Eyebrow>
+          <h3 className="text-[22px] font-semibold leading-[1.3] tracking-tight text-foreground sm:text-2xl">
+            四大內容主軸
+          </h3>
+          <ul className="mt-7 grid grid-cols-2 gap-3 sm:gap-4">
+            {TOPICS.map((t) => {
+              const Icon = TOPIC_ICONS[t.code] ?? Shield;
+              return (
+                <li key={t.code} className="rounded-xl border border-border bg-surface p-4 sm:p-5">
+                  <Icon className="h-5 w-5 text-accent-2" aria-hidden="true" />
+                  <h4 className="mt-3 text-base font-semibold text-foreground sm:text-[17px]">
+                    {t.title}
+                  </h4>
+                  <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
+                </li>
+              );
+            })}
+          </ul>
         </div>
       </div>
     </section>
@@ -776,7 +773,6 @@ export default function EnianLanding({
         <Hero />
         <FirstListen episodes={episodes} />
         <WhoFor />
-        <Topics />
         <Schedule />
         <Episodes episodes={episodes} source={source} />
         <AboutHost />

@@ -50,3 +50,33 @@ export function isoWeekKey(ymd: string): string {
 export function formatDate(ymd: string): string {
   return ymd.replaceAll("-", ".");
 }
+
+const WEEK_KEY_PATTERN = /^(\d{4})-W(\d{2})$/;
+
+/**
+ * 把 ISO 週碼（例如 2026-W41）換回該週的週一。
+ * 格式錯誤或該年沒有這一週（例如 2026-W54）回傳 null。
+ */
+export function weekKeyToMonday(weekKey: string): string | null {
+  const match = WEEK_KEY_PATTERN.exec(weekKey);
+  if (!match) return null;
+  const year = Number(match[1]);
+  const week = Number(match[2]);
+  // 1 月 4 日一定落在該 ISO 年的第 1 週
+  const firstMonday = weekStart(`${year}-01-04`);
+  const monday = addDays(firstMonday, (week - 1) * 7);
+  // 再算回去比對，擋掉不存在的週碼
+  return isoWeekKey(monday) === weekKey ? monday : null;
+}
+
+/** 「2026 年第 41 週」 */
+export function formatWeekKey(weekKey: string): string {
+  const match = WEEK_KEY_PATTERN.exec(weekKey);
+  return match ? `${match[1]} 年第 ${Number(match[2])} 週` : weekKey;
+}
+
+/** 「2026 年 10 月」 */
+export function formatMonth(yearMonth: string): string {
+  const [year, month] = yearMonth.split("-");
+  return `${year} 年 ${Number(month)} 月`;
+}

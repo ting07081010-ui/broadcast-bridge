@@ -43,7 +43,7 @@ export function SectionHeader({
   return (
     <div className={cn("max-w-2xl", className)}>
       <Eyebrow>{eyebrow}</Eyebrow>
-      <h2 className="text-[26px] font-semibold leading-[1.25] tracking-tight text-foreground sm:text-[32px]">
+      <h2 className="text-balance text-[26px] font-semibold leading-[1.25] tracking-tight text-foreground sm:text-[32px]">
         {title}
       </h2>
       {lead && (

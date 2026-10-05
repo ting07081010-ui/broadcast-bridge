@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 360" role="img" font-family="Inter, 'PingFang TC', 'Noto Sans TC', sans-serif">
+  <rect width="720" height="360" fill="#ebe6dc"/>
+  <text x="40" y="48" font-size="18" font-weight="600" fill="#2a2825">一週睡眠時數（測試圖）</text>
+  <text x="40" y="74" font-size="14" fill="#6f6a62">虛線為 7 小時</text>
+  <line x1="40" y1="300" x2="680" y2="300" stroke="#2a2825" stroke-width="1"/>
+  <line x1="40" y1="132" x2="680" y2="132" stroke="#8a4f22" stroke-width="1" stroke-dasharray="6 6"/>
+  <g fill="#765246">
+    <rect x="64" y="180" width="56" height="120"/>
+    <rect x="154" y="192" width="56" height="108"/>
+    <rect x="244" y="204" width="56" height="96"/>
+    <rect x="334" y="168" width="56" height="132"/>
+    <rect x="424" y="156" width="56" height="144"/>
+    <rect x="514" y="126" width="56" height="174"/>
+    <rect x="604" y="120" width="56" height="180"/>
+  </g>
+  <g font-size="14" fill="#2a2825" text-anchor="middle">
+    <text x="92" y="170">5.0</text><text x="182" y="182">4.5</text><text x="272" y="194">4.0</text>
+    <text x="362" y="158">5.5</text><text x="452" y="146">6.0</text><text x="542" y="116">7.25</text><text x="632" y="110">7.5</text>
+  </g>
+  <g font-size="14" fill="#6f6a62" text-anchor="middle">
+    <text x="92" y="324">一</text><text x="182" y="324">二</text><text x="272" y="324">三</text>
+    <text x="362" y="324">四</text><text x="452" y="324">五</text><text x="542" y="324">六</text><text x="632" y="324">日</text>
+  </g>
+</svg>

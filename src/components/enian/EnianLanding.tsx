@@ -505,82 +505,65 @@ function Mission() {
 }
 
 // ─────────── TUNE IN ───────────
-function TuneIn() {
-  const listeningPlatforms = PLATFORMS.filter((platform) =>
-    ["spotify", "apple", "youtube"].includes(platform.key),
-  );
+const LISTENING_PLATFORMS: PlatformKey[] = ["spotify", "apple", "youtube"];
 
-  const platformGuide: Record<string, { tag: string; copy: string }> = {
-    spotify: {
-      tag: "通勤最順手",
-      copy: "如果你大多是在走路、開車、運動時收聽，Spotify 通常是最直接的入口。",
-    },
-    apple: {
-      tag: "Apple 生態最省事",
-      copy: "iPhone、AirPods、CarPlay 使用者，選 Apple Podcasts 會最無痛。",
-    },
-    youtube: {
-      tag: "想看影片就選這個",
-      copy: "如果你想順便看到主持人畫面或把節目當長影片播放，直接走 YouTube。",
-    },
-  };
+// 每個平台一句適合情境
+const PLATFORM_NOTES: Partial<Record<PlatformKey, string>> = {
+  spotify: "通勤最順手",
+  apple: "Apple 生態最省事",
+  youtube: "想看影片就選這個",
+};
+
+function TuneIn() {
+  const listeningPlatforms = PLATFORMS.filter((p) => LISTENING_PLATFORMS.includes(p.key));
 
   return (
-    <section id="tune-in" className="border-b border-border bg-background px-6 py-20">
-      <div className="mx-auto max-w-4xl">
-        <Eyebrow>訂閱</Eyebrow>
-        <h2 className="text-3xl font-medium text-foreground sm:text-4xl">
-          選一個你真的會打開的收聽平台。
-        </h2>
-        <p className="mt-3 max-w-2xl text-muted-foreground sm:text-lg">
-          不用每個都追。只要挑一個你每天最常打開的 app，按下訂閱，就能穩定收到每一集更新。
-        </p>
+    <section id="tune-in" className="border-b border-border bg-surface">
+      <div
+        className={cn(
+          CONTAINER,
+          SECTION_Y,
+          "grid gap-8 lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)] lg:items-center lg:gap-16",
+        )}
+      >
+        <SectionHeader
+          eyebrow="訂閱"
+          title="選一個你真的會打開的收聽平台。"
+          lead="不用每個都追。挑一個你每天最常打開的 app 按下訂閱，就能穩定收到每一集更新。"
+        />
 
-        <div className="mt-8 grid gap-3 md:grid-cols-3">
-          {listeningPlatforms.map((platform) => (
-            <div
-              key={`${platform.key}-guide`}
-              className="rounded-xl border border-border bg-surface p-5"
-            >
-              <p className="font-mono text-[11px] uppercase tracking-[0.28em] text-muted-foreground">
-                {platformGuide[platform.key]?.tag ?? platform.name}
-              </p>
-              <h3 className="mt-3 text-lg font-semibold text-foreground">{platform.name}</h3>
-              <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                {platformGuide[platform.key]?.copy ?? platform.description}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-          {listeningPlatforms.map((p) => (
-            <a
-              key={p.key}
-              href={p.url}
-              target={p.url.startsWith("http") ? "_blank" : undefined}
-              rel={p.url.startsWith("http") ? "noreferrer" : undefined}
-              data-event="click_platform"
-              data-platform={p.key}
-              aria-label={`${p.description}（${p.name}）`}
-              className="group flex items-center gap-4 rounded-xl border border-border bg-surface p-4 transition hover:border-accent-2"
-            >
-              <PlatformGlyph keyName={p.key} />
-              <div className="flex-1">
-                <div className="text-base font-bold text-foreground group-hover:text-accent-2">
-                  {p.name}
-                </div>
-                <div className="mt-1 text-xs text-muted-foreground">{p.description}</div>
-              </div>
-              <ExternalLink className="h-4 w-4 text-muted-foreground group-hover:text-accent-2" />
-            </a>
-          ))}
-        </div>
-
-        <p className="mt-6 text-sm text-muted-foreground">
-          Facebook、Instagram、Threads
-          這類社群入口我保留在下方社群區塊；這裡只放真正拿來收聽的三個平台，讓你更快做決定。
-        </p>
+        <ul className="grid gap-3">
+          {listeningPlatforms.map((p) => {
+            const isExternal = p.url.startsWith("http");
+            return (
+              <li key={p.key}>
+                <a
+                  href={p.url}
+                  target={isExternal ? "_blank" : undefined}
+                  rel={isExternal ? "noreferrer" : undefined}
+                  data-event="click_platform"
+                  data-platform={p.key}
+                  aria-label={`${p.description}（${p.name}）`}
+                  className="group flex items-center gap-4 rounded-xl border border-border bg-background p-4 transition-colors duration-200 hover:border-accent sm:p-5"
+                >
+                  <PlatformIcon platform={p.key} />
+                  <span className="min-w-0 flex-1">
+                    <span className="block text-[17px] font-semibold leading-snug text-foreground">
+                      {p.name}
+                    </span>
+                    <span className="mt-0.5 block text-sm text-muted-foreground">
+                      {PLATFORM_NOTES[p.key] ?? p.description}
+                    </span>
+                  </span>
+                  <ArrowUpRight
+                    className="h-5 w-5 shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-accent"
+                    aria-hidden="true"
+                  />
+                </a>
+              </li>
+            );
+          })}
+        </ul>
       </div>
     </section>
   );

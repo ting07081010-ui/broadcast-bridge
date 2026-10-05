@@ -4,14 +4,10 @@ import {
   Check,
   Headphones,
   Play,
-  Radio,
   Shield,
   Home as HomeIcon,
   HeartHandshake,
   Newspaper,
-  CheckCircle2,
-  Mail,
-  ExternalLink,
 } from "lucide-react";
 import {
   PODCAST,
@@ -61,26 +57,6 @@ function formatDuration(sec?: number): string {
   if (!sec) return "";
   const m = Math.round(sec / 60);
   return `${m} 分鐘`;
-}
-
-function PlatformGlyph({ keyName }: { keyName: PlatformKey }) {
-  // 簡單字母 / icon 標識，不依賴外部 brand SVG
-  const map: Record<PlatformKey, string> = {
-    spotify: "S",
-    apple: "",
-    youtube: "▶",
-    facebook: "f",
-    instagram: "IG",
-    threads: "@",
-  };
-  return (
-    <span
-      aria-hidden="true"
-      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-surface-2 font-mono text-base font-bold text-accent-2"
-    >
-      {map[keyName] || "•"}
-    </span>
-  );
 }
 
 // ─────────── HERO ───────────
@@ -161,7 +137,7 @@ function Hero() {
             <span aria-hidden="true" className="h-3 w-px bg-border" />
             <span>中文 Podcast・週一到週六更新</span>
           </p>
-          <h1 className="text-[34px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground sm:text-[44px] xl:text-[52px]">
+          <h1 className="text-balance text-[34px] font-semibold leading-[1.2] tracking-[-0.02em] text-foreground sm:text-[44px] xl:text-[52px]">
             把科技、信仰與家庭，
             <br className="hidden sm:block" />
             聊成你每天都想打開的一集。

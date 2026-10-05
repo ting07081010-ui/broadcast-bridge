@@ -25,5 +25,5 @@ export const SECTION_Y = "py-14 sm:py-20 lg:py-24";
 
 /** 手機橫滑、桌機三欄的卡片列（先聽一集、YouTube）。 */
 export const SCROLL_ROW =
-  "-mx-5 flex snap-x snap-mandatory gap-4 overflow-x-auto px-5 [scrollbar-width:none] sm:-mx-8 sm:px-8 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden";
+  "-mx-5 flex snap-x snap-mandatory scroll-px-5 gap-4 overflow-x-auto px-5 [scrollbar-width:none] sm:-mx-8 sm:scroll-px-8 sm:px-8 md:mx-0 md:grid md:grid-cols-3 md:gap-5 md:overflow-visible md:px-0 [&::-webkit-scrollbar]:hidden";
 export const SCROLL_ROW_ITEM = "w-[80%] shrink-0 snap-start sm:w-[46%] md:w-auto";

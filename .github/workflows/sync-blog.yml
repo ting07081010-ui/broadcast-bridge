@@ -44,7 +44,8 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git add src/content/blog public/blog/media
+          git add src/content/blog
+          if [ -d public/blog/media ]; then git add public/blog/media; fi
           git commit -m "chore(blog): sync from Notion"
           git push origin "$branch"
           gh pr create --base main --head "$branch" \

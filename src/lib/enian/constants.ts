@@ -148,6 +148,7 @@ export const NAV_LINKS: Array<{ href: string; label: string }> = [
   { href: "#schedule", label: "節目單" },
   { href: "#latest-episodes", label: "最新集數" },
   { href: "#faq", label: "FAQ" },
+  { href: "/blog", label: "每日碎念" },
 ];
 
 export const FAQ: Array<{ q: string; a: string }> = [

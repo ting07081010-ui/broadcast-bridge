@@ -1,0 +1,57 @@
+name: Sync blog from Notion
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 21 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: sync-blog
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - name: Run sync
+        id: sync
+        env:
+          NOTION_TOKEN: ${{ secrets.NOTION_TOKEN }}
+          NOTION_BLOG_DATABASE_ID: ${{ secrets.NOTION_BLOG_DATABASE_ID }}
+        run: |
+          set +e
+          npm run sync:blog
+          echo "code=$?" >> "$GITHUB_OUTPUT"
+      - name: Open a PR when content changed
+        if: steps.sync.outputs.code == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # syncedAt changes every run, so compare posts and media only
+          if git diff --quiet -I'"syncedAt"' -- src/content/blog public/blog/media && [ -z "$(git ls-files --others --exclude-standard public/blog/media)" ]; then
+            echo "No content changes."
+            exit 0
+          fi
+          branch="sync/blog-$(date -u +%Y%m%d-%H%M)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/content/blog public/blog/media
+          git commit -m "chore(blog): sync from Notion"
+          git push origin "$branch"
+          gh pr create --base main --head "$branch" \
+            --title "chore(blog): sync from Notion" \
+            --body "Automatic sync from the Notion CMS. Review the snapshot, then merge to publish."
+      - name: Fail on blocked or failed sync
+        if: steps.sync.outputs.code != '0'
+        run: |
+          echo "sync-blog exited with code ${{ steps.sync.outputs.code }} (1 = error, 2 = some posts blocked). See the Run sync step log."
+          exit 1

@@ -574,13 +574,22 @@ function Footer() {
       </div>
 
       <FooterBar>
-        <a
-          href="/podcast-recommendations"
-          data-event="click_footer_recommendations"
-          className="transition-colors duration-200 hover:text-foreground"
-        >
-          Podcast 推薦
-        </a>
+        <div className="flex items-center gap-6">
+          <a
+            href="/podcast-recommendations"
+            data-event="click_footer_recommendations"
+            className="transition-colors duration-200 hover:text-foreground"
+          >
+            Podcast 推薦
+          </a>
+          <a
+            href="/blog"
+            data-event="click_footer_blog"
+            className="transition-colors duration-200 hover:text-foreground"
+          >
+            每日碎念
+          </a>
+        </div>
       </FooterBar>
     </footer>
   );

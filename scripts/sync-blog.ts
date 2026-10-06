@@ -173,6 +173,12 @@ async function main(): Promise<void> {
   const previousById = new Map(previous.posts.map((post) => [post.id, post]));
 
   const pages = await queryAllPages();
+  // Notion 回傳 0 篇但既有快照有文章：多半是權限或篩選出錯，中止而不覆寫
+  if (pages.length === 0 && previous.posts.length > 0) {
+    throw new Error(
+      `Notion 回傳 0 篇文章，但既有快照有 ${previous.posts.length} 篇；為避免誤刪，中止同步`,
+    );
+  }
   const posts: Post[] = [];
   const blocked: string[] = [];
   const paths = new Set<string>();
@@ -196,6 +202,14 @@ async function main(): Promise<void> {
     } catch (error) {
       // 只有內容問題可以跳過單篇；網路或權限錯誤要整批中止，保留舊快照
       if (!(error instanceof BlockError)) throw error;
+      // 含未支援內容：沿用快照中的舊版本，不讓這篇消失
+      const kept = previousById.get(page.id);
+      if (kept) {
+        paths.add(`${kept.date}-${kept.slug}`);
+        posts.push(kept);
+        console.warn(`提醒：頁面 ${page.id} 含未支援內容，沿用既有快照版本：${error.message}`);
+        continue;
+      }
       blocked.push(`頁面 ${page.id}：${error.message}`);
     }
   }

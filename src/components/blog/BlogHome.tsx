@@ -1,24 +1,20 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
-import TopNav from "@/components/enian/TopNav";
-import { Eyebrow, FooterBar } from "@/components/enian/primitives";
+import { Eyebrow } from "@/components/enian/primitives";
 import type { BlogIndex } from "@/lib/blog/posts.functions";
 import type { Feature, WeekDay } from "@/lib/blog/posts";
-import { formatDate, weekdayLabel } from "@/lib/blog/time";
+import { formatDate } from "@/lib/blog/time";
 import { TOPICS, WEEK_ORDER } from "@/lib/blog/topics";
-import type { PostSummary } from "@/lib/blog/types";
-import { BTN_PRIMARY, BTN_SECONDARY, CONTAINER } from "@/lib/enian/ui";
+import { TOPIC_SLUGS, type PostSummary } from "@/lib/blog/types";
+import { BTN_PRIMARY, BTN_SECONDARY, TEXT_LINK } from "@/lib/enian/ui";
 import { cn } from "@/lib/utils";
-import { FixtureBadge, TopicMark, TopicTag } from "./TopicTag";
+import BlogShell, { EmptyState } from "./BlogShell";
+import { PostDate, PostRows } from "./PostList";
+import { FixtureBadge, TopicIcon, TopicTag } from "./TopicTag";
 
-/** 全站一致的日期寫法：2026.10.05 週一 */
-function PostDate({ date, className }: { date: string; className?: string }) {
-  return (
-    <time dateTime={date} className={cn("tabular-nums", className)}>
-      {formatDate(date)} {weekdayLabel(date)}
-    </time>
-  );
-}
+const SECTION_TITLE = "text-xl font-semibold text-foreground";
+const QUIET_LINK =
+  "inline-flex min-h-11 items-center gap-1.5 text-sm text-muted-foreground underline-offset-4 transition-colors duration-200 hover:text-foreground hover:underline";
 
 function FeatureSection({ feature }: { feature: Feature }) {
   const { post, kind } = feature;
@@ -58,7 +54,7 @@ function FeatureSection({ feature }: { feature: Feature }) {
             target="_blank"
             rel="noopener noreferrer"
             data-event="click_blog_episode"
-            className="inline-flex min-h-11 items-center gap-1.5 text-sm text-muted-foreground underline-offset-4 transition-colors duration-200 hover:text-foreground hover:underline"
+            className={QUIET_LINK}
           >
             聽這集
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
@@ -69,11 +65,11 @@ function FeatureSection({ feature }: { feature: Feature }) {
   );
 }
 
-function WeekStrip({ week, today }: { week: WeekDay[]; today: string }) {
+function WeekStrip({ week, today, weekKey }: { week: WeekDay[]; today: string; weekKey: string }) {
   return (
     <section aria-labelledby="week-title" className="mt-12 lg:mt-16">
       <div className="flex items-baseline justify-between gap-4">
-        <h2 id="week-title" className="text-xl font-semibold text-foreground">
+        <h2 id="week-title" className={SECTION_TITLE}>
           本週
         </h2>
         <p className="text-sm tabular-nums text-muted-foreground">
@@ -107,22 +103,28 @@ function WeekStrip({ week, today }: { week: WeekDay[]; today: string }) {
                 {isToday && <span className="ml-2 font-medium text-foreground">今天</span>}
               </p>
               <div className="mt-3 flex flex-1 flex-col gap-2 border-t border-border pt-3 text-sm leading-normal">
+                {day.posts.map((post) => (
+                  <Link
+                    key={post.id}
+                    to="/blog/posts/$postId"
+                    params={{ postId: post.path }}
+                    title={post.title}
+                    className="line-clamp-4 min-h-11 font-medium text-foreground underline-offset-4 transition-colors duration-200 hover:text-accent hover:underline"
+                  >
+                    {post.title}
+                  </Link>
+                ))}
                 {topic.slug === "rest" ? (
-                  <p className="text-muted-foreground">{topic.spirit}</p>
-                ) : day.posts.length === 0 ? (
-                  <p className="text-muted-foreground">本週尚無文章</p>
+                  <Link
+                    to="/blog/week/$weekKey"
+                    params={{ weekKey }}
+                    className="inline-flex min-h-11 items-start gap-1 font-medium text-foreground underline-offset-4 transition-colors duration-200 hover:text-accent hover:underline"
+                  >
+                    本週索引
+                    <ArrowRight className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+                  </Link>
                 ) : (
-                  day.posts.map((post) => (
-                    <Link
-                      key={post.id}
-                      to="/blog/posts/$postId"
-                      params={{ postId: post.path }}
-                      title={post.title}
-                      className="line-clamp-4 min-h-11 font-medium text-foreground underline-offset-4 transition-colors duration-200 hover:text-accent hover:underline"
-                    >
-                      {post.title}
-                    </Link>
-                  ))
+                  day.posts.length === 0 && <p className="text-muted-foreground">本週尚無文章</p>
                 )}
               </div>
             </li>
@@ -133,99 +135,95 @@ function WeekStrip({ week, today }: { week: WeekDay[]; today: string }) {
   );
 }
 
-function PostRow({ post }: { post: PostSummary }) {
+/** 六主題入口：細分隔＋留白，不做六張胖卡。桌機三欄兩排、手機兩欄三排。 */
+function TopicEntrances() {
   return (
-    <li>
-      <Link
-        to="/blog/posts/$postId"
-        params={{ postId: post.path }}
-        className="group grid min-h-[72px] grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 py-4 md:grid-cols-[136px_88px_minmax(0,1fr)_auto] md:gap-x-6"
-      >
-        <span className="col-span-2 flex items-center gap-3 text-sm text-muted-foreground md:contents">
-          <PostDate date={post.date} />
-          <TopicMark topic={post.topic} />
-          <span className="md:hidden">
-            <FixtureBadge source={post.source} />
-          </span>
-        </span>
-        <span className="text-[17px] font-medium leading-normal text-foreground transition-colors duration-200 group-hover:text-accent">
-          {post.title}
-        </span>
-        <ArrowRight
-          className="h-4 w-4 shrink-0 text-muted-foreground transition-colors duration-200 group-hover:text-accent"
-          aria-hidden="true"
-        />
-      </Link>
-    </li>
-  );
-}
-
-function LatestList({ posts }: { posts: PostSummary[] }) {
-  if (posts.length === 0) return null;
-  return (
-    <section aria-labelledby="latest-title" className="mt-12 lg:mt-16">
-      <h2 id="latest-title" className="text-xl font-semibold text-foreground">
-        更多碎念
+    <section aria-labelledby="topics-title" className="mt-12 lg:mt-16">
+      <h2 id="topics-title" className={SECTION_TITLE}>
+        六個主題
       </h2>
-      <ol className="mt-4 divide-y divide-border border-y border-border">
-        {posts.map((post) => (
-          <PostRow key={post.id} post={post} />
-        ))}
-      </ol>
+      <ul className="mt-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-border bg-border lg:grid-cols-3">
+        {TOPIC_SLUGS.map((slug) => {
+          const topic = TOPICS[slug];
+          return (
+            <li key={slug} className={cn(`topic-${slug}`, "bg-background")}>
+              <Link
+                to="/blog/topic/$topic"
+                params={{ topic: slug }}
+                className="group flex h-full min-h-[88px] items-start gap-3 p-4 transition-colors duration-200 hover:bg-surface sm:p-5"
+              >
+                <TopicIcon topic={slug} className="mt-0.5 shrink-0 text-muted-foreground" />
+                <span className="min-w-0">
+                  <span className="flex items-center gap-2 text-[17px] font-semibold text-foreground">
+                    {topic.name}
+                    <span aria-hidden="true" className="h-2 w-2 rounded-full bg-topic" />
+                  </span>
+                  <span className="mt-1 block text-sm leading-normal text-muted-foreground">
+                    {topic.spirit}
+                  </span>
+                </span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
     </section>
   );
 }
 
-function EmptyState() {
+function LatestList({ posts }: { posts: PostSummary[] }) {
   return (
-    <section className="border-y border-border py-12">
-      <h2 className="text-xl font-semibold text-foreground">還沒有公開的碎念</h2>
-      <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
-        第一篇文章發布後會出現在這裡。現在可以先回首頁聽最近的集數。
-      </p>
-      <a href="/#first-listen" className={cn(BTN_SECONDARY, "mt-6")}>
-        先聽一集
+    <section aria-labelledby="latest-title" className="mt-12 lg:mt-16">
+      <h2 id="latest-title" className={SECTION_TITLE}>
+        更多碎念
+      </h2>
+      {posts.length > 0 && (
+        <div className="mt-4">
+          <PostRows posts={posts} />
+        </div>
+      )}
+      <Link to="/blog/archive" className={cn(TEXT_LINK, "mt-5 min-h-11")}>
+        看全部封存
         <ArrowRight className="h-4 w-4" aria-hidden="true" />
-      </a>
+      </Link>
     </section>
   );
 }
 
 export default function BlogHome({ index }: { index: BlogIndex }) {
-  const { feature, week, latest, today } = index;
+  const { feature, week, latest, today, weekKey } = index;
   return (
-    <>
-      <TopNav />
-      <main id="main" className="min-h-screen bg-background pb-16 text-foreground lg:pb-24">
-        <div className={CONTAINER}>
-          <header className="pb-6 pt-8 lg:pb-8 lg:pt-12">
-            <Eyebrow>E 人 I 碎念・文字版</Eyebrow>
-            <h1 className="text-[30px] font-semibold leading-[1.25] tracking-tight text-foreground lg:text-[42px]">
-              每日碎念
-            </h1>
-            <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground lg:text-[17px]">
-              週一到週六，一天一個主題，從身體、心情、靈命寫到家庭、事業、社會。聽完節目，回來把想法寫慢一點。
-            </p>
-          </header>
+    <BlogShell section="all">
+      <header className="pb-6 pt-8 lg:pb-8 lg:pt-12">
+        <Eyebrow>E 人 I 碎念・文字版</Eyebrow>
+        <h1 className="text-[30px] font-semibold leading-[1.25] tracking-tight text-foreground lg:text-[42px]">
+          每日碎念
+        </h1>
+        <p className="mt-3 max-w-2xl text-base leading-relaxed text-muted-foreground lg:text-[17px]">
+          週一到週六，一天一個主題，從身體、心情、靈命寫到家庭、事業、社會。聽完節目，回來把想法寫慢一點。
+        </p>
+      </header>
 
-          {feature ? (
-            <>
-              <FeatureSection feature={feature} />
-              <WeekStrip week={week} today={today} />
-              <LatestList posts={latest} />
-            </>
-          ) : (
-            <EmptyState />
-          )}
-        </div>
-      </main>
-      <footer className="bg-background">
-        <FooterBar>
-          <a href="/" className="transition-colors duration-200 hover:text-foreground">
-            回到首頁
-          </a>
-        </FooterBar>
-      </footer>
-    </>
+      {feature ? (
+        <>
+          <FeatureSection feature={feature} />
+          <WeekStrip week={week} today={today} weekKey={weekKey} />
+          <TopicEntrances />
+          <LatestList posts={latest} />
+        </>
+      ) : (
+        <EmptyState
+          title="還沒有公開的碎念"
+          action={
+            <a href="/#first-listen" className={BTN_SECONDARY}>
+              先聽一集
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </a>
+          }
+        >
+          第一篇文章發布後會出現在這裡。現在可以先回首頁聽最近的集數。
+        </EmptyState>
+      )}
+    </BlogShell>
   );
 }

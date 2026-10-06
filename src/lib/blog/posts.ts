@@ -145,3 +145,33 @@ export function tableOfContents(blocks: Block[]): { id: string; text: string }[]
   );
   return headings.length > 3 ? headings : [];
 }
+
+export type MonthGroup = { month: string; posts: PostSummary[] };
+
+/** 封存頁：依台北日期的年月分組，維持新到舊的順序。 */
+export function groupByMonth(newestFirst: PostSummary[]): MonthGroup[] {
+  const groups: MonthGroup[] = [];
+  for (const post of newestFirst) {
+    const month = post.date.slice(0, 7);
+    const last = groups[groups.length - 1];
+    if (last?.month === month) last.posts.push(post);
+    else groups.push({ month, posts: [post] });
+  }
+  return groups;
+}
+
+/**
+ * 週索引：該週週一到週日，每天列出真實已發布的文章（舊到新）。
+ * 缺稿日是空陣列；不假設每週剛好六篇。
+ */
+export function weekIndex(posts: PostSummary[], monday: string): WeekDay[] {
+  return Array.from({ length: 7 }, (_, i) => {
+    const date = addDays(monday, i);
+    return {
+      date,
+      posts: posts
+        .filter((post) => post.date === date)
+        .sort((a, b) => new Date(a.publishedAt).getTime() - new Date(b.publishedAt).getTime()),
+    };
+  });
+}

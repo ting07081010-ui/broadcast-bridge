@@ -65,7 +65,6 @@ export const Route = createRootRoute({
     links: [
       { rel: "stylesheet", href: appCss },
       { rel: "icon", type: "image/png", href: "/favicon.png" },
-      { rel: "canonical", href: "https://emting.life/" },
     ],
   }),
   shellComponent: RootShell,

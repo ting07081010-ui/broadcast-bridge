@@ -13,6 +13,8 @@ import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as PodcastRecommendationsRouteImport } from './routes/podcast-recommendations'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogPostsPostIdRouteImport } from './routes/blog/posts/$postId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
   id: '/sitemap.xml',
@@ -34,18 +36,32 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogPostsPostIdRoute = BlogPostsPostIdRouteImport.update({
+  id: '/blog/posts/$postId',
+  path: '/blog/posts/$postId',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/': typeof BlogIndexRoute
+  '/blog/posts/$postId': typeof BlogPostsPostIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog': typeof BlogIndexRoute
+  '/blog/posts/$postId': typeof BlogPostsPostIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,18 +69,34 @@ export interface FileRoutesById {
   '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/': typeof BlogIndexRoute
+  '/blog/posts/$postId': typeof BlogPostsPostIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/podcast-recommendations' | '/robots.txt' | '/sitemap.xml'
+  fullPaths:
+    | '/'
+    | '/podcast-recommendations'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/blog/'
+    | '/blog/posts/$postId'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/podcast-recommendations' | '/robots.txt' | '/sitemap.xml'
+  to:
+    | '/'
+    | '/podcast-recommendations'
+    | '/robots.txt'
+    | '/sitemap.xml'
+    | '/blog'
+    | '/blog/posts/$postId'
   id:
     | '__root__'
     | '/'
     | '/podcast-recommendations'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/blog/'
+    | '/blog/posts/$postId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -72,6 +104,8 @@ export interface RootRouteChildren {
   PodcastRecommendationsRoute: typeof PodcastRecommendationsRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  BlogIndexRoute: typeof BlogIndexRoute
+  BlogPostsPostIdRoute: typeof BlogPostsPostIdRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -104,6 +138,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/posts/$postId': {
+      id: '/blog/posts/$postId'
+      path: '/blog/posts/$postId'
+      fullPath: '/blog/posts/$postId'
+      preLoaderRoute: typeof BlogPostsPostIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -112,6 +160,8 @@ const rootRouteChildren: RootRouteChildren = {
   PodcastRecommendationsRoute: PodcastRecommendationsRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  BlogIndexRoute: BlogIndexRoute,
+  BlogPostsPostIdRoute: BlogPostsPostIdRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

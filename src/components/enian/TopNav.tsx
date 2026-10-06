@@ -31,7 +31,7 @@ export default function TopNav() {
           : "border-transparent bg-background",
       )}
     >
-      <div className={cn(CONTAINER, "flex h-14 items-center justify-between gap-3")}>
+      <div className={cn(CONTAINER, "flex h-14 items-center justify-between gap-3 md:h-16")}>
         <a
           href={logoHref}
           className="flex items-center gap-2.5 text-foreground"

@@ -11,7 +11,7 @@ export default function TopNav() {
   const location = useLocation();
   const isHome = location.pathname === "/";
   const logoHref = isHome ? "#top" : "/";
-  const navHref = (href: string) => (isHome ? href : `/${href}`);
+  const navHref = (href: string) => (href.startsWith("/") || isHome ? href : `/${href}`);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);

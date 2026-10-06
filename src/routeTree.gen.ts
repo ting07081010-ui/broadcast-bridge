@@ -14,6 +14,9 @@ import { Route as RobotsDottxtRouteImport } from './routes/robots[.]txt'
 import { Route as PodcastRecommendationsRouteImport } from './routes/podcast-recommendations'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogArchiveRouteImport } from './routes/blog/archive'
+import { Route as BlogWeekWeekKeyRouteImport } from './routes/blog/week/$weekKey'
+import { Route as BlogTopicTopicRouteImport } from './routes/blog/topic/$topic'
 import { Route as BlogPostsPostIdRouteImport } from './routes/blog/posts/$postId'
 
 const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
@@ -41,6 +44,21 @@ const BlogIndexRoute = BlogIndexRouteImport.update({
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogArchiveRoute = BlogArchiveRouteImport.update({
+  id: '/blog/archive',
+  path: '/blog/archive',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogWeekWeekKeyRoute = BlogWeekWeekKeyRouteImport.update({
+  id: '/blog/week/$weekKey',
+  path: '/blog/week/$weekKey',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogTopicTopicRoute = BlogTopicTopicRouteImport.update({
+  id: '/blog/topic/$topic',
+  path: '/blog/topic/$topic',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BlogPostsPostIdRoute = BlogPostsPostIdRouteImport.update({
   id: '/blog/posts/$postId',
   path: '/blog/posts/$postId',
@@ -52,16 +70,22 @@ export interface FileRoutesByFullPath {
   '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/archive': typeof BlogArchiveRoute
   '/blog/': typeof BlogIndexRoute
   '/blog/posts/$postId': typeof BlogPostsPostIdRoute
+  '/blog/topic/$topic': typeof BlogTopicTopicRoute
+  '/blog/week/$weekKey': typeof BlogWeekWeekKeyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/archive': typeof BlogArchiveRoute
   '/blog': typeof BlogIndexRoute
   '/blog/posts/$postId': typeof BlogPostsPostIdRoute
+  '/blog/topic/$topic': typeof BlogTopicTopicRoute
+  '/blog/week/$weekKey': typeof BlogWeekWeekKeyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +93,11 @@ export interface FileRoutesById {
   '/podcast-recommendations': typeof PodcastRecommendationsRoute
   '/robots.txt': typeof RobotsDottxtRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
+  '/blog/archive': typeof BlogArchiveRoute
   '/blog/': typeof BlogIndexRoute
   '/blog/posts/$postId': typeof BlogPostsPostIdRoute
+  '/blog/topic/$topic': typeof BlogTopicTopicRoute
+  '/blog/week/$weekKey': typeof BlogWeekWeekKeyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,24 +106,33 @@ export interface FileRouteTypes {
     | '/podcast-recommendations'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/blog/archive'
     | '/blog/'
     | '/blog/posts/$postId'
+    | '/blog/topic/$topic'
+    | '/blog/week/$weekKey'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/podcast-recommendations'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/blog/archive'
     | '/blog'
     | '/blog/posts/$postId'
+    | '/blog/topic/$topic'
+    | '/blog/week/$weekKey'
   id:
     | '__root__'
     | '/'
     | '/podcast-recommendations'
     | '/robots.txt'
     | '/sitemap.xml'
+    | '/blog/archive'
     | '/blog/'
     | '/blog/posts/$postId'
+    | '/blog/topic/$topic'
+    | '/blog/week/$weekKey'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -104,8 +140,11 @@ export interface RootRouteChildren {
   PodcastRecommendationsRoute: typeof PodcastRecommendationsRoute
   RobotsDottxtRoute: typeof RobotsDottxtRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
+  BlogArchiveRoute: typeof BlogArchiveRoute
   BlogIndexRoute: typeof BlogIndexRoute
   BlogPostsPostIdRoute: typeof BlogPostsPostIdRoute
+  BlogTopicTopicRoute: typeof BlogTopicTopicRoute
+  BlogWeekWeekKeyRoute: typeof BlogWeekWeekKeyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -145,6 +184,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/archive': {
+      id: '/blog/archive'
+      path: '/blog/archive'
+      fullPath: '/blog/archive'
+      preLoaderRoute: typeof BlogArchiveRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/week/$weekKey': {
+      id: '/blog/week/$weekKey'
+      path: '/blog/week/$weekKey'
+      fullPath: '/blog/week/$weekKey'
+      preLoaderRoute: typeof BlogWeekWeekKeyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/topic/$topic': {
+      id: '/blog/topic/$topic'
+      path: '/blog/topic/$topic'
+      fullPath: '/blog/topic/$topic'
+      preLoaderRoute: typeof BlogTopicTopicRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/blog/posts/$postId': {
       id: '/blog/posts/$postId'
       path: '/blog/posts/$postId'
@@ -160,8 +220,11 @@ const rootRouteChildren: RootRouteChildren = {
   PodcastRecommendationsRoute: PodcastRecommendationsRoute,
   RobotsDottxtRoute: RobotsDottxtRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
+  BlogArchiveRoute: BlogArchiveRoute,
   BlogIndexRoute: BlogIndexRoute,
   BlogPostsPostIdRoute: BlogPostsPostIdRoute,
+  BlogTopicTopicRoute: BlogTopicTopicRoute,
+  BlogWeekWeekKeyRoute: BlogWeekWeekKeyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

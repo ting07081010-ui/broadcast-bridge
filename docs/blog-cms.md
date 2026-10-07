@@ -41,7 +41,7 @@ NOTION_TOKEN=... NOTION_BLOG_DATABASE_ID=... node scripts/sync-blog.ts
 
 ## 正文支援的區塊
 
-段落、H2／H3、粗體／斜體／行內程式碼、連結、項目與編號清單（可巢狀）、引文、callout、圖片、表格、程式碼、分隔線。toggle 與分欄會展開成一般內容。
+段落、H2／H3、粗體／斜體／行內程式碼、連結、項目與編號清單（可巢狀；同一項目底下可混用項目清單與編號清單）、引文、callout、圖片、表格、程式碼、分隔線。toggle 與分欄會展開成一般內容。頁面、人員與其他行內 mention 會轉成顯示名稱的純文字，不另建 Notion 連結。
 
 寫作慣例（由轉換層解讀，待主持人確認）：
 
@@ -49,7 +49,7 @@ NOTION_TOKEN=... NOTION_BLOG_DATABASE_ID=... node scripts/sync-blog.ts
 - **經文**：用 📖 圖示的 callout，最後一行寫 `——書卷 章:節（版本）`。缺出處會阻擋發布，經文內容不會被改寫。
 - 內文若用了 H1，會整體降一級並在同步時提醒。
 
-不支援、會阻擋該篇的內容：子頁面、資料庫、embed、頁面或人員 mention、Notion 內部連結。
+不支援、會阻擋該篇的內容：子頁面、資料庫、embed、Notion 內部連結。清單項目底下只接受巢狀清單（項目與編號可混用），其他區塊仍會阻擋。
 
 ## 測試稿（fixtures）
 

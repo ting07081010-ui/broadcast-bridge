@@ -35,7 +35,9 @@ function List({ list }: { list: ListBlock }) {
       {list.items.map((item, i) => (
         <li key={i}>
           <Inlines inlines={item.inlines} />
-          {item.children && <List list={item.children} />}
+          {item.children?.map((child, j) => (
+            <List key={j} list={child} />
+          ))}
         </li>
       ))}
     </Tag>

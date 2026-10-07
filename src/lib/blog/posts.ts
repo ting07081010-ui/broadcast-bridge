@@ -50,7 +50,7 @@ function inlineText(inlines: Inline[]): string {
 
 function listText(list: ListBlock): string {
   return list.items
-    .map((item) => inlineText(item.inlines) + (item.children ? listText(item.children) : ""))
+    .map((item) => inlineText(item.inlines) + (item.children ?? []).map(listText).join(""))
     .join("");
 }
 

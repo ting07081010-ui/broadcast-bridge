@@ -17,7 +17,8 @@ export type Inline = {
 
 export type ListItem = {
   inlines: Inline[];
-  children?: ListBlock;
+  /** 巢狀清單，依出現順序。同一項目底下可接多段不同種類（項目／編號）。 */
+  children?: ListBlock[];
 };
 
 export type ListBlock = { type: "list"; ordered: boolean; items: ListItem[] };

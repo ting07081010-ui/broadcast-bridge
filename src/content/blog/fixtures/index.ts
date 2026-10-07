@@ -24,7 +24,7 @@ const h3 = (id: string, text: string): Block => ({
 });
 const li = (text: string, children?: ListItem[], ordered = false): ListItem => ({
   inlines: t(text),
-  ...(children ? { children: { type: "list", ordered, items: children } } : {}),
+  ...(children ? { children: [{ type: "list", ordered, items: children }] } : {}),
 });
 const at = (date: string, time = "06:30") => `${date}T${time}:00+08:00`;
 

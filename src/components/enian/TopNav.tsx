@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
 import { Menu, Radio, X, Headphones } from "lucide-react";
 import { useLocation } from "@tanstack/react-router";
 import { NAV_LINKS, PODCAST } from "@/lib/enian/constants";
@@ -20,13 +21,32 @@ export default function TopNav() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // 點選連結或換頁後自動收合
+  useEffect(() => setOpen(false), [location.pathname, location.hash]);
+
   const close = () => setOpen(false);
+
+  // 選單開著時背景被鎖住不能捲動，直接點錨點會跳不到位。
+  // 所以先記下目的地、關閉選單，等焦點歸還的時機（背景已解鎖）再前往。
+  const pendingHref = useRef<string | null>(null);
+  const goAfterClose = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault();
+    pendingHref.current = event.currentTarget.href;
+    setOpen(false);
+  };
+  const onMenuClosed = (event: Event) => {
+    const href = pendingHref.current;
+    if (!href) return; // 用 Escape 或關閉鈕收合：讓焦點照常回到觸發鈕
+    pendingHref.current = null;
+    event.preventDefault();
+    window.location.assign(href);
+  };
 
   return (
     <header
       className={cn(
         "sticky top-0 z-50 border-b transition-colors duration-200",
-        scrolled || open
+        scrolled
           ? "border-border bg-background/90 backdrop-blur"
           : "border-transparent bg-background",
       )}
@@ -74,42 +94,69 @@ export default function TopNav() {
             訂閱
           </a>
 
-          <button
-            type="button"
-            aria-label={open ? "關閉選單" : "開啟選單"}
-            aria-expanded={open}
-            aria-controls="mobile-nav"
-            onClick={() => setOpen((v) => !v)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
-          >
-            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
-          </button>
+          {/*
+            手機選單用 Radix Dialog：Escape 關閉、焦點鎖在選單內、關閉後焦點回到觸發鈕、
+            開啟時背景不捲動，這些行為都由元件提供，不自己重寫。
+          */}
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            <Dialog.Trigger
+              aria-label="開啟選單"
+              className="flex h-11 w-11 items-center justify-center rounded-lg border border-border text-foreground md:hidden"
+            >
+              <Menu className="h-4 w-4" aria-hidden="true" />
+            </Dialog.Trigger>
+            <Dialog.Portal>
+              <Dialog.Overlay className="fixed inset-0 z-50 bg-background/80 md:hidden" />
+              <Dialog.Content
+                aria-describedby={undefined}
+                onCloseAutoFocus={onMenuClosed}
+                className="fixed inset-x-0 top-0 z-50 max-h-dvh overflow-y-auto border-b border-border bg-background text-foreground md:hidden"
+              >
+                <div className={cn(CONTAINER, "flex h-14 items-center justify-between gap-3")}>
+                  <Dialog.Title className="flex items-center gap-2.5 text-[15px] font-semibold tracking-tight">
+                    <Radio className="h-4 w-4 text-accent" aria-hidden="true" />
+                    {PODCAST.name}
+                    <span className="sr-only">選單</span>
+                  </Dialog.Title>
+                  <Dialog.Close
+                    aria-label="關閉選單"
+                    className="flex h-11 w-11 items-center justify-center rounded-lg border border-border"
+                  >
+                    <X className="h-4 w-4" aria-hidden="true" />
+                  </Dialog.Close>
+                </div>
+                <nav aria-label="行動裝置主導覽" className={cn(CONTAINER, "pb-5")}>
+                  <ul className="border-t border-border">
+                    {NAV_LINKS.map((l) => (
+                      <li key={l.href} className="border-b border-border">
+                        <a
+                          href={navHref(l.href)}
+                          onClick={goAfterClose}
+                          data-event="click_nav"
+                          data-target={l.href.replace("#", "")}
+                          className="flex min-h-12 items-center text-base text-foreground"
+                        >
+                          {l.label}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
+                  <a
+                    href={navHref("#tune-in")}
+                    onClick={goAfterClose}
+                    data-event="click_nav_cta"
+                    data-location="mobile_menu"
+                    className={cn(BTN_PRIMARY, "mt-5 w-full")}
+                  >
+                    <Headphones className="h-4 w-4" aria-hidden="true" />
+                    選平台訂閱
+                  </a>
+                </nav>
+              </Dialog.Content>
+            </Dialog.Portal>
+          </Dialog.Root>
         </div>
       </div>
-
-      {open && (
-        <nav
-          id="mobile-nav"
-          className="border-t border-border bg-background md:hidden"
-          aria-label="行動裝置主導覽"
-        >
-          <ul className={cn(CONTAINER, "flex flex-col py-2")}>
-            {NAV_LINKS.map((l) => (
-              <li key={l.href} className="border-b border-border last:border-b-0">
-                <a
-                  href={navHref(l.href)}
-                  onClick={close}
-                  data-event="click_nav"
-                  data-target={l.href.replace("#", "")}
-                  className="block py-3.5 text-[15px] text-foreground"
-                >
-                  {l.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-      )}
     </header>
   );
 }

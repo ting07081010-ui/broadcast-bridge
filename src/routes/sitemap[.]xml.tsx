@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { listSitemapPosts } from "@/lib/blog/posts.functions";
+import { listSitemapPaths } from "@/lib/blog/posts.functions";
 
 const SITE = "https://emting.life";
 
@@ -14,14 +14,18 @@ function urlEntry(loc: string, lastmod: string, changefreq: string, priority: st
 
 async function buildSitemap(): Promise<string> {
   const today = new Date().toISOString().split("T")[0];
-  // 只列通過發布閘門的真實文章；還沒有文章時連 /blog 都不列
-  const posts = await listSitemapPosts();
+  // 只列通過發布閘門的真實文章與它們衍生的頁面；還沒有文章時部落格網址一個都不列
+  const blogPaths = await listSitemapPaths();
   const entries = [
     urlEntry(`${SITE}/`, today, "weekly", "1.0"),
     urlEntry(`${SITE}/podcast-recommendations`, today, "monthly", "0.7"),
-    ...(posts.length > 0 ? [urlEntry(`${SITE}/blog`, today, "daily", "0.8")] : []),
-    ...posts.map((post) =>
-      urlEntry(`${SITE}/blog/posts/${post.path}`, post.updatedAt.split("T")[0], "monthly", "0.6"),
+    ...blogPaths.map(({ path, updatedAt }) =>
+      urlEntry(
+        `${SITE}${path}`,
+        updatedAt.split("T")[0],
+        path.startsWith("/blog/posts/") ? "monthly" : "daily",
+        path === "/blog" ? "0.8" : "0.6",
+      ),
     ),
   ];
   return `<?xml version="1.0" encoding="UTF-8"?>

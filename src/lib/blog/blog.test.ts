@@ -11,11 +11,13 @@ import {
   pickFeature,
   plainText,
   tableOfContents,
+  groupByMonth,
   toSummary,
   validatePost,
   weekDays,
+  weekIndex,
 } from "./posts.ts";
-import { isoWeekKey, isoWeekday, taipeiDate, weekStart } from "./time.ts";
+import { isoWeekKey, isoWeekday, taipeiDate, weekKeyToMonday, weekStart } from "./time.ts";
 import type { Post } from "./types.ts";
 
 const rt = (text: string, extra: Partial<NotionRichText> = {}): NotionRichText => ({
@@ -331,4 +333,46 @@ test("同步腳本：從檔頭讀出 PNG 與 GIF 尺寸，無法辨識的格式�
   gif.set([0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x40, 0x01, 0xf0, 0x00]);
   assert.deepEqual(imageSize(gif), { width: 320, height: 240 });
   assert.equal(imageSize(new Uint8Array(32)), null);
+});
+
+test("週碼換回週一：跨年正確，格式錯誤或不存在的週回傳 null", () => {
+  assert.equal(weekKeyToMonday("2026-W41"), "2026-10-05");
+  assert.equal(weekKeyToMonday("2025-W01"), "2024-12-30");
+  assert.equal(weekKeyToMonday("2026-W53"), "2026-12-28");
+  assert.equal(weekKeyToMonday("2026-W54"), null);
+  assert.equal(weekKeyToMonday("2025-W53"), null);
+  assert.equal(weekKeyToMonday("2026-W00"), null);
+  assert.equal(weekKeyToMonday("2026-41"), null);
+  assert.equal(weekKeyToMonday("archive"), null);
+});
+
+test("封存分組：依年月、維持新到舊；週索引：缺稿日為空、一天多篇依時間排列", () => {
+  const mk = (slug: string, date: string, time = "06:00") =>
+    toSummary({ ...basePost, id: slug, slug, date, publishedAt: `${date}T${time}:00+08:00` });
+  const list = [
+    mk("d", "2026-10-05", "20:00"),
+    mk("c", "2026-10-05"),
+    mk("b", "2026-09-30"),
+    mk("a", "2026-09-01"),
+  ];
+  const groups = groupByMonth(list);
+  assert.deepEqual(
+    groups.map((g) => [g.month, g.posts.length]),
+    [
+      ["2026-10", 2],
+      ["2026-09", 2],
+    ],
+  );
+  const week = weekIndex(list, "2026-10-05");
+  assert.equal(week.length, 7);
+  assert.deepEqual(
+    week[0].posts.map((p) => p.slug),
+    ["c", "d"],
+  );
+  assert.equal(
+    week.slice(1).every((day) => day.posts.length === 0),
+    true,
+  );
+  // 上一週只會拿到 09-30 那一篇，不會混入別週
+  assert.equal(weekIndex(list, "2026-09-28").flatMap((d) => d.posts).length, 1);
 });

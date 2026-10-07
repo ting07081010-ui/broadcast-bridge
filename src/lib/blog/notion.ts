@@ -75,15 +75,18 @@ function safeHref(href: string | null, blockId: string): string | undefined {
 
 export function richTextToInlines(richText: NotionRichText[], blockId: string): Inline[] {
   return richText.map((part) => {
-    if (part.type !== "text") {
-      throw new BlockError(blockId, `行內含有不支援的內容（${part.type}），例如頁面或人員 mention`);
+    // mention（頁面、人員、日期等）只留顯示名稱，不做成 Notion 連結。
+    if (part.type !== "text" && part.type !== "mention") {
+      throw new BlockError(blockId, `行內含有不支援的內容（${part.type}）`);
     }
     const inline: Inline = { text: part.plain_text };
     if (part.annotations?.bold) inline.bold = true;
     if (part.annotations?.italic) inline.italic = true;
     if (part.annotations?.code) inline.code = true;
-    const href = safeHref(part.href, blockId);
-    if (href) inline.href = href;
+    if (part.type === "text") {
+      const href = safeHref(part.href, blockId);
+      if (href) inline.href = href;
+    }
     return inline;
   });
 }
@@ -125,21 +128,33 @@ function splitSource(inlines: Inline[]): { body: Inline[]; source?: string } {
   return { body, source: lastLine.replace(SOURCE_DASH, "") };
 }
 
+function isListItem(type: string): boolean {
+  return type === "bulleted_list_item" || type === "numbered_list_item";
+}
+
+/** 連續的同種類清單各成一段；項目與編號可混用，依出現順序接在同一項目下。 */
+function nestedLists(children: NotionBlock[]): ListBlock[] {
+  const lists: ListBlock[] = [];
+  for (let i = 0; i < children.length; i++) {
+    const child = children[i];
+    if (!isListItem(child.type)) {
+      throw new BlockError(child.id, `清單項目底下含有不支援的區塊（${child.type}）`);
+    }
+    const run = [child];
+    while (children[i + 1]?.type === child.type) run.push(children[++i]);
+    lists.push(toList(run, child.type === "numbered_list_item"));
+  }
+  return lists;
+}
+
 function toList(items: NotionBlock[], ordered: boolean): ListBlock {
   return {
     type: "list",
     ordered,
     items: items.map((item): ListItem => {
-      const nested = childrenOf(item);
       const listItem: ListItem = { inlines: inlinesOf(item) };
-      if (nested.length > 0) {
-        const nestedType = nested[0].type;
-        const isList = nestedType === "bulleted_list_item" || nestedType === "numbered_list_item";
-        if (!isList || nested.some((child) => child.type !== nestedType)) {
-          throw new BlockError(item.id, "清單項目底下只支援同一種類的巢狀清單");
-        }
-        listItem.children = toList(nested, nestedType === "numbered_list_item");
-      }
+      const nested = nestedLists(childrenOf(item));
+      if (nested.length > 0) listItem.children = nested;
       return listItem;
     }),
   };

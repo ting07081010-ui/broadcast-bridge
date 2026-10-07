@@ -9,6 +9,7 @@ import {
   estimateReadingMinutes,
   isPublic,
   pickFeature,
+  plainText,
   tableOfContents,
   toSummary,
   validatePost,
@@ -137,8 +138,83 @@ test("Notion 轉換：連續清單項合併，三層巢狀保留順序與編號�
   const list = blocks[0];
   assert.ok(list.type === "list" && list.ordered);
   assert.equal(list.items.length, 2);
-  assert.equal(list.items[0].children?.ordered, false);
-  assert.equal(list.items[0].children?.items[0].children?.items[0].inlines[0].text, "第三層");
+  assert.equal(list.items[0].children?.[0].ordered, false);
+  assert.equal(
+    list.items[0].children?.[0].items[0].children?.[0].items[0].inlines[0].text,
+    "第三層",
+  );
+});
+
+test("Notion 轉換：清單項目底下可混用項目與編號清單", () => {
+  const bullet = (id: string, text: string, children?: NotionBlock[]) =>
+    block(id, "bulleted_list_item", { rich_text: [rt(text)] }, children);
+  const num = (id: string, text: string, children?: NotionBlock[]) =>
+    block(id, "numbered_list_item", { rich_text: [rt(text)] }, children);
+  const { blocks } = convertBlocks(
+    [
+      bullet("b", "項目", [num("n1", "編號一"), num("n2", "編號二"), bullet("b1", "再回到項目")]),
+      num("s", "步驟", [bullet("s1", "細節"), num("s2", "再編號")]),
+    ],
+    new Map(),
+  );
+  assert.equal(blocks.length, 2);
+  const bullets = blocks[0];
+  const steps = blocks[1];
+  assert.ok(bullets.type === "list" && !bullets.ordered);
+  assert.ok(steps.type === "list" && steps.ordered);
+  assert.deepEqual(
+    bullets.items[0].children?.map((child) => ({
+      ordered: child.ordered,
+      text: child.items.map((item) => item.inlines[0].text),
+    })),
+    [
+      { ordered: true, text: ["編號一", "編號二"] },
+      { ordered: false, text: ["再回到項目"] },
+    ],
+  );
+  assert.deepEqual(
+    steps.items[0].children?.map((child) => ({
+      ordered: child.ordered,
+      text: child.items.map((item) => item.inlines[0].text),
+    })),
+    [
+      { ordered: false, text: ["細節"] },
+      { ordered: true, text: ["再編號"] },
+    ],
+  );
+  assert.match(plainText(blocks), /項目編號一編號二再回到項目/);
+  assert.match(plainText(blocks), /步驟細節再編號/);
+
+  const notAList = bullet("bad", "父", [para("child-p", "這不是清單")]);
+  assert.throws(
+    () => convertBlocks([notAList], new Map()),
+    (err: unknown) => err instanceof BlockError && err.blockId === "child-p",
+  );
+});
+
+test("Notion 轉換：頁面與人員 mention 轉成純文字，不阻擋也不加連結", () => {
+  const paragraph = block("m", "paragraph", {
+    rich_text: [
+      rt("見 "),
+      rt("專案頁", { type: "mention", href: "https://www.notion.so/project-page" }),
+      rt(" 與 "),
+      rt("某人", { type: "mention", annotations: { bold: true } }),
+      rt("，站外仍是連結", { href: "https://example.com/notes" }),
+    ],
+  });
+  const { blocks } = convertBlocks([paragraph], new Map());
+  assert.deepEqual(blocks, [
+    {
+      type: "paragraph",
+      inlines: [
+        { text: "見 " },
+        { text: "專案頁" },
+        { text: " 與 " },
+        { text: "某人", bold: true },
+        { text: "，站外仍是連結", href: "https://example.com/notes" },
+      ],
+    },
+  ]);
 });
 
 test("Notion 轉換：引文拆出來源；經文保留原文並要求出處", () => {
@@ -169,7 +245,7 @@ test("Notion 轉換：不支援的區塊、內部連結、危險協定、未抓�
     block("child-1", "child_page", { title: "子頁" }),
     block("link-1", "paragraph", { rich_text: [rt("內部", { href: "/abc123" })] }),
     block("js-1", "paragraph", { rich_text: [rt("壞", { href: "javascript:alert(1)" })] }),
-    block("mention-1", "paragraph", { rich_text: [rt("@某人", { type: "mention" })] }),
+    block("eq-1", "paragraph", { rich_text: [rt("E=mc²", { type: "equation" })] }),
     { id: "partial-1", type: "toggle", has_children: true, toggle: { rich_text: [rt("展開")] } },
   ];
   for (const bad of cases) {

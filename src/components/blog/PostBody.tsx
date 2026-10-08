@@ -1,6 +1,6 @@
 import { Fragment, useState } from "react";
 import { Check, Copy } from "lucide-react";
-import type { Block, Inline, ListBlock } from "@/lib/blog/types";
+import type { Block, Inline, ListBlock, ListChild } from "@/lib/blog/types";
 
 function Inlines({ inlines }: { inlines: Inline[] }) {
   return (
@@ -28,6 +28,38 @@ function Inlines({ inlines }: { inlines: Inline[] }) {
   );
 }
 
+function Paragraph({ inlines }: { inlines: Inline[] }) {
+  return (
+    <p>
+      <Inlines inlines={inlines} />
+    </p>
+  );
+}
+
+function Quote({ inlines, source }: { inlines: Inline[]; source?: string }) {
+  return (
+    <blockquote>
+      <p className="!mb-0">
+        <Inlines inlines={inlines} />
+      </p>
+      {source && <footer>—— {source}</footer>}
+    </blockquote>
+  );
+}
+
+function ListChildView({ child }: { child: ListChild }) {
+  switch (child.type) {
+    case "list":
+      return <List list={child} />;
+    case "paragraph":
+      return <Paragraph inlines={child.inlines} />;
+    case "quote":
+      return <Quote inlines={child.inlines} source={child.source} />;
+    case "code":
+      return <CodeBlock block={child} />;
+  }
+}
+
 function List({ list }: { list: ListBlock }) {
   const Tag = list.ordered ? "ol" : "ul";
   return (
@@ -36,7 +68,7 @@ function List({ list }: { list: ListBlock }) {
         <li key={i}>
           <Inlines inlines={item.inlines} />
           {item.children?.map((child, j) => (
-            <List key={j} list={child} />
+            <ListChildView key={j} child={child} />
           ))}
         </li>
       ))}
@@ -89,11 +121,7 @@ function CodeBlock({ block }: { block: Extract<Block, { type: "code" }> }) {
 function BlockView({ block }: { block: Block }) {
   switch (block.type) {
     case "paragraph":
-      return (
-        <p>
-          <Inlines inlines={block.inlines} />
-        </p>
-      );
+      return <Paragraph inlines={block.inlines} />;
     case "heading": {
       const Tag = block.level === 2 ? "h2" : "h3";
       return (
@@ -105,14 +133,7 @@ function BlockView({ block }: { block: Block }) {
     case "list":
       return <List list={block} />;
     case "quote":
-      return (
-        <blockquote>
-          <p className="!mb-0">
-            <Inlines inlines={block.inlines} />
-          </p>
-          {block.source && <footer>—— {block.source}</footer>}
-        </blockquote>
-      );
+      return <Quote inlines={block.inlines} source={block.source} />;
     case "scripture":
       return (
         <figure className="scripture">

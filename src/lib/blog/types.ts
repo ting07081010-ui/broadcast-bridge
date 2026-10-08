@@ -15,10 +15,13 @@ export type Inline = {
   href?: string;
 };
 
+/** 清單項目裡依出現順序接上的內容：巢狀清單、段落、引文或程式碼。 */
+export type ListChild = Extract<Block, { type: "list" | "paragraph" | "quote" | "code" }>;
+
 export type ListItem = {
   inlines: Inline[];
-  /** 巢狀清單，依出現順序。同一項目底下可接多段不同種類（項目／編號）。 */
-  children?: ListBlock[];
+  /** 巢狀內容，依出現順序。項目與編號清單可混用，也可穿插段落、引文、程式碼。 */
+  children?: ListChild[];
 };
 
 export type ListBlock = { type: "list"; ordered: boolean; items: ListItem[] };

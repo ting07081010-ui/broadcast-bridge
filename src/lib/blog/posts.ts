@@ -1,5 +1,5 @@
 import { TOPIC_SLUGS } from "./types.ts";
-import type { Block, Inline, ListBlock, Post, PostSummary } from "./types.ts";
+import type { Block, Inline, ListBlock, ListChild, Post, PostSummary } from "./types.ts";
 import { addDays, taipeiDate, weekStart } from "./time.ts";
 
 const SLUG_PATTERN = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
@@ -48,9 +48,21 @@ function inlineText(inlines: Inline[]): string {
   return inlines.map((i) => i.text).join("");
 }
 
+function listChildText(child: ListChild): string {
+  switch (child.type) {
+    case "list":
+      return listText(child);
+    case "paragraph":
+    case "quote":
+      return inlineText(child.inlines);
+    case "code":
+      return "";
+  }
+}
+
 function listText(list: ListBlock): string {
   return list.items
-    .map((item) => inlineText(item.inlines) + (item.children ?? []).map(listText).join(""))
+    .map((item) => inlineText(item.inlines) + (item.children ?? []).map(listChildText).join(""))
     .join("");
 }
 

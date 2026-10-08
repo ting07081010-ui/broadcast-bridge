@@ -3,7 +3,16 @@
 // 狀態：尚未對真實 Notion 資料庫驗證，欄位名稱依規劃 9.2 的提案。
 
 import { TOPIC_SLUGS } from "./types.ts";
-import type { Block, Inline, ListBlock, ListItem, Post, PostStatus, TopicSlug } from "./types.ts";
+import type {
+  Block,
+  Inline,
+  ListBlock,
+  ListChild,
+  ListItem,
+  Post,
+  PostStatus,
+  TopicSlug,
+} from "./types.ts";
 import { taipeiDate } from "./time.ts";
 
 export type NotionRichText = {
@@ -132,19 +141,67 @@ function isListItem(type: string): boolean {
   return type === "bulleted_list_item" || type === "numbered_list_item";
 }
 
-/** 連續的同種類清單各成一段；項目與編號可混用，依出現順序接在同一項目下。 */
-function nestedLists(children: NotionBlock[]): ListBlock[] {
-  const lists: ListBlock[] = [];
+function toParagraph(block: NotionBlock): Extract<Block, { type: "paragraph" }> | null {
+  const inlines = inlinesOf(block);
+  if (!plain(inlines).trim()) return null;
+  return { type: "paragraph", inlines };
+}
+
+function toQuote(block: NotionBlock): Extract<Block, { type: "quote" }> {
+  const { body, source } = splitSource(inlinesOf(block));
+  return { type: "quote", inlines: body, ...(source ? { source } : {}) };
+}
+
+function toCode(block: NotionBlock): Extract<Block, { type: "code" }> {
+  const data = payload(block);
+  const code = ((data.rich_text ?? []) as NotionRichText[]).map((t) => t.plain_text).join("");
+  const caption = ((data.caption ?? []) as NotionRichText[])
+    .map((t) => t.plain_text)
+    .join("")
+    .trim();
+  const language = typeof data.language === "string" ? data.language : undefined;
+  return {
+    type: "code",
+    code,
+    ...(language ? { language } : {}),
+    ...(caption ? { caption } : {}),
+  };
+}
+
+/**
+ * 清單項目的子區塊，依出現順序轉成巢狀內容。
+ * 連續的同種類清單合併成一段；段落、引文、程式碼穿插其中。
+ * 這些區塊若自己還有子區塊，接在它後面，避免默默丟掉。
+ */
+function listItemChildren(children: NotionBlock[]): ListChild[] {
+  const out: ListChild[] = [];
   for (let i = 0; i < children.length; i++) {
     const child = children[i];
-    if (!isListItem(child.type)) {
-      throw new BlockError(child.id, `清單項目底下含有不支援的區塊（${child.type}）`);
+    if (isListItem(child.type)) {
+      const run = [child];
+      while (children[i + 1]?.type === child.type) run.push(children[++i]);
+      out.push(toList(run, child.type === "numbered_list_item"));
+      continue;
     }
-    const run = [child];
-    while (children[i + 1]?.type === child.type) run.push(children[++i]);
-    lists.push(toList(run, child.type === "numbered_list_item"));
+    if (child.type === "paragraph") {
+      const paragraph = toParagraph(child);
+      if (paragraph) out.push(paragraph);
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
+    if (child.type === "quote") {
+      out.push(toQuote(child));
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
+    if (child.type === "code") {
+      out.push(toCode(child));
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
+    throw new BlockError(child.id, `清單項目底下含有不支援的區塊（${child.type}）`);
   }
-  return lists;
+  return out;
 }
 
 function toList(items: NotionBlock[], ordered: boolean): ListBlock {
@@ -153,7 +210,7 @@ function toList(items: NotionBlock[], ordered: boolean): ListBlock {
     ordered,
     items: items.map((item): ListItem => {
       const listItem: ListItem = { inlines: inlinesOf(item) };
-      const nested = nestedLists(childrenOf(item));
+      const nested = listItemChildren(childrenOf(item));
       if (nested.length > 0) listItem.children = nested;
       return listItem;
     }),
@@ -199,8 +256,8 @@ function convertList(
     const data = payload(block);
     switch (block.type) {
       case "paragraph": {
-        const inlines = inlinesOf(block);
-        if (plain(inlines).trim()) out.push({ type: "paragraph", inlines });
+        const paragraph = toParagraph(block);
+        if (paragraph) out.push(paragraph);
         break;
       }
       case "heading_1":
@@ -224,11 +281,9 @@ function convertList(
         out.push(toList(run, block.type === "numbered_list_item"));
         break;
       }
-      case "quote": {
-        const { body, source } = splitSource(inlinesOf(block));
-        out.push({ type: "quote", inlines: body, ...(source ? { source } : {}) });
+      case "quote":
+        out.push(toQuote(block));
         break;
-      }
       case "callout": {
         const icon = (data.icon as { emoji?: string } | null)?.emoji;
         const inlines = inlinesOf(block);
@@ -265,21 +320,9 @@ function convertList(
         out.push({ type: "table", hasHeader: Boolean(data.has_column_header), rows });
         break;
       }
-      case "code": {
-        const code = ((data.rich_text ?? []) as NotionRichText[]).map((t) => t.plain_text).join("");
-        const caption = ((data.caption ?? []) as NotionRichText[])
-          .map((t) => t.plain_text)
-          .join("")
-          .trim();
-        const language = typeof data.language === "string" ? data.language : undefined;
-        out.push({
-          type: "code",
-          code,
-          ...(language ? { language } : {}),
-          ...(caption ? { caption } : {}),
-        });
+      case "code":
+        out.push(toCode(block));
         break;
-      }
       case "divider":
         out.push({ type: "divider" });
         break;

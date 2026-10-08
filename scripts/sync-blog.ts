@@ -11,7 +11,7 @@
  * 保護原則：
  * - 權杖只從環境變數讀取，不寫入任何檔案或 log。
  * - 任何一步失敗都不覆寫既有快照（不把空結果當成「文章全刪了」）。
- * - 單篇含未支援內容時阻擋該篇並印出 block ID，其他文章照常同步。
+ * - 單篇含未支援內容時阻擋該篇並印出標題、頁面 ID 與原因，其他文章照常同步。
  * - 只把 Status＝Published 的文章寫進快照；排程未到的由網站端的發布閘門擋下。
  */
 import { createHash } from "node:crypto";
@@ -20,7 +20,12 @@ import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
 import { BlockError, convertBlocks, pageToPost } from "../src/lib/blog/notion.ts";
-import type { NotionBlock, NotionPage, ResolvedImage } from "../src/lib/blog/notion.ts";
+import type {
+  NotionBlock,
+  NotionPage,
+  NotionRichText,
+  ResolvedImage,
+} from "../src/lib/blog/notion.ts";
 import { validatePost } from "../src/lib/blog/posts.ts";
 import type { BlogSnapshot, Post } from "../src/lib/blog/types.ts";
 
@@ -36,6 +41,20 @@ const IMAGE_TYPES: Record<string, string> = {
   "image/webp": ".webp",
   "image/gif": ".gif",
 };
+
+/** 給同步紀錄與內容 PR 用：有標題就同時寫標題與頁面 ID。 */
+export function blockedPostLine(title: string, pageId: string, reason: string): string {
+  const name = title.trim();
+  return name ? `「${name}」（${pageId}）：${reason}` : `頁面 ${pageId}：${reason}`;
+}
+
+function pageTitle(page: NotionPage): string {
+  const parts = (page.properties.Title?.title ?? []) as NotionRichText[];
+  return parts
+    .map((part) => part.plain_text)
+    .join("")
+    .trim();
+}
 
 const token = process.env.NOTION_TOKEN;
 const databaseId = process.env.NOTION_BLOG_DATABASE_ID;
@@ -193,7 +212,7 @@ async function main(): Promise<void> {
       const path = `${post.date}-${post.slug}`;
       if (paths.has(path)) problems.push(`網址重複：${path}`);
       if (problems.length > 0) {
-        blocked.push(`「${post.title || page.id}」：${problems.join("；")}`);
+        blocked.push(blockedPostLine(post.title || pageTitle(page), page.id, problems.join("；")));
         continue;
       }
       paths.add(path);
@@ -210,7 +229,7 @@ async function main(): Promise<void> {
         console.warn(`提醒：頁面 ${page.id} 含未支援內容，沿用既有快照版本：${error.message}`);
         continue;
       }
-      blocked.push(`頁面 ${page.id}：${error.message}`);
+      blocked.push(blockedPostLine(pageTitle(page), page.id, error.message));
     }
   }
 

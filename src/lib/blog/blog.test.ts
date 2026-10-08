@@ -140,11 +140,11 @@ test("Notion 轉換：連續清單項合併，三層巢狀保留順序與編號�
   const list = blocks[0];
   assert.ok(list.type === "list" && list.ordered);
   assert.equal(list.items.length, 2);
-  assert.equal(list.items[0].children?.[0].ordered, false);
-  assert.equal(
-    list.items[0].children?.[0].items[0].children?.[0].items[0].inlines[0].text,
-    "第三層",
-  );
+  const nested = list.items[0].children?.[0];
+  assert.ok(nested?.type === "list" && nested.ordered === false);
+  const third = nested.items[0].children?.[0];
+  assert.ok(third?.type === "list");
+  assert.equal(third.items[0].inlines[0].text, "第三層");
 });
 
 test("Notion 轉換：清單項目底下可混用項目與編號清單", () => {
@@ -165,20 +165,28 @@ test("Notion 轉換：清單項目底下可混用項目與編號清單", () => {
   assert.ok(bullets.type === "list" && !bullets.ordered);
   assert.ok(steps.type === "list" && steps.ordered);
   assert.deepEqual(
-    bullets.items[0].children?.map((child) => ({
-      ordered: child.ordered,
-      text: child.items.map((item) => item.inlines[0].text),
-    })),
+    bullets.items[0].children?.map((child) => {
+      assert.equal(child.type, "list");
+      if (child.type !== "list") return null;
+      return {
+        ordered: child.ordered,
+        text: child.items.map((item) => item.inlines[0].text),
+      };
+    }),
     [
       { ordered: true, text: ["編號一", "編號二"] },
       { ordered: false, text: ["再回到項目"] },
     ],
   );
   assert.deepEqual(
-    steps.items[0].children?.map((child) => ({
-      ordered: child.ordered,
-      text: child.items.map((item) => item.inlines[0].text),
-    })),
+    steps.items[0].children?.map((child) => {
+      assert.equal(child.type, "list");
+      if (child.type !== "list") return null;
+      return {
+        ordered: child.ordered,
+        text: child.items.map((item) => item.inlines[0].text),
+      };
+    }),
     [
       { ordered: false, text: ["細節"] },
       { ordered: true, text: ["再編號"] },
@@ -187,10 +195,97 @@ test("Notion 轉換：清單項目底下可混用項目與編號清單", () => {
   assert.match(plainText(blocks), /項目編號一編號二再回到項目/);
   assert.match(plainText(blocks), /步驟細節再編號/);
 
-  const notAList = bullet("bad", "父", [para("child-p", "這不是清單")]);
-  assert.throws(
-    () => convertBlocks([notAList], new Map()),
-    (err: unknown) => err instanceof BlockError && err.blockId === "child-p",
+  for (const [parent, childId] of [
+    [bullet("bad-b", "父", [block("embed-b", "embed", { url: "https://example.com" })]), "embed-b"],
+    [num("bad-n", "父", [block("child-n", "child_page", { title: "子頁" })]), "child-n"],
+  ] as const) {
+    assert.throws(
+      () => convertBlocks([parent], new Map()),
+      (err: unknown) => err instanceof BlockError && err.blockId === childId,
+      childId,
+    );
+  }
+});
+
+test("Notion 轉換：清單項目底下的段落、引文、程式碼依序保留", () => {
+  const bullet = (id: string, text: string, children?: NotionBlock[]) =>
+    block(id, "bulleted_list_item", { rich_text: [rt(text)] }, children);
+  const num = (id: string, text: string, children?: NotionBlock[]) =>
+    block(id, "numbered_list_item", { rich_text: [rt(text)] }, children);
+  const quote = (id: string, text: string) => block(id, "quote", { rich_text: [rt(text)] });
+  const code = (id: string, text: string, language?: string) =>
+    block(id, "code", {
+      rich_text: [rt(text)],
+      ...(language ? { language } : {}),
+      caption: language ? [rt("圖說")] : [],
+    });
+  const { blocks } = convertBlocks(
+    [
+      bullet("b", "項目", [
+        block("pm", "paragraph", {
+          rich_text: [
+            rt("見 "),
+            rt("專案頁", { type: "mention", href: "https://www.notion.so/x" }),
+          ],
+        }),
+        quote("q", "慢慢來。\n——筆記"),
+        bullet("b1", "子項目"),
+        code("c", "echo hi", "bash"),
+      ]),
+      num("s", "步驟", [
+        para("p2", "編號下的段落"),
+        quote("q2", "一段引文"),
+        code("c2", "const x = 1"),
+      ]),
+    ],
+    new Map(),
+  );
+  const bullets = blocks[0];
+  const steps = blocks[1];
+  assert.ok(bullets.type === "list" && !bullets.ordered);
+  assert.ok(steps.type === "list" && steps.ordered);
+  assert.deepEqual(
+    bullets.items[0].children?.map((child) => child.type),
+    ["paragraph", "quote", "list", "code"],
+  );
+  assert.deepEqual(bullets.items[0].children?.[0], {
+    type: "paragraph",
+    inlines: [{ text: "見 " }, { text: "專案頁" }],
+  });
+  assert.deepEqual(bullets.items[0].children?.[1], {
+    type: "quote",
+    inlines: [{ text: "慢慢來。" }],
+    source: "筆記",
+  });
+  assert.deepEqual(bullets.items[0].children?.[3], {
+    type: "code",
+    code: "echo hi",
+    language: "bash",
+    caption: "圖說",
+  });
+  assert.deepEqual(
+    steps.items[0].children?.map((child) => child.type),
+    ["paragraph", "quote", "code"],
+  );
+  assert.deepEqual(steps.items[0].children?.[2], { type: "code", code: "const x = 1" });
+  assert.match(plainText(blocks), /項目見 專案頁慢慢來。子項目/);
+  assert.doesNotMatch(plainText(blocks), /echo hi/);
+  assert.match(plainText(blocks), /步驟編號下的段落一段引文/);
+
+  // 今日同步被擋的 24 篇都是這三種子區塊：約 20 段、3 則引文、1 個程式碼。
+  const bulk = bullet("bulk", "父", [
+    ...Array.from({ length: 20 }, (_, i) => para(`p${i}`, `段落${i}`)),
+    quote("bq1", "引文一"),
+    quote("bq2", "引文二"),
+    quote("bq3", "引文三"),
+    code("bc", "print(1)", "python"),
+  ]);
+  const converted = convertBlocks([bulk], new Map());
+  const children = converted.blocks[0];
+  assert.ok(children.type === "list" && !children.ordered);
+  assert.deepEqual(
+    children.items[0].children?.map((child) => child.type),
+    [...Array.from({ length: 20 }, () => "paragraph"), "quote", "quote", "quote", "code"],
   );
 });
 
@@ -320,6 +415,15 @@ test("Notion 頁面：中文主題對應 slug；已發布文章的網址凍結�
 
   const trashed = pageToPost({ ...page, in_trash: true }, blocks);
   assert.equal(isPublic(trashed, new Date("2026-10-06T12:00:00+08:00")), false);
+});
+
+test("同步腳本：阻擋紀錄同時帶標題與頁面 ID", async () => {
+  const { blockedPostLine } = await import("../../../scripts/sync-blog.ts");
+  assert.equal(
+    blockedPostLine("睡眠與節奏", "42993ef1-8665-4ee8-92bc-377269e90b7b", "主題不合法"),
+    "「睡眠與節奏」（42993ef1-8665-4ee8-92bc-377269e90b7b）：主題不合法",
+  );
+  assert.equal(blockedPostLine("  ", "page-1", "原因"), "頁面 page-1：原因");
 });
 
 test("同步腳本：從檔頭讀出 PNG 與 GIF 尺寸，無法辨識的格式回傳 null", async () => {

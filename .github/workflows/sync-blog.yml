@@ -28,12 +28,17 @@ jobs:
           NOTION_BLOG_DATABASE_ID: ${{ secrets.NOTION_BLOG_DATABASE_ID }}
         run: |
           set +e
-          npm run sync:blog
-          echo "code=$?" >> "$GITHUB_OUTPUT"
+          npm run sync:blog > "$RUNNER_TEMP/sync-blog.log" 2>&1
+          code=$?
+          cat "$RUNNER_TEMP/sync-blog.log"
+          echo "code=$code" >> "$GITHUB_OUTPUT"
       - name: Open a PR when content changed
-        if: steps.sync.outputs.code == '0'
+        # 結束碼 2：先為已轉換的文章開 PR，再由下一步把工作標成失敗。
+        # 結束碼 1：整批失敗，快照不提交。
+        if: steps.sync.outputs.code == '0' || steps.sync.outputs.code == '2'
         env:
           GH_TOKEN: ${{ github.token }}
+          SYNC_CODE: ${{ steps.sync.outputs.code }}
         run: |
           # syncedAt changes every run, so compare posts and media only
           if git diff --quiet -I'"syncedAt"' -- src/content/blog public/blog/media && [ -z "$(git ls-files --others --exclude-standard public/blog/media)" ]; then
@@ -48,9 +53,21 @@ jobs:
           if [ -d public/blog/media ]; then git add public/blog/media; fi
           git commit -m "chore(blog): sync from Notion"
           git push origin "$branch"
+          body="$RUNNER_TEMP/pr-body.md"
+          {
+            echo "Automatic sync from the Notion CMS. Review the snapshot, then merge to publish."
+            if [ "$SYNC_CODE" = "2" ]; then
+              echo
+              echo "## Blocked posts"
+              echo
+              echo "These posts were not updated from Notion. If a previous snapshot exists, it is kept. Fix them in Notion and sync again."
+              echo
+              grep '^阻擋 ' "$RUNNER_TEMP/sync-blog.log" | sed 's/^阻擋 /- /' || true
+            fi
+          } > "$body"
           gh pr create --base main --head "$branch" \
             --title "chore(blog): sync from Notion" \
-            --body "Automatic sync from the Notion CMS. Review the snapshot, then merge to publish."
+            --body-file "$body"
       - name: Fail on blocked or failed sync
         if: steps.sync.outputs.code != '0'
         run: |

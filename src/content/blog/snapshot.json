@@ -1,6 +1,449 @@
 {
-  "syncedAt": "2026-10-09T00:56:34.716Z",
+  "syncedAt": "2026-10-15T00:03:16.989Z",
   "posts": [
+    {
+      "id": "3f4ebb8a-c86a-811c-93d3-e668940bc468",
+      "title": "從拿破崙的故事，思考學習、分工與決策：5 個領導提醒",
+      "slug": "draft-1151009-3f4ebb8ac86a8027826ffd6fd4203a46",
+      "date": "2026-10-09",
+      "topic": "work",
+      "status": "Published",
+      "publishedAt": "2026-10-09",
+      "updatedAt": "2026-10-14T14:45:00.000Z",
+      "excerpt": "拿破崙的故事不是戰史複習，而是五個還能用在今天的領導提醒：學習、分工與決策。",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/2d34199fb5164742.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這五個提醒來自文章裡的領導思考：留學習的空間、看見不同背景的人、剛柔可以並存、方向與執行一起承擔，以及不必用恐懼推自己。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "【草稿待查核】本文依原稿整理，尚未核對外部史料。安德魯·羅伯茨（Lord Andrew Roberts）的論述、歷史數據與引言出處均待確認，不宜直接發布。【待大E補：原始訪談或史料連結及引文位置】"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "在電影與大眾文化裡，拿破崙·波拿巴（Napoleon Bonaparte）常被簡化成身材矮小、脾氣暴躁的獨裁者，甚至被說成因身材自卑而擴張領土。這些形象，值得回到史料重新檢視。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿引述安德魯·羅伯茨（Lord Andrew Roberts）的研究，認為「矮子拿破崙」的形象受到政治宣傳影響；並指出拿破崙身高 168 公分，是當時法國軍官的平均身材。這些說法與數字目前仍待查核。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "比起把他當成成功典範，這篇文章想從原稿描述的學習方式、團隊分工與決策中，整理一些工作上的思考。歷史人物的做法不必照單全收，也不需要把戰場上的速度與壓力，直接搬進自己的生活。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "拿破崙的崛起：學習、制度變動與戰略"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿以三個面向解釋他的崛起，以下史實與引述皆待核對。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "孤獨歲月中的「自主學習狂熱（Autodidacticism）」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿指出，拿破崙九歲被送到法國本土的軍校，整整八年沒有見過家人。面對同學的排擠，他在圖書館閱讀普魯塔克、愷撒、漢尼拔與亞歷山大的歷史戰略。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿引述他的話：「閱讀歷史讓我感覺到，自己有能力達到史冊中最頂尖人物的高度。」【待大E補：引言原文與出處】"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "大革命與「功績主義（Meritocracy）」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿指出，1789 年法國大革命後，75% 的舊貴族軍官逃亡海外或被送上斷頭台，軍隊因而出現職位空缺，出身酒桶匠、僕人與客棧老闆家庭的人，有機會憑表現升任將領。這個比例、統計範圍與因果解釋，仍需核對。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "速度與中央突破"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿描述，拿破崙不沿用圍攻城堡的消耗戰，而是繞過要塞、就地補給，集中兵力進入敵軍接縫處（Hinge Strategy），優先打擊較強的對手。戰術名稱及適用戰役待確認。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "從原稿整理的 5 個領導思考"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "1. 保留自主學習的空間"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "視野可以透過閱讀與持續學習慢慢累積。在 AI 與商業模式變動時，跨領域閱讀可以是理解問題的一種方式，不必變成與同儕較量的工具。時間有限時，先讀一小段、記下一個問題，也能開始。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "2. 看見不同背景的人，也衡量執行的代價"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿用兩段經歷說明拿破崙的決策速度，細節皆待查核："
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "土倫港之役（24歲）：原稿稱，他掌握地勢關鍵，大腿被長槍刺傷後仍指揮開火，迫使英國皇家艦隊撤離。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "葡月政變：原稿稱，他派 24 歲的少校繆拉率 300 騎兵搶回火砲，用葡萄彈兩小時平定巴黎暴亂。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "回到工作現場，這些故事可以提醒我們留意年資以外的能力。但軍事鎮壓不是企業管理的範本，快速決策也不等於忽略風險、團隊負荷或不同意見。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "3. 不把領導者看成只有一種性格的人"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿指出，拿破崙青年時期寫過浪漫小說，也曾從戰場前線寫情書給約瑟芬；作品與書信內容仍待核對。這個切入點讓我們思考：果斷與細膩可以並存，不必要求自己在所有場合都表現得強硬。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "4. 讓方向與執行有人共同承擔"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿將拿破崙與參謀長亞歷山大·貝爾蒂埃（Berthier）的合作，比擬為「CEO + COO」架構；並稱這個分工讓他能指揮跨越百萬人的大軍團。規模與歷史描述待查核，企業職稱則是原稿採用的現代比喻。"
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "拿破崙扮演 CEO，負責宏觀戰略。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "貝爾蒂埃扮演 COO，掌握部隊位置、糧草與傷亡數據。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "對工作團隊而言，可以借這個比喻檢視：方向是否清楚、資訊是否能交接、執行上的困難是否有人一起處理。不需要靠一個人記住所有細節。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "5. 理解對「停滯」的恐懼，不把它當成生活要求"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿將拿破崙持續前進的動力，解釋為擔心競爭者取代自己；這項心理描述與其引言來源仍待核對。即使這是原稿的觀點，也不表示我們應以恐懼推動自己。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "可以關心變化，也可以休息、求助，或重新評估方向。停下來整理，不等於失去價值。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "2 個可以按狀態調整的練習"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原稿以 1804 年巴黎聖母院的加冕典禮，說明拿破崙親手戴上皇冠，並將其解讀為自己締造命運（Self-made man）。典禮過程及這項解讀，仍待史料確認。這裡保留原稿的兩個練習，但不把它們當成必須完成的任務。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "安排一段閱讀時間"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "若今晚有餘裕，可以關掉社群與短影音 45 分鐘，挑一本與工作有關的經典著作，安靜讀一章。也可以依精神與時間縮小範圍，不必一次讀懂所有內容。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "找出工作中的「中央突破點」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "從待辦清單找出一項可能牽動其他工作的問題。若狀態允許，可保留精力較好的 2 個小時處理；若事情超出自己的能力或負荷，就先拆小、找人討論，或調整期限。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "結語"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "歷史人物可以提供思考的材料，但不必成為自我要求的標準。拿破崙的故事若要帶進現代工作，更需要分清楚史實、作者的解讀，以及我們自己的選擇。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "在 AI 與產業變動中，可以持續學習，也可以請人一起承擔。比起急著為自己加冕，先找到能長久走下去的步調。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-3f4ebb8ac8",
+          "inlines": [
+            {
+              "text": "編輯與搬運紀錄（非正文）"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原始頁面：1151009週五"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "來源：https://app.notion.com/p/1151009-3f4ebb8ac86a8027826ffd6fd4203a46"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "來源頁面 ID：3f4ebb8a-c86a-8027-826f-fd6fd4203a46"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "整理日期：2026-10-09。僅取「步驟 1：改寫文章」正文；未搬入標題發想、社群腳本、AI 圖像提示或後段另一版本。保留原稿數字、專名與直接引言，降低誇大、競爭與恐懼導向用語。史實與學者立場未作外部查核。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "Topic 依來源標題 1151009（2026-10-09，週五）對應「事業」。不設定 PublishedAt，發布日若改變，Topic 需再按發布日調整。未修改來源頁面。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "發布前請確認史料、補齊待補欄位，並移除此搬運紀錄與草稿查核提示。是否發布由大E決定。"
+            }
+          ]
+        }
+      ],
+      "source": "notion"
+    },
     {
       "id": "42993ef1-8665-4ee8-92bc-377269e90b7b",
       "title": "你的手機可能在三個月後停產：荷姆茲氦氣危機比石油更危險",
@@ -9,9 +452,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-04-11",
-      "updatedAt": "2026-10-06T14:34:00.000Z",
-      "excerpt": "為什麼這場衝突跟你的日常生活有直接關係？",
+      "updatedAt": "2026-10-14T15:03:00.000Z",
+      "excerpt": "荷姆茲海峽不只是油路。封鎖它，會同時卡住氦氣、晶片，以及糧食背後的化肥。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/98de11bedc897e23.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "荷姆茲不只是油路。封鎖它，會同時卡住氦氣、晶片，以及糧食背後的化肥。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/49ddf60397c05b57.png",
@@ -3954,9 +4412,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-04-13",
-      "updatedAt": "2026-10-06T14:34:00.000Z",
-      "excerpt": "為什麼女性總是被「特殊化」到迷失？",
+      "updatedAt": "2026-10-14T15:03:00.000Z",
+      "excerpt": "女性健身市場把「有別於男性」當成行銷，但科學的答案是：妳不需要被特殊化，妳只需要訓練。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/635f280f952766c8.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "女性不需要被特殊化。進步速度跟男性一樣快，月經週期不用主導計畫，要結實就練大重量，空腹不會更燃脂，重訓是給未來的自己存的退休金。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/b330aa85b09aeb59.png",
@@ -5579,9 +6052,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-04-10",
-      "updatedAt": "2026-10-06T14:34:00.000Z",
-      "excerpt": "為什麼一個零食品牌的故事值得認真看待？",
+      "updatedAt": "2026-10-14T15:03:00.000Z",
+      "excerpt": "KIND 的創辦人要證明一件事：善良與成功不衝突，品牌是承諾，不是資產。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/49fad7ad3fac48a9.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "品牌是承諾，不是資產。天真讓人開始，失敗是土壤，善良不是一套策略。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/c5b9f97e019aa5ef.png",
@@ -9363,6 +9851,4151 @@
       "source": "notion"
     },
     {
+      "id": "38ce8fb2-befc-4a7a-8f08-6700292994e3",
+      "title": "創業家與慣犯的基因可能完全一樣——差別只在他們出生在哪裡",
+      "slug": "post-20260404-2a7ebb8ac8",
+      "date": "2026-04-04",
+      "topic": "society",
+      "status": "Published",
+      "publishedAt": "2026-04-04",
+      "updatedAt": "2026-10-14T14:38:00.000Z",
+      "excerpt": "創業家與慣犯的氣質可能很像，差別往往在出生與環境把人帶往哪一邊。",
+      "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/075475d600da0395.png",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "為什麼這個問題比你想像的更重要？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "凱瑟琳·佩吉·哈登（Kathryn Paige Harden）是德州大學奧斯汀分校的行為遺傳學教授。2026 年初，她上了 Huberman Lab 節目，帶來一個讓很多人不知道該怎麼反應的訊息：在我們評論壞人、在法庭上判決罪犯、在網路上獵巫之前，我們可能從來沒有認真問過自己一個問題——如果一個人的行為有很大一部分是基因決定的，「罪有應得」這個概念還站得住腳嗎？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這不是要替壞人開脫，而是要讓我們的正義感建立在更誠實的科學認識上，而不只是直覺中的憤怒與報復衝動上。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "五個讓你重新思考「壞人」的科學發現"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第一，創業家與慣犯，可能共享同一套基因。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登參與的一項大型基因研究顯示，與「去抑制性（disinhibition）」相關的基因群，同時預測了衝動行為、物質濫用、冒險偏好，以及創業傾向。有趣的是，白人男性創業家最強的預測因子之一，竟然是他們青少年時期曾有輕微違法行為。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "同樣是「不計後果、打破規則」的基因衝動，在資源豐富的環境裡叫作「顛覆式創新」，在資源匱乏的環境裡卻變成「暴力前科」。這不是在說犯罪沒問題，而是在說：我們對「壞人」的定義，在多大程度上只是在衡量他們的起點，而不是他們的品格？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第二，天才與瘋子的距離，可能只是一點點運氣與環境的差別。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登指出，精神分裂症的部分遺傳變體，在未發病的人身上，反而與更高的創造力與認知靈活性相關。演化沒有淘汰這些基因，因為它們在對的環境裡是創造力的種子；但在充滿創傷、動盪與缺乏保護的童年裡，它們就可能把人推向精神崩潰的邊緣。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這提醒我們，我們通常只看到「成功者」的那份特質，卻忘了有一群擁有相似基因底質的人，只因為沒抽到同樣的環境籌碼，就以完全不同的方式收場。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第三，對某些孩子來說，嚴厲懲罰不只無效，而且有害。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登說，兒童期反社會行為的遺傳率高達 80%，這與精神分裂症相當。其中具備「冷酷無情特質（callous-unemotional traits）」的孩子，大腦對懲罰的反應迴路存在生理差異——對即時獎勵極度飢渴，對痛苦的敏感度卻遠低於一般人。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "研究顯示，刑罰的嚴厲程度並不是降低犯罪的關鍵，真正有效的是後果的確定性與即時性。換句話說，「被抓到的機率有多高」比「刑罰有多重」更重要。對這類孩子使用嚴厲體罰，不只無效，還可能切斷他們最後一絲與社會建立聯繫的可能。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第四，MAOA 基因：一個字母的突變，如何改變道德的底線。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "1990 年代一項著名的荷蘭家族研究，追蹤了五代男性的暴力行為模式，最終找到答案：他們的 X 染色體上有一個 MAOA 基因突變。這個基因負責製造一種清除大腦神經傳導物質（包括血清素）的酶；一旦這套「清潔系統」失靈，情緒信號就會在大腦裡瘋狂堆積，任何輕微刺激都可能觸發極端反應。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "由於男性只有一條 X 染色體，沒有備份，一旦這個位置出錯就可能全面失效。哈登說，這個研究不是要讓罪犯「不負責任」，而是讓我們看見所謂的「道德自制力」，本質上是一種極其脆弱的生物機能，需要正確的基因與正確的童年環境，才能好好運作。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第五，我們的大腦，其實很享受懲罰別人。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登與保羅·布魯姆（Paul Bloom）的研究都指向一個令人不舒服的事實：當我們看到「壞人」受苦，大腦會釋放獎勵訊號。這種「執法多巴胺」在演化上有其意義——它維持了群體合作的規範——但在現代社會，它也非常容易被操弄成網路獵巫、集體羞辱與非人化攻擊的燃料。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "當我們成功說服自己某人是「邪惡的」，我們就把看見他人受苦的不適，轉化成了純粹的快感。哈登的提醒很直接：如果我們對懲罰的渴望，有一大部分來自神經層面的獎勵機制，而不只是理性的正義感，那麼我們在推動刑事政策時，是否有責任更認真區分「問責（accountability）」與「報復（retribution）」？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這些知識可以帶來什麼改變？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "斯堪地那維亞的監獄系統常被當作比較案例：即使是殺害數十人的極端罪犯，也維持基本的人權與康復空間。這不是在說罪行沒有後果，而是在說：一個進步的社會，能夠同時做到「讓人負責」與「不把報復當正義」。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登的研究給教育工作者、父母與司法政策制訂者的核心啟示是："
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "問責與報復必須分開：確定性的後果，比嚴酷的懲罰更有效；早期正向強化，比晚期懲罰更節省社會成本。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "環境干預越早越好：對有高遺傳風險的孩子，提供穩定、安全、有溫度的成長環境，比等到犯罪後再介入便宜得多。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "對「壞人」保持科學的謙遜：不是替他們開脫，而是讓政策建立在有效的認識上，而非原始的憤怒上。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "結論"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "對基督徒來說，哈登的研究呼應了一個古老的神學主題：沒有人能選擇自己的起點，所有人都在某種程度上是破碎的受造物。這不意味著行為沒有責任，而是意味著真正的正義，不能只建立在「對方值得受苦」的滿足感上。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "耶穌說：「我來不是召義人，而是召罪人。」如果連上帝都選擇在最破碎的人中間坐下來，我們或許也有責任，在「他罪有應得」之前，先問一聲：「是什麼讓他變成這樣的？」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "已依你的固定流程整理完整內容包，語氣保留批判深度但帶入基督信仰的悲憫視角。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-120b2c15da",
+          "inlines": [
+            {
+              "text": "步驟1：改寫文章"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-d944cfdf5b",
+          "inlines": [
+            {
+              "text": "邪惡是天生的嗎？行為遺傳學給我們的五個不舒服的答案"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-9d4ace1681",
+          "inlines": [
+            {
+              "text": "Why：為什麼這個問題比你想像的更重要？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "凱瑟琳·佩吉·哈登（Kathryn Paige Harden）是德州大學奧斯汀分校的行為遺傳學教授，2026年初她上了 Huberman Lab 節目，帶來了一個讓很多人不知道該怎麼反應的訊息：在我們評論壞人、在法庭上判決罪犯、在網路上獵巫之前，我們可能從來沒有認真問過自己一個問題——如果一個人的行為有一大部分是基因決定的，「罪有應得」這個概念還站得住腳嗎？podcastnotes+2"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這不是要替壞人開脫，而是要讓我們的正義感建立在更誠實的科學認識上，而不只是建立在直覺的憤怒與報復衝動上。shortform+1"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-7c829948f6",
+          "inlines": [
+            {
+              "text": "How：五個讓你重新思考「壞人」的科學發現"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第一，創業家與慣犯，可能共享同一套基因。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登參與的一項大型基因研究顯示，與「去抑制性（Disinhibition）」相關的基因群，同時預測了衝動行為、物質濫用、冒險偏好，以及創業傾向。 有趣的是，白人男性創業家最強的預測因子之一，竟然是他們青少年時期曾有輕微違法行為。"
+            },
+            {
+              "text": "hubermanlab",
+              "href": "https://www.hubermanlab.com/episode/how-genes-shape-your-risk-taking-and-morals-kathryn-paige-harden"
+            },
+            {
+              "text": "youtube",
+              "href": "https://www.youtube.com/watch?v=SOGjCNBK8fw"
+            },
+            {
+              "text": "podcastnotes",
+              "href": "https://podcastnotes.org/huberman-lab/dr-kathryn-paige-harden-how-genes-shape-your-risk-taking-morals-huberman-lab/"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "同樣「不計後果、打破規則」的基因衝動，在資源豐富的環境裡叫做「顛覆式創新」，在資源匱乏的環境裡卻變成「暴力前科」。 這不是在說犯罪沒問題，而是在說：我們對「壞人」的定義，在多大程度上只是在衡量他們的起點，而不是他們的品格？podcastnotes+1"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第二，天才與瘋子的距離，可能只是一點點運氣與環境的差別。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登指出，精神分裂症的部分遺傳變體，在未發病的人身上，反而與更高的創造力與認知靈活性相關。 演化沒有淘汰這些基因，因為它們在對的環境裡是創造力的種子；但在一個充滿創傷、動盪與缺乏保護的童年裡，它們就可能把人推向精神崩潰的邊緣。shortform+1"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這提醒我們，我們通常只看到「成功者」的那份特質，卻忘了有一群擁有相似基因底質的人，只因為沒抽到同樣的環境籌碼，就以完全不同的方式收場。podcastnotes+1"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第三，對某些孩子來說，嚴厲懲罰不只無效，而且有害。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登說，兒童期反社會行為的遺傳率高達 80%，這與精神分裂症相當。 其中具備「冷酷無情特質（Callous-unemotional traits）」的孩子，他們的大腦對懲罰的反應迴路存在生理差異——對即時獎勵極度飢渴，對痛苦的敏感度卻遠低於一般人。hubermanlab+2"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "研究顯示，刑罰的嚴厲程度並不是降低犯罪的關鍵，真正有效的是後果的確定性與即時性。 換句話說，「被抓到的機率有多高」比「刑罰有多重」更重要。對這類孩子使用嚴厲體罰，不只無效，還可能切斷他們最後一絲與社會建立聯繫的可能。shortform+1"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第四，MAOA 基因：一個字母的突變，如何改變道德的底線。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "1990年代一項著名的荷蘭家族研究，追蹤了五代男性的暴力行為模式，最終找到答案：他們的 X 染色體上有一個 MAOA 基因突變。 這個基因負責製造一種清除大腦神經傳導物質（包括血清素）的酶；一旦這套「清潔系統」失靈，情緒信號就會在大腦裡瘋狂堆積，任何輕微刺激都可能觸發極端反應。osti+3"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "由於男性只有一條 X 染色體，沒有備份，一旦這個位置出錯就是全面失效。 哈登說這個研究不是要讓罪犯「不負責任」，而是讓我們看見所謂的「道德自制力」，本質上是一種極其脆弱的生物機能，需要正確的基因、正確的童年環境，才能好好運作。pmc.ncbi.nlm.nih+3"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "第五，我們的大腦，其實很享受懲罰別人。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登與保羅·布魯姆（Paul Bloom）的研究都指向一個令人不舒服的事實：當我們看到「壞人」受苦，大腦會釋放獎勵信號。 這種「執法多巴胺」在演化上有其意義——它維持了群體合作的規範——但在現代社會，它也非常容易被操弄成網路獵巫、集體羞辱與非人化攻擊的燃料。"
+            },
+            {
+              "text": "youtube",
+              "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+            },
+            {
+              "text": "shortform",
+              "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "當我們成功說服自己某人是「邪惡的」，我們就把看見他人受苦的不適，轉化成了純粹的快感。 哈登的提醒很直接：如果我們對懲罰的渴望有一大部分來自神經層面的獎勵機制，而不只是理性的正義感，那麼我們在推動刑事政策時，是否有責任更認真區分「問責（Accountability）」與「報復（Retribution）」？"
+            },
+            {
+              "text": "youtube",
+              "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+            },
+            {
+              "text": "podcastnotes+1"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-4366663507",
+          "inlines": [
+            {
+              "text": "What：這些知識可以帶來什麼改變？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "斯堪地那維亞的監獄系統常被當作比較案例：即使是殺害數十人的極端罪犯，也維持基本的人權與康復空間。 這不是在說罪行沒有後果，而是在說：一個進步的社會，能夠同時做到「讓人負責」與「不把報復當正義」。"
+            },
+            {
+              "text": "shortform",
+              "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登的研究給教育工作者、父母與司法政策制訂者的核心啟示是：hubermanlab+2"
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "問責與報復必須分開",
+                  "bold": true
+                },
+                {
+                  "text": "：確定性的後果比嚴酷的懲罰更有效；早期正向強化比晚期懲罰更節省社會成本。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "環境干預越早越好",
+                  "bold": true
+                },
+                {
+                  "text": "：對有高遺傳風險的孩子，提供穩定、安全、有溫度的成長環境，比等到犯罪後再介入便宜得多。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "對「壞人」保持科學的謙遜",
+                  "bold": true
+                },
+                {
+                  "text": "：不是替他們開脫，而是讓政策建立在有效的認識上，而非原始的憤怒上。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-17a7693c20",
+          "inlines": [
+            {
+              "text": "結論"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "對基督徒來說，哈登的研究呼應了一個古老的神學主題：沒有人能選擇自己的起點，所有人都在某種程度上是破碎的受造物。 這不意味著行為沒有責任，而意味著真正的正義，不能只建立在「對方值得受苦」的滿足感上。podcastnotes+2"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "耶穌說：「我來不是召義人，而是召罪人。」如果連上帝都選擇在最破碎的人中間坐下來，我們或許也有責任，在「他罪有應得」之前，先問一聲：「是什麼讓他變成這樣的？」podcastnotes+1"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-108b874fe6",
+          "inlines": [
+            {
+              "text": "步驟2：10個吸睛標題"
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "創業家與慣犯的基因可能完全一樣——差別只在他們出生在哪裡"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=SOGjCNBK8fw"
+                },
+                {
+                  "text": "podcastnotes",
+                  "href": "https://podcastnotes.org/huberman-lab/dr-kathryn-paige-harden-how-genes-shape-your-risk-taking-morals-huberman-lab/"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "行為遺傳學家：嚴厲懲罰對某些孩子不只無效，而且有害shortform+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "你享受壞人被懲罰的快感，是大腦釋放的多巴胺"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+                },
+                {
+                  "text": "shortform",
+                  "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "一個基因字母突變，如何讓五代男性都成了暴力罪犯newscientist+3"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "天才與精神病患，可能只差一點點壞運氣與一個不好的童年hubermanlab+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "凱瑟琳·哈登：沒有人能選擇自己的基因，但社會選擇如何回應podcastnotes+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "是報復，還是正義？你以為的是後者，大腦說是前者"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+                },
+                {
+                  "text": "shortform+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "「壞種」真的存在嗎？行為遺傳學的五個讓人不舒服的答案"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=SOGjCNBK8fw"
+                },
+                {
+                  "text": "hubermanlab+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "挪威為什麼對殺人犯也保留人權？這背後有科學根據"
+                },
+                {
+                  "text": "shortform",
+                  "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "你對壞人的憤怒，有多少是正義，有多少是演化的本能？"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+                },
+                {
+                  "text": "shortform",
+                  "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-d66c27847a",
+          "inlines": [
+            {
+              "text": "步驟3：IG圖文與短影音設計"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-d68f26dbbf",
+          "inlines": [
+            {
+              "text": "IG 圖文貼文"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "圖文1：同樣的基因，不同的命運",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "圖片概念：DNA雙股螺旋，左邊通往企業家辦公室，右邊通往監獄大門。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "文字："
+                }
+              ],
+              "children": [
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "items": [
+                    {
+                      "inlines": [
+                        {
+                          "text": "主題：他們可能有一樣的基因，卻走向完全不同的人生"
+                        }
+                      ]
+                    },
+                    {
+                      "inlines": [
+                        {
+                          "text": "內容：研究顯示，「不計後果打破規則」的基因傾向，在不同的起點條件下，可能讓人成為創業家，也可能讓人走進監獄。"
+                        },
+                        {
+                          "text": "youtube",
+                          "href": "https://www.youtube.com/watch?v=SOGjCNBK8fw"
+                        },
+                        {
+                          "text": "podcastnotes",
+                          "href": "https://podcastnotes.org/huberman-lab/dr-kathryn-paige-harden-how-genes-shape-your-risk-taking-morals-huberman-lab/"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "圖文2：天才與瘋子",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "圖片概念：同一株植物，一半開花（天才），一半枯萎（精神疾病），土壤品質不同。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "文字："
+                }
+              ],
+              "children": [
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "items": [
+                    {
+                      "inlines": [
+                        {
+                          "text": "主題：差別不一定是基因，而是你成長的土壤"
+                        }
+                      ]
+                    },
+                    {
+                      "inlines": [
+                        {
+                          "text": "內容：部分精神分裂症相關基因在對的環境下，與更高的創造力相關。環境是決定基因表現的關鍵「開關」。hubermanlab+1"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "圖文3：嚴厲懲罰的陷阱",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "圖片概念：一個孩子被推向更深的黑暗，不是被拉回來。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "文字："
+                }
+              ],
+              "children": [
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "items": [
+                    {
+                      "inlines": [
+                        {
+                          "text": "主題：對某些孩子，嚴厲懲罰不是糾正，而是推離"
+                        }
+                      ]
+                    },
+                    {
+                      "inlines": [
+                        {
+                          "text": "內容：遺傳研究顯示，部分反社會行為孩童的大腦對懲罰不敏感，嚴厲對待反而切斷了他們最後的社會聯繫。hubermanlab+2"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "圖文4：MAOA 基因",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "圖片概念：X 染色體放大，其中一個基因位點亮紅，旁邊是神經傳導物質堆積的視覺圖。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "文字："
+                }
+              ],
+              "children": [
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "items": [
+                    {
+                      "inlines": [
+                        {
+                          "text": "主題：一個基因字母的錯誤，可以摧毀道德防線"
+                        }
+                      ]
+                    },
+                    {
+                      "inlines": [
+                        {
+                          "text": "內容：荷蘭家族研究發現，MAOA基因突變讓情緒調節酶失靈，五代男性的暴力行為都指向同一個基因位點。longreads+3"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "圖文5：報復的多巴胺",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "圖片概念：大腦的獎勵迴路在「壞人受罰」時亮起，旁邊是開心的表情。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "文字："
+                }
+              ],
+              "children": [
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "items": [
+                    {
+                      "inlines": [
+                        {
+                          "text": "主題：你以為自己在維護正義，其實大腦在獲得快感"
+                        }
+                      ]
+                    },
+                    {
+                      "inlines": [
+                        {
+                          "text": "內容：腦部掃描顯示，看見背叛者受苦時，大腦會釋放獎勵信號。這是演化本能，但也是獵巫文化的底層引擎。"
+                        },
+                        {
+                          "text": "youtube",
+                          "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+                        },
+                        {
+                          "text": "shortform",
+                          "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "圖文6：謙卑的正義",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "圖片概念：天秤，一邊是「問責」，一邊是「報復」，兩者清楚分開。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "文字："
+                }
+              ],
+              "children": [
+                {
+                  "type": "list",
+                  "ordered": false,
+                  "items": [
+                    {
+                      "inlines": [
+                        {
+                          "text": "主題：問責是理性，報復是衝動"
+                        }
+                      ]
+                    },
+                    {
+                      "inlines": [
+                        {
+                          "text": "內容：挪威的監獄系統讓我們看見，一個社會可以同時做到「讓人負責」與「不把報復當正義」。"
+                        },
+                        {
+                          "text": "shortform",
+                          "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-aac774c071",
+          "inlines": [
+            {
+              "text": "短影音設計"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "影片1：基因彩票（60秒）",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "開場：「同樣的基因衝動，在豪宅裡叫做顛覆式創新，在貧民窟裡叫做暴力前科。」"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=SOGjCNBK8fw"
+                },
+                {
+                  "text": "podcastnotes",
+                  "href": "https://podcastnotes.org/huberman-lab/dr-kathryn-paige-harden-how-genes-shape-your-risk-taking-morals-huberman-lab/"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "中段：DNA螺旋分叉成兩條路，環境條件決定走向。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "結尾：「壞人的問題，有多少其實是起點的問題？」podcastnotes+1"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "影片2：你的報復感是多巴胺（30秒）",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "開場：「你有沒有想過，你對壞人的憤怒，有一部分是大腦在享受？」"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+                },
+                {
+                  "text": "shortform",
+                  "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "中段：腦部掃描畫面，獎勵迴路在看見懲罰時亮起。"
+                },
+                {
+                  "text": "youtube",
+                  "href": "https://www.youtube.com/watch?v=gdJwW-NhObU"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "結尾：「區分正義與報復，是成熟的社會最難的功課。」"
+                },
+                {
+                  "text": "shortform",
+                  "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "影片3：嚴厲懲罰的反效果（45秒）",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "開場：「研究顯示：讓犯罪率下降的，不是刑罰有多重，而是被抓到的機率有多高。」podcastnotes+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "中段：對比嚴厲懲罰vs.早期干預的長期效果。hubermanlab+1"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "結尾：「有效的正義，不是讓他們更痛，而是讓改變更有可能發生。」"
+                },
+                {
+                  "text": "shortform",
+                  "href": "https://www.shortform.com/podcast/episode/huberman-lab-2026-02-09-episode-summary-how-genes-shape-your-risk-taking-morals-dr-kathryn-paige-harden"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-f7ad95913c",
+          "inlines": [
+            {
+              "text": "風格建議"
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "色調：深藍、黑、冷紫，帶科學感與嚴肅感，局部用暖橙色象徵希望與人性。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "視覺語言：DNA螺旋、大腦神經元、天秤、岔路、監獄vs辦公室。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "氣質：嚴肅但有溫度，挑戰成見但不煽情，走科學加悲憫的路線。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-835fce5138",
+          "inlines": [
+            {
+              "text": "步驟4：AI繪圖英文 prompts"
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": true,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "DNA double helix splitting into two paths: one leading to a corporate office, one to prison bars, symbolizing same genetics different environments, dark blue and gold, scientific editorial illustration."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "Two identical plants growing in different soils: one blooming in rich earth, one wilting in barren ground, nature versus nurture concept, botanical realism with metaphorical depth."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "A child figure at a crossroads being pushed deeper into darkness by harsh punishment rather than guided back toward light, child development and behavioral intervention theme, somber but hopeful."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "Closeup of an X chromosome with one glowing red mutation point, surrounding neurons showing chemical buildup and signal overload, MAOA gene concept, medical scientific visualization, deep blue and red."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "A human brain reward circuit lighting up in response to watching punishment, dopamine reward mechanism visualization, retribution versus justice concept, neural scan aesthetic, clinical meets philosophical."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "A justice scale with \"Accountability\" on one side clearly labeled and \"Retribution\" on the other, with Accountability glowing brighter, concept of mature restorative justice, clean symbolic illustration."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "A criminal mugshot and entrepreneur headshot morphing into each other, separated only by environmental context symbols (house vs street), same person different destiny, powerful social commentary."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "Five generations of silhouettes connected by glowing red genetic threads, Dutch family violence inheritance metaphor, dark genealogy concept art, historical and biological intersection."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "A Norwegian prison room that looks almost like a college dormitory: warm wood, natural light, rehabilitation focus, contrasting with stereotypical bars and concrete, humanizing justice visual."
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "A crowd with pitchforks being pulled by glowing dopamine strings from their brains, mob mentality as neurological reward concept, social media witch hunt metaphor, dark satirical illustration."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "以下是完整的五階段 Agent 處理結果，依序呈現每個 Agent 的產出，最終由 Agent-05 整合為"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "FINAL_CONTENT_BUNDLE.md",
+          "language": "javascript"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-eb6e7d7fef",
+          "inlines": [
+            {
+              "text": "AGENT-01 | 核心內容轉化專家"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-214301f5cc",
+          "inlines": []
+        },
+        {
+          "type": "code",
+          "code": "BLOG_MASTER.md",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "META",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "欄位"
+                }
+              ],
+              [
+                {
+                  "text": "內容"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Title",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "邪惡的基因：關於犯罪、遺傳與「不公平」命運的五個震撼真相"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slug",
+                  "bold": true
+                }
+              ],
+              []
+            ]
+          ]
+        },
+        {
+          "type": "code",
+          "code": "evil-genes-crime-genetics-five-shocking-truths",
+          "language": "javascript"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "|\n| "
+            },
+            {
+              "text": "Description",
+              "bold": true
+            },
+            {
+              "text": " | 行為遺傳學家凱瑟琳·佩吉·哈登揭示：創業家與慣犯共享同一套基因、天才與瘋狂只差5%、嚴厲懲罰對「天生壞小孩」適得其反。這篇文章將顛覆你對自由意志、道德責任與社會正義最根深蒂固的成見。 |\n| "
+            },
+            {
+              "text": "Keywords",
+              "bold": true
+            },
+            {
+              "text": " | 行為遺傳學、基因與犯罪、凱瑟琳·佩吉·哈登、遺傳彩票、MAOA基因、去抑制性、冷酷無情特質、生物決定論、社會正義 |"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-4d3711ce8a",
+          "inlines": [
+            {
+              "text": "H1：邪惡的基因：科學如何顛覆我們對「壞人」的所有判斷"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "想像一對在相同屋簷下長大的親兄弟：一個是無畏風險、坐擁億萬資產的企業家，另一個卻是進出監獄、與毒癮搏鬥的慣犯。同樣的家教、同樣的學區、甚至同樣的晚餐桌旁——命運的航向，為什麼會如此南轅北轍？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "知名行為遺傳學家"
+            },
+            {
+              "text": "凱瑟琳·佩吉·哈登（Kathryn Paige Harden）",
+              "bold": true
+            },
+            {
+              "text": "在她的研究生涯中，收到了無數讀者的來信。許多人對她感嘆，自己與父母或手足之間存在難以解釋的巨大差異，彷彿流著相同的血，靈魂卻來自不同的宇宙。這讓我們不得不直面一個令人不安的核心問題：這一切，真的是「天生」的嗎？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這是一場關於科學、生物決定論與同理心的深度探索，它將挑戰你對「壞人」最根深蒂固的成見。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-0f7b67a5de",
+          "inlines": [
+            {
+              "text": "H2：驚人發現一：成功創業家與少年犯，共享同一套「打破規則」的基因"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-fb85b6b1cf",
+          "inlines": [
+            {
+              "text": "H3：「去抑制性」——雙面刃的遺傳密碼"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "我們習慣將「成功的企業家」視為社會的英雄，將「反社會犯罪者」視為人渣。但在遺傳學的稜鏡下，這兩者的底層邏輯可能驚人地相似。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登參與了一項針對 "
+            },
+            {
+              "text": "400 萬人的巨型基因研究",
+              "bold": true
+            },
+            {
+              "text": "，科學家試圖尋找與「去抑制性（Disinhibition）」相關的基因特徵。這組基因預測了 ADHD 症狀、早孕、藥物使用，以及一個人是否具備強烈的「冒險偏好」。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-bd6aad8450",
+          "inlines": [
+            {
+              "text": "H3：環境，才是命運的開關"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "深度分析揭示了一個殘酷的真相：「不計後果、打破規則」的基因傾向，在不同的社會結構下會導向截然不同的終點。"
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "研究發現",
+                  "bold": true
+                },
+                {
+                  "text": "：白人男性創業家最強大的預測指標之一，竟是他們在青少年時期曾有過「輕微違法行為」（如塗鴉、校園鬥毆）。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "對擁有資源與特權的人",
+                  "bold": true
+                },
+                {
+                  "text": "：這種基因特質是「顛覆性創新」的燃料。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "對資源匱乏的人",
+                  "bold": true
+                },
+                {
+                  "text": "：它卻成了通往監獄的單程票。"
+                }
+              ],
+              "children": [
+                {
+                  "type": "quote",
+                  "inlines": [
+                    {
+                      "text": "同樣的基因衝動，在豪宅裡是「遠見」，在貧民窟則是「暴力」。",
+                      "bold": true
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-1aea89b450",
+          "inlines": [
+            {
+              "text": "H2：驚人發現二：天才與瘋狂的距離，只有 5% 的基因差異"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-71a311e94b",
+          "inlines": [
+            {
+              "text": "H3：為什麼「壞掉的基因」沒有被演化淘汰？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "「天才與瘋子只有一線之隔」這句話並非空穴來風。遺傳學證實，擁有高比例精神分裂症（Schizophrenia）遺傳變體但未發病的人，更有可能成為頂尖的藝術家、工程師或音樂家。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這些看似「壞掉」的疾病基因之所以在人類基因池中保留下來，是因為它們扮演了**「創造力」的種子**。同樣的基因序列，既能讓人看見不存在的幻覺，也能讓人看見前人未見的藝術美感。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-5f47d1403c",
+          "inlines": [
+            {
+              "text": "H3：童年環境決定基因潛能的走向"
+            }
+          ]
+        },
+        {
+          "type": "quote",
+          "inlines": [
+            {
+              "text": "「如果你多出 5% 的特定基因變體，或者童年環境稍差一點，你可能就不是台上的搖滾巨星，而是精神病院裡的病患。」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "環境在這裡扮演了決定性的「開關」："
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "溫暖、受保護的童年",
+                  "bold": true
+                },
+                {
+                  "text": "：能將這份基因靈感導向科學或藝術。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "充滿虐待與動盪的環境",
+                  "bold": true
+                },
+                {
+                  "text": "：可能將相同的潛能推向精神崩潰的邊緣。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-36374af611",
+          "inlines": [
+            {
+              "text": "H2：驚人發現三：為什麼嚴厲懲罰，對「天生壞小孩」反而是一場災難"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-e0ccafd789",
+          "inlines": [
+            {
+              "text": "H3：冷酷無情特質——一種神經學上的學習障礙"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "在行為遺傳學中，"
+            },
+            {
+              "text": "兒童期反社會行為的遺傳率高達 80%",
+              "bold": true
+            },
+            {
+              "text": "，這與精神分裂症的遺傳程度相當。特別是具備「冷酷無情特質（Callous-unemotional traits）」的孩子，他們對他人的痛苦顯得麻木，這並非因為他們「選擇」作惡，而是大腦的生理機能存在缺陷。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-9c22776e54",
+          "inlines": [
+            {
+              "text": "H3：大鼠實驗的生物學隱喻"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登博士引用了一個強大的生物學隱喻：在實驗室中，當科學家將原本獎勵酒精的槓桿改為釋放電擊時，75% 的大鼠會停止動作，但有一小部分大鼠反而會**「加倍按壓」**槓桿。牠們並非不怕痛，而是大腦的獎勵路徑完全凌駕了對痛苦的感知。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這類孩子就像這群大鼠："
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "對懲罰極度遲鈍",
+                  "bold": true
+                },
+                {
+                  "text": "，卻對即時獎勵極度飢渴。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "嚴厲的責打與孤立不僅無效，反而會切斷他們與社會建立聯繫的最後機會。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "強調遺傳性不是為了替罪行開脫",
+                  "bold": true
+                },
+                {
+                  "text": "，而是提醒我們：若想阻止悲劇，我們需要生物學上的「干預」，而非原始的「報復」。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-e14caf1017",
+          "inlines": [
+            {
+              "text": "H2：驚人發現四：X 染色體的祕密——道德防線崩潰於一個字母的錯誤"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-a2aadf07ac",
+          "inlines": [
+            {
+              "text": "H3：荷蘭家族研究：MAOA 基因突變的衝擊"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "男性在暴力犯罪中佔據絕大多數，除了社會期待，"
+            },
+            {
+              "text": "基因結構的不對稱性",
+              "bold": true
+            },
+            {
+              "text": "也是主因。1990 年代一項著名的荷蘭家族研究揭開了這個祕密：該家族的男性成員普遍具有極端暴力傾向——有人強姦親妹，有人縱火，有人甚至只因一時憤怒就用乾草叉攻擊老闆。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "科學家發現，這源於 "
+            },
+            {
+              "text": "X 染色體上 MAOA 基因的突變",
+              "bold": true
+            },
+            {
+              "text": "。這個基因負責產生一種像「Pac-Man 吃豆人」一樣的神經酶，用來清理大腦中堆積的血清素。當這台「清潔機」失靈，腦內化學信號瘋狂堆積，導致情緒瞬間失控。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-0d3a56f7d2",
+          "inlines": [
+            {
+              "text": "H3：男性的生理弱點：沒有備份的道德防線"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "由於男性只有一條 X 染色體，一旦這個位置出錯，"
+            },
+            {
+              "text": "他們完全沒有備份",
+              "bold": true
+            },
+            {
+              "text": "（女性有兩條 X 染色體可以緩衝）。這揭示了一個殘酷的真相："
+            }
+          ]
+        },
+        {
+          "type": "quote",
+          "inlines": [
+            {
+              "text": "所謂的「道德感」，其實是一種極其脆弱的生物機能。只要一個基因字母序列出錯，一個人的文明防線就可能隨之坍塌。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-344b3f21d6",
+          "inlines": [
+            {
+              "text": "H2：驚人發現五：正義的快感——我們大腦中潛藏的「私刑渴望」"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-f25a3cd96c",
+          "inlines": [
+            {
+              "text": "H3：5 歲孩子就懂得「執法多巴胺」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "當我們看到「壞人」受罰時，內心產生的那股滿足感，其實是人類演化出的本能。"
+            },
+            {
+              "text": "保羅·布魯姆（Paul Bloom）",
+              "bold": true
+            },
+            {
+              "text": "的研究發現，僅僅 5 歲的兒童，就願意支付代價（貼紙）來換取「壞木偶」被處罰的畫面。腦部掃描顯示，當人們看到背叛者受苦時，大腦會釋放獎勵信號。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-7c972b5241",
+          "inlines": [
+            {
+              "text": "H3：同理心的「鍊金術」——將他人的痛苦煉成自己的快感"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這種本能原本是為了維持群體合作，但在現代社會，它卻極易轉化為大規模的「獵巫」："
+            }
+          ]
+        },
+        {
+          "type": "quote",
+          "inlines": [
+            {
+              "text": "「同理心是痛苦的。但如果你能成功說服自己對方是『惡魔』，你就能將看見他人受苦的痛苦，轉化為純粹的愉悅。」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這種「鍊金術」將他人的痛苦轉化為我們的快感。當我們在網路上對某人進行非人化的攻擊時，我們其實是在餵養大腦中最原始、也最危險的本能。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-35a3dbd362",
+          "inlines": [
+            {
+              "text": "H2：結語：在遺傳彩票面前，我們需要更多的謙卑"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "透過行為遺傳學，我們看見了一個人格的成形是多麼依賴運氣。哈登的核心主張在於："
+            },
+            {
+              "text": "沒有人能選擇自己的起點。",
+              "bold": true
+            },
+            {
+              "text": " 我們每個人在受孕的那一刻，都參與了一場規模宏大的「遺傳彩票」。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "我們必須學會區分："
+            }
+          ]
+        },
+        {
+          "type": "list",
+          "ordered": false,
+          "items": [
+            {
+              "inlines": [
+                {
+                  "text": "問責（Accountability）",
+                  "bold": true
+                },
+                {
+                  "text": "：為了保護社群的安全，是理性的法律邊界。"
+                }
+              ]
+            },
+            {
+              "inlines": [
+                {
+                  "text": "報復（Retribution）",
+                  "bold": true
+                },
+                {
+                  "text": "：為了滿足我們腦中那份「看著別人痛苦」的原始快感。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "正如挪威在面對安德斯·布雷維克（Anders Breivik）這類奪走數十條人命的屠殺者時，依然維持其基本人權與康復空間。這種做法並非「軟弱」，而是在極端的邪惡面前，依然拒絕讓集體的復仇本能侵蝕自己的文明底線。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "一個進步的社會，應該是即使面對那些抽中「壞牌」的人，也能保持謙卑與悲憫。",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "CTA（行動呼籲）：",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "如果這篇文章改變了你對「壞人」的任何一個成見，請把它分享給你認為「最需要讀到它」的那個人。社會的進步，從理解開始。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "SUMMARY（100字精華，供後續 Agents 使用）：",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "本文根據行為遺傳學家哈登的研究，提出五個震撼真相：(1) 創業家與慣犯共享「去抑制性」基因，社會環境決定走向；(2) 天才與精神病只差5%的基因變體與童年環境；(3) 具冷酷無情特質的孩子對懲罰免疫，需要干預而非報復；(4) MAOA基因突變使男性道德防線脆弱；(5) 人類大腦天生渴望懲罰「壞人」的快感。核心主張：用謙卑取代報復，用問責取代復仇。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-a9a0a1bfab",
+          "inlines": [
+            {
+              "text": "AGENT-02 | 視覺敘事設計師"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-be481e8b65",
+          "inlines": []
+        },
+        {
+          "type": "code",
+          "code": "IG_CAROUSEL_PLAN.md",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-bb83b07e3b",
+          "inlines": [
+            {
+              "text": "Visual Hook（封面設計）"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "Image Prompt (Slide 1 Cover):",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "textSplit-screen portrait, photorealistic. Left side: a sharp-dressed CEO in a glass office tower, golden hour lighting, confident gaze. Right side: the same man in a prison jumpsuit, harsh fluorescent lighting, same facial features. Title text overlay in bold white: \"同一個基因。兩種命運。\" Cinematic composition, Rembrandt lighting, 4:5 ratio, dark dramatic background.",
+          "language": "javascript"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "On-Image Text:",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "同一個基因，兩種命運——科學的答案讓人不安",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-5644f0f549",
+          "inlines": [
+            {
+              "text": "Slide Breakdown"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "Slide"
+                }
+              ],
+              [
+                {
+                  "text": "Image Prompt"
+                }
+              ],
+              [
+                {
+                  "text": "On-Image Text"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 1（封面）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "CEO vs. 囚犯的分割畫面，金色光線 vs. 螢光燈，同一張臉，戲劇性構圖"
+                }
+              ],
+              [
+                {
+                  "text": "同一個基因，兩種命運"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 2（問題鉤子）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "一個 DNA 雙螺旋結構在黑暗中發光，底部隱約浮現問號，暗調科幻風"
+                }
+              ],
+              [
+                {
+                  "text": "你的每一個選擇，都可能早在受孕那刻就被決定了"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 3（發現一）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "一個人影站在岔路口，左邊是璀璨都市高樓，右邊是鐵絲網圍籬，腳下是相同的DNA鏈"
+                }
+              ],
+              [
+                {
+                  "text": "創業家 vs. 慣犯：底層基因竟然一樣"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 4（發現二）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "兩個大腦並排，一個發出彩虹光芒（創意），一個發出閃電（混亂），外形完全相同，Volumetric lighting"
+                }
+              ],
+              [
+                {
+                  "text": "天才與瘋狂，只差5%的基因變體與一個童年"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 5（發現三）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "一個孩子的手觸碰熱爐，但臉上毫無痛苦表情，黑白照片風，醫療冷調燈光"
+                }
+              ],
+              [
+                {
+                  "text": "嚴厲懲罰「天生壞小孩」？科學說：你只會讓他們更壞"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 6（發現四）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "放大的X染色體，其中一個基因位點用紅色標記發光，背景是人類神經元網絡，深藍色調"
+                }
+              ],
+              [
+                {
+                  "text": "一個基因字母的錯誤，足以讓文明的防線徹底崩潰"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 7（發現五）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "一個人在看手機螢幕，螢幕反光照亮半邊臉，臉上帶著滿足的微笑，但背景是黑暗的人群獵巫場景"
+                }
+              ],
+              [
+                {
+                  "text": "看著壞人受苦，你的大腦在分泌多巴胺——這是演化設計的"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 8（核心主張）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "一雙手，一手拿著法律天平（問責），一手持著火把（報復），鏡頭從上俯視，黃金色調"
+                }
+              ],
+              [
+                {
+                  "text": "問責 ≠ 報復。你搞清楚了嗎？"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 9（引言金句）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "深色背景，單一金色引言文字排版，無人物，極簡主義設計"
+                }
+              ],
+              [
+                {
+                  "text": "「沒有人能選擇自己的起點。我們每個人都參與了一場遺傳彩票。」——哈登博士"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Slide 10（CTA）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "亮白背景，手持書本的人影，書名模糊，溫暖燈光，邀請感"
+                }
+              ],
+              [
+                {
+                  "text": "如果這改變了你對某人的看法，把它傳給他"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-1c3b196287",
+          "inlines": [
+            {
+              "text": "IG Caption"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text你有沒有想過，你最討厭的那個人——\n他的「壞」，有多少是他「選擇」的？\n\n科學給出了一個令人不安的答案。\n\n行為遺傳學家凱瑟琳·佩吉·哈登的研究揭示了5個震撼真相：\n\n🧬 創業家與慣犯共享同一套「打破規則」的基因\n🎨 天才與瘋狂只差5%的基因變體與一個童年\n⚡ 嚴厲懲罰「天生壞小孩」反而讓他們更壞\n🔴 一個MAOA基因突變，讓道德防線徹底崩潰\n😮 你看到「壞人」受罰的快感，其實是大腦在獵巫\n\n滑完這組圖，問問自己：\n你判斷一個人的標準，是「問責」還是「報復」？\n\n這不是替罪行辯護。\n這是讓正義更有效的開始。\n\n👉 分享給你認為「最需要讀到它」的那個人\n\n#行為遺傳學 #基因與命運 #科學思維 #社會正義 #遺傳彩票 #心理學 #批判性思考",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-df530152ba",
+          "inlines": [
+            {
+              "text": "AGENT-03 | 短影音腳本導演"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-6913e32e72",
+          "inlines": []
+        },
+        {
+          "type": "code",
+          "code": "VIDEO_SCRIPTS.md",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-ada7b9258f",
+          "inlines": [
+            {
+              "text": "Variant A — 痛點直擊（45秒）"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "核心切入",
+              "bold": true
+            },
+            {
+              "text": "：你是不是也曾認為某個人「天生就壞」？"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "Time"
+                }
+              ],
+              [
+                {
+                  "text": "Visual / Camera Angle"
+                }
+              ],
+              [
+                {
+                  "text": "Audio / Script"
+                }
+              ],
+              [
+                {
+                  "text": "Text Overlay"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "0-3s"
+                }
+              ],
+              [
+                {
+                  "text": "極近特寫一雙眼睛，快速推鏡。Crash Zoom，黑底。"
+                }
+              ],
+              [
+                {
+                  "text": "「你有沒有想過，你以為的『壞人』——根本沒有選擇？」"
+                }
+              ],
+              [
+                {
+                  "text": "壞人，是天生的嗎？"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "4-10s"
+                }
+              ],
+              [
+                {
+                  "text": "分割畫面：CEO開會 / 囚犯在牢房，Low angle shot"
+                }
+              ],
+              [
+                {
+                  "text": "「科學發現：成功的創業家和慣犯，共享同一套基因。差別只在——他們出生在哪裡。」"
+                }
+              ],
+              [
+                {
+                  "text": "同一套基因。兩種命運。"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "11-18s"
+                }
+              ],
+              [
+                {
+                  "text": "實驗室場景，科學家俯視顯微鏡，Slow dolly forward"
+                }
+              ],
+              [
+                {
+                  "text": "「行為遺傳學家哈登的研究證實：兒童期反社會行為，遺傳率高達80%。這些孩子不是『不想變好』，是大腦天生無法學習懲罰。」"
+                }
+              ],
+              [
+                {
+                  "text": "遺傳率 80%"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "19-28s"
+                }
+              ],
+              [
+                {
+                  "text": "一個孩子站在黑暗角落，成人手指指向他，孩子面無表情"
+                }
+              ],
+              [
+                {
+                  "text": "「所以當我們用懲罰試圖矯正他們時，我們其實是在推著他們走向更深的黑暗。」"
+                }
+              ],
+              [
+                {
+                  "text": "懲罰，讓他們更壞"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "29-38s"
+                }
+              ],
+              [
+                {
+                  "text": "鏡頭拉遠，孩子站在光明一側，大人蹲下與他同高"
+                }
+              ],
+              [
+                {
+                  "text": "「科學說：這些孩子需要的不是更多的懲罰，而是針對大腦機制的早期干預。」"
+                }
+              ],
+              [
+                {
+                  "text": "干預，不是報復"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "39-45s"
+                }
+              ],
+              [
+                {
+                  "text": "直視鏡頭，Truck left緩移，溫暖光源"
+                }
+              ],
+              [
+                {
+                  "text": "「下次你遇到讓你憤怒的人，試著問一句：他有沒有機會選擇不同？」"
+                }
+              ],
+              [
+                {
+                  "text": "謙卑，是進步社會的起點"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "Video Gen Prompt (Runway/Sora):",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "textCinematic split-screen sequence. Left: a young man in a tailored suit in a glass boardroom, golden hour lighting, confident body language. Right: the same young man in prison clothes, harsh cold fluorescent light, defeated posture. Camera begins with extreme close-up of both men's eyes simultaneously, then crash zoom out to reveal the identical DNA helix connecting both scenes. Photorealistic, 9:16 vertical, high contrast, dramatic score, 45 seconds.",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "Time"
+                }
+              ],
+              [
+                {
+                  "text": "Visual / Camera Angle"
+                }
+              ],
+              [
+                {
+                  "text": "Audio / Script"
+                }
+              ],
+              [
+                {
+                  "text": "Text Overlay"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "0-3s"
+                }
+              ],
+              [
+                {
+                  "text": "直視鏡頭，presenter指向螢幕，動態文字飛入"
+                }
+              ],
+              [
+                {
+                  "text": "「3個關於基因與犯罪的事實，顛覆你的三觀，開始。」"
+                }
+              ],
+              [
+                {
+                  "text": "3個基因事實 ⚡"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "4-10s"
+                }
+              ],
+              [
+                {
+                  "text": "動態圖表：基因研究400萬人數據視覺化"
+                }
+              ],
+              [
+                {
+                  "text": "「第一：400萬人研究發現，『冒險型基因』讓有錢人成為創業家，讓窮人走進監獄。同樣的基因，不同的社會結構。」"
+                }
+              ],
+              [
+                {
+                  "text": "1/ 同基因，不同命運"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "11-19s"
+                }
+              ],
+              [
+                {
+                  "text": "腦部掃描影像，兩個大腦並排對比"
+                }
+              ],
+              [
+                {
+                  "text": "「第二：精神分裂症的遺傳變體，在正常人身上是藝術天才的基因。這解釋了為什麼這些基因沒被演化淘汰。」"
+                }
+              ],
+              [
+                {
+                  "text": "2/ 天才基因=瘋狂基因"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "20-27s"
+                }
+              ],
+              [
+                {
+                  "text": "MAOA基因示意圖，X染色體特寫"
+                }
+              ],
+              [
+                {
+                  "text": "「第三：X染色體上的MAOA基因突變，讓人完全失去情緒控制。男性沒有備份，一個字母出錯，文明防線就塌了。」"
+                }
+              ],
+              [
+                {
+                  "text": "3/ MAOA突變=道德崩潰"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "28-30s"
+                }
+              ],
+              [
+                {
+                  "text": "快速剪接三個畫面，結尾定格於書封"
+                }
+              ],
+              [
+                {
+                  "text": "「這不是宿命論。這是我們設計更有效正義系統的起點。」"
+                }
+              ],
+              [
+                {
+                  "text": "問責 > 報復"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-e63a26eafe",
+          "inlines": [
+            {
+              "text": "Variant B — 乾貨教學（30秒）"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "核心切入",
+              "bold": true
+            },
+            {
+              "text": "：3個你不知道的基因事實，直接改變你的世界觀"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "Video Gen Prompt:",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "textClean educational video style. White background with dynamic text animations and data visualizations. Show DNA helix transforming into bar charts, then into brain scans, then into chromosome diagrams. Smooth kinetic typography transitions. Professional presenter in frame for bookend shots. 9:16 aspect ratio, 30 seconds, upbeat but serious background music.",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-4e46b4cb18",
+          "inlines": [
+            {
+              "text": "Variant C — 故事隱喻（60秒）"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "核心切入",
+              "bold": true
+            },
+            {
+              "text": "：一隻明明很痛但還是繼續按壓的大鼠"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "Time"
+                }
+              ],
+              [
+                {
+                  "text": "Visual / Camera Angle"
+                }
+              ],
+              [
+                {
+                  "text": "Audio / Script"
+                }
+              ],
+              [
+                {
+                  "text": "Text Overlay"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "0-4s"
+                }
+              ],
+              [
+                {
+                  "text": "黑暗實驗室，一隻大鼠面對槓桿。Extreme low angle shot。"
+                }
+              ],
+              [
+                {
+                  "text": "「科學家把一個實驗室的大鼠分成兩組。兩組都按下這個槓桿。」"
+                }
+              ],
+              [
+                {
+                  "text": "一個關於大鼠的故事"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "5-13s"
+                }
+              ],
+              [
+                {
+                  "text": "大鼠按壓槓桿，閃電符號出現，大鼠縮一下又繼續按"
+                }
+              ],
+              [
+                {
+                  "text": "「當科學家把槓桿的獎勵改成電擊，75%的大鼠停了。但有一小部分——繼續按。不是不痛，是大腦的獎勵系統完全蓋過了痛苦。」"
+                }
+              ],
+              [
+                {
+                  "text": "牠們不是不痛，是停不下來"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "14-22s"
+                }
+              ],
+              [
+                {
+                  "text": "切換到一個孩子在課堂上的畫面，老師在前方嚴厲指責"
+                }
+              ],
+              [
+                {
+                  "text": "「這些大鼠，就像某些孩子。他們的大腦對懲罰天生遲鈍。你打他、罰他、關他，他只是學到了：這個世界充滿敵意。」"
+                }
+              ],
+              [
+                {
+                  "text": "懲罰，只是在製造更多敵意"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "23-35s"
+                }
+              ],
+              [
+                {
+                  "text": "科學家俯視數據，輕聲旁白，溫暖燈光轉入"
+                }
+              ],
+              [
+                {
+                  "text": "「行為遺傳學家哈登花了二十年研究這個問題。她的結論不是說這些孩子無法被改變——而是說，改變他們的方式，完全不是你以為的那種。」"
+                }
+              ],
+              [
+                {
+                  "text": "改變的方式，你想錯了"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "36-48s"
+                }
+              ],
+              [
+                {
+                  "text": "挪威監獄畫面（極現代、溫暖、明亮的牢房），Slow pan"
+                }
+              ],
+              [
+                {
+                  "text": "「挪威，一個讓殺人犯住在有廚房、有花園的監獄裡的國家。他們的再犯率是全球最低的。這不是軟弱——這是用科學打敗了復仇的本能。」"
+                }
+              ],
+              [
+                {
+                  "text": "挪威模式：全球最低再犯率"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "49-60s"
+                }
+              ],
+              [
+                {
+                  "text": "鏡頭從監獄花園拉高，俯瞰，晨光灑落"
+                }
+              ],
+              [
+                {
+                  "text": "「下次你在螢幕前看到新聞裡的惡人，感受一下你胸口那股滿足感。然後問問自己：我要的是正義，還是快感？這個問題的答案，決定了你是什麼樣的社會的公民。」"
+                }
+              ],
+              [
+                {
+                  "text": "正義 vs. 快感——你選哪個？"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "Video Gen Prompt:",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "textCinematic storytelling video. Opening shot: macro closeup of a white lab rat pressing a lever in dim laboratory lighting, then receiving electric shock but pressing again. Cut to documentary-style footage of a modern Scandinavian prison with warm natural light, open spaces, and a garden. Final aerial shot pulling up from the prison garden into golden morning sky. 9:16 vertical, 60 seconds, emotional orchestral score that builds from tense to hopeful. Photorealistic, muted warm tones.",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-6549df7438",
+          "inlines": [
+            {
+              "text": "AGENT-04 | 社群話題引導者"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-ec0a6c48bd",
+          "inlines": []
+        },
+        {
+          "type": "code",
+          "code": "THREADS_SERIES.md",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-8ff596ce5c",
+          "inlines": [
+            {
+              "text": "Post 1｜Hook（引起好奇心）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text一對雙胞胎兄弟，相同的家庭，相同的學校。\n\n一個成了億萬富翁創業家。\n一個進出監獄 12 次。\n\n遺傳學家研究了 400 萬人之後，給出了一個令所有人不舒服的答案。\n\n👇",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-66158fe0f6",
+          "inlines": [
+            {
+              "text": "Post 2｜Body（核心觀點一）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text他們其實共享同一套「打破規則」的基因。\n\n這組基因叫做「去抑制性（Disinhibition）」。\n\n它讓人：\n——無視風險\n——挑戰規則\n——衝動行事\n\n差別只在於：\n有資源的人，它變成「創業精神」。\n沒資源的人，它變成「前科記錄」。\n\n同樣的燃料，\n豪宅裡叫做遠見，\n貧民窟叫做暴力。\n\n這不是隱喻，這是數據。",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-0a5f62c573",
+          "inlines": [
+            {
+              "text": "Post 3｜Body（核心觀點二）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text還有一件更讓人坐立難安的事。\n\n你知道那些具備精神分裂症基因、但沒有發病的人，\n更有可能成為什麼嗎？\n\n——頂尖藝術家\n——天才工程師\n——傳奇音樂家\n\n天才基因，跟瘋狂基因，\n本來就是同一套。\n\n差別只有：\n5% 的基因變體比例，\n加上你的童年。\n\n這解釋了為什麼演化沒有把這些「危險」基因淘汰。\n因為它們也是人類文明最珍貴的燃料。",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-6ebd978453",
+          "inlines": [
+            {
+              "text": "Post 4｜Body（核心觀點三）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text所以當你看到那個「天生壞小孩」——\n\n你知道嚴厲懲罰他，\n在科學上的效果是什麼嗎？\n\n幾乎是零。\n\n他們的大腦對痛苦天生遲鈍。\n你打得越重，他只學到一件事：\n「這個世界充滿了敵意。」\n\n反而是溫暖的聯繫、\n對即時獎勵的重新設計，\n才能真正改變神經迴路的走向。\n\n這不是姑息。\n這是唯一有效的方法。",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-cf05de4ef0",
+          "inlines": [
+            {
+              "text": "Post 5｜Body（核心觀點四）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text我們每個人，\n在受孕的那一刻，\n都參與了一場「遺傳彩票」。\n\n沒有人能選擇自己的起點。\n沒有人。\n\n問責（Accountability）——是為了保護社群。\n報復（Retribution）——是為了餵養我們大腦的快感。\n\n這兩件事，我們一直搞混。\n\n而搞混的代價，\n是我們建造了一個讓更多人變壞的社會。",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-9205f1d8bf",
+          "inlines": [
+            {
+              "text": "Post 6｜Final（Engagement 互動問題）"
+            }
+          ]
+        },
+        {
+          "type": "code",
+          "code": "text挪威讓一個殺了 77 個人的屠殺者，\n住在有廚房、有花園的監獄裡。\n\n很多人說這是對受害者的侮辱。\n\n但挪威的再犯率，是全球最低的。\n\n我想問你一個問題，\n不是要評判你，只是想真正知道你怎麼想：\n\n「如果科學證明嚴懲無效，\n但你內心還是渴望壞人受苦——\n你會選擇有效的方式，還是滿足的感覺？」\n\n留言告訴我。",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-f2b6335e5f",
+          "inlines": [
+            {
+              "text": "AGENT-05 | 首席內容架構師"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-c22c97ca48",
+          "inlines": []
+        },
+        {
+          "type": "code",
+          "code": "FINAL_CONTENT_BUNDLE.md",
+          "language": "javascript"
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-d8120dae1b",
+          "inlines": [
+            {
+              "text": "Executive Summary｜內容策略總覽"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "本次內容包圍繞"
+            },
+            {
+              "text": "凱瑟琳·佩吉·哈登行為遺傳學研究",
+              "bold": true
+            },
+            {
+              "text": "，以「遺傳決定論 vs. 社會正義」作為核心衝突張力，展開全通路分發策略。"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "維度"
+                }
+              ],
+              [
+                {
+                  "text": "定義"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "核心主題",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "基因與犯罪、遺傳彩票、問責 vs. 報復"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "目標受眾",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "25-45歲，對科學、心理學、社會議題有興趣的知識型讀者"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "品牌語氣",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "理性挑釁（Rational Provocateur）——用科學事實挑戰情緒成見"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "資訊增益",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "以哈登的實際研究數據（400萬人研究、MAOA基因、遺傳率80%）作為差異化核心，避免空泛議論"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "傳播策略",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Blog 建立權威 → Threads 引爆討論 → IG 視覺傳播 → Video 深度導流"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-c76b28b5ca",
+          "inlines": [
+            {
+              "text": "Consistency Check Report｜一致性稽核報告"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "檢查項目"
+                }
+              ],
+              [
+                {
+                  "text": "狀態"
+                }
+              ],
+              [
+                {
+                  "text": "說明"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "核心事實一致性",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "PASS"
+                }
+              ],
+              [
+                {
+                  "text": "所有通路均使用「400萬人研究」、「80%遺傳率」、「MAOA基因」等具體數據，無矛盾"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "語氣一致性",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "PASS"
+                }
+              ],
+              [
+                {
+                  "text": "Blog（深度權威）→ Threads（對話挑釁）→ IG（視覺精煉）→ Video（情緒感染），層次合理，未過度輕浮"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "品牌立場一致性",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "PASS"
+                }
+              ],
+              [
+                {
+                  "text": "所有通路均堅持「問責 > 報復」、「干預 > 懲罰」的核心主張，無立場漂移"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "CTA 一致性",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "PASS"
+                }
+              ],
+              [
+                {
+                  "text": "Blog / IG / Threads 均以「分享給最需要讀到它的人」作為行動呼籲，形成協同效應"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Hook 品質",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "PASS"
+                }
+              ],
+              [
+                {
+                  "text": "所有通路的前3秒/首行均製造認知衝突，符合各平台演算法要求"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "平台格式合規",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "PASS"
+                }
+              ],
+              [
+                {
+                  "text": "IG 使用 4:5 比例、含Emoji與7個Hashtags；Threads 遵守 One Tag Rule；Video Scripts 附 Runway/Sora 提示詞"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "總體評分：9.2 / 10 — APPROVED",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-358ba2a532",
+          "inlines": [
+            {
+              "text": "Master Content Table｜全通路內容對照總表"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "通路"
+                }
+              ],
+              [
+                {
+                  "text": "格式"
+                }
+              ],
+              [
+                {
+                  "text": "核心鉤子"
+                }
+              ],
+              [
+                {
+                  "text": "字數/時長"
+                }
+              ],
+              [
+                {
+                  "text": "核心 CTA"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Blog",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Markdown 長文，H1-H3 結構，5大發現"
+                }
+              ],
+              [
+                {
+                  "text": "「同一屋簷下的兄弟，一個億萬富翁一個慣犯——為什麼？」"
+                }
+              ],
+              [
+                {
+                  "text": "約 2,200字"
+                }
+              ],
+              [
+                {
+                  "text": "分享給最需要讀到它的人"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "IG Carousel",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "10張輪播，含Midjourney Prompts"
+                }
+              ],
+              [
+                {
+                  "text": "「同一個基因，兩種命運」（CEO vs. 囚犯分割畫面）"
+                }
+              ],
+              [
+                {
+                  "text": "10張 + Caption 約250字"
+                }
+              ],
+              [
+                {
+                  "text": "把它傳給他"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Reels/TikTok A",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "直式短影音，痛點切入"
+                }
+              ],
+              [
+                {
+                  "text": "Crash Zoom 問句：「你以為的壞人，根本沒有選擇？」"
+                }
+              ],
+              [
+                {
+                  "text": "45秒"
+                }
+              ],
+              [
+                {
+                  "text": "下次遇到讓你憤怒的人，問一句"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Reels/TikTok B",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "直式短影音，乾貨教學"
+                }
+              ],
+              [
+                {
+                  "text": "「3個基因事實，顛覆你的三觀，開始。」"
+                }
+              ],
+              [
+                {
+                  "text": "30秒"
+                }
+              ],
+              [
+                {
+                  "text": "問責 > 報復"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Reels/TikTok C",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "直式短影音，故事隱喻"
+                }
+              ],
+              [
+                {
+                  "text": "大鼠按壓電擊槓桿的故事"
+                }
+              ],
+              [
+                {
+                  "text": "60秒"
+                }
+              ],
+              [
+                {
+                  "text": "正義 vs. 快感——你選哪個？"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Threads",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "6則串文系列"
+                }
+              ],
+              [
+                {
+                  "text": "「一對雙胞胎兄弟，一個億萬富翁，一個 12 次進出監獄」"
+                }
+              ],
+              [
+                {
+                  "text": "6則，每則 80-150字"
+                }
+              ],
+              [
+                {
+                  "text": "留言互動問題"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-d6c53926d0",
+          "inlines": [
+            {
+              "text": "Action Plan｜建議發布時程表"
+            }
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "日期"
+                }
+              ],
+              [
+                {
+                  "text": "通路"
+                }
+              ],
+              [
+                {
+                  "text": "內容"
+                }
+              ],
+              [
+                {
+                  "text": "時機邏輯"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "table",
+          "hasHeader": true,
+          "rows": [
+            [
+              [
+                {
+                  "text": "日期"
+                }
+              ],
+              [
+                {
+                  "text": "通路"
+                }
+              ],
+              [
+                {
+                  "text": "內容"
+                }
+              ],
+              [
+                {
+                  "text": "時機邏輯"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 1（週一）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Blog"
+                }
+              ],
+              [
+                {
+                  "text": "發布完整長文，確立 SEO 權威"
+                }
+              ],
+              [
+                {
+                  "text": "週一早晨，知識型讀者上班前瀏覽高峰"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 2（週二）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Threads"
+                }
+              ],
+              [
+                {
+                  "text": "發布 Post 1-3（Hook + 兩個核心觀點）"
+                }
+              ],
+              [
+                {
+                  "text": "引流至 Blog，趁早週討論熱度爬升"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 3（週三）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "IG Carousel"
+                }
+              ],
+              [
+                {
+                  "text": "發布 10 張輪播圖"
+                }
+              ],
+              [
+                {
+                  "text": "IG 演算法週三下午 6-8 點互動高峰"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 4（週四）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Threads"
+                }
+              ],
+              [
+                {
+                  "text": "發布 Post 4-6（觀點三 + 觀點四 + 互動問題）"
+                }
+              ],
+              [
+                {
+                  "text": "追熱度，用互動問題延續討論"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 5（週五）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Reels / TikTok"
+                }
+              ],
+              [
+                {
+                  "text": "發布 Variant C（故事隱喻，60秒）"
+                }
+              ],
+              [
+                {
+                  "text": "週五情緒型內容傳播率最高"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 7（週日）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "Reels / TikTok"
+                }
+              ],
+              [
+                {
+                  "text": "發布 Variant A（痛點，45秒）+ Variant B（乾貨，30秒）"
+                }
+              ],
+              [
+                {
+                  "text": "週末深度內容補量"
+                }
+              ]
+            ],
+            [
+              [
+                {
+                  "text": "Day 10（週三）",
+                  "bold": true
+                }
+              ],
+              [
+                {
+                  "text": "全通路"
+                }
+              ],
+              [
+                {
+                  "text": "交叉引流：IG Stories 導向 Blog，Threads 釘選 Reels 連結"
+                }
+              ],
+              [
+                {
+                  "text": "形成 Hub-Spoke 閉環，提升 SEO 反向連結信號"
+                }
+              ]
+            ]
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "品牌聲音最終校準說明：",
+              "bold": true
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "本套內容的核心語氣為「理性挑釁者（Rational Provocateur）」。所有通路均以「讓讀者感到不舒服的科學事實」開場，但立即用數據提供出口，最終落腳於「謙卑與悲憫」而非虛無主義。這條語氣紅線在所有通路中均已保持一致，確保品牌在挑戰成見的同時，不淪為情緒動員的工具。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 2,
+          "id": "h-e20f2379cf",
+          "inlines": [
+            {
+              "text": "邪惡的基因：關於犯罪、遺傳與「不公平」命運的五個震撼真相"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "想像一對在相同屋簷下長大的親兄弟：一個是無畏風險、坐擁億萬資產的企業家，另一個卻是進出監獄、與毒癮搏鬥的慣犯。在同樣的家教、同樣的學區，甚至同樣的晚餐桌旁，為什麼命運的航向會如此南轅北轍？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "知名行為遺傳學家凱瑟琳·佩吉·哈登（Kathryn Paige Harden）在她的研究生涯中，收到了無數讀者的來信。許多人對她感嘆，自己與父母或手足之間存在著難以解釋的巨大差異，彷彿流著相同的血，靈魂卻來自不同的宇宙。這讓我們不得不直面一個令人不安的核心提問：這一切真的是「天生」的嗎？如果邪惡與成功都寫在基因的螺旋裡，那麼所謂的「道德」與「正義」還剩下什麼？"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這是一場關於科學、生物決定論與同理心的深度探索，它將挑戰你對「壞人」最根深蒂固的成見。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-691111d190",
+          "inlines": [
+            {
+              "text": "驚人發現一：成功的創業家與少年犯，共享同一套「打破規則」的基因"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "我們習慣將「成功的企業家」視為社會的英雄，將「反社會犯罪者」視為人渣。但在遺傳學的棱鏡下，這兩者的底層邏輯可能驚人地相似。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登參與了一項針對 400 萬人的巨型基因研究，科學家們試圖尋找與「去抑制性」（Disinhibition）相關的基因特徵。這組基因預測了 ADHD 症狀、早孕、藥物使用，以及一個人是否具備強烈的「冒險偏好」。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "深度分析顯示，這種「不計後果、打破規則」的基因傾向，在不同的社會結構下會導向截然不同的終點。研究發現，白人男性創業家最強大的預測指標之一，竟然是他們在青少年時期曾有過「輕微違法行為」（如塗鴉、校園鬥毆）。對於擁有資源與特權的人來說，這種基因特質是「顛覆性創新」的燃料；但對於資源匱乏的人，它卻成了通往監獄的單程票。同樣的基因衝動，在豪宅裡是「遠見」，在貧民窟則是「暴力」。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-2784711814",
+          "inlines": [
+            {
+              "text": "驚人發現二：天才與瘋狂的距離，只有 5% 的基因差異"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "「天才與瘋子只有一線之隔」這句話並非空穴來風。遺傳學證實，擁有高比例精神分裂症（Schizophrenia）遺傳變體但未發病的人，更有可能成為頂尖的藝術家、工程師或音樂家。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "為什麼這些看似「壞掉」的疾病基因沒有被演化淘汰？因為它們在人類基因池中扮演了「創造力」的種子。同樣的基因序列，既能讓人看見不存在的幻覺，也能讓人看見前人未見的藝術美感。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "「如果你多出 5% 的特定基因變體，或者童年環境稍差一點，你可能就不是台上的搖滾巨星，而是精神病院裡的病患。」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "環境在這裡扮演了決定性的「開關」。一個溫暖、受保護的童年，能將這份基因靈感導向科學或藝術；而一個充滿虐待與動盪的環境，則可能將相同的潛能推向精神崩潰的邊緣。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-2713a1d912",
+          "inlines": [
+            {
+              "text": "驚人發現三：為什麼嚴厲的懲罰，對「天生壞小孩」反而是一場災難"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "在行為遺傳學中，兒童期反社會行為的遺傳率高達 80%，這與精神分裂症的遺傳程度相當。特別是具備「冷酷無情特質」（Callous-unemotional traits）的孩子，他們對他人的痛苦顯得麻木，這並非因為他們「選擇」作惡，而是大腦的生理機能存在缺陷。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "哈登博士引用了一個強大的生物學隱喻：在實驗室中，當科學家將原本獎勵酒精的槓桿改為釋放電擊時，75% 的大鼠會停止動作，但有一小部分大鼠反而會「加倍按壓」槓桿。牠們並非不怕痛，而是大腦的獎勵路徑完全凌駕了對痛苦的感知。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這類孩子就像這群大鼠，他們患有某種「學習障礙」：對懲罰極度遲鈍，卻對即時獎勵極度飢渴。當社會試圖用「嚴厲懲罰」來矯正他們時，我們其實是掉進了「控制陷阱」。嚴厲的責打與孤立不僅無效，反而會切斷他們與社會建立聯繫的最後機會，將他們推向更極端的暴力。強調遺傳性不是為了替罪行開脫，而是提醒我們：若想阻止悲劇，我們需要的是生物學上的「干預」，而非原始的「報復」。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-5956b43b72",
+          "inlines": [
+            {
+              "text": "驚人發現四：X 染色體的祕密——當道德防線崩潰於一個字母的錯誤"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "男性在暴力犯罪中佔據絕大多數，除了社會期待，基因結構的不對稱性也是主因。1990 年代一項著名的荷蘭家族研究揭開了這個祕密：該家族的男性成員普遍具有極端暴力傾向——有人強姦親妹，有人縱火，有人甚至只因一時憤怒就用乾草叉捅向老闆。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "科學家發現，這源於 X 染色體上 MAOA 基因的突變，這個基因負責產生一種像「Pac-Man 吃豆人」一樣的神經酶，用來清理大腦中堆積的血清素。當這台「清潔機」失靈，腦內化學信號會瘋狂堆積，導致情緒瞬間失控。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "由於男性只有一條 X 染色體，一旦這個位置出錯，他們完全沒有備份（女性有兩條 X 染色體可以緩衝）。這揭示了一個殘酷的真相：所謂的「道德感」，其實是一種極其脆弱的生物機能。只要一個基因字母序列出錯，一個人的文明防線就可能隨之坍塌。"
+            }
+          ]
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-88bd5d3e77",
+          "inlines": [
+            {
+              "text": "驚人發現五：正義的快感？我們大腦中潛藏的「私刑渴望」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "當我們看到「壞人」受罰時，內心產生的那股滿足感，其實是人類演化出的「執法多巴胺」。保羅·布魯姆（Paul Bloom）的研究發現，僅僅 5 歲的兒童，就願意支付代價（貼紙）來換取「壞木偶」被處罰的畫面。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "腦部掃描顯示，當人們看到背叛者受苦時，大腦會釋放獎勵信號。這種本能原本是為了維持群體合作，但在現代社會，它卻極易轉化為大規模的「獵巫」。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "「同理心是痛苦的。但如果你能成功說服自己對方是『惡魔』，你就能將看見他人受苦的痛苦，轉化為純粹的愉悅。」"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "這種「鍊金術」將他人的痛苦轉化為我們的快感。當我們在網路上對某人進行非人化的攻擊時，我們其實是在餵養大腦中最原始、也最危險的本能。"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "heading",
+          "level": 3,
+          "id": "h-7116ed5834",
+          "inlines": [
+            {
+              "text": "結語：在遺傳彩票面前，我們需要更多的謙卑"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "透過行為遺傳學，我們看見了一個人格的成形是多麼依賴運氣。凱瑟琳·佩吉·哈登的核心主張在於：沒有人能選擇自己的起點。我們每個人在受孕的那一刻，都參與了一場規模宏大的「遺傳彩票」。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "我們必須學會區分「問責」（Accountability）與「報復」（Retribution）。問責是為了保護社群的安全，是理性的法律邊界；而報復則是為了滿足我們腦中那份「看著別人痛苦」的原始快感。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "正如挪威在面對安德斯·布雷維克（Anders Breivik）這類奪走 60 幾條人命的屠殺者時，依然維持其基本人權與康復空間。這種做法並非「軟弱」，而是在極端的邪惡面前，依然拒絕讓集體的復仇本能侵蝕我們自己的文明底線。"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "一個進步的社會，應該是即使面對那些抽中「壞牌」的人，也能保持謙卑與悲憫。如果明天科學證明了你的每一次憤怒或善良都與基因有關，你會如何重新審視你最討厭的那個人？"
+            }
+          ]
+        },
+        {
+          "type": "divider"
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "原始資料："
+            },
+            {
+              "text": "在「內容管理」開啟來源頁",
+              "href": "https://app.notion.com/p/2a7ebb8ac86a83cbbbce012d6d984016"
+            }
+          ]
+        }
+      ],
+      "source": "notion"
+    },
+    {
       "id": "5d055afe-9105-4c9d-9fc0-b2d3fafc6c7c",
       "title": "崩潰感的真相：不是情緒太多，而是你一直在逃一件事",
       "slug": "post-20260407-a3febb8ac8",
@@ -9370,9 +14003,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-04-07",
-      "updatedAt": "2026-10-07T04:37:00.000Z",
-      "excerpt": "為什麼「感受更多」反而讓你更自由？",
+      "updatedAt": "2026-10-14T15:03:00.000Z",
+      "excerpt": "讓人痛苦的往往不是情緒本身，而是一直逃開它；崩潰感常常是你知道該做、卻沒做的那件事。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/fc18ec708fef36bf.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "崩潰感不是情緒太多，而是一直逃開它。出口是進入情緒，把憤怒當地圖，並用脆弱對付羞愧。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/71e129d02deb55ba.png",
@@ -13300,9 +17948,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-04-02",
-      "updatedAt": "2026-10-06T14:33:00.000Z",
-      "excerpt": "社群媒體與交友軟體，把擇偶變成了一場評分遊戲：你是幾分？你配得上幾分的人？這套邏輯背後，是演化心理學長期流傳的一個核心信念——人有擇偶價值，10分配10分，2分配2分，市場會自動出清。",
+      "updatedAt": "2026-10-14T15:05:00.000Z",
+      "excerpt": "你在問卷上說想要的對象，和你真正被吸引的人，往往是兩件事。長期關係靠相容與依附，不是分數配對。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/16bad11d202337cc.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "你說想要的對象，和你真正被吸引的人，往往是兩件事。長期關係靠相容與依附，不是分數配對。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/25966bb97c55897d.png",
@@ -16938,9 +21601,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-04-08",
-      "updatedAt": "2026-10-06T14:33:00.000Z",
-      "excerpt": "在這個時代，承諾為什麼這麼難？",
+      "updatedAt": "2026-10-14T15:03:00.000Z",
+      "excerpt": "路得在對自己沒有好處的時候選擇留下，信仰落在麥田裡彎腰拾穗的那個動作。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/f28dad5e1728c6b2.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "路得在對自己沒有好處的時候選擇留下。信仰落在麥田裡彎腰的動作，也落在比義務多給一點。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/62ffb32b1b64cbe4.png",
@@ -18592,9 +23270,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-03-28",
-      "updatedAt": "2026-10-06T14:33:00.000Z",
-      "excerpt": "為什麼男權球會讓這麼多父母不安？",
+      "updatedAt": "2026-10-14T15:05:00.000Z",
+      "excerpt": "男權球抓住的是孤單與想被尊重。不要只用「不要看」結束對話，要給比演算法更有溫度的男性榜樣。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/237391b29c60a09e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "不要只用「不要看」結束對話。這些內容抓住的是孤單與想被尊重，需要比演算法更有溫度的男性榜樣。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/bd7f1424eb771aa4.png",
@@ -23021,9 +27714,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-03-30",
-      "updatedAt": "2026-10-06T14:33:00.000Z",
-      "excerpt": "Joe Rogan 在 2026 年 3 月訪問加拿大保守黨黨魁 Pierre Poilievre。這場對談不只談政治，開場就是一顆加拿大製的楓葉壺鈴。這個畫面本身就是一種宣示：健康不是精英的奢侈品，而是每一個普通人都可以拿回主導權的領域。",
+      "updatedAt": "2026-10-14T15:05:00.000Z",
+      "excerpt": "壺鈴教的不只是力量，而是面對痛苦、吃真實的食物，以及把生命的主導權拿回來。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/082f4d6328cc8d00.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "壺鈴教的不只是力量：學會面對痛苦，吃真實的食物，再把自己找回來。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/43508102e19adc66.png",
@@ -24817,9 +29525,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-04-09",
-      "updatedAt": "2026-10-06T14:33:00.000Z",
-      "excerpt": "為什麼「陪在身邊」不只是育兒建議，而是神經生物學事實？",
+      "updatedAt": "2026-10-14T15:03:00.000Z",
+      "excerpt": "嬰兒頭三年的大腦工程，取決於主要依附的人是否真的在場；媽媽的催產素和爸爸的血管加壓素不能互換。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/00d0fff025b2a96e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "嬰兒頭三年是大腦的黃金視窗。媽媽的催產素和爸爸的血管加壓素不能互換。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/a7ba7c8a54e8dddf.png",
@@ -28902,9 +33625,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-04-03",
-      "updatedAt": "2026-10-06T14:33:00.000Z",
-      "excerpt": "為什麼「服務」和「款待」是兩件完全不同的事？",
+      "updatedAt": "2026-10-14T15:05:00.000Z",
+      "excerpt": "服務是你做了什麼，款待是對方感受到什麼。這間餐廳成為全球第一，關鍵不是菜單，而是這套領導哲學。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/a8b8699fd0c4e0f0.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "服務是你做了什麼，款待是對方感受到什麼。先照顧自己人，用語言把文化定住，並把卓越與款待之間的張力管好。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/95ab1768e52a17ff.png",
@@ -32561,9 +37299,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-03-27",
-      "updatedAt": "2026-10-06T14:31:00.000Z",
-      "excerpt": "每當重大警察暴力事件發生，社會的反應往往是要求立法、要求刪減警察預算，或呼籲更嚴格的外部監管。但 San Leandro 警察局長 Angela Averiett 與 Simon Sinek 的對談提醒我們一件更根本的事：法律改變不了文化，立法改變不了人心。",
+      "updatedAt": "2026-10-14T15:06:00.000Z",
+      "excerpt": "壞蘋果不是原因，爛土才是。法律改不了文化，警察改革要從內部的領導開始。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/e0ffa699391337e7.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "壞蘋果不是原因，爛土才是。法律改不了文化，改革要從內部的領導開始。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/eecc7bd8ea5fe01e.png",
@@ -34437,9 +39190,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-03-24",
-      "updatedAt": "2026-10-06T14:31:00.000Z",
-      "excerpt": "Tony Robbins 在《The Diary Of A CEO》的訪談裡，對 AI 的判斷很直接：這不是一般的技術升級，而是一場速度極快、影響極廣的結構性轉移，從藍領到白領都會被重新洗牌。",
+      "updatedAt": "2026-10-14T15:06:00.000Z",
+      "excerpt": "AI 會重洗工作。財富框架是重新武裝自己、把投資當風險管理，並從消費者轉成擁有者。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/b18ebe13ae3f6d0d.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "AI 會重洗工作。財富框架是重新武裝自己、把投資當風險管理，並從消費者轉成擁有者。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/aaf5533cafac3391.png",
@@ -37784,9 +42552,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-03-23",
-      "updatedAt": "2026-10-06T14:30:00.000Z",
-      "excerpt": "過去很長一段時間，生物學比較像是「觀察生命」的學問；但 Alex Marson 在與 Andrew Huberman 的對談中強調，現在的醫學已經越來越像一門可以對細胞「下指令」的 programming science，研究者不只是看疾病怎麼發生，而是開始直接改寫細胞的功能。",
+      "updatedAt": "2026-10-14T15:08:00.000Z",
+      "excerpt": "癌症治療正在跳階：從外面攻擊腫瘤，走向重新訓練身體自己的免疫系統。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/008edc11065b48f7.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "癌症治療正在跳階：把 T 細胞變成追蹤器，用更精準的編輯與遞送，把免疫系統重新訓練起來。治療能走多遠，也要看界線。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/88c6fd4582da1750.png",
@@ -41869,9 +46652,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-03-19",
-      "updatedAt": "2026-10-06T14:30:00.000Z",
-      "excerpt": "你有沒有這種感覺——明明努力提升自己，健身、穿搭、累積社經地位，卻依然找不到真正的連結？或者你對某人一見傾心，卻被旁人說「你們不搭」？",
+      "updatedAt": "2026-10-14T15:08:00.000Z",
+      "excerpt": "所謂市場價值，多半只在見面的最初幾秒有效。你左滑掉的人，可能是分數失效之後才會被看見的人。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/5a29ac2ee633e600.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "市場價值多半只在最初幾秒有效。時間會改寫分數，真正的連結要從篩選轉向重複的互動。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/61a27053ede61320.png",
@@ -46242,9 +51040,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-03-21",
-      "updatedAt": "2026-10-06T14:30:00.000Z",
-      "excerpt": "為什麼現在比以往更需要「辨識真相」的能力？",
+      "updatedAt": "2026-10-14T15:08:00.000Z",
+      "excerpt": "2026 的地圖被刻意模糊。辨識真相，比再多一則熱評更重要。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/ade0de475b8cfe07.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "2026 的地圖被刻意模糊：政權調整不是更迭，模擬把核武當答案，媒體會煤氣燈，深偽讓真實失焦。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/5ddd289d1df135fc.png",
@@ -49691,9 +54504,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-03-18",
-      "updatedAt": "2026-10-06T14:29:00.000Z",
-      "excerpt": "為什麼我們愈來愈習慣問 ChatGPT，卻忘了問聖靈？",
+      "updatedAt": "2026-10-14T15:08:00.000Z",
+      "excerpt": "重大決定時，第一個問的是搜尋引擎，還是聖靈？天國往往是先宣告，才被催化。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/ad34509210f1d5ec.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "重大決定時先問聖靈。天國是聲控的：領受、承載、再傳遞。道不只是字句，而是神表達自己的行動。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/e2682b927aa9b8e2.png",
@@ -51398,10 +56226,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-380158a6ec",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -52141,10 +56971,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-bf908e7f84",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -52488,10 +57320,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-104d45d9a9",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -53034,10 +57868,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-30526a5809",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -53298,10 +58134,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-1f91eabeb9",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -54480,9 +59318,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-03-16",
-      "updatedAt": "2026-10-06T14:29:00.000Z",
-      "excerpt": "你有沒有想過，為什麼同樣六十歲，有人精神奕奕、思緒清晰，有人卻已經行動遲緩、記憶衰退？史丹佛神經科學家 Tony Wyss-Coray 博士與 Andrew Huberman 的深度對談，給出了一個顛覆性的觀點：衰老的速度，很大程度上取決於你每天發出的「生物學信號」。",
+      "updatedAt": "2026-10-14T15:08:00.000Z",
+      "excerpt": "衰老速度取決於你每天發出的生物學信號：運動、飲食節奏、光照與社交連結。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/a3dbd600f4876030.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "去衰老不是科幻。四把今天就能用的金鑰是運動、飲食與斷食、光照與睡眠、社交連結。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/fc1c7ea0350a30e2.png",
@@ -57226,9 +62079,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-03-14",
-      "updatedAt": "2026-10-06T14:29:00.000Z",
-      "excerpt": "為什麼一位軍事策略學者的話，值得全球屏氣聆聽？",
+      "updatedAt": "2026-10-14T15:11:00.000Z",
+      "excerpt": "打伊朗不一定是戰略勝利。佩普看到的是升級陷阱，外部的大贏家可能是中國與俄羅斯。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/5f82cfc75b63d3f2.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "戰術成功不是戰略勝利。打伊朗可能掉進升級陷阱，外部得利的是中國與俄羅斯，內部則是政治暴力被常態化。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/6ea5cfe3a0dc3527.png",
@@ -59258,9 +64126,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-03-13",
-      "updatedAt": "2026-10-06T14:29:00.000Z",
-      "excerpt": "完美履歷之外，還有一份你從未看見的自己",
+      "updatedAt": "2026-10-14T15:11:00.000Z",
+      "excerpt": "完美履歷治不好職場衝突。真正每天上班的，是那份你沒寫出來的隱形履歷。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/ab4b5380a1e413fc.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "完美履歷治不好衝突。你的過去每天都在上班；討厭的同事，往往映出你不願承認的自己。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9da4f6b0ce12c4de.png",
@@ -62819,9 +67702,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-03-17",
-      "updatedAt": "2026-10-06T14:29:00.000Z",
-      "excerpt": "你正在「成功的陷阱」裡緩緩窒息嗎？",
+      "updatedAt": "2026-10-14T15:08:00.000Z",
+      "excerpt": "外界都說你成功，內心卻在乾涸。天鵝絨陷阱柔軟、好看，卻讓人緩緩窒息。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/05e547fd8fb7b58b.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "成功也可以是陷阱。走出來要停止當慣犯，親自佈置新場景，打開耳朵，並先填滿自己。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/50be59d7cc5f1084.png",
@@ -67741,9 +72639,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-03-10",
-      "updatedAt": "2026-10-06T14:28:00.000Z",
-      "excerpt": "你有沒有曾經告訴自己：「我要更有毅力！」然後逼著自己繼續做一件已經讓你精疲力竭的事，卻一邊懷疑自己是不是太軟弱？Angela Duckworth 教授在與 Simon Sinek 的深度對談中，直接點出了一個殘酷的事實：許多人口中的「恆毅力」，其實是一種扭曲的自我折磨。",
+      "updatedAt": "2026-10-14T15:11:00.000Z",
+      "excerpt": "很多人口中的恆毅力，其實是自我折磨。真正能持久的，是趣味、意義、他人、彈性和自覺。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/270c75535f87e44f.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "恆毅力不是把自己折磨到底。能持久的，是趣味、意義、他人、彈性，以及把倦怠當信號的自覺。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/3ec8f1a9522ce5c5.png",
@@ -72113,9 +77026,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-03-11",
-      "updatedAt": "2026-10-06T14:28:00.000Z",
-      "excerpt": "為什麼我們拼命努力，卻依然感到挫敗？",
+      "updatedAt": "2026-10-14T15:11:00.000Z",
+      "excerpt": "成就和道德像無花果葉，遮不住焦慮。制伏門前的臥虎，靠的不是更努力，而是替代性的恩典。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/b7fdd467b41f8564.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "成就像無花果葉，遮不住門前的臥虎。真正的遮蓋是皮子與更美的血，不是再努力一點。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/b23c80f839578f87.png",
@@ -74099,9 +79027,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-03-09",
-      "updatedAt": "2026-10-06T14:28:00.000Z",
-      "excerpt": "你是否也有這種感覺：明明睡了足夠的時間，醒來卻像沒睡一樣，一整天都提不起勁？或者咖啡一杯接一杯，卻始終敵不過下午那一波強烈的睡意？真正的問題，往往不是「睡得夠不夠」，而是「在對的時間，做了錯的事」。",
+      "updatedAt": "2026-10-14T15:11:00.000Z",
+      "excerpt": "睡滿八小時還是累，常常是時間錯了。起床後先等約九十分鐘，再喝咖啡。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/920f8b40c3b1d37e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "睡滿八小時還是累，常常是時間錯了。起床後先等約九十分鐘再喝咖啡，並把白天對上自己的生理時型。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9927bd0b1b4ae651.png",
@@ -78155,9 +83098,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-03-04",
-      "updatedAt": "2026-10-06T14:27:00.000Z",
-      "excerpt": "2025 年 12 月底，台北捷運站發生一起隨機殺人事件，震撼全台。許多人說：「不敢出門了。」也有人說：「這個社會怎麼了？」這種對社會、對他人、對未來的不信任感，正悄悄侵蝕每一顆心。",
+      "updatedAt": "2026-10-14T15:13:00.000Z",
+      "excerpt": "不敢信任別人，可以追溯到創世記那一次信任危機。修復不是先搞懂一切，而是把明天交出去。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/0e09824676136211.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "信任危機從嘲諷、謊言和「自己來」開始。修復不是先搞懂一切，而是讓神先來找人，把明天交出去。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/e2fcca2691d22952.png",
@@ -80092,9 +85050,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-03-06",
-      "updatedAt": "2026-10-06T14:27:00.000Z",
-      "excerpt": "為什麼大多數人窮忙一輩子，卻越來越不自由？",
+      "updatedAt": "2026-10-14T15:13:00.000Z",
+      "excerpt": "財務自由先算出自由數字。最快的算法是年支出的二十五倍，路徑是提高儲蓄率、避開債務，並讓複利有時間。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/7043d8a3bffbce7d.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "自由數字是年支出的二十五倍。路上要清掉債務地雷，把儲蓄率拉高，並讓複利有時間變成曲棍球棒。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/d0b17b4197b73192.png",
@@ -85029,9 +90002,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-03-05",
-      "updatedAt": "2026-10-06T14:27:00.000Z",
-      "excerpt": "你有沒有這種經驗：明明說了很多，對方卻越來越不配合？明明想表達關心，卻換來對立與防衛？",
+      "updatedAt": "2026-10-14T15:13:00.000Z",
+      "excerpt": "說了很多對方卻更防衛，問題往往不在技巧。先驗證對方看見的事實，界線要說你會做什麼。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/270453db731ab5b1.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "溝通先看意圖，再驗證對方看見的事實。界線要說你會做什麼，不要問你已經知道答案的問題。文章另外兩點是：誠實說出你不知道的事，以及傾聽行為背後的渴望。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/50c6fa3684bff946.png",
@@ -87218,9 +92206,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-03-07",
-      "updatedAt": "2026-10-06T14:27:00.000Z",
-      "excerpt": "妳以為那是「閨蜜文化」，其實背後運作的是一套「百萬年競爭程式」？",
+      "updatedAt": "2026-10-14T15:11:00.000Z",
+      "excerpt": "有些建議和八卦背後，是一套女性之間的競爭程式：外貌訊號、糖衣勸退，以及看清之後才能自主。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/32c4d10efc8e8540.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "有些建議包著糖衣。外貌有時是發給同性的競爭訊號；看清油門與煞車，才有機會自己選擇關係。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/56fdcb4a5a6543d7.png",
@@ -88622,10 +93625,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-1a6418b1cd",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -89244,10 +94249,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-cedae4db95",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -89558,10 +94565,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-d01cef9ac9",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -90200,10 +95209,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-6b9c234d5d",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -90312,10 +95323,12 @@
           ]
         },
         {
-          "type": "heading",
-          "level": 3,
-          "id": "h-a72f059e31",
-          "inlines": []
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "##"
+            }
+          ]
         },
         {
           "type": "code",
@@ -91583,9 +96596,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-02-26",
-      "updatedAt": "2026-10-06T14:25:00.000Z",
-      "excerpt": "平安！我是你的全方位社群文案建築師。看到這份關於哈佛大學 Allison Wood Brooks 教授的 TALK 框架，我感到非常興奮！這不僅是頂尖的溝通科學，更與聖經中「快快地聽，慢慢地說」（雅各書 1:19）以及「言語要常常帶著和氣，好像用鹽調和」（歌羅西書 4:6）的教導不謀而合。",
+      "updatedAt": "2026-10-14T15:16:00.000Z",
+      "excerpt": "對話可以拆。先離開閒談，用後續提問而不是回力鏢，驗證感受不等於認同觀點。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/1ede7272472d3b9a.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "對話可以拆成四件事：話題往上爬、後續提問、回溯對方說過的話，以及驗證感受。驗證不等於認同。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/ffdc636d68e27eb0.png",
@@ -93833,9 +98861,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-03-03",
-      "updatedAt": "2026-10-06T14:25:00.000Z",
-      "excerpt": "為什麼你一直在逃避「不舒服」，反而讓自己停滯了？",
+      "updatedAt": "2026-10-14T15:13:00.000Z",
+      "excerpt": "成長不是把不舒服拿掉，而是把舒適閾值練大。日記是出口，但別用韌性當重複踩坑的藉口。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/83824981f9989630.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "不舒服不是敵人。練大舒適閾值，用日記把孤獨變成對話，並在站起來之前看清楚自己是不是又踩進同一個坑。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/1d45c2e05376a544.png",
@@ -97089,9 +102132,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-02-28",
-      "updatedAt": "2026-10-06T14:25:00.000Z",
-      "excerpt": "你有沒有過這種感覺——每天都很忙，卻說不清楚自己到底在為什麼而忙？當行事曆塞滿了待辦事項時，心裡卻有個聲音不斷問：「這真的是我想要的嗎？」",
+      "updatedAt": "2026-10-14T15:13:00.000Z",
+      "excerpt": "有意義的生活是設計出來的。目標要讓你願意起床，找人測試想法，並帶著不完美的計畫先走。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/01c8c9819df6e751.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "意義是設計出來的。目標要讓你願意起床，找人壓力測試，把六個向度寫清楚，然後帶著不完美的計畫先走。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/f2b3a9af4f5d6e56.png",
@@ -100230,9 +105288,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-02-26",
-      "updatedAt": "2026-10-06T14:25:00.000Z",
-      "excerpt": "你有沒有曾在心裡默默計分？「我昨天洗碗，今天換你」、「我上週多接了兩次孩子，這週你應該補回來」……這種「50/50 公平模式」聽起來很合理，卻是讓關係越來越累的根源。Nate 與 Kaley Klemp 在《80/80 婚姻》中直接點名：計分，就是愛情的殺手。",
+      "updatedAt": "2026-10-14T15:16:00.000Z",
+      "excerpt": "五十對五十的計分，是愛情的殺手。解法是雙方都貢獻八成：貢獻、欣賞，並說出感受。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/f1c8f1880f8eced7.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "五十對五十的計分會殺愛情。解法是雙方都給八成：用小事貢獻、看見對方的好，並說出感受。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/224b763d6db25384.png",
@@ -103840,9 +108913,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-03-02",
-      "updatedAt": "2026-10-06T14:25:00.000Z",
-      "excerpt": "你最近一次做伏地挺身或深蹲是什麼時候？如果你的答案是「很久以前」，你其實並不孤單——根據美國疾病管制與預防中心（CDC）的統計，只有約 23% 的成年人，同時達到有氧與每週至少兩次肌力訓練的建議。 換句話說，超過四分之三的人，正在錯過一種對身體健康影響極為深遠的活動。",
+      "updatedAt": "2026-10-14T15:13:00.000Z",
+      "excerpt": "大多數人沒有同時做到有氧和肌力。阻力訓練對抗肌少、骨質和代謝，每週兩次就可以開始。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/941e027f81eb9dd6.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "阻力訓練啟動蛋白合成，力量比塊頭重要，也對抗肌少、穩血糖、顧骨骼和心情。每週兩次就可以開始。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/db02f4ebf9e01190.png",
@@ -107169,9 +112257,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-02-27",
-      "updatedAt": "2026-10-06T14:25:00.000Z",
-      "excerpt": "Untitled",
+      "updatedAt": "2026-10-14T15:16:00.000Z",
+      "excerpt": "高達八成八的人覺得公司不在乎他們。人文領導把員工看成某個人的孩子，裁員不是策略，是領導失敗。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/72c58b603b658e52.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "八成八的人覺得公司不在乎他們。人文領導把員工看成某個人的孩子，用同理心傾聽，並且不把裁員當成策略。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/ff7518f1d6937161.png",
@@ -109176,9 +114279,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-02-02",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "打開手機、看一眼手錶,螢幕上跳出一個數字：HRV 65。你可能會問：「這是好還是壞？我該開心還是擔心？」大多數人把 HRV（心率變異性,Heart Rate Variability）當成另一個健康分數,就像體重或步數一樣——越高越好、越穩定越棒。但 Dr. Jay Wiles 在「HRV 大師課」中揭示了一個更深刻的真相：HRV 不是在測量你的心臟,而是在測量你的神經系統有多會「隨機應變」。",
+      "updatedAt": "2026-10-14T15:27:00.000Z",
+      "excerpt": "心率變異不是分數，是神經系統的彈性。心跳不規律才健康，數字只跟自己比。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/9fcc70e5f02dd0ca.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "心率變異不是分數，是神經系統的彈性。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/4bdfc01833f754ef.png",
@@ -115032,9 +120150,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-02-04",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "你有沒有想過，為什麼聖經要用整整一卷書，記錄以色列人「得勝→墮落→哀求→拯救→再墮落」的循環？士師記不是英雄故事集，而是一面鏡子，照出人性最深的軟弱：我們最大的危險不是外在逼迫，而是被世界慢慢同化卻不自知。",
+      "updatedAt": "2026-10-14T15:25:00.000Z",
+      "excerpt": "士師記警告別成為「別的世代」：用世上的想要換掉神的榮耀，順從己心，然後停止呼求。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/43066172392d30e7.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "別成為別的世代：看見榮耀，繼續呼求。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/e8a5bc17b2cb050d.png",
@@ -119704,9 +124837,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-02-07",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "你有沒有發現，每次滑社群媒體後，心情反而更糟？憤怒、焦慮、嫉妒像病毒般蔓延，我們彷彿被困在一個負面情緒的迴圈裡。TED 策展人 Chris Anderson 在《傳染性慷慨》（Infectious Generosity）一書中，提出了一個震撼的診斷：網路正在把我們變成「蜥蜴」——只會本能反應、無法深思的生物。",
+      "updatedAt": "2026-10-14T15:25:00.000Z",
+      "excerpt": "演算法在餵蜥蜴腦。修剪社群，是少看破壞、多留慷慨，把最後兩成努力用在能放大的好事上。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/f2b414f3bc8462f3.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "修剪社群，少餵蜥蜴腦。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/e3216a4c2ecbb307.png",
@@ -123601,9 +128749,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-02-03",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "為什麼你越想「消滅」焦慮，它反而越猖狂？",
+      "updatedAt": "2026-10-14T15:25:00.000Z",
+      "excerpt": "焦慮不是要消滅的陰影，而是可以拆開的食譜。安全行為在餵它，預約一段焦慮時間，比硬壓更有效。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/20fa6b89a84d1aa0.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "焦慮是可以拆開的食譜。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/d24470bea4b3969e.png",
@@ -127102,9 +132265,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-02-05",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "你有沒有發現，自己總是被同一種人吸引？或者即使事業順利，內心卻依然空虛？這不是你不夠努力，而是你的神經系統正在用「錯誤的地圖」導航人生。這張地圖來自童年時期儲存在身體裡的「內隱記憶」——那些比語言更早、比思考更深的身體記憶。它讓我們把「熟悉」誤認為「安全」、把「忙碌」當作「逃避」,也讓我們在最需要連結時反而築起高牆。",
+      "updatedAt": "2026-10-14T15:25:00.000Z",
+      "excerpt": "大腦把熟悉誤認為安全，所以你會一再被同一種人吸引。真正安全的愛，起初可能感覺無聊。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/c86d2b4655157155.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "熟悉不是安全。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9e387032dd592d6a.png",
@@ -131879,9 +137057,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-01-30",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "為什麼多數人努力工作，卻離自由越來越遠？\n你有沒有發現，身邊許多人薪水越來越高,卻總是在抱怨「錢不夠用」？升職加薪後，換了更大的房子、更好的車，結果每個月還是月光，甚至背上更重的貸款。這不是個別現象，而是一種文化陷阱。\nJL Collins 在經典著作《致富簡單之路》中指出，問題的根源不在於「賺得不夠多」，而在於我們對金錢的理解從一開始就錯了。主流文化教我們把錢當成「消費的燃料」——買車、買房、買名牌來展示成功。但 Collins 提出一個顛覆性的觀點：金錢最珍貴的功能不是買東西，而是買下你的自由。\n當你還在用時間和勞力換薪水時，你本質上是「受制於支付薪水的人」——這是一種現代版的奴役狀態。真正的致富之路，始於一場徹底的「金錢觀念革命」。\n五個顛覆性的金錢觀念轉換",
+      "updatedAt": "2026-10-14T15:27:00.000Z",
+      "excerpt": "致富簡單之路不是賺更多，是讓錢買下說不的自由：避免負債、量入為出、投資剩餘。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/eaa41a45fa1ef13f.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "錢最珍貴的功能，是買下說不的自由。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/c5710dca5fd85f0f.png",
@@ -133851,9 +139044,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-01-31",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "為什麼我們活在史上最富足的時代，卻比祖先更焦慮？",
+      "updatedAt": "2026-10-14T15:27:00.000Z",
+      "excerpt": "豐饒時代更焦慮，因為每一次快感後面都有等量的痛苦。奪回主權，要誠實、設屏障，再回到真實連結。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/1c9238059d0062ff.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "奪回主權，從誠實和真實連結開始。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/0be36b7937d56a8a.png",
@@ -136253,9 +141461,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-02-06",
-      "updatedAt": "2026-10-06T14:23:00.000Z",
-      "excerpt": "為什麼創業不該只談規模化與估值？",
+      "updatedAt": "2026-10-14T15:25:00.000Z",
+      "excerpt": "混音帶不是規模化計畫，是愛的行動。好生意常常不可規模化：插自己的旗，找那些好麻煩的小事。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/6d49adc6b2f84823.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "不可規模化，才是混音帶式的生意。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/12446a4a94477688.png",
@@ -139230,9 +144453,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-02-18",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "Untitled",
+      "updatedAt": "2026-10-14T15:20:00.000Z",
+      "excerpt": "恐懼會讓人用神的權柄做出不合神心意的事。出路是遇見神的良善，從與恐懼為伍轉成與平安同行。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/146b36d4583c70b6.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "給恐懼一紙離婚協議，迎娶平安。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/a66df1d7d735a710.png",
@@ -144896,9 +150134,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-02-23",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "你有沒有這種經驗：明明想早起衝刺，卻在床上翻來覆去；或者到了晚上 10 點，腦子突然靈感湧現，停不下來？你以為自己只是意志力不夠，其實答案早就被寫在你的基因裡了。",
+      "updatedAt": "2026-10-14T15:16:00.000Z",
+      "excerpt": "你不是懶，是生理時鐘不同。獅子、熊、狼、海豚各有高峰，把難事放在那個時間窗口。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/595ad272bf32b6c6.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "你不是懶，是生理時鐘不同。獅子早上、熊中午、狼深夜、海豚淺眠。把難事放在你的高峰窗口。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/5b5528c346bd4fb8.png",
@@ -148247,9 +153500,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-02-19",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "Untitled",
+      "updatedAt": "2026-10-14T15:20:00.000Z",
+      "excerpt": "約會像面試，婚姻才是正式上工。每週做一次靈魂考核，別把小事忍成滑坡。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/190f1e0c4ea77cbc.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "約會是面試，婚姻才是正式上工。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/62aec000b2d6e35b.png",
@@ -152337,9 +157605,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-02-20",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "Untitled",
+      "updatedAt": "2026-10-14T15:20:00.000Z",
+      "excerpt": "時間不能再生。大腦本來就設計來委派，月花約二十美金的助理，是把這一步用起來。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/b5406947ae433961.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "時間不能再生，所以要委派。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/a6f2b1bb8fc59108.png",
@@ -155318,9 +160601,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-02-25",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "Untitled",
+      "updatedAt": "2026-10-14T15:16:00.000Z",
+      "excerpt": "外表剛強不是真強。心裡的力量來自看神的榮耀、倚靠聖靈、因信而行，並讓愛有根有基。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/84a1287ca1a18fba.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "外表剛強不是真強。心裡的力量來自看神的榮耀、倚靠聖靈、因信不因眼見，並讓愛有根有基。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/5c16b4bddf881635.png",
@@ -159551,9 +164849,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-02-21",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "為什麼「市場價值匹配」不是愛情的終局？",
+      "updatedAt": "2026-10-14T15:20:00.000Z",
+      "excerpt": "市場分數配對不是愛情的終局。大腦會貶低競爭者、理想化伴侶，真正深的是兩人共創的微觀文化。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/be504a6762d9735a.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "愛情不是市場分數，是兩人共創的文化。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/aa77a867d59d8952.png",
@@ -162825,9 +168138,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-02-17",
-      "updatedAt": "2026-10-06T14:21:00.000Z",
-      "excerpt": "Untitled",
+      "updatedAt": "2026-10-14T15:20:00.000Z",
+      "excerpt": "從 A 到 B+，不是把自己練成最聰明的人，而是從「我」轉成「我們」，並允許自己放棄。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/a96881f6a0409f16.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "從我到我們，才是從 A 到 B+。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/4a9260c33013b1a7.png",
@@ -166925,9 +172253,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-02-14",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "步驟1：改寫文章——從「Myself」到「We」：破解個人主義的孤獨陷阱（1000字）",
+      "updatedAt": "2026-10-14T15:22:00.000Z",
+      "excerpt": "越常用 Myself，越把自己從「我們」裡抽走。制度獎勵自私、社群在消失，性格其實是你為他人做的事。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/262bd582e1246d0e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "從我到我們，才走得出孤獨。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/820f9745a3524ded.png",
@@ -172512,9 +177855,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-02-11",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "人生不如意十之八九，當困境、病痛、失敗突然降臨時，我們心中最常冒出的問題是什麼？「為什麼是我？」「上帝為什麼讓這種事發生在我身上？」「我做錯了什麼？」",
+      "updatedAt": "2026-10-14T15:22:00.000Z",
+      "excerpt": "苦難不是結局。黑歷史可以成為榮耀，高牆倒下是為了讓恩典更多顯明。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/d9745a6f0a44015e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "苦難不是結局，榮耀才是終點。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/f057b5eb1e6936dc.png",
@@ -177640,9 +182998,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-02-13",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "你有沒有這樣的一天：從早到晚開會、回訊息、處理郵件，一刻不停，但當天色黯下、回顧今天，卻發現自己幾乎沒有完成任何實質成果？這不是個人問題，也不是你的意志力不夠，而是一場系統性的危機，而且正在加速惡化。",
+      "updatedAt": "2026-10-14T15:22:00.000Z",
+      "excerpt": "AI 沒有救回注意力。蜂群訊息和工作廢料讓思考萎縮，要守住不可侵犯的深度時段。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/ccb9ffc2f1ceb894.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "注意力是被一點一點偷走的。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/6b8fc79095898606.png",
@@ -181294,9 +186667,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-02-16",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "當「永生」從神學變成生物駭客的目標",
+      "updatedAt": "2026-10-14T15:20:00.000Z",
+      "excerpt": "花八億逆轉老化的實驗，能帶走的不是複製花費，而是監測、排毒、睡眠，以及開除晚上的自己。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/b5198cfe9f43e961.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "能帶走的不是八億，是這五件事。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/1cc6f3291c0724b8.png",
@@ -186255,9 +191643,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-02-10",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "為什麼你越努力「不焦慮」，反而越焦慮？",
+      "updatedAt": "2026-10-14T15:22:00.000Z",
+      "excerpt": "你以為在放鬆，其實在迴避。迴避、安全行為和努力放鬆，都會讓焦慮更緊。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/1163f2d77f6ce02c.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "你以為在放鬆，其實在迴避。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/93ef7a6d318994a3.png",
@@ -191998,9 +197401,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-02-09",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "你以為阿茲海默症是70歲以後才需要煩惱的「老人病」嗎？錯了！神經科學最新研究揭示一個殘酷真相：**大腦退化的種子,早在你25－30歲大腦發育完全後就開始種下。**更震撼的是，高達95%的失智症與遺傳無關，而是生活方式長期累積的結果。",
+      "updatedAt": "2026-10-14T15:25:00.000Z",
+      "excerpt": "腦退化從三十歲就開始，九成五與基因無關。認知儲備、硬舉、血壓、肌酸和意志力肌肉，是現在就能存的護腦存款。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/a4d224c0a74be89e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "護腦從三十歲開始存。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/bf0de9aa1527bfd4.png",
@@ -195791,9 +201209,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-02-12",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "你有沒有發現，現在的網路世界瀰漫著一種氛圍：遇到問題就「設界限」、不爽就「分手」、意見不合就「封鎖」？一項針對Reddit關係建議版的數據分析顯示，該研究橫跨15年、涵蓋5200萬則留言，建議人們「分手」、「設界限」、「去治療」的留言急遽增加，而鼓勵「溝通」、「妥協」、「給彼此空間」的建議則顯著減少。最受歡迎的建議？「走開」或「切斷聯繫」。",
+      "updatedAt": "2026-10-14T15:22:00.000Z",
+      "excerpt": "「我不需要你」聽起來獨立，最後常常變成孤獨。切割省掉溝通，也切掉意義。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/2cc9e88155202646.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "我不需要你，最後常常變成我好孤獨。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/a8f6cc0b4279fee9.png",
@@ -198596,9 +204029,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-02-13",
-      "updatedAt": "2026-10-06T14:19:00.000Z",
-      "excerpt": "當你想像「有錢人」時，腦海中浮現的是什麼？巴菲特那樣的長者智者？馬斯克那樣的科技狂人？這些傳統財富形象長期被「Male, Pale, and Stale（男性、白人、年長）」壟斷。對女性、少數族裔或第一代移民而言，這不只是玻璃天花板，更是一道心理高牆，讓我們覺得「那個世界不屬於我」。",
+      "updatedAt": "2026-10-14T15:22:00.000Z",
+      "excerpt": "放棄高薪之後，她教的不是暴富，而是攀尷尬山、算出 FU Number，以及對家人只給不借。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/582c3dc523391cc3.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "錢要成為你的奴隸，不是主人。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9c466462e2d74a97.png",
@@ -201458,9 +206906,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-01-29",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "你有沒有發現，身邊越來越多人感嘆「找不到對的人」？數據顯示，美國的性活動正在急劇下降，而且不分單身或有伴侶，全面發生。這不是個人問題，而是整個世代面臨的結構性困境。",
+      "updatedAt": "2026-10-14T15:27:00.000Z",
+      "excerpt": "現代人難親密，是因為三種角色都在演戲：過度柔順、硬漢甜心，以及用公主待遇談權力。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/68bc174d1ff3095e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "三種角色都在演戲，所以親密變難。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/d236540373d11645.png",
@@ -204184,9 +209647,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-01-22",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "你有沒有過這種經驗：明明是出於愛意做的事，對方卻好像無動於衷？或者當你需要情感安慰時，他卻只會丟出一堆冰冷的解決方案？這些溝通鴻溝幾乎是每段關係都會遇到的難題。但如果問題的根源不在於誰對誰錯，而是我們對彼此截然不同的「作業系統」一無所知呢？",
+      "updatedAt": "2026-10-14T15:29:00.000Z",
+      "excerpt": "愛讓他無感，常常是作業系統不同。他要的不是被取悅，而是被敬佩；安全感與保障也不是同一件事。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/f9c350b42bb9764e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "愛讓他無感，常常是作業系統不同。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/c6ded1567a6ab435.png",
@@ -208642,9 +214120,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-01-27",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "你有沒有想過，為什麼有些人達成了所有夢想——賺到錢、得到名聲、拿下獎項——卻突然感到空虛？音樂製作人 Russ 在與 Chris Williamson 的對談中，揭開了一個高成就者很少公開承認的真相：**當外在指標不再能欺騙大腦產生動力時，你會發現內在世界是一片完全未開發的荒野。**而那些曾經用來征服世界的強迫性、好奇心與毅力，現在必須轉向攻克一個更難的領地——你自己。",
+      "updatedAt": "2026-10-14T15:27:00.000Z",
+      "excerpt": "成功後失去動力，常常是舊燃料過期了。證明、報復和恐懼推不動下一程。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/cc2761531fb97af0.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "成功後失去動力，常常是燃料過期了。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/db0212a9cdee6e76.png",
@@ -210951,9 +216444,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-01-28",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "為什麼我們與人之間總有一堵「倒不下來」的高牆？",
+      "updatedAt": "2026-10-14T15:27:00.000Z",
+      "excerpt": "人與人之間的高牆倒不下來，不是因為不夠努力。只有十字架能把冤仇拆掉。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/63f949bc462605a4.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "高牆不是靠意志倒下，是十字架拆掉冤仇。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/00764930fd1681ba.png",
@@ -216223,9 +221731,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-01-26",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "你有沒有想過，為什麼有些人喝牛奶完全沒事，有些人一喝就拉肚子？為什麼格陵蘭因紐特人能天天吃海豹油脂卻不得心臟病？答案藏在一個驚人的事實裡：飲食不只是填飽肚子，它是人類演化最強大的驅動力之一。",
+      "updatedAt": "2026-10-14T15:29:00.000Z",
+      "excerpt": "飲食是演化的選擇壓力。乳糖耐受、高脂代謝、增大的脾臟，都是吃出來的適應。現代加工食品則和舊基因對不上。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/e15fe8ff2c4b0602.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "你吃什麼，最後會改寫你是誰。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/80a53fc3ec39d095.png",
@@ -219081,9 +224604,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-01-24",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "2025 年 9 月，美國聯邦貿易委員會（FTC）對全球最大成人網站 Pornhub 的母公司 Aylo（前身為 MindGeek）採取法律行動，揭露了一個令人震驚的事實：這個每天有數億訪問量的平台，長期以來一直是兒童性虐待材料（CSAM）和非自願性影像（NCM）的散播溫床。這不只是一個商業醜聞，更是一場關於人性尊嚴、企業責任與數位時代保護機制的深刻危機。",
+      "updatedAt": "2026-10-14T15:29:00.000Z",
+      "excerpt": "零容忍是口號。每班約十人審核海量影片，舉報可以擱著，利潤排在人的尊嚴前面。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/a382889073eefb56.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "零容忍是口號，中立不存在。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/1a3508a72428efec.png",
@@ -221463,9 +227001,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-01-23",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "你可能聽過：「授權是效率的關鍵」。但在實際工作中，為什麼許多高成就者，即使快被任務壓垮，仍無法放心把工作交出去？",
+      "updatedAt": "2026-10-14T15:29:00.000Z",
+      "excerpt": "做越多越窮，是因為放不下。傲慢、罪惡感、封閉和缺乏承諾，讓時間交不出去。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/709ebac162e7b24b.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "做越多越窮，是因為時間交不出去。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/e7453d19f90f6b6f.png",
@@ -223694,9 +229247,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-01-21",
-      "updatedAt": "2026-10-06T14:16:00.000Z",
-      "excerpt": "為什麼你的焦慮，其實是在跟神要「錯的東西」？",
+      "updatedAt": "2026-10-14T15:29:00.000Z",
+      "excerpt": "神不給全盤地圖，因為地圖是掌控，指南針是信靠。先領受，再檢查濾鏡，別把焦慮傳出去。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/31b5eaf00afbcd1f.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "神不給地圖，祂給指南針。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/db1228ca55f37974.png",
@@ -226436,9 +232004,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-01-20",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "你有沒有過這樣的經驗：夢想中的海景公寓住了三個月後，那片海已經變成「背景」；熱戀時每天都想見面，一年後卻覺得「就這樣吧」；明明討厭公司的某些文化，但日復一日後竟然也習慣了？這不是你變冷漠，而是大腦的「習慣化」（Habituation）機制在運作。神經科學家 Tali Sharot 的研究揭示：為了節省運算資源,大腦會自動降低對重複刺激的反應強度。這讓我們既忽略了美好，也對問題麻木。今天，我們要學會打破這種「感知灰度化」，重新找回對生命的敏銳度。",
+      "updatedAt": "2026-10-14T15:29:00.000Z",
+      "excerpt": "美好會變平淡，是大腦把重複的事變成理所當然。快樂要暫停，痛苦要一次做完，別讓舒適變成麻木。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/578be98a2d77424e.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "美好會變平淡，是大腦把重複變成理所當然。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/f9ae712441b87330.png",
@@ -228821,9 +234404,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-01-19",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "你是不是也曾這樣：每一口食物都記錄、每週健身房報到，體重計卻像被施了魔咒一樣不動？問題不在你的意志力，而是你一直在對付錯的敵人。代謝科學權威 Benjamin Bikman 博士直白地說：**卡路里不是老大，胰島素才是。**當你忽略身體的「激素指揮系統」，再怎麼餓肚子，身體的生存機制最終都會反撲。2026年，是時候換一套真正有效的健康藍圖了。",
+      "updatedAt": "2026-10-14T15:31:00.000Z",
+      "excerpt": "餓肚子還瘦不了，因為胰島素決定你在儲存還是燃燒。酮體、肌酸，以及維生素 B 的效率陷阱，比再少吃一餐更關鍵。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/a63c3a2e7e956f01.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "餓了還是瘦不了，因為開關不在卡路里。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9c290c9385831b57.png",
@@ -231137,9 +236735,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-01-13",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "你身邊有沒有這樣的人：事業有成、身材健美、社交活躍，看起來什麼都不缺，卻在某個深夜突然崩潰？或者沉溺於酒精、性、賭博，甚至在媒體上演出令人震驚的醜聞？Connor Beaton 與 Chris Williamson 的對話揭露了一個殘酷真相：這些「高功能男性」的成功，往往建立在病態且不可持續的心理機制上。他們不是不夠強，而是用錯了力量——把「壓抑」當成「力量」，把「麻木」當成「堅強」，最終在無人看見的角落，一步步走向自我毀滅。",
+      "updatedAt": "2026-10-14T15:31:00.000Z",
+      "excerpt": "最成功的男人私下崩潰，常常是用成癮和工作狂蓋住羞恥。那種動力有保質期，麻木是過載的信號。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/97cf050b32fbf374.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "羞恥驅動的成功，有保質期。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9c154354751e3dfa.png",
@@ -233489,9 +239102,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-01-15",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "在兩性關係中，許多女性以為「性吸引力」是吸引男性的主要武器。然而這種策略往往引發男性的「索取能量」（take energy），讓女性感到被物化、需要操縱對方，卻始終缺乏真正的安全感。兩性關係專家 Alison Armstrong 指出，真正能讓女性感到安全、讓男性產生「給予意願」的，是四種魅力特質：自信、真實性、熱情與接收能力。這些特質能建立「提供—接收—提供—接收」的美麗循環，使關係進入良性循環。",
+      "updatedAt": "2026-10-14T15:31:00.000Z",
+      "excerpt": "魅力比性吸引力更能建立安全感。自信、真實、熱情，再加上肯接收，關係才從索取轉成給予。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/bf1effb1e210b493.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "魅力讓關係從索取轉成給予。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/1a7e70ee465dc1e7.png",
@@ -236725,9 +242353,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-01-16",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "「快速行動，打破陳規」（Move fast and break things）曾是矽谷的金科玉律,但這句話真的適用於所有情境嗎？史丹佛大學教授 Bob Sutton 和 Huggy Rao 在《摩擦力專案》（The Friction Project）中，提出一個顛覆性觀點：摩擦力不一定是壞事，真正的智慧在於如何校準它。有時候，策略性地踩煞車，反而比一味踩油門更能帶來真正的進步。這四個反直覺心法，將幫助你成為更出色的「摩擦力調校者」。",
+      "updatedAt": "2026-10-14T15:31:00.000Z",
+      "excerpt": "無感領導的陷阱，是領導者不再親嘗不便。好的摩擦力、少做加法、說人話，比一直踩油門更重要。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/7e3aae95c47d6fbe.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "領導者要親嘗不便，煞車有時比油門重要。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/0245a052b5b884c3.png",
@@ -238986,9 +244629,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-01-17",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "你是否曾感到困惑，不知道在今日的世界裡，「成為一個男人」究竟意味著什麼？傳統的角色期望已然鬆解，新的指引卻模糊不清。這份迷惘不是你獨有的——男性憂鬱症和自殺率攀升至歷史新高，親密關係日益稀缺，許多人甚至連一位能傾訴心聲的摯友都沒有。",
+      "updatedAt": "2026-10-14T15:31:00.000Z",
+      "excerpt": "脆弱不是軟弱，是連結的橋。真正的力量來自內在自尊，並懂得何時兇猛、何時溫柔。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/6daa6471c7a456f4.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "脆弱不是軟弱，是連結的橋。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/3733ef03102cd990.png",
@@ -242618,9 +248276,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-01-14",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "「信心」兩個字，在教會裡聽了千百遍，但真正面對生活的風浪時，我們常常發現自己的信心好像不太夠用。希伯來書11:1告訴我們：「信就是所望之事的實底，是未見之事的確據。」信心不是一種「感覺很好」的情緒，而是一種既定的堅定與確定的期待。即使眼前什麼都看不見，我們依然可以站立得穩。",
+      "updatedAt": "2026-10-14T15:31:00.000Z",
+      "excerpt": "今天的神蹟要成為明天的根基。能信靠，是因為祂值得、真實、穩定，信心才傳得下去。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/65104d66b5d9f680.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "今天的神蹟，要成為明天的根基。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/01240872319c69db.png",
@@ -249086,9 +254759,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-01-12",
-      "updatedAt": "2026-10-06T14:15:00.000Z",
-      "excerpt": "為什麼你該重新認識自己的腸道？",
+      "updatedAt": "2026-10-14T15:33:00.000Z",
+      "excerpt": "六成的人腸道有狀況。便便大半是活的，脹氣不一定是麩質，一杯酒就能讓腸子漏，大腦的傷也會打到腸子。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/756aff50f6ebf983.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "腸道在說話：脹氣不一定是麩質。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/190ebafb41cc5985.png",
@@ -251623,9 +257311,24 @@
       "topic": "spirit",
       "status": "Published",
       "publishedAt": "2026-01-07",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "內卷讓人累、躺平讓人廢，但除了這兩個極端，還有第三條路嗎？董家驊牧師從以斯帖記帶我們看見：在一個「不順從就被替換」的殘酷世界裡，有一種生存方式既不是拼命爭競、也不是消極放棄，而是在看似無力的處境中，依然能成為上帝手中關鍵的器皿。",
+      "updatedAt": "2026-10-14T15:33:00.000Z",
+      "excerpt": "以斯帖不內卷也不躺平。不爭競仍有影響力，從自保走到交託，用禱告代替焦慮。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/b95f0b5aab850de8.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "不內卷、不躺平，走第三條路。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/a8c4929aad572490.png",
@@ -253338,9 +259041,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-01-05",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "你可能在生物課學過「線粒體是細胞的發電廠」,但如果你以為它只是個生產ATP的小機器,那就大錯特錯了。在與Andrew Huberman教授的對話中,馬丁·皮卡德博士(Dr. Martin Picard)徹底顛覆了這個狹隘定義,揭示線粒體其實是複雜的生物能量加工系統——它不只產生能量,更是信息處理器、心理感知器、社交網絡,甚至是決定你衰老速度的關鍵調控者。",
+      "updatedAt": "2026-10-14T15:36:00.000Z",
+      "excerpt": "頭髮變白和壓力對得上時間軸，壓力解除後，有人的顏色會回來。線粒體不只發電，也在發出疲勞的訊號。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/07c49409903aedfb.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "白髮不是單行道，壓力寫在頭髮上。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/c3f64b32ce5f77a2.png",
@@ -255841,9 +261559,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-01-06",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "為什麼九成的新年計畫都會失敗？",
+      "updatedAt": "2026-10-14T15:33:00.000Z",
+      "excerpt": "新年計畫失敗，常常是只想拿起、不肯放下。觀眾早就知道你的電影結局，外在喝采也填不滿內心。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/34e3042f3fb7a956.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "想拿起，必先放下。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/abb8e63ceb8d81b5.png",
@@ -257719,9 +263452,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-01-08",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "##",
+      "updatedAt": "2026-10-14T15:33:00.000Z",
+      "excerpt": "失去冷靜就失去控制。先信任自己，讓對方被看見，用提問代替假裝理解，目的清楚才選得了戰術。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/c30f02b24143d576.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "失去冷靜，就失去控制。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/77ba4d0847f1cfd8.png",
@@ -261290,9 +267038,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-01-09",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "你是不是也覺得投資很複雜、很可怕？滿腦子都是看不懂的圖表、術語，還有那種「一不小心就血本無歸」的焦慮。但全球知名投資教育平台「Girls That Invest」創辦人 Simran Kaur 告訴我們：成功的投資，根本不需要你成為金融天才，也不需要每天盯盤。事實上，最成功的投資者可能是那些已經過世的人，或是忘記密碼的人。這聽起來很荒謬對吧？但這背後藏著五個徹底顛覆你理財觀念的智慧。",
+      "updatedAt": "2026-10-14T15:33:00.000Z",
+      "excerpt": "女性投資報酬比較高，秘訣是少交易。最會賺的人往往已經忘記密碼，策略應該無聊得像看油漆變乾。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/b9ba0b7f755fd308.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "無聊才會賺，少交易是優勢。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/e49c3864a4f2ee68.png",
@@ -263361,9 +269124,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-01-10",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "為什麼一個摔角巨星的故事值得每個男性深思？",
+      "updatedAt": "2026-10-14T15:33:00.000Z",
+      "excerpt": "活得有用，比再贏一次更重要。拒絕當受害者、先說好、紀律勝過天賦，然後把關係的圍欄修回來。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/c5a8ccdac6948366.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "活得有用，比再贏一次更重要。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/52578756b91875ea.png",
@@ -265635,9 +271413,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-01-03",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "你有沒有想過，為什麼現代人越來越容易焦慮、失眠、注意力不集中？為什麼失智症、阿茲海默症的發病年齡越來越年輕？答案可能不在基因，而在我們每天呼吸的空氣、滑的手機、吃的食物，以及工作的環境裡。神經科學研究揭示了一個令人震驚的事實：現代生活充斥著「看不見的大腦殺手」——從微塑膠到社群媒體，從睡眠剝奪到有毒職場，這些環境與技術威脅正在悄悄侵蝕我們最寶貴的器官。更重要的是，這些威脅不是單一事件，而是持續、累積性的攻擊。好消息是，只要我們認識這些敵人,就能用科學方法反擊,重建大腦的健康與韌性。",
+      "updatedAt": "2026-10-14T15:36:00.000Z",
+      "excerpt": "大腦被看不見的東西磨損：微塑膠和噪音、滑不完的訊息、睡不夠、加工食品，以及孤獨。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/dfdfda1d04ae642a.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "大腦正在被看不見的東西磨損。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/9154f3e4ae9a1664.png",
@@ -268027,9 +273820,24 @@
       "topic": "work",
       "status": "Published",
       "publishedAt": "2026-01-02",
-      "updatedAt": "2026-10-06T14:12:00.000Z",
-      "excerpt": "為什麼有些「夢幻隊」反而輸給平凡組合？",
+      "updatedAt": "2026-10-14T15:36:00.000Z",
+      "excerpt": "夢幻隊會輸，是因為超級巨星太多，團隊反而變弱。真正預測成敗的是情商，還有那個把人黏在一起的人。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/076b27d09835e799.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "巨星太多，夢幻隊反而會輸。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/317340292902ad0a.png",
@@ -270386,9 +276194,24 @@
       "topic": "family",
       "status": "Published",
       "publishedAt": "2026-01-01",
-      "updatedAt": "2026-10-06T14:10:00.000Z",
-      "excerpt": "##",
+      "updatedAt": "2026-10-14T15:36:00.000Z",
+      "excerpt": "艱難對話裡，主導權來自臨在，不是話多。收起手機，當深井不要當瀑布，被攻擊時也不被帶走。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/18615586d2a882b5.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "艱難對話裡，主導權來自臨在。"
+            }
+          ]
+        },
         {
           "type": "image",
           "src": "/blog/media/1758f2ab3a827923.png",
@@ -276025,9 +281848,24 @@
       "topic": "society",
       "status": "Published",
       "publishedAt": "2026-10-03",
-      "updatedAt": "2026-10-06T13:13:00.000Z",
+      "updatedAt": "2026-10-14T14:45:00.000Z",
       "excerpt": "到了四十歲或五十歲的某個深夜，許多在職場上身經百戰、看似功成名就的菁英，常會被一種突如其來的窒息感壓得喘不過氣。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/e703f5d716396749.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "中年要的不是一台跑車，而是一座有天光的中庭：停下狂奔，重新整理，再決定下半場要留下什麼。"
+            }
+          ]
+        },
         {
           "type": "paragraph",
           "inlines": [
@@ -276478,9 +282316,24 @@
       "topic": "body",
       "status": "Published",
       "publishedAt": "2026-10-05",
-      "updatedAt": "2026-10-06T13:14:00.000Z",
+      "updatedAt": "2026-10-14T14:40:00.000Z",
       "excerpt": "你有沒有發現一件讓人背脊發涼的事？",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/7b38deb4beb4e430.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "主觀時間跟著記憶走：新鮮的經驗、重複的日子、你怎麼把事情說成故事，會改寫一年有多長。"
+            }
+          ]
+        },
         {
           "type": "paragraph",
           "inlines": [
@@ -276833,9 +282686,24 @@
       "topic": "mood",
       "status": "Published",
       "publishedAt": "2026-10-06",
-      "updatedAt": "2026-10-06T12:10:00.000Z",
+      "updatedAt": "2026-10-14T14:40:00.000Z",
       "excerpt": "打開社群平台，我們每天都被無數關於「愛自己」、「自我療癒」與「心理自留地」的溫馨金句洗版。",
       "blocks": [
+        {
+          "type": "image",
+          "src": "/blog/media/fba24b5c2f90ffc0.jpg",
+          "width": 1280,
+          "height": 720,
+          "alt": ""
+        },
+        {
+          "type": "paragraph",
+          "inlines": [
+            {
+              "text": "心理健康不是一張成績單。它可以練：先看見情緒，再承擔一次挑戰，然後讓自己恢復。"
+            }
+          ]
+        },
         {
           "type": "paragraph",
           "inlines": [

@@ -354,6 +354,13 @@ test("Notion 轉換：不支援的區塊、內部連結、危險協定、未抓�
   }
 });
 
+test("Notion 轉換：heading_4 不再被阻擋，對應為 h3", () => {
+  const h4 = block("dddddddd-4444", "heading_4", { rich_text: [rt("四級標")] });
+  const { blocks, warnings } = convertBlocks([h4], new Map());
+  assert.equal(warnings.length, 0);
+  assert.equal(blocks[0].type === "heading" && blocks[0].level, 3);
+});
+
 test("Notion 轉換：H1 整體降級並留記錄；toggle 與分欄內容展開不丟失；圖片要有已擷取資產", () => {
   const h1 = block("aaaaaaaa-1111", "heading_1", { rich_text: [rt("大標")] });
   const h2 = block("bbbbbbbb-2222", "heading_2", { rich_text: [rt("中標")] });

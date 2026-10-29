@@ -262,7 +262,9 @@ function convertList(
       }
       case "heading_1":
       case "heading_2":
-      case "heading_3": {
+      case "heading_3":
+      case "heading_4": {
+        // heading_4 與 heading_3 一律對應到 h3（站內只有 h2/h3 兩級）
         const notionLevel = Number(block.type.slice(-1));
         const level = Math.min(3, Math.max(2, shiftHeadings ? notionLevel + 1 : notionLevel));
         out.push({

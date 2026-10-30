@@ -13,12 +13,16 @@ export type YouTubeVideo = {
   thumbnail: string;
 };
 
+type ParsedYouTubeEntry = {
+  "yt:videoId"?: unknown;
+  title?: unknown;
+  published?: unknown;
+};
+
 export const getYouTubeVideos = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ videos: YouTubeVideo[]; source: "rss" | "fallback"; error?: string }> => {
     try {
-      setResponseHeaders(
-        new Headers({ "Cache-Control": "public, max-age=300, s-maxage=300" }),
-      );
+      setResponseHeaders(new Headers({ "Cache-Control": "public, max-age=300, s-maxage=300" }));
 
       const res = await fetch(FEED_URL, {
         headers: { "User-Agent": "EnianPodcastSite/1.0" },
@@ -36,16 +40,19 @@ export const getYouTubeVideos = createServerFn({ method: "GET" }).handler(
       if (!entries) return { videos: [], source: "fallback", error: "no entries" };
       const list = Array.isArray(entries) ? entries : [entries];
 
-      const videos: YouTubeVideo[] = list.slice(0, 6).map((e: any) => {
-        const videoId = String(e["yt:videoId"] ?? "");
-        return {
-          id: videoId,
-          title: String(e.title ?? "").trim(),
-          url: `https://www.youtube.com/watch?v=${videoId}`,
-          publishedAt: String(e.published ?? ""),
-          thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
-        };
-      }).filter((v) => v.id);
+      const videos: YouTubeVideo[] = list
+        .slice(0, 6)
+        .map((e: ParsedYouTubeEntry) => {
+          const videoId = String(e["yt:videoId"] ?? "");
+          return {
+            id: videoId,
+            title: String(e.title ?? "").trim(),
+            url: `https://www.youtube.com/watch?v=${videoId}`,
+            publishedAt: String(e.published ?? ""),
+            thumbnail: `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`,
+          };
+        })
+        .filter((v) => v.id);
 
       return { videos, source: "rss" };
     } catch (err) {

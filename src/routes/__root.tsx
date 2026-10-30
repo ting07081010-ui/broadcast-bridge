@@ -43,7 +43,11 @@ function NotFoundComponent() {
 export const Route = createRootRoute({
   beforeLoad: async () => {
     if (typeof window === "undefined") {
-      try { await applySecurityHeaders(); } catch {}
+      try {
+        await applySecurityHeaders();
+      } catch {
+        // 預渲染或非標準請求環境可能無 response context，略過標頭設定
+      }
     }
   },
   head: () => ({

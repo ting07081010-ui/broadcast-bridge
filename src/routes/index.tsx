@@ -11,10 +11,7 @@ const SITE_URL = "https://emting.life/";
 
 export const Route = createFileRoute("/")({
   loader: async () => {
-    const [episodes, youtube] = await Promise.all([
-      getEpisodes(),
-      getYouTubeVideos(),
-    ]);
+    const [episodes, youtube] = await Promise.all([getEpisodes(), getYouTubeVideos()]);
     return { ...episodes, videos: youtube.videos };
   },
   head: () => ({

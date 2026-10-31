@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowUpRight, ChevronRight, Headphones } from "lucide-react";
 import TopNav from "./TopNav";
 import { Eyebrow, FooterBar, SectionHeader } from "./primitives";
@@ -127,9 +128,9 @@ export default function PodcastRecommendations() {
             <nav aria-label="麵包屑" className="mb-8 text-sm text-muted-foreground">
               <ol className="flex items-center gap-1.5">
                 <li>
-                  <a href="/" className="transition-colors duration-200 hover:text-foreground">
+                  <Link to="/" className="transition-colors duration-200 hover:text-foreground">
                     首頁
-                  </a>
+                  </Link>
                 </li>
                 <li aria-hidden="true">
                   <ChevronRight className="h-3.5 w-3.5" />
@@ -236,10 +237,10 @@ export default function PodcastRecommendations() {
                 <Headphones className="h-4 w-4" aria-hidden="true" />
                 訂閱 E 人 I 碎念
               </a>
-              <a href="/" className={BTN_SECONDARY}>
+              <Link to="/" className={BTN_SECONDARY}>
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 回到首頁
-              </a>
+              </Link>
             </div>
           </div>
         </section>
@@ -247,9 +248,9 @@ export default function PodcastRecommendations() {
 
       <footer className="bg-background">
         <FooterBar>
-          <a href="/" className="transition-colors duration-200 hover:text-foreground">
+          <Link to="/" className="transition-colors duration-200 hover:text-foreground">
             回到首頁
-          </a>
+          </Link>
         </FooterBar>
       </footer>
     </>

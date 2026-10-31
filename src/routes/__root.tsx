@@ -1,6 +1,11 @@
 import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
 import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeaders } from "@tanstack/react-start/server";
+import { ArrowRight } from "lucide-react";
+import TopNav from "@/components/enian/TopNav";
+import { FooterBar } from "@/components/enian/primitives";
+import { BTN_PRIMARY, BTN_SECONDARY, CONTAINER } from "@/lib/enian/ui";
+import { cn } from "@/lib/utils";
 
 import appCss from "../styles.css?url";
 
@@ -20,23 +25,36 @@ const applySecurityHeaders = createServerFn({ method: "GET" }).handler(async () 
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
-      <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
-        <div className="mt-6">
-          <Link
-            to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
-          >
-            Go home
-          </Link>
+    <>
+      <TopNav />
+      <main id="main" className="min-h-[70vh] bg-background text-foreground">
+        <div className={cn(CONTAINER, "py-16 lg:py-24")}>
+          <p className="text-sm font-medium tabular-nums text-muted-foreground">404</p>
+          <h1 className="mt-3 text-[28px] font-semibold leading-[1.3] lg:text-[36px]">
+            找不到這個頁面
+          </h1>
+          <p className="mt-3 max-w-xl text-base leading-relaxed text-muted-foreground">
+            網址可能打錯了，或這個頁面已經搬移。
+          </p>
+          <div className="mt-6 flex flex-wrap items-center gap-3">
+            <Link to="/" className={BTN_PRIMARY}>
+              回到首頁
+              <ArrowRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+            <Link to="/blog" className={BTN_SECONDARY}>
+              看每日碎念
+            </Link>
+          </div>
         </div>
-      </div>
-    </div>
+      </main>
+      <footer className="bg-background">
+        <FooterBar>
+          <Link to="/" className="transition-colors duration-200 hover:text-foreground">
+            回到首頁
+          </Link>
+        </FooterBar>
+      </footer>
+    </>
   );
 }
 

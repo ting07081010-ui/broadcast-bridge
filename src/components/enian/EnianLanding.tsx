@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import {
   ArrowRight,
   ArrowUpRight,
@@ -575,20 +576,20 @@ function Footer() {
 
       <FooterBar>
         <div className="flex items-center gap-6">
-          <a
-            href="/podcast-recommendations"
+          <Link
+            to="/podcast-recommendations"
             data-event="click_footer_recommendations"
             className="transition-colors duration-200 hover:text-foreground"
           >
             Podcast 推薦
-          </a>
-          <a
-            href="/blog"
+          </Link>
+          <Link
+            to="/blog"
             data-event="click_footer_blog"
             className="transition-colors duration-200 hover:text-foreground"
           >
             每日碎念
-          </a>
+          </Link>
         </div>
       </FooterBar>
     </footer>

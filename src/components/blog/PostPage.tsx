@@ -135,11 +135,11 @@ export default function PostPage({
                 rel="noopener noreferrer"
                 data-event="click_blog_episode"
                 data-location="post_footer"
-                className="group flex items-center gap-4 rounded-xl border border-border bg-background p-5 text-foreground"
+                className="group flex items-center gap-4 rounded-xl border border-paper-border bg-paper-surface p-5 text-ink transition-colors duration-200 hover:border-ink-muted"
               >
-                <Headphones className="h-5 w-5 shrink-0 text-accent" aria-hidden="true" />
+                <Headphones className="h-5 w-5 shrink-0 text-ink-accent" aria-hidden="true" />
                 <span className="min-w-0 flex-1">
-                  <span className="block text-sm text-muted-foreground">
+                  <span className="block text-sm text-ink-muted">
                     {post.episode.label ?? "相關集數"}
                   </span>
                   <span className="mt-0.5 block text-[17px] font-semibold underline-offset-4 group-hover:underline">
@@ -147,7 +147,7 @@ export default function PostPage({
                   </span>
                 </span>
                 <ArrowUpRight
-                  className="h-5 w-5 shrink-0 text-muted-foreground"
+                  className="h-5 w-5 shrink-0 text-ink-muted transition-colors duration-200 group-hover:text-ink-accent"
                   aria-hidden="true"
                 />
               </a>

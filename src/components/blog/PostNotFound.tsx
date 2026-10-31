@@ -27,9 +27,9 @@ export default function PostNotFound() {
       </main>
       <footer className="bg-background">
         <FooterBar>
-          <a href="/" className="transition-colors duration-200 hover:text-foreground">
+          <Link to="/" className="transition-colors duration-200 hover:text-foreground">
             回到首頁
-          </a>
+          </Link>
         </FooterBar>
       </footer>
     </>

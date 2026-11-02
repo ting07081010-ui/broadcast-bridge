@@ -1,11 +1,13 @@
 import { createFileRoute } from "@tanstack/react-router";
 import PodcastRecommendations from "@/components/enian/PodcastRecommendations";
+import { PODCAST } from "@/lib/enian/constants";
 
 const SEO_TITLE = "Podcast 推薦｜科技、信仰、家庭類中文節目策展｜E 人 I 碎念";
 const SEO_DESC =
   "主持人 Emmanuel 私藏 Podcast 推薦清單：科技資安、家庭教養、基督信仰、社會觀察四大類，每則附原創短評，幫你找到下一個值得訂閱的中文 Podcast。";
 const SITE_URL = "https://emting.life";
 const PAGE_URL = `${SITE_URL}/podcast-recommendations`;
+const OG_IMAGE = new URL(PODCAST.avatarUrl, SITE_URL).href;
 
 export const Route = createFileRoute("/podcast-recommendations")({
   head: () => ({
@@ -16,9 +18,11 @@ export const Route = createFileRoute("/podcast-recommendations")({
       { property: "og:description", content: SEO_DESC },
       { property: "og:type", content: "website" },
       { property: "og:url", content: PAGE_URL },
+      { property: "og:image", content: OG_IMAGE },
       { name: "twitter:card", content: "summary_large_image" },
       { name: "twitter:title", content: SEO_TITLE },
       { name: "twitter:description", content: SEO_DESC },
+      { name: "twitter:image", content: OG_IMAGE },
     ],
     links: [{ rel: "canonical", href: PAGE_URL }],
     scripts: [

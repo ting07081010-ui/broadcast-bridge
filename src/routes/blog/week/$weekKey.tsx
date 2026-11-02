@@ -5,6 +5,7 @@ import { formatDate, formatWeekKey } from "@/lib/blog/time";
 import { PODCAST } from "@/lib/enian/constants";
 
 const SITE_URL = "https://emting.life";
+const OG_IMAGE = new URL(PODCAST.avatarUrl, SITE_URL).href;
 
 export const Route = createFileRoute("/blog/week/$weekKey")({
   loader: async ({ params }) => {
@@ -29,7 +30,11 @@ export const Route = createFileRoute("/blog/week/$weekKey")({
         { property: "og:description", content: description },
         { property: "og:type", content: "website" },
         { property: "og:url", content: url },
+        { property: "og:image", content: OG_IMAGE },
         { name: "twitter:card", content: "summary" },
+        { name: "twitter:title", content: title },
+        { name: "twitter:description", content: description },
+        { name: "twitter:image", content: OG_IMAGE },
         // 整週沒有真實文章就不收錄
         ...(posts.length > 0 ? [] : [{ name: "robots", content: "noindex" }]),
       ],

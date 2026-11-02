@@ -28,6 +28,8 @@ export const Route = createFileRoute("/blog/posts/$postId")({
     const url = postUrl(params.postId);
     const title = `${post.title}｜${PODCAST.name}`;
     const topic = TOPICS[post.topic];
+    const firstImage = post.blocks.find((b) => b.type === "image");
+    const imageUrl = new URL(firstImage ? firstImage.src : PODCAST.avatarUrl, SITE_URL).href;
     return {
       meta: [
         { title },
@@ -36,12 +38,14 @@ export const Route = createFileRoute("/blog/posts/$postId")({
         { property: "og:description", content: post.excerpt },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
+        { property: "og:image", content: imageUrl },
         { property: "article:published_time", content: post.publishedAt },
         { property: "article:modified_time", content: post.updatedAt },
         { property: "article:section", content: topic.name },
-        { name: "twitter:card", content: "summary" },
+        { name: "twitter:card", content: firstImage ? "summary_large_image" : "summary" },
         { name: "twitter:title", content: post.title },
         { name: "twitter:description", content: post.excerpt },
+        { name: "twitter:image", content: imageUrl },
         // 測試稿只存在於開發模式，仍明確標示不可收錄
         ...(post.source === "fixture" ? [{ name: "robots", content: "noindex" }] : []),
       ],
@@ -54,6 +58,7 @@ export const Route = createFileRoute("/blog/posts/$postId")({
             "@type": "BlogPosting",
             headline: post.title,
             description: post.excerpt,
+            image: imageUrl,
             inLanguage: "zh-TW",
             datePublished: post.publishedAt,
             dateModified: post.updatedAt,

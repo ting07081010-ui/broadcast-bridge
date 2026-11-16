@@ -63,7 +63,7 @@ NOTION_TOKEN=... NOTION_BLOG_DATABASE_ID=... node scripts/sync-blog.ts
 | `/blog`                           | 首頁：精選、本週、六主題入口、列表                              |
 | `/blog/posts/[yyyy-mm-dd]-[slug]` | 單篇（紙感預設，可切夜讀）                                      |
 | `/blog/topic/[topic]`             | 六主題：body／mood／spirit／family／work／society，其他一律 404 |
-| `/blog/archive`                   | 封存，依年月分組；`?topic=` 篩選，不認得的值會被忽略            |
+| `/blog/archive`                   | 封存，依年月分組；可用 `?topic=` 篩選主題、`?q=` 搜尋標題與摘要            |
 | `/blog/week/[YYYY-Www]`           | 週索引（ISO 週）；格式錯誤、不存在或未來的週回 404              |
 
 沒有真實文章的主題頁、週索引與封存頁會標 `noindex`，也不會進 sitemap。

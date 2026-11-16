@@ -674,3 +674,12 @@ test("既有快照若有兩篇共用網址，整批中止以免產生不一致�
     /網址重複/,
   );
 });
+
+test("封存搜尋同時比對標題與摘要，忽略大小寫與前後空白", async () => {
+  const { matchesArchiveSearch } = await import("./archive-search.ts");
+  const post = { title: "AI 與生活", excerpt: "如何照顧家庭" };
+  assert.equal(matchesArchiveSearch(post, " ai "), true);
+  assert.equal(matchesArchiveSearch(post, "家庭"), true);
+  assert.equal(matchesArchiveSearch(post, "健康"), false);
+  assert.equal(matchesArchiveSearch(post, "  "), true);
+});

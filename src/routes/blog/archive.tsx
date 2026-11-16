@@ -14,9 +14,10 @@ const OG_IMAGE = new URL(PODCAST.avatarUrl, "https://emting.life").href;
 
 export const Route = createFileRoute("/blog/archive")({
   // 篩選放在 query，網址可分享、重新整理與返回都保留；不認得的值直接忽略
-  validateSearch: (search: Record<string, unknown>): { topic?: TopicSlug } => ({
+  validateSearch: (search: Record<string, unknown>): { topic?: TopicSlug; q?: string } => ({
     // 明確回傳 undefined：只回傳 {} 的話，原始的 ?topic= 值會被保留下來
     topic: toTopic(search.topic),
+    q: typeof search.q === "string" ? search.q.trim().slice(0, 100) || undefined : undefined,
   }),
   loader: () => getArchivePage(),
   head: ({ loaderData }) => {
@@ -46,6 +47,6 @@ export const Route = createFileRoute("/blog/archive")({
 });
 
 function ArchiveRoute() {
-  const { topic } = Route.useSearch();
-  return <ArchivePage data={Route.useLoaderData()} topic={toTopic(topic)} />;
+  const { topic, q } = Route.useSearch();
+  return <ArchivePage data={Route.useLoaderData()} topic={toTopic(topic)} query={q} />;
 }

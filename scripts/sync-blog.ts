@@ -188,6 +188,35 @@ export function imageSize(bytes: Uint8Array): { width: number; height: number } 
   return null;
 }
 
+/** 下載圖片時限制連線及內容讀取時間，錯誤不輸出可能含簽章的來源網址。 */
+export async function downloadImage(
+  url: string,
+  blockId: string,
+  options: { timeoutMs?: number; fetcher?: typeof fetch } = {},
+): Promise<{ bytes: Uint8Array; type: string }> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 15000);
+  try {
+    const response = await (options.fetcher ?? fetch)(url, { signal: controller.signal });
+    if (!response.ok) throw new BlockError(blockId, `圖片下載失敗（HTTP ${response.status}）`);
+    const type = response.headers.get("content-type")?.split(";")[0] ?? "";
+    const ext = IMAGE_TYPES[type] ?? extname(new URL(url).pathname).toLowerCase();
+    if (!Object.values(IMAGE_TYPES).includes(ext)) {
+      throw new BlockError(blockId, "圖片格式不支援，請使用 PNG、JPEG、WebP 或 GIF");
+    }
+    return { bytes: new Uint8Array(await response.arrayBuffer()), type };
+  } catch (error) {
+    if (error instanceof BlockError) throw error;
+    throw new Error(
+      controller.signal.aborted
+        ? `圖片下載逾時（block ${blockId}）`
+        : `圖片下載網路錯誤（block ${blockId}）`,
+    );
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 /**
  * Notion 託管的圖片網址會過期：在有效期內下載，存成以內容雜湊命名的網站公開資產。
  * HTTP、格式或尺寸問題會阻擋該篇並回報區塊 ID；網路例外仍中止整批。
@@ -204,14 +233,8 @@ export async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, 
         };
         const url = data.type === "file" ? data.file?.url : data.external?.url;
         if (!url) throw new BlockError(block.id, "圖片缺少來源網址");
-        const res = await fetch(url);
-        if (!res.ok) throw new BlockError(block.id, `圖片下載失敗（HTTP ${res.status}）`);
-        const type = res.headers.get("content-type")?.split(";")[0] ?? "";
+        const { bytes, type } = await downloadImage(url, block.id);
         const ext = IMAGE_TYPES[type] ?? extname(new URL(url).pathname).toLowerCase();
-        if (!Object.values(IMAGE_TYPES).includes(ext)) {
-          throw new BlockError(block.id, "圖片格式不支援，請使用 PNG、JPEG、WebP 或 GIF");
-        }
-        const bytes = new Uint8Array(await res.arrayBuffer());
         const size = imageSize(bytes);
         if (!size || !size.width || !size.height) {
           throw new BlockError(block.id, "圖片損壞或無法讀取尺寸");

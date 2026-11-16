@@ -808,3 +808,43 @@ test("公開正文範圍外的圖片不會被下載", async () => {
     globalThis.fetch = original;
   }
 });
+
+test("圖片下載逾時回報區塊 ID 並保護來源網址", async () => {
+  const { downloadImage } = await import("../../../scripts/sync-blog.ts");
+  const fetcher: typeof fetch = async (_url, init) =>
+    new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new Error("sensitive URL")), {
+        once: true,
+      });
+    });
+  await assert.rejects(
+    () =>
+      downloadImage("https://example.com/private?secret=1", "block-image", {
+        timeoutMs: 10,
+        fetcher,
+      }),
+    (error: Error) =>
+      error.message.includes("逾時") &&
+      error.message.includes("block-image") &&
+      !error.message.includes("secret"),
+  );
+});
+
+test("圖片回應標頭後讀取內容停滯也會逾時", async () => {
+  const { downloadImage } = await import("../../../scripts/sync-blog.ts");
+  const fetcher: typeof fetch = async (_url, init) =>
+    ({
+      ok: true,
+      headers: new Headers({ "Content-Type": "image/png" }),
+      arrayBuffer: () =>
+        new Promise((_resolve, reject) =>
+          init?.signal?.addEventListener("abort", () => reject(new Error("aborted")), {
+            once: true,
+          }),
+        ),
+    }) as Response;
+  await assert.rejects(
+    () => downloadImage("https://example.com/p.png", "body-block", { timeoutMs: 10, fetcher }),
+    /逾時.*body-block/,
+  );
+});

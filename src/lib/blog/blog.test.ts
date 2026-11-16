@@ -534,3 +534,12 @@ test("清單項目中的分隔線保留順序", () => {
       ["paragraph", "divider", "paragraph"],
     );
 });
+
+test("同步轉換提醒編輯者檢查可能混入的製作素材", () => {
+  const result = convertBlocks(
+    [block("bundle", "code", { rich_text: [rt("# FINAL_CONTENT_BUNDLE.md\n## Action Plan")] })],
+    new Map(),
+  );
+  assert.ok(result.warnings.some((warning) => warning.includes("bundle")));
+  assert.equal(result.blocks[0].type, "code");
+});

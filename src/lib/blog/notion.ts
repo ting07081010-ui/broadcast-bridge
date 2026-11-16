@@ -242,6 +242,12 @@ export function convertBlocks(
   // 文章頁已有自己的 H1；內文若用了 heading_1，整體降一級並留下記錄。
   const hasH1 = flatten(notionBlocks).some((b) => b.type === "heading_1");
   if (hasH1) warnings.push("內文使用了 H1，已整體降一級（H1→H2、H2→H3）");
+  // 素材包可能是刻意公開的內容，因此保留原文並要求編輯者確認。
+  for (const block of flatten(notionBlocks)) {
+    if (block.type === "code" && /\bFINAL_CONTENT_BUNDLE\.md\b/i.test(toCode(block).code)) {
+      warnings.push(`可能包含製作素材，請確認是否應公開（block ${block.id}）`);
+    }
+  }
   const blocks = convertList(notionBlocks, images, hasH1);
   return { blocks, warnings };
 }

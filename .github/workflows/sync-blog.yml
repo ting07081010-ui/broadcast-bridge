@@ -56,6 +56,14 @@ jobs:
           body="$RUNNER_TEMP/pr-body.md"
           {
             echo "Automatic sync from the Notion CMS. Review the snapshot, then merge to publish."
+            if grep -q '^提醒' "$RUNNER_TEMP/sync-blog.log"; then
+              echo
+              echo "## Editorial review"
+              echo
+              echo "Review these content warnings before merging:"
+              echo
+              grep '^提醒' "$RUNNER_TEMP/sync-blog.log" | sed 's/^/- /' || true
+            fi
             if [ "$SYNC_CODE" = "2" ]; then
               echo
               echo "## Blocked posts"

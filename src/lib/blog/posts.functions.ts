@@ -1,3 +1,4 @@
+import { latestUpdatesBy } from "./sitemap";
 import { createServerFn } from "@tanstack/react-start";
 import snapshotJson from "@/content/blog/snapshot.json";
 import {
@@ -145,12 +146,8 @@ export const getWeekPage = createServerFn({ method: "GET" })
 export async function listSitemapPaths(): Promise<{ path: string; updatedAt: string }[]> {
   const posts = (await loadPublicPosts(new Date())).filter((post) => post.source !== "fixture");
   if (posts.length === 0) return [];
-  const latest = posts[0].updatedAt;
-  const newestBy = (key: (post: Post) => string) => {
-    const seen = new Map<string, string>();
-    for (const post of posts) if (!seen.has(key(post))) seen.set(key(post), post.updatedAt);
-    return [...seen];
-  };
+  const latest = latestUpdatesBy(posts, () => "all")[0][1];
+  const newestBy = (key: (post: Post) => string) => latestUpdatesBy(posts, key);
   return [
     { path: "/blog", updatedAt: latest },
     { path: "/blog/archive", updatedAt: latest },

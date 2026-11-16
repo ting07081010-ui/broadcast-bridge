@@ -543,3 +543,19 @@ test("同步轉換提醒編輯者檢查可能混入的製作素材", () => {
   assert.ok(result.warnings.some((warning) => warning.includes("bundle")));
   assert.equal(result.blocks[0].type, "code");
 });
+
+test("sitemap 群組更新時間取最近修訂，即使舊文章較晚修改", async () => {
+  const { latestUpdatesBy } = await import("./sitemap.ts");
+  const posts = [
+    { topic: "work", updatedAt: "2026-10-01T00:00:00Z" },
+    { topic: "work", updatedAt: "2026-11-01T00:00:00Z" },
+    { topic: "body", updatedAt: "2026-09-01T00:00:00Z" },
+  ];
+  assert.deepEqual(
+    latestUpdatesBy(posts, (post) => post.topic),
+    [
+      ["work", "2026-11-01T00:00:00Z"],
+      ["body", "2026-09-01T00:00:00Z"],
+    ],
+  );
+});

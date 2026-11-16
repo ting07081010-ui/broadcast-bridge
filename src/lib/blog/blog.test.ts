@@ -658,3 +658,19 @@ test("Notion 請求逾時後會結束並維持錯誤狀態", async () => {
     /逾時/,
   );
 });
+
+test("同步預留仍在 Notion 的既有文章網址，避免新文章搶先占用", async () => {
+  const { reservePublishedPaths, hasPathConflict } = await import("../../../scripts/sync-blog.ts");
+  const reserved = reservePublishedPaths([basePost], [basePost.id]);
+  assert.equal(hasPathConflict("2026-10-05-test-post", "new-post", reserved, new Set()), true);
+  assert.equal(hasPathConflict("2026-10-05-test-post", basePost.id, reserved, new Set()), false);
+  assert.equal(reservePublishedPaths([basePost], []).size, 0);
+});
+
+test("既有快照若有兩篇共用網址，整批中止以免產生不一致資料", async () => {
+  const { reservePublishedPaths } = await import("../../../scripts/sync-blog.ts");
+  assert.throws(
+    () => reservePublishedPaths([basePost, { ...basePost, id: "other" }], [basePost.id, "other"]),
+    /網址重複/,
+  );
+});

@@ -63,6 +63,30 @@ export function retainBlockedPost(
   }
 }
 
+/** 為仍在來源資料庫的舊文章保留網址，不受查詢順序影響。 */
+export function reservePublishedPaths(previous: Post[], pageIds: string[]): Map<string, string> {
+  const active = new Set(pageIds);
+  const reserved = new Map<string, string>();
+  for (const post of previous) {
+    if (!active.has(post.id)) continue;
+    const path = `${post.date}-${post.slug}`;
+    const owner = reserved.get(path);
+    if (owner && owner !== post.id) throw new Error(`既有快照網址重複：${path}`);
+    reserved.set(path, post.id);
+  }
+  return reserved;
+}
+
+export function hasPathConflict(
+  path: string,
+  id: string,
+  reserved: Map<string, string>,
+  used: Set<string>,
+): boolean {
+  const owner = reserved.get(path);
+  return used.has(path) || (owner !== undefined && owner !== id);
+}
+
 function pageTitle(page: NotionPage): string {
   const parts = (page.properties.Title?.title ?? []) as NotionRichText[];
   return parts
@@ -213,6 +237,10 @@ async function main(): Promise<void> {
       `Notion 回傳 0 篇文章，但既有快照有 ${previous.posts.length} 篇；為避免誤刪，中止同步`,
     );
   }
+  const reservedPaths = reservePublishedPaths(
+    previous.posts,
+    pages.map((page) => page.id),
+  );
   const posts: Post[] = [];
   const blocked: string[] = [];
   const paths = new Set<string>();
@@ -225,7 +253,7 @@ async function main(): Promise<void> {
       const post = pageToPost(page, blocks, previousById.get(page.id));
       const problems = validatePost(post);
       const path = `${post.date}-${post.slug}`;
-      if (paths.has(path)) problems.push(`網址重複：${path}`);
+      if (hasPathConflict(path, post.id, reservedPaths, paths)) problems.push(`網址重複：${path}`);
       if (problems.length > 0) {
         retainBlockedPost(
           { title: post.title || pageTitle(page) },

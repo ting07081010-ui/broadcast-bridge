@@ -48,6 +48,23 @@ export function blockedPostLine(title: string, pageId: string, reason: string): 
   return name ? `「${name}」（${pageId}）：${reason}` : `頁面 ${pageId}：${reason}`;
 }
 
+/** 保留已發布版本，同時讓同步工作明確標記內容需要修正。 */
+export function retainBlockedPost(
+  post: Pick<Post, "title"> | undefined,
+  pageId: string,
+  reason: string,
+  posts: Post[],
+  paths: Set<string>,
+  blocked: string[],
+  previous?: Post,
+): void {
+  blocked.push(blockedPostLine(post?.title ?? "", pageId, reason));
+  if (previous) {
+    paths.add(`${previous.date}-${previous.slug}`);
+    posts.push(previous);
+  }
+}
+
 function pageTitle(page: NotionPage): string {
   const parts = (page.properties.Title?.title ?? []) as NotionRichText[];
   return parts
@@ -212,7 +229,15 @@ async function main(): Promise<void> {
       const path = `${post.date}-${post.slug}`;
       if (paths.has(path)) problems.push(`網址重複：${path}`);
       if (problems.length > 0) {
-        blocked.push(blockedPostLine(post.title || pageTitle(page), page.id, problems.join("；")));
+        retainBlockedPost(
+          { title: post.title || pageTitle(page) },
+          page.id,
+          problems.join("；"),
+          posts,
+          paths,
+          blocked,
+          previousById.get(page.id),
+        );
         continue;
       }
       paths.add(path);
@@ -221,15 +246,16 @@ async function main(): Promise<void> {
     } catch (error) {
       // 只有內容問題可以跳過單篇；網路或權限錯誤要整批中止，保留舊快照
       if (!(error instanceof BlockError)) throw error;
-      // 含未支援內容：沿用快照中的舊版本，不讓這篇消失
-      const kept = previousById.get(page.id);
-      if (kept) {
-        paths.add(`${kept.date}-${kept.slug}`);
-        posts.push(kept);
-        console.warn(`提醒：頁面 ${page.id} 含未支援內容，沿用既有快照版本：${error.message}`);
-        continue;
-      }
-      blocked.push(blockedPostLine(pageTitle(page), page.id, error.message));
+      // 內容有問題時保留舊版本，並使工作流程回報阻擋。
+      retainBlockedPost(
+        { title: pageTitle(page) },
+        page.id,
+        error.message,
+        posts,
+        paths,
+        blocked,
+        previousById.get(page.id),
+      );
     }
   }
 

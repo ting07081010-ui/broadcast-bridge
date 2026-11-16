@@ -487,3 +487,25 @@ test("封存分組：依年月、維持新到舊；週索引：缺稿日為空�
   // 上一週只會拿到 09-30 那一篇，不會混入別週
   assert.equal(weekIndex(list, "2026-09-28").flatMap((d) => d.posts).length, 1);
 });
+
+test("一般區塊的子區塊會依順序保留，包含巢狀內容", () => {
+  const parent = block("parent", "paragraph", { rich_text: [rt("父段落")] }, [
+    para("child", "子段落"),
+    block("nested", "quote", { rich_text: [rt("引文")] }, [para("grandchild", "孫段落")]),
+  ]);
+  assert.deepEqual(
+    plainText(convertBlocks([parent], new Map()).blocks),
+    "父段落\n子段落\n引文\n孫段落",
+  );
+});
+
+test("同步校驗失敗時保留已發布舊版並記錄阻擋原因", async () => {
+  const { retainBlockedPost } = await import("../../../scripts/sync-blog.ts");
+  const posts: Post[] = [];
+  const paths = new Set<string>();
+  const blocked: string[] = [];
+  retainBlockedPost(basePost, "p1", "缺少標題", posts, paths, blocked, basePost);
+  assert.deepEqual(posts, [basePost]);
+  assert.ok(paths.has("2026-10-05-test-post"));
+  assert.match(blocked[0], /缺少標題/);
+});

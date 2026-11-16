@@ -344,6 +344,19 @@ function convertList(
         if (SKIPPED_TYPES.has(block.type)) break;
         throw new BlockError(block.id, `不支援的區塊類型：${block.type}`);
     }
+    // 這些區塊的子內容已在各自的轉換分支中處理。
+    if (
+      ![
+        "bulleted_list_item",
+        "numbered_list_item",
+        "table",
+        "toggle",
+        "column_list",
+        "column",
+      ].includes(block.type)
+    ) {
+      out.push(...convertList(childrenOf(block), images, shiftHeadings));
+    }
   }
   return out;
 }

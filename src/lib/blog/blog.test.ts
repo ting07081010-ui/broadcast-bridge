@@ -559,3 +559,21 @@ test("sitemap 群組更新時間取最近修訂，即使舊文章較晚修改", 
     ],
   );
 });
+
+test("同步去重：忽略同步時間，但文章內容變動時不可視為相同", async () => {
+  const { sameSnapshotPosts } = await import("../../../scripts/sync-dedup.ts");
+  assert.equal(
+    sameSnapshotPosts(
+      { syncedAt: "old", posts: [basePost] },
+      { syncedAt: "new", posts: [basePost] },
+    ),
+    true,
+  );
+  assert.equal(
+    sameSnapshotPosts(
+      { syncedAt: "old", posts: [basePost] },
+      { syncedAt: "new", posts: [{ ...basePost, title: "更改" }] },
+    ),
+    false,
+  );
+});

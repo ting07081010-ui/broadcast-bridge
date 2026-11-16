@@ -52,6 +52,26 @@ jobs:
           git add src/content/blog
           if [ -d public/blog/media ]; then git add public/blog/media; fi
           git commit -m "chore(blog): sync from Notion"
+          # Reuse an open PR only if both its posts and all media match this sync.
+          # Fetch each candidate without changing or rewriting its branch.
+          gh pr list --base main --state open --limit 100 \
+            --json headRefName,headRepositoryOwner | jq -r --arg owner "$GITHUB_REPOSITORY_OWNER" \
+            '.[] | select(.headRepositoryOwner.login == $owner) | .headRefName | select(startswith("sync/blog-"))' > "$RUNNER_TEMP/sync-branches.txt"
+          while IFS= read -r candidate; do
+            git check-ref-format --branch "$candidate" > /dev/null
+            git fetch --no-tags origin "refs/heads/$candidate"
+            if ! git diff --quiet FETCH_HEAD HEAD -- public/blog/media; then continue; fi
+            git show FETCH_HEAD:src/content/blog/snapshot.json > "$RUNNER_TEMP/previous-snapshot.json"
+            set +e
+            node scripts/sync-dedup.ts "$RUNNER_TEMP/previous-snapshot.json" src/content/blog/snapshot.json
+            compare_code=$?
+            set -e
+            if [ "$compare_code" = 0 ]; then
+              echo "An open PR already contains the same posts and media: $candidate"
+              exit 0
+            fi
+            if [ "$compare_code" != 1 ]; then exit "$compare_code"; fi
+          done < "$RUNNER_TEMP/sync-branches.txt"
           git push origin "$branch"
           body="$RUNNER_TEMP/pr-body.md"
           {

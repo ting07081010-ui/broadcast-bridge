@@ -707,3 +707,34 @@ test("封存分頁保留年月分組與順序，超出頁數時回到最後一�
   });
   assert.deepEqual(paginateArchive([], 5, 2), { groups: [], page: 1, totalPages: 1, total: 0 });
 });
+
+test("內容審核提示未解析引用與明確內部註記，並保留正文", () => {
+  const result = convertBlocks(
+    [
+      para("citation", "研究指出趨勢上升 [web:3]，另見 [file:2]。"),
+      para("internal", "【內部註記】發布前確認來源"),
+      para("public", "正常文章"),
+    ],
+    new Map(),
+  );
+  assert.ok(result.warnings.some((w) => w.includes("citation") && w.includes("引用")));
+  assert.ok(result.warnings.some((w) => w.includes("internal") && w.includes("內部")));
+  assert.equal(result.blocks.length, 3);
+  assert.ok(plainText(result.blocks).includes("[web:3]"));
+});
+
+test("封存年月篩選只接受有效年月", async () => {
+  const { validArchiveMonth } = await import("./archive-search.ts");
+  assert.equal(validArchiveMonth("2026-10"), "2026-10");
+  assert.equal(validArchiveMonth("2026-13"), undefined);
+  assert.equal(validArchiveMonth("2026-00"), undefined);
+  assert.equal(validArchiveMonth("2026-1"), undefined);
+});
+
+test("延伸閱讀僅選同主題文章，排除自己並維持時間順序", async () => {
+  const { relatedPosts } = await import("./posts.ts");
+  const current = toSummary(basePost);
+  const same = { ...current, id: "same", path: "same" };
+  const other = { ...current, id: "other", path: "other", topic: "mood" as const };
+  assert.deepEqual(relatedPosts([current, other, same], current), [same]);
+});

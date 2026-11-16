@@ -6,6 +6,7 @@ import {
   groupByMonth,
   isPublic,
   pickFeature,
+  relatedPosts,
   postPath,
   sortNewestFirst,
   tableOfContents,
@@ -67,6 +68,7 @@ export type PostPage = {
   toc: { id: string; text: string }[];
   newer?: PostSummary;
   older?: PostSummary;
+  related: PostSummary[];
 };
 
 export const getPostPage = createServerFn({ method: "GET" })
@@ -80,6 +82,7 @@ export const getPostPage = createServerFn({ method: "GET" })
       summary: toSummary(post),
       toc: tableOfContents(post.blocks),
       ...adjacentPosts(posts.map(toSummary), path),
+      related: relatedPosts(posts.map(toSummary), toSummary(post)),
     };
   });
 

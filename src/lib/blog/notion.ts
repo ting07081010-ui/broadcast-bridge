@@ -247,6 +247,20 @@ export function convertBlocks(
     if (block.type === "code" && /\bFINAL_CONTENT_BUNDLE\.md\b/i.test(toCode(block).code)) {
       warnings.push(`可能包含製作素材，請確認是否應公開（block ${block.id}）`);
     }
+    const texts = (value: unknown): string[] => {
+      if (Array.isArray(value)) return value.flatMap(texts);
+      if (value === null || typeof value !== "object") return [];
+      const object = value as Record<string, unknown>;
+      if (typeof object.plain_text === "string") return [object.plain_text];
+      return Object.values(object).flatMap(texts);
+    };
+    const text = texts(payload(block)).join("");
+    if (/\[(?:web|file):\d+\]/i.test(text)) {
+      warnings.push(`可能包含未解析引用，請確認來源（block ${block.id}）`);
+    }
+    if (/【內部註記】|\[內部註記\]/.test(text)) {
+      warnings.push(`可能包含內部註記，請確認是否應公開（block ${block.id}）`);
+    }
   }
   const blocks = convertList(notionBlocks, images, hasH1);
   return { blocks, warnings };

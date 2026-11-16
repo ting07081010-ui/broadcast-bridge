@@ -26,15 +26,18 @@ export default function ArchivePage({
   topic,
   query,
   requestedPage,
+  month,
 }: {
   data: ArchivePageData;
   /** 來自網址 ?topic=，重新整理與返回都會保留 */
   topic?: TopicSlug;
   query?: string;
   requestedPage?: number;
+  month?: string;
 }) {
   const hasAnyPost = data.groups.length > 0;
   const groups = data.groups
+    .filter((group) => !month || group.month === month)
     .map((group) => ({
       ...group,
       posts: group.posts.filter(
@@ -79,6 +82,25 @@ export default function ArchivePage({
                 className="min-h-11 w-full rounded-lg border border-border bg-background px-3 text-foreground"
               />
             </div>
+            <div>
+              <label htmlFor="archive-month" className="mb-2 block text-sm font-medium">
+                年月
+              </label>
+              <select
+                key={month ?? ""}
+                id="archive-month"
+                name="month"
+                defaultValue={month ?? ""}
+                className="min-h-11 rounded-lg border border-border bg-background px-3 text-foreground"
+              >
+                <option value="">所有年月</option>
+                {Array.from(new Set(data.groups.map((group) => group.month))).map((value) => (
+                  <option key={value} value={value}>
+                    {formatMonth(value)}
+                  </option>
+                ))}
+              </select>
+            </div>
             <button type="submit" className={BTN_SECONDARY}>
               搜尋
             </button>
@@ -90,7 +112,7 @@ export default function ArchivePage({
           >
             <Link
               to="/blog/archive"
-              search={{ q: query }}
+              search={{ q: query, month }}
               activeOptions={EXACT_SEARCH}
               className={chipClass(!topic)}
             >
@@ -101,7 +123,7 @@ export default function ArchivePage({
               <Link
                 key={slug}
                 to="/blog/archive"
-                search={{ topic: slug, q: query }}
+                search={{ topic: slug, q: query, month }}
                 activeOptions={EXACT_SEARCH}
                 className={chipClass(topic === slug)}
               >
@@ -129,7 +151,9 @@ export default function ArchivePage({
             <div className="mt-8 border-t border-border">
               <EmptyState
                 title={
-                  query ? "找不到符合的文章" : `「${topic ? TOPICS[topic].name : ""}」還沒有文章`
+                  query || month
+                    ? "找不到符合的文章"
+                    : `「${topic ? TOPICS[topic].name : ""}」還沒有文章`
                 }
                 action={
                   <Link to="/blog/archive" className={BTN_SECONDARY}>
@@ -149,6 +173,7 @@ export default function ArchivePage({
                   search={{
                     topic,
                     q: query,
+                    month,
                     page: pagination.page - 1 > 1 ? pagination.page - 1 : undefined,
                   }}
                   className={BTN_SECONDARY}
@@ -162,7 +187,7 @@ export default function ArchivePage({
               {pagination.page < pagination.totalPages && (
                 <Link
                   to="/blog/archive"
-                  search={{ topic, q: query, page: pagination.page + 1 }}
+                  search={{ topic, q: query, month, page: pagination.page + 1 }}
                   className={BTN_SECONDARY}
                 >
                   下一頁

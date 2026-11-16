@@ -188,3 +188,10 @@ export function weekIndex(posts: PostSummary[], monday: string): WeekDay[] {
     };
   });
 }
+
+/** 同主題延伸閱讀，沿用已發布文章的排序。 */
+export function relatedPosts(posts: PostSummary[], current: PostSummary, limit = 3): PostSummary[] {
+  return posts
+    .filter((post) => post.id !== current.id && post.topic === current.topic)
+    .slice(0, limit);
+}

@@ -44,7 +44,7 @@ export default function PostPage({
   data: PostPageData;
   canonicalUrl: string;
 }) {
-  const { post, summary, toc, newer, older } = data;
+  const { post, summary, toc, newer, older, related } = data;
   const [theme, toggleTheme] = useReaderTheme();
   const bodyRef = useRef<HTMLDivElement>(null);
   const weekKey = isoWeekKey(post.date);
@@ -151,6 +151,30 @@ export default function PostPage({
                   aria-hidden="true"
                 />
               </a>
+            )}
+
+            {related.length > 0 && (
+              <section
+                aria-labelledby="related-heading"
+                className="mt-10 border-t border-paper-border pt-6"
+              >
+                <h2 id="related-heading" className="text-lg font-semibold text-ink">
+                  同主題延伸閱讀
+                </h2>
+                <ul className="mt-3 divide-y divide-paper-border">
+                  {related.map((item) => (
+                    <li key={item.id}>
+                      <Link
+                        to="/blog/posts/$postId"
+                        params={{ postId: item.path }}
+                        className="block py-4 text-ink underline-offset-4 hover:underline"
+                      >
+                        {item.title}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </section>
             )}
 
             {(older || newer) && (

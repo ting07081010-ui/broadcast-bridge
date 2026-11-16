@@ -34,3 +34,8 @@ export function paginateArchive<T>(
   });
   return { groups: pageGroups, page, totalPages, total };
 }
+
+/** 驗證封存篩選使用的 YYYY-MM。 */
+export function validArchiveMonth(value: unknown): string | undefined {
+  return typeof value === "string" && /^\d{4}-(0[1-9]|1[0-2])$/.test(value) ? value : undefined;
+}

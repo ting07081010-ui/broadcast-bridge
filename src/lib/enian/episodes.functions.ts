@@ -1,3 +1,4 @@
+import { fetchFeed } from "./feed";
 import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeaders } from "@tanstack/react-start/server";
 import { XMLParser } from "fast-xml-parser";
@@ -138,15 +139,7 @@ export const getEpisodes = createServerFn({ method: "GET" }).handler(
     try {
       setResponseHeaders(new Headers({ "Cache-Control": "public, max-age=300, s-maxage=300" }));
 
-      const res = await fetch(url, {
-        headers: { "User-Agent": "EnianPodcastSite/1.0" },
-      });
-      if (!res.ok) {
-        console.error(`RSS fetch failed: ${res.status}`);
-        return { episodes: FALLBACK_EPISODES, source: "fallback", error: `HTTP ${res.status}` };
-      }
-
-      const xml = await res.text();
+      const xml = await fetchFeed(url);
       const parser = new XMLParser({
         ignoreAttributes: false,
         attributeNamePrefix: "@_",

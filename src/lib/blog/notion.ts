@@ -222,6 +222,29 @@ function toList(items: NotionBlock[], ordered: boolean): ListBlock {
   };
 }
 
+/** 有明確標記時只發布該頂層摺疊區塊的子內容；舊文章維持原行為。 */
+export function selectPublicBlocks(blocks: NotionBlock[]): NotionBlock[] {
+  const isMarker = (block: NotionBlock) => {
+    const parts = (payload(block).rich_text ?? []) as NotionRichText[];
+    return (
+      parts
+        .map((part) => part.plain_text)
+        .join("")
+        .trim() === "【公開正文】"
+    );
+  };
+  const nested = blocks.flatMap((block) => flatten(childrenOf(block))).find(isMarker);
+  if (nested) throw new BlockError(nested.id, "公開正文標記必須放在最外層");
+  const markers = blocks.filter(isMarker);
+  if (markers.length === 0) return blocks;
+  if (markers.length > 1) throw new BlockError(markers[1].id, "公開正文標記重複");
+  const marker = markers[0];
+  if (marker.type !== "toggle") throw new BlockError(marker.id, "公開正文標記必須使用摺疊區塊");
+  const children = childrenOf(marker);
+  if (children.length === 0) throw new BlockError(marker.id, "公開正文為空");
+  return children;
+}
+
 export type ConvertResult = { blocks: Block[]; warnings: string[] };
 
 /**

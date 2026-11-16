@@ -738,3 +738,73 @@ test("延伸閱讀僅選同主題文章，排除自己並維持時間順序", as
   const other = { ...current, id: "other", path: "other", topic: "mood" as const };
   assert.deepEqual(relatedPosts([current, other, same], current), [same]);
 });
+
+test("公開正文標記僅公開指定摺疊區塊內的內容，未標記文章維持原狀", async () => {
+  const { selectPublicBlocks } = await import("./notion.ts");
+  const ordinary = [para("normal", "一般文章")];
+  assert.deepEqual(selectPublicBlocks(ordinary), ordinary);
+  const publicBlock = block("scope", "toggle", { rich_text: [rt("【公開正文】")] }, [
+    para("inside", "公開內容"),
+  ]);
+  const selected = selectPublicBlocks([
+    para("private", "內部資料"),
+    publicBlock,
+    para("after", "製作備註"),
+  ]);
+  assert.deepEqual(
+    selected.map((item) => item.id),
+    ["inside"],
+  );
+});
+
+test("公開正文標記重複或缺少內容時阻擋發布", async () => {
+  const { selectPublicBlocks } = await import("./notion.ts");
+  const marker = (id: string, children?: NotionBlock[]) =>
+    block(id, "toggle", { rich_text: [rt("【公開正文】")] }, children);
+  assert.throws(
+    () =>
+      selectPublicBlocks([marker("one", [para("p", "文字")]), marker("two", [para("q", "文字")])]),
+    /重複/,
+  );
+  assert.throws(() => selectPublicBlocks([marker("empty")]), /空/);
+});
+
+test("公開正文標記若誤用為普通段落，應阻擋而不是公開整頁", async () => {
+  const { selectPublicBlocks } = await import("./notion.ts");
+  assert.throws(
+    () => selectPublicBlocks([para("marker", "【公開正文】"), para("private", "內部")]),
+    /摺疊/,
+  );
+});
+
+test("公開正文標記放在巢狀區塊時阻擋同步，避免誤公開其他內容", async () => {
+  const { selectPublicBlocks } = await import("./notion.ts");
+  const nested = block("parent", "toggle", { rich_text: [rt("筆記")] }, [
+    block("marker", "toggle", { rich_text: [rt("【公開正文】")] }, [para("public", "公開")]),
+  ]);
+  assert.throws(() => selectPublicBlocks([nested, para("private", "內部")]), /最外層/);
+});
+
+test("公開正文範圍外的圖片不會被下載", async () => {
+  const { selectPublicBlocks } = await import("./notion.ts");
+  const { resolveImages } = await import("../../../scripts/sync-blog.ts");
+  const privateImage = block("private-image", "image", {
+    type: "external",
+    external: { url: "https://example.com/private" },
+  });
+  const marker = block("scope", "toggle", { rich_text: [rt("【公開正文】")] }, [
+    para("public", "公開內容"),
+  ]);
+  const original = globalThis.fetch;
+  let calls = 0;
+  try {
+    globalThis.fetch = async () => {
+      calls++;
+      throw new Error("unexpected download");
+    };
+    assert.equal((await resolveImages(selectPublicBlocks([privateImage, marker]))).size, 0);
+    assert.equal(calls, 0);
+  } finally {
+    globalThis.fetch = original;
+  }
+});

@@ -19,7 +19,12 @@ import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import { BlockError, convertBlocks, pageToPost } from "../src/lib/blog/notion.ts";
+import {
+  BlockError,
+  convertBlocks,
+  pageToPost,
+  selectPublicBlocks,
+} from "../src/lib/blog/notion.ts";
 import type {
   NotionBlock,
   NotionPage,
@@ -247,7 +252,7 @@ async function main(): Promise<void> {
 
   for (const page of pages) {
     try {
-      const notionBlocks = await fetchBlocks(page.id);
+      const notionBlocks = selectPublicBlocks(await fetchBlocks(page.id));
       const images = await resolveImages(notionBlocks);
       const { blocks, warnings } = convertBlocks(notionBlocks, images);
       const post = pageToPost(page, blocks, previousById.get(page.id));

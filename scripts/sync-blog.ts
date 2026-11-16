@@ -26,12 +26,10 @@ import type {
   NotionRichText,
   ResolvedImage,
 } from "../src/lib/blog/notion.ts";
+import { fetchNotionJson } from "./notion-http.ts";
 import { validatePost } from "../src/lib/blog/posts.ts";
 import type { BlogSnapshot, Post } from "../src/lib/blog/types.ts";
 
-const NOTION_API = "https://api.notion.com/v1";
-// 鎖定 API 版本，不跟著 Notion 預設值漂移
-const NOTION_VERSION = "2022-06-28";
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), "..");
 const SNAPSHOT_PATH = join(ROOT, "src/content/blog/snapshot.json");
 const MEDIA_DIR = join(ROOT, "public/blog/media");
@@ -77,16 +75,7 @@ const token = process.env.NOTION_TOKEN;
 const databaseId = process.env.NOTION_BLOG_DATABASE_ID;
 
 async function notion<T>(path: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(`${NOTION_API}${path}`, {
-    ...init,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Notion-Version": NOTION_VERSION,
-      "Content-Type": "application/json",
-    },
-  });
-  if (!res.ok) throw new Error(`Notion API ${res.status}：${path}`);
-  return (await res.json()) as T;
+  return fetchNotionJson<T>(path, token!, init);
 }
 
 type Paginated<T> = { results: T[]; has_more: boolean; next_cursor: string | null };

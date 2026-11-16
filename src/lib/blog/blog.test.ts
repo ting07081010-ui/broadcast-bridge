@@ -611,3 +611,50 @@ test("圖片擷取回報 HTTP 狀態與區塊 ID，避免暴露來源網址", as
     globalThis.fetch = originalFetch;
   }
 });
+
+test("Notion 遇到限流會重試並遵守 Retry-After", async () => {
+  const { fetchNotionJson } = await import("../../../scripts/notion-http.ts");
+  let calls = 0;
+  const delays: number[] = [];
+  const fetcher: typeof fetch = async () =>
+    ++calls === 1
+      ? new Response(null, { status: 429, headers: { "Retry-After": "2" } })
+      : Response.json({ ok: true });
+  assert.deepEqual(
+    await fetchNotionJson("/test", "token", undefined, {
+      fetcher,
+      wait: async (ms) => {
+        delays.push(ms);
+      },
+    }),
+    { ok: true },
+  );
+  assert.equal(calls, 2);
+  assert.deepEqual(delays, [2000]);
+});
+
+test("Notion 非暫時性錯誤不重試，也不洩露權杖", async () => {
+  const { fetchNotionJson } = await import("../../../scripts/notion-http.ts");
+  let calls = 0;
+  const fetcher: typeof fetch = async () => {
+    calls++;
+    return new Response(null, { status: 403 });
+  };
+  await assert.rejects(
+    () => fetchNotionJson("/test", "secret-token", undefined, { fetcher }),
+    (error: Error) => error.message.includes("403") && !error.message.includes("secret-token"),
+  );
+  assert.equal(calls, 1);
+});
+
+test("Notion 請求逾時後會結束並維持錯誤狀態", async () => {
+  const { fetchNotionJson } = await import("../../../scripts/notion-http.ts");
+  const fetcher: typeof fetch = async (_url, init) =>
+    new Promise((_resolve, reject) => {
+      init?.signal?.addEventListener("abort", () => reject(new Error("aborted")), { once: true });
+    });
+  await assert.rejects(
+    () => fetchNotionJson("/test", "token", undefined, { fetcher, timeoutMs: 10, attempts: 1 }),
+    /逾時/,
+  );
+});

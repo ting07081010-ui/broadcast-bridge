@@ -683,3 +683,27 @@ test("封存搜尋同時比對標題與摘要，忽略大小寫與前後空白",
   assert.equal(matchesArchiveSearch(post, "健康"), false);
   assert.equal(matchesArchiveSearch(post, "  "), true);
 });
+
+test("封存分頁保留年月分組與順序，超出頁數時回到最後一頁", async () => {
+  const { paginateArchive } = await import("./archive-search.ts");
+  const groups = [
+    { month: "2026-10", posts: [1, 2, 3] },
+    { month: "2026-09", posts: [4, 5] },
+  ];
+  assert.deepEqual(paginateArchive(groups, 2, 2), {
+    groups: [
+      { month: "2026-10", posts: [3] },
+      { month: "2026-09", posts: [4] },
+    ],
+    page: 2,
+    totalPages: 3,
+    total: 5,
+  });
+  assert.deepEqual(paginateArchive(groups, 99, 2), {
+    groups: [{ month: "2026-09", posts: [5] }],
+    page: 3,
+    totalPages: 3,
+    total: 5,
+  });
+  assert.deepEqual(paginateArchive([], 5, 2), { groups: [], page: 1, totalPages: 1, total: 0 });
+});

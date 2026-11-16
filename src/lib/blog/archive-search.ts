@@ -10,3 +10,27 @@ export function matchesArchiveSearch(
     post.excerpt.toLocaleLowerCase().includes(term)
   );
 }
+
+/** 分頁後保留原有月份與文章順序。 */
+export function paginateArchive<T>(
+  groups: { month: string; posts: T[] }[],
+  requestedPage: number,
+  pageSize = 20,
+) {
+  const total = groups.reduce((count, group) => count + group.posts.length, 0);
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
+  const page = Math.min(
+    totalPages,
+    Math.max(1, Number.isSafeInteger(requestedPage) ? requestedPage : 1),
+  );
+  const start = (page - 1) * pageSize;
+  const end = start + pageSize;
+  let offset = 0;
+  const pageGroups = groups.flatMap((group) => {
+    const from = Math.max(0, start - offset);
+    const to = Math.min(group.posts.length, end - offset);
+    offset += group.posts.length;
+    return from < to ? [{ ...group, posts: group.posts.slice(from, to) }] : [];
+  });
+  return { groups: pageGroups, page, totalPages, total };
+}

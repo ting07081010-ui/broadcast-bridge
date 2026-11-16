@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Check } from "lucide-react";
 import type { ArchivePage as ArchivePageData } from "@/lib/blog/posts.functions";
-import { matchesArchiveSearch } from "@/lib/blog/archive-search";
+import { matchesArchiveSearch, paginateArchive } from "@/lib/blog/archive-search";
 import { formatMonth } from "@/lib/blog/time";
 import { TOPICS } from "@/lib/blog/topics";
 import { TOPIC_SLUGS, type TopicSlug } from "@/lib/blog/types";
@@ -25,11 +25,13 @@ export default function ArchivePage({
   data,
   topic,
   query,
+  requestedPage,
 }: {
   data: ArchivePageData;
   /** 來自網址 ?topic=，重新整理與返回都會保留 */
   topic?: TopicSlug;
   query?: string;
+  requestedPage?: number;
 }) {
   const hasAnyPost = data.groups.length > 0;
   const groups = data.groups
@@ -40,6 +42,8 @@ export default function ArchivePage({
       ),
     }))
     .filter((group) => group.posts.length > 0);
+
+  const pagination = paginateArchive(groups, requestedPage ?? 1);
 
   return (
     <BlogShell section="archive">
@@ -108,7 +112,7 @@ export default function ArchivePage({
           </nav>
 
           {groups.length > 0 ? (
-            groups.map((group) => (
+            pagination.groups.map((group) => (
               <section key={group.month} aria-labelledby={`m-${group.month}`} className="mt-10">
                 <h2
                   id={`m-${group.month}`}
@@ -136,6 +140,35 @@ export default function ArchivePage({
                 試試其他關鍵字或主題，或清除篩選看全部文章。
               </EmptyState>
             </div>
+          )}
+          {pagination.totalPages > 1 && (
+            <nav aria-label="封存分頁" className="mt-10 flex flex-wrap items-center gap-4">
+              {pagination.page > 1 && (
+                <Link
+                  to="/blog/archive"
+                  search={{
+                    topic,
+                    q: query,
+                    page: pagination.page - 1 > 1 ? pagination.page - 1 : undefined,
+                  }}
+                  className={BTN_SECONDARY}
+                >
+                  上一頁
+                </Link>
+              )}
+              <span aria-live="polite" className="text-sm text-muted-foreground">
+                第 {pagination.page} / {pagination.totalPages} 頁，共 {pagination.total} 篇
+              </span>
+              {pagination.page < pagination.totalPages && (
+                <Link
+                  to="/blog/archive"
+                  search={{ topic, q: query, page: pagination.page + 1 }}
+                  className={BTN_SECONDARY}
+                >
+                  下一頁
+                </Link>
+              )}
+            </nav>
           )}
         </>
       ) : (

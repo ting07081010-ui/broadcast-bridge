@@ -109,36 +109,52 @@ async function notion<T>(path: string, init?: RequestInit): Promise<T> {
 
 type Paginated<T> = { results: T[]; has_more: boolean; next_cursor: string | null };
 
+/** 分頁不完整或游標循環時中止整批，不能把截斷的內容當作完整結果。 */
+export async function collectNotionPages<T>(
+  fetchPage: (cursor: string | null) => Promise<Paginated<T>>,
+): Promise<T[]> {
+  const results: T[] = [];
+  const seen = new Set<string>();
+  let cursor: string | null = null;
+  for (;;) {
+    const page = await fetchPage(cursor);
+    if (!page || !Array.isArray(page.results) || typeof page.has_more !== "boolean") {
+      throw new Error("Notion 分頁回應格式不正確");
+    }
+    results.push(...page.results);
+    if (!page.has_more) return results;
+    const next = page.next_cursor;
+    if (typeof next !== "string" || !next.trim() || seen.has(next)) {
+      throw new Error("Notion 分頁游標缺失或重複");
+    }
+    seen.add(next);
+    cursor = next;
+  }
+}
+
 /** 走完所有分頁，不能只讀第一批。 */
 async function queryAllPages(): Promise<NotionPage[]> {
-  const pages: NotionPage[] = [];
-  let cursor: string | null = null;
-  do {
+  return collectNotionPages((cursor) => {
     const body: Record<string, unknown> = {
       page_size: 100,
       filter: { property: "Status", status: { equals: "Published" } },
     };
     if (cursor) body.start_cursor = cursor;
-    const page: Paginated<NotionPage> = await notion(`/databases/${databaseId}/query`, {
+    return notion<Paginated<NotionPage>>(`/databases/${databaseId}/query`, {
       method: "POST",
       body: JSON.stringify(body),
     });
-    pages.push(...page.results);
-    cursor = page.has_more ? page.next_cursor : null;
-  } while (cursor);
-  return pages;
+  });
 }
 
 /** 遞迴取回所有子區塊（含分頁），避免長文被默默截斷。 */
 async function fetchBlocks(blockId: string): Promise<NotionBlock[]> {
-  const blocks: NotionBlock[] = [];
-  let cursor: string | null = null;
-  do {
-    const query = cursor ? `?page_size=100&start_cursor=${cursor}` : "?page_size=100";
-    const page: Paginated<NotionBlock> = await notion(`/blocks/${blockId}/children${query}`);
-    blocks.push(...page.results);
-    cursor = page.has_more ? page.next_cursor : null;
-  } while (cursor);
+  const blocks = await collectNotionPages((cursor) => {
+    const query = cursor
+      ? `?page_size=100&start_cursor=${encodeURIComponent(cursor)}`
+      : "?page_size=100";
+    return notion<Paginated<NotionBlock>>(`/blocks/${blockId}/children${query}`);
+  });
   for (const block of blocks) {
     if (block.has_children) block.children = await fetchBlocks(block.id);
   }

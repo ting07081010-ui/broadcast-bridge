@@ -848,3 +848,32 @@ test("圖片回應標頭後讀取內容停滯也會逾時", async () => {
     /逾時.*body-block/,
   );
 });
+
+test("Notion 分頁依序取得所有資料", async () => {
+  const { collectNotionPages } = await import("../../../scripts/sync-blog.ts");
+  const result = await collectNotionPages(async (cursor) =>
+    cursor === null
+      ? { results: [1], has_more: true, next_cursor: "next" }
+      : { results: [2], has_more: false, next_cursor: null },
+  );
+  assert.deepEqual(result, [1, 2]);
+});
+
+test("Notion 分頁缺少游標或游標重複時中止，避免使用不完整資料", async () => {
+  const { collectNotionPages } = await import("../../../scripts/sync-blog.ts");
+  await assert.rejects(
+    () => collectNotionPages(async () => ({ results: [1], has_more: true, next_cursor: null })),
+    /游標/,
+  );
+  await assert.rejects(
+    () => collectNotionPages(async () => ({ results: [1], has_more: true, next_cursor: "repeat" })),
+    /游標/,
+  );
+  await assert.rejects(
+    () =>
+      collectNotionPages(
+        async () => ({ results: null, has_more: false, next_cursor: null }) as never,
+      ),
+    /分頁/,
+  );
+});

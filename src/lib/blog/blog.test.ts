@@ -577,3 +577,37 @@ test("同步去重：忽略同步時間，但文章內容變動時不可視為�
     false,
   );
 });
+
+test("損壞或截斷的圖片不會讓同步程序因尺寸解析崩潰", async () => {
+  const { imageSize } = await import("../../../scripts/sync-blog.ts");
+  for (const bytes of [
+    new Uint8Array([0x89, 0x50]),
+    new Uint8Array([0x47, 0x49]),
+    new Uint8Array(16).map((_, i) =>
+      i === 12 ? 86 : i === 13 ? 80 : i === 14 ? 56 : i === 15 ? 88 : 0,
+    ),
+  ]) {
+    assert.equal(imageSize(bytes), null);
+  }
+});
+
+test("圖片擷取回報 HTTP 狀態與區塊 ID，避免暴露來源網址", async () => {
+  const { resolveImages } = await import("../../../scripts/sync-blog.ts");
+  const image = block("image-id", "image", {
+    type: "external",
+    external: { url: "https://example.com/private" },
+  });
+  const originalFetch = globalThis.fetch;
+  try {
+    globalThis.fetch = async () => new Response(null, { status: 403 });
+    await assert.rejects(
+      () => resolveImages([image]),
+      (error: Error) =>
+        error.message.includes("403") &&
+        error.message.includes("image-id") &&
+        !error.message.includes("example.com"),
+    );
+  } finally {
+    globalThis.fetch = originalFetch;
+  }
+});

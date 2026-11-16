@@ -131,9 +131,11 @@ async function fetchBlocks(blockId: string): Promise<NotionBlock[]> {
 export function imageSize(bytes: Uint8Array): { width: number; height: number } | null {
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
   if (bytes[0] === 0x89 && bytes[1] === 0x50) {
+    if (bytes.length < 24) return null;
     return { width: view.getUint32(16), height: view.getUint32(20) };
   }
   if (bytes[0] === 0x47 && bytes[1] === 0x49) {
+    if (bytes.length < 10) return null;
     return { width: view.getUint16(6, true), height: view.getUint16(8, true) };
   }
   if (bytes[0] === 0xff && bytes[1] === 0xd8) {
@@ -151,14 +153,17 @@ export function imageSize(bytes: Uint8Array): { width: number; height: number } 
   }
   const tag = String.fromCharCode(...bytes.slice(12, 16));
   if (tag === "VP8X") {
+    if (bytes.length < 30) return null;
     const width = 1 + (bytes[24] | (bytes[25] << 8) | (bytes[26] << 16));
     const height = 1 + (bytes[27] | (bytes[28] << 8) | (bytes[29] << 16));
     return { width, height };
   }
   if (tag === "VP8 ") {
+    if (bytes.length < 30) return null;
     return { width: view.getUint16(26, true) & 0x3fff, height: view.getUint16(28, true) & 0x3fff };
   }
   if (tag === "VP8L") {
+    if (bytes.length < 25) return null;
     const bits = view.getUint32(21, true);
     return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
   }
@@ -167,9 +172,9 @@ export function imageSize(bytes: Uint8Array): { width: number; height: number } 
 
 /**
  * Notion 託管的圖片網址會過期：在有效期內下載，存成以內容雜湊命名的網站公開資產。
- * 下載或解析失敗時不回傳，轉換層會因此阻擋該篇，而不是留一張壞圖。
+ * HTTP、格式或尺寸問題會阻擋該篇並回報區塊 ID；網路例外仍中止整批。
  */
-async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, ResolvedImage>> {
+export async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, ResolvedImage>> {
   const images = new Map<string, ResolvedImage>();
   const walk = async (list: NotionBlock[]): Promise<void> => {
     for (const block of list) {
@@ -180,19 +185,23 @@ async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, Resolve
           external?: { url: string };
         };
         const url = data.type === "file" ? data.file?.url : data.external?.url;
-        const res = url ? await fetch(url) : null;
-        const type = res?.headers.get("content-type")?.split(";")[0] ?? "";
-        const ext = IMAGE_TYPES[type] ?? (url ? extname(new URL(url).pathname) : "");
-        if (res?.ok && Object.values(IMAGE_TYPES).includes(ext)) {
-          const bytes = new Uint8Array(await res.arrayBuffer());
-          const size = imageSize(bytes);
-          if (size) {
-            const hash = createHash("sha256").update(bytes).digest("hex").slice(0, 16);
-            await mkdir(MEDIA_DIR, { recursive: true });
-            await writeFile(join(MEDIA_DIR, `${hash}${ext}`), bytes);
-            images.set(block.id, { src: `/blog/media/${hash}${ext}`, ...size });
-          }
+        if (!url) throw new BlockError(block.id, "圖片缺少來源網址");
+        const res = await fetch(url);
+        if (!res.ok) throw new BlockError(block.id, `圖片下載失敗（HTTP ${res.status}）`);
+        const type = res.headers.get("content-type")?.split(";")[0] ?? "";
+        const ext = IMAGE_TYPES[type] ?? extname(new URL(url).pathname).toLowerCase();
+        if (!Object.values(IMAGE_TYPES).includes(ext)) {
+          throw new BlockError(block.id, "圖片格式不支援，請使用 PNG、JPEG、WebP 或 GIF");
         }
+        const bytes = new Uint8Array(await res.arrayBuffer());
+        const size = imageSize(bytes);
+        if (!size || !size.width || !size.height) {
+          throw new BlockError(block.id, "圖片損壞或無法讀取尺寸");
+        }
+        const hash = createHash("sha256").update(bytes).digest("hex").slice(0, 16);
+        await mkdir(MEDIA_DIR, { recursive: true });
+        await writeFile(join(MEDIA_DIR, `${hash}${ext}`), bytes);
+        images.set(block.id, { src: `/blog/media/${hash}${ext}`, ...size });
       }
       if (block.children) await walk(block.children);
     }

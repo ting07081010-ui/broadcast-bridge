@@ -509,3 +509,28 @@ test("同步校驗失敗時保留已發布舊版並記錄阻擋原因", async ()
   assert.ok(paths.has("2026-10-05-test-post"));
   assert.match(blocked[0], /缺少標題/);
 });
+
+test("待辦區塊保留勾選狀態和文字", () => {
+  const blocks = [
+    block("todo1", "to_do", { rich_text: [rt("待完成")], checked: false }),
+    block("todo2", "to_do", { rich_text: [rt("已完成")], checked: true }),
+  ];
+  assert.equal(plainText(convertBlocks(blocks, new Map()).blocks), "☐ 待完成\n☑ 已完成");
+});
+
+test("清單項目中的分隔線保留順序", () => {
+  const blocks = [
+    block("item", "bulleted_list_item", { rich_text: [rt("項目")] }, [
+      para("before", "之前"),
+      block("divider", "divider", {}),
+      para("after", "之後"),
+    ]),
+  ];
+  const result = convertBlocks(blocks, new Map()).blocks;
+  assert.equal(result[0].type, "list");
+  if (result[0].type === "list")
+    assert.deepEqual(
+      result[0].items[0].children?.map((c) => c.type),
+      ["paragraph", "divider", "paragraph"],
+    );
+});

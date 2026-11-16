@@ -57,6 +57,8 @@ function ListChildView({ child }: { child: ListChild }) {
       return <Quote inlines={child.inlines} source={child.source} />;
     case "code":
       return <CodeBlock block={child} />;
+    case "divider":
+      return <hr />;
   }
 }
 

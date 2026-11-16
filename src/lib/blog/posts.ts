@@ -56,6 +56,7 @@ function listChildText(child: ListChild): string {
     case "quote":
       return inlineText(child.inlines);
     case "code":
+    case "divider":
       return "";
   }
 }

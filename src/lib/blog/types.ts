@@ -16,7 +16,10 @@ export type Inline = {
 };
 
 /** 清單項目裡依出現順序接上的內容：巢狀清單、段落、引文或程式碼。 */
-export type ListChild = Extract<Block, { type: "list" | "paragraph" | "quote" | "code" }>;
+export type ListChild = Extract<
+  Block,
+  { type: "list" | "paragraph" | "quote" | "code" | "divider" }
+>;
 
 export type ListItem = {
   inlines: Inline[];

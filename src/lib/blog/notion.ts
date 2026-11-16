@@ -183,6 +183,11 @@ function listItemChildren(children: NotionBlock[]): ListChild[] {
       out.push(toList(run, child.type === "numbered_list_item"));
       continue;
     }
+    if (child.type === "divider") {
+      out.push({ type: "divider" });
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
     if (child.type === "paragraph") {
       const paragraph = toParagraph(child);
       if (paragraph) out.push(paragraph);
@@ -258,6 +263,11 @@ function convertList(
       case "paragraph": {
         const paragraph = toParagraph(block);
         if (paragraph) out.push(paragraph);
+        break;
+      }
+      case "to_do": {
+        const marker = data.checked === true ? "☑ " : "☐ ";
+        out.push({ type: "paragraph", inlines: [{ text: marker }, ...inlinesOf(block)] });
         break;
       }
       case "heading_1":

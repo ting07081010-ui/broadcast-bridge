@@ -158,7 +158,7 @@ export const FAQ: Array<{ q: string; a: string }> = [
   },
   {
     q: "在哪些平台可以聽？",
-    a: "Spotify、Apple Podcasts、YouTube 都有上架。FB 與 IG 同步發布幕後與短內容。捲到下方「選擇你的收聽平台」即可一鍵訂閱。",
+    a: "Spotify、Apple Podcasts、YouTube 都有上架。FB 與 IG 同步發布幕後與短內容。捲到下方「選一個你真的會打開的收聽平台」即可一鍵訂閱。",
   },
   {
     q: "想當來賓 / 投稿議題怎麼聯絡？",

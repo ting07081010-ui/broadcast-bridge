@@ -159,7 +159,7 @@ export default function PodcastRecommendations() {
           <div className={cn(CONTAINER, "py-10 sm:py-14")}>
             <div
               className="-mx-5 flex gap-2 overflow-x-auto px-5 [scrollbar-width:none] sm:mx-0 sm:flex-wrap sm:overflow-visible sm:px-0 [&::-webkit-scrollbar]:hidden"
-              role="tablist"
+              role="group"
               aria-label="推薦分類"
             >
               {CATEGORIES.map((cat) => {
@@ -168,11 +168,10 @@ export default function PodcastRecommendations() {
                   <button
                     key={cat}
                     type="button"
-                    role="tab"
-                    aria-selected={active}
+                    aria-pressed={active}
                     onClick={() => setActiveCategory(cat)}
                     className={cn(
-                      "min-h-10 shrink-0 rounded-lg px-4 text-sm font-medium transition-colors duration-200",
+                      "min-h-11 shrink-0 rounded-lg px-4 text-sm font-medium transition-colors duration-200",
                       active
                         ? "bg-foreground text-background"
                         : "border border-border text-muted-foreground hover:border-muted-foreground hover:text-foreground",
@@ -233,10 +232,10 @@ export default function PodcastRecommendations() {
               lead="《E 人 I 碎念》每週一到週六更新，用白話又有梗的方式聊科技、資安、家庭、信仰與社會觀察。如果你從這份推薦清單找到共鳴，這裡大概也會是你的頻率。"
             />
             <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-              <a href="/#tune-in" data-event="click_cta_rec_page" className={BTN_PRIMARY}>
+              <Link to="/" hash="tune-in" data-event="click_cta_rec_page" className={BTN_PRIMARY}>
                 <Headphones className="h-4 w-4" aria-hidden="true" />
                 訂閱 E 人 I 碎念
-              </a>
+              </Link>
               <Link to="/" className={BTN_SECONDARY}>
                 <ArrowLeft className="h-4 w-4" aria-hidden="true" />
                 回到首頁

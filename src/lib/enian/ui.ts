@@ -7,8 +7,8 @@ const BTN_BASE =
 /** 主按鈕：高 48px、圓角 12px、紙白底＋深字。 */
 export const BTN_PRIMARY = `${BTN_BASE} bg-foreground text-background hover:brightness-[0.94]`;
 
-/** 次按鈕：同高、1px 邊框、透明底。 */
-export const BTN_SECONDARY = `${BTN_BASE} border border-border text-foreground hover:border-muted-foreground hover:bg-surface`;
+/** 次按鈕：同高、1px 邊框（維持操作邊界對比）、微深底。 */
+export const BTN_SECONDARY = `${BTN_BASE} border border-foreground/25 bg-surface/70 text-foreground hover:border-muted-foreground hover:bg-surface`;
 
 /** 導覽列等窄空間用的小尺寸（搭配 cn() 覆寫高度）。 */
 export const BTN_SM = "min-h-10 px-4 text-sm";

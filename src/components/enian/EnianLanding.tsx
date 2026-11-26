@@ -47,11 +47,15 @@ const TOPIC_ICONS: Record<string, typeof Shield> = {
   SOCIAL: Newspaper,
 };
 
+const TAIPEI_OFFSET_MS = 8 * 60 * 60 * 1000;
+
 function formatDate(input: string): string {
   if (!input) return "";
-  const d = new Date(input);
-  if (isNaN(d.getTime())) return "";
-  return `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, "0")}.${String(d.getDate()).padStart(2, "0")}`;
+  const ms = new Date(input).getTime();
+  if (!Number.isFinite(ms)) return "";
+  // 固定以台北時間（UTC+8）輸出，避免 Workers (UTC) 與台灣瀏覽器跨日 hydration mismatch
+  const d = new Date(ms + TAIPEI_OFFSET_MS);
+  return `${d.getUTCFullYear()}.${String(d.getUTCMonth() + 1).padStart(2, "0")}.${String(d.getUTCDate()).padStart(2, "0")}`;
 }
 
 function formatDuration(sec?: number): string {
@@ -132,7 +136,10 @@ function Hero() {
         <div>
           <p className="mb-5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] font-medium text-muted-foreground">
             <span className="inline-flex items-center gap-2 font-mono text-xs tracking-wider text-live">
-              <span className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live" />
+              <span
+                className="enian-pulse-dot inline-block h-2 w-2 rounded-full bg-live"
+                aria-hidden="true"
+              />
               {PODCAST.frequency}
             </span>
             <span aria-hidden="true" className="h-3 w-px bg-border" />
@@ -242,18 +249,18 @@ function WhoFor() {
         {/* 保留 #topics 錨點：外部可能已分享連結 */}
         <div id="topics">
           <Eyebrow>內容主軸</Eyebrow>
-          <h3 className="text-[22px] font-semibold leading-[1.3] tracking-tight text-foreground sm:text-2xl">
+          <h2 className="text-[22px] font-semibold leading-[1.3] tracking-tight text-foreground sm:text-2xl">
             四大內容主軸
-          </h3>
+          </h2>
           <ul className="mt-7 grid grid-cols-2 gap-3 sm:gap-4">
             {TOPICS.map((t) => {
               const Icon = TOPIC_ICONS[t.code] ?? Shield;
               return (
                 <li key={t.code} className="rounded-xl border border-border bg-surface p-4 sm:p-5">
                   <Icon className="h-5 w-5 text-accent-2" aria-hidden="true" />
-                  <h4 className="mt-3 text-base font-semibold text-foreground sm:text-[17px]">
+                  <h3 className="mt-3 text-base font-semibold text-foreground sm:text-[17px]">
                     {t.title}
-                  </h4>
+                  </h3>
                   <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">{t.desc}</p>
                 </li>
               );
@@ -293,63 +300,77 @@ function Schedule() {
 }
 
 // ─────────── FIRST LISTEN ───────────
-function FirstListen({ episodes }: { episodes: Episode[] }) {
+function FirstListen({ episodes, source }: { episodes: Episode[]; source: string }) {
   const picks = episodes.slice(0, 3);
-  if (picks.length === 0) return null;
 
   return (
     <section id="first-listen" className="border-b border-border bg-surface">
       <div className={cn(CONTAINER, SECTION_Y)}>
-        <SectionHeader
-          eyebrow="先聽一集"
-          title="第一次來，這樣開始最快。"
-          lead="先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。"
-        />
+        <div className="flex flex-wrap items-end justify-between gap-3">
+          <SectionHeader
+            eyebrow="先聽一集"
+            title="第一次來，這樣開始最快。"
+            lead="先從最近三集裡挑一集試聽，感受主持節奏；喜歡的話，再往下選平台訂閱。"
+          />
+          {source === "fallback" && picks.length > 0 && (
+            <span className="text-[13px] text-muted-foreground">暫顯示範例集數，待 RSS 設定</span>
+          )}
+        </div>
 
-        <ol className={cn(SCROLL_ROW, "mt-8")}>
-          {picks.map((ep, idx) => {
-            const label = ep.episodeNumber
-              ? `EP${String(ep.episodeNumber).padStart(3, "0")}`
-              : `EP${String(idx + 1).padStart(3, "0")}`;
-            const isExternal = ep.link?.startsWith("http");
-            const duration = formatDuration(ep.durationSec);
-            return (
-              <li key={ep.id} className={SCROLL_ROW_ITEM}>
-                <a
-                  href={ep.link || "#tune-in"}
-                  target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noopener noreferrer" : undefined}
-                  data-event="click_episode_card"
-                  data-ep={label}
-                  className="group flex h-full flex-col rounded-xl border border-border bg-background p-5 transition-colors duration-200 hover:border-accent"
-                >
-                  <div className="flex min-h-7 items-center justify-between gap-3 text-[13px]">
-                    <span className="font-semibold tabular-nums text-accent">{label}</span>
-                    {idx === 0 && (
-                      <span className="rounded-md bg-surface-2 px-2 py-1 text-xs font-medium text-foreground">
-                        先從這集試
+        {picks.length === 0 ? (
+          <p className="mt-8 border-y border-border py-8 text-[15px] text-muted-foreground">
+            目前暫無可試聽集數，歡迎直接{" "}
+            <a href="#tune-in" className={TEXT_LINK}>
+              前往選擇收聽平台
+            </a>
+            。
+          </p>
+        ) : (
+          <ol className={cn(SCROLL_ROW, "mt-8")}>
+            {picks.map((ep, idx) => {
+              const label = ep.episodeNumber
+                ? `EP${String(ep.episodeNumber).padStart(3, "0")}`
+                : formatDate(ep.pubDate) || "先聽推薦";
+              const isExternal = ep.link?.startsWith("http");
+              const duration = formatDuration(ep.durationSec);
+              return (
+                <li key={ep.id} className={SCROLL_ROW_ITEM}>
+                  <a
+                    href={ep.link || "#tune-in"}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    data-event="click_episode_card"
+                    data-ep={label}
+                    className="group flex h-full flex-col rounded-xl border border-border bg-background p-5 transition-colors duration-200 hover:border-accent"
+                  >
+                    <div className="flex min-h-7 items-center justify-between gap-3 text-[13px]">
+                      <span className="font-semibold tabular-nums text-accent">{label}</span>
+                      {idx === 0 && (
+                        <span className="rounded-md bg-surface-2 px-2 py-1 text-xs font-medium text-foreground">
+                          先從這集試
+                        </span>
+                      )}
+                    </div>
+                    <h3 className="mt-3 line-clamp-3 flex-1 text-[17px] font-semibold leading-[1.45] text-foreground">
+                      {ep.title}
+                    </h3>
+                    <span className="mt-5 flex items-center gap-3 text-sm font-semibold text-foreground">
+                      <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-background">
+                        <Play className="h-4 w-4 fill-current" aria-hidden="true" />
                       </span>
-                    )}
-                  </div>
-                  <h3 className="mt-3 line-clamp-3 flex-1 text-[17px] font-semibold leading-[1.45] text-foreground">
-                    {ep.title}
-                  </h3>
-                  <span className="mt-5 flex items-center gap-3 text-sm font-semibold text-foreground">
-                    <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent text-background">
-                      <Play className="h-4 w-4 fill-current" aria-hidden="true" />
+                      收聽
+                      {duration && (
+                        <span className="font-normal tabular-nums text-muted-foreground">
+                          {duration}
+                        </span>
+                      )}
                     </span>
-                    收聽
-                    {duration && (
-                      <span className="font-normal tabular-nums text-muted-foreground">
-                        {duration}
-                      </span>
-                    )}
-                  </span>
-                </a>
-              </li>
-            );
-          })}
-        </ol>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+        )}
 
         <p className="mt-8 flex flex-wrap items-center gap-x-4 gap-y-2 text-[15px] text-muted-foreground">
           <span>有一集讓你想聽完，就直接去選平台訂閱。</span>
@@ -376,43 +397,49 @@ function Episodes({ episodes, source }: { episodes: Episode[]; source: string })
         </div>
 
         {/* 重列表、輕卡片：左 EP＋日期，中標題，右時長／箭頭 */}
-        <ol className="mt-8 divide-y divide-border border-y border-border">
-          {episodes.map((ep) => {
-            const isExternal = ep.link?.startsWith("http");
-            const duration = formatDuration(ep.durationSec);
-            return (
-              <li key={ep.id}>
-                <a
-                  href={ep.link || "#tune-in"}
-                  target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noreferrer" : undefined}
-                  data-event="click_episode_card"
-                  className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 py-4 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:gap-x-6 sm:py-5"
-                >
-                  <span className="col-span-2 flex items-center gap-3 text-[13px] tabular-nums text-muted-foreground sm:col-span-1">
-                    {ep.episodeNumber && (
-                      <span className="font-semibold text-accent">
-                        EP{String(ep.episodeNumber).padStart(3, "0")}
-                      </span>
-                    )}
-                    {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
-                    {duration && <span className="sm:hidden">{duration}</span>}
-                  </span>
-                  <h3 className="line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors duration-200 group-hover:text-accent sm:text-[17px]">
-                    {ep.title}
-                  </h3>
-                  <span className="flex items-center gap-4 text-[13px] tabular-nums text-muted-foreground">
-                    {duration && <span className="hidden sm:inline">{duration}</span>}
-                    <ArrowUpRight
-                      className="h-4 w-4 transition-colors duration-200 group-hover:text-accent"
-                      aria-hidden="true"
-                    />
-                  </span>
-                </a>
-              </li>
-            );
-          })}
-        </ol>
+        {episodes.length === 0 ? (
+          <p className="mt-8 border-y border-border py-8 text-[15px] text-muted-foreground">
+            目前尚無集數資料，請稍後再試或直接前往訂閱平台收聽。
+          </p>
+        ) : (
+          <ol className="mt-8 divide-y divide-border border-y border-border">
+            {episodes.map((ep) => {
+              const isExternal = ep.link?.startsWith("http");
+              const duration = formatDuration(ep.durationSec);
+              return (
+                <li key={ep.id}>
+                  <a
+                    href={ep.link || "#tune-in"}
+                    target={isExternal ? "_blank" : undefined}
+                    rel={isExternal ? "noopener noreferrer" : undefined}
+                    data-event="click_episode_card"
+                    className="group grid grid-cols-[minmax(0,1fr)_auto] items-center gap-x-4 gap-y-1.5 py-4 sm:grid-cols-[10rem_minmax(0,1fr)_auto] sm:gap-x-6 sm:py-5"
+                  >
+                    <span className="col-span-2 flex items-center gap-3 text-[13px] tabular-nums text-muted-foreground sm:col-span-1">
+                      {ep.episodeNumber && (
+                        <span className="font-semibold text-accent">
+                          EP{String(ep.episodeNumber).padStart(3, "0")}
+                        </span>
+                      )}
+                      {ep.pubDate && <span>{formatDate(ep.pubDate)}</span>}
+                      {duration && <span className="sm:hidden">{duration}</span>}
+                    </span>
+                    <h3 className="line-clamp-2 text-base font-medium leading-snug text-foreground transition-colors duration-200 group-hover:text-accent sm:text-[17px]">
+                      {ep.title}
+                    </h3>
+                    <span className="flex items-center gap-4 text-[13px] tabular-nums text-muted-foreground">
+                      {duration && <span className="hidden sm:inline">{duration}</span>}
+                      <ArrowUpRight
+                        className="h-4 w-4 transition-colors duration-200 group-hover:text-accent"
+                        aria-hidden="true"
+                      />
+                    </span>
+                  </a>
+                </li>
+              );
+            })}
+          </ol>
+        )}
       </div>
     </section>
   );
@@ -492,7 +519,7 @@ function TuneIn() {
                 <a
                   href={p.url}
                   target={isExternal ? "_blank" : undefined}
-                  rel={isExternal ? "noreferrer" : undefined}
+                  rel={isExternal ? "noopener noreferrer" : undefined}
                   data-event="click_platform"
                   data-platform={p.key}
                   aria-label={`${p.description}（${p.name}）`}
@@ -550,7 +577,7 @@ function Footer() {
                 <a
                   href={s.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   data-event="click_social"
                   data-platform={s.key}
                   aria-label={`在 ${s.name} 追蹤 ${s.handle}`}
@@ -614,7 +641,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
           <a
             href={channelUrl}
             target="_blank"
-            rel="noreferrer"
+            rel="noopener noreferrer"
             data-event="click_youtube_channel"
             className={BTN_SECONDARY}
           >
@@ -630,7 +657,7 @@ function YouTubeLatest({ videos }: { videos: YouTubeVideo[] }) {
                 <a
                   href={v.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   data-event="click_youtube_video"
                   data-video-id={v.id}
                   className="group block"
@@ -684,7 +711,7 @@ export default function EnianLanding({
       <TopNav />
       <main id="main" className="min-h-screen bg-background text-foreground">
         <Hero />
-        <FirstListen episodes={episodes} />
+        <FirstListen episodes={episodes} source={source} />
         <WhoFor />
         <Schedule />
         <Episodes episodes={episodes} source={source} />

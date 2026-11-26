@@ -1,8 +1,15 @@
-import { fetchFeed } from "./feed";
 import { createServerFn } from "@tanstack/react-start";
 import { setResponseHeaders } from "@tanstack/react-start/server";
 import { XMLParser } from "fast-xml-parser";
 import { PODCAST } from "@/lib/enian/constants";
+import {
+  extractText,
+  fetchFeed,
+  parseDuration,
+  parseEpisodeNumber,
+  safeHttpUrl,
+  stripHtml,
+} from "./feed";
 
 export type Episode = {
   id: string;
@@ -79,67 +86,26 @@ const FALLBACK_EPISODES: Episode[] = [
   },
 ];
 
-function stripHtml(input: string): string {
-  return input
-    .replace(/<[^>]+>/g, "")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&lt;/g, "<")
-    .replace(/&gt;/g, ">")
-    .replace(/&quot;/g, '"')
-    .replace(/\s+/g, " ")
-    .trim();
-}
+const FETCH_TIMEOUT_MS = 4000;
 
-function parseDuration(value: unknown): number | undefined {
-  if (typeof value === "number") return value;
-  if (typeof value !== "string") return undefined;
-  if (/^\d+$/.test(value)) return parseInt(value, 10);
-  const parts = value.split(":").map((p) => parseInt(p, 10));
-  if (parts.some(isNaN)) return undefined;
-  if (parts.length === 3) return parts[0] * 3600 + parts[1] * 60 + parts[2];
-  if (parts.length === 2) return parts[0] * 60 + parts[1];
-  return undefined;
-}
-
-function getEnclosureUrl(enclosure: unknown): string | undefined {
-  if (Array.isArray(enclosure)) {
-    const firstItem = enclosure[0];
-    if (typeof firstItem === "object" && firstItem !== null) {
-      const url = (firstItem as Record<string, unknown>)["@_url"];
-      return typeof url === "string" && url ? url : undefined;
-    }
-    return undefined;
+function trySetCacheControl(value: string) {
+  try {
+    setResponseHeaders(new Headers({ "Cache-Control": value }));
+  } catch {
+    // 非標準請求或預渲染環境可能無 response context，略過標頭設定
   }
-
-  if (typeof enclosure === "object" && enclosure !== null) {
-    const url = (enclosure as Record<string, unknown>)["@_url"];
-    return typeof url === "string" && url ? url : undefined;
-  }
-
-  return undefined;
-}
-
-function getGuidValue(guid: unknown): string | undefined {
-  if (typeof guid === "string" && guid) return guid;
-  if (typeof guid === "object" && guid !== null) {
-    const text = (guid as Record<string, unknown>)["#text"];
-    return typeof text === "string" && text ? text : undefined;
-  }
-  return undefined;
 }
 
 export const getEpisodes = createServerFn({ method: "GET" }).handler(
   async (): Promise<{ episodes: Episode[]; source: "rss" | "fallback"; error?: string }> => {
     const url = PODCAST.rssFeedUrl;
     if (!url) {
+      trySetCacheControl("no-store");
       return { episodes: FALLBACK_EPISODES, source: "fallback" };
     }
 
     try {
-      setResponseHeaders(new Headers({ "Cache-Control": "public, max-age=300, s-maxage=300" }));
-
-      const xml = await fetchFeed(url);
+      const xml = await fetchFeed(url, FETCH_TIMEOUT_MS);
       const parser = new XMLParser({
         ignoreAttributes: false,
         attributeNamePrefix: "@_",
@@ -147,28 +113,40 @@ export const getEpisodes = createServerFn({ method: "GET" }).handler(
       const data = parser.parse(xml);
       const items = data?.rss?.channel?.item;
       if (!items) {
+        trySetCacheControl("no-store");
         return { episodes: FALLBACK_EPISODES, source: "fallback", error: "no items" };
       }
       const list = Array.isArray(items) ? items : [items];
+      if (list.length === 0) {
+        trySetCacheControl("no-store");
+        return { episodes: FALLBACK_EPISODES, source: "fallback", error: "no items" };
+      }
 
       const episodes: Episode[] = list.slice(0, 8).map((item: ParsedEpisodeItem, idx: number) => {
-        const audioUrl = getEnclosureUrl(item.enclosure);
-        const rawDesc = item["itunes:summary"] ?? item.description ?? item["content:encoded"] ?? "";
+        const audioUrl = safeHttpUrl(item.enclosure);
+        const safeLink = safeHttpUrl(item.link);
+        const rawDesc =
+          extractText(item["itunes:summary"]) ||
+          extractText(item.description) ||
+          extractText(item["content:encoded"]);
+        const guid = extractText(item.guid);
         return {
-          id: getGuidValue(item.guid) ?? String(item.link ?? `ep-${idx}`),
-          title: String(item.title ?? "").trim(),
-          description: stripHtml(String(rawDesc)).slice(0, 160),
-          pubDate: String(item.pubDate ?? ""),
-          link: String(item.link ?? audioUrl ?? "#"),
+          id: guid || safeLink || `ep-${idx}`,
+          title: extractText(item.title),
+          description: stripHtml(rawDesc).slice(0, 160),
+          pubDate: extractText(item.pubDate),
+          link: safeLink ?? audioUrl ?? "#tune-in",
           audioUrl,
           durationSec: parseDuration(item["itunes:duration"]),
-          episodeNumber: item["itunes:episode"] ? Number(item["itunes:episode"]) : undefined,
+          episodeNumber: parseEpisodeNumber(item["itunes:episode"]),
         };
       });
 
+      trySetCacheControl("public, max-age=300, s-maxage=300");
       return { episodes, source: "rss" };
     } catch (err) {
       console.error("RSS parse error:", err);
+      trySetCacheControl("no-store");
       return {
         episodes: FALLBACK_EPISODES,
         source: "fallback",

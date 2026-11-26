@@ -86,8 +86,12 @@ export function PlatformIcon({
   );
 }
 
+const TAIPEI_OFFSET_MS = 8 * 60 * 60 * 1000;
+
 /** 頁尾底列：品牌、頁面專屬連結（children）、合作信箱與版權。兩個頁面共用。 */
 export function FooterBar({ children }: { children?: ReactNode }) {
+  // 固定以台北時間（UTC+8）計算年份，避免跨年 00:00–07:59 在 SSR (UTC) 與瀏覽器間發生 hydration mismatch
+  const year = new Date(Date.now() + TAIPEI_OFFSET_MS).getUTCFullYear();
   return (
     <div className="border-t border-border">
       <div
@@ -111,7 +115,7 @@ export function FooterBar({ children }: { children?: ReactNode }) {
           </a>
         </nav>
         <p className="text-[13px]">
-          © {new Date().getFullYear()} {PODCAST.name} · emting.life
+          © {year} {PODCAST.name} · emting.life
         </p>
       </div>
     </div>

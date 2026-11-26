@@ -15,7 +15,7 @@
  * - 只把 Status＝Published 的文章寫進快照；排程未到的由網站端的發布閘門擋下。
  */
 import { createHash } from "node:crypto";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, extname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -41,9 +41,84 @@ const MEDIA_DIR = join(ROOT, "public/blog/media");
 const IMAGE_TYPES: Record<string, string> = {
   "image/png": ".png",
   "image/jpeg": ".jpg",
+  "image/jpg": ".jpg",
   "image/webp": ".webp",
   "image/gif": ".gif",
 };
+const FETCH_TIMEOUT_MS = 15_000;
+const MAX_IMAGE_BYTES = 10 * 1024 * 1024;
+
+/** 只允許公開的 http(s) 圖片網址，阻擋 localhost／內網／link-local 等 SSRF 目標。 */
+export function isSafeImageUrl(rawUrl: string): boolean {
+  let url: URL;
+  try {
+    url = new URL(rawUrl);
+  } catch {
+    return false;
+  }
+  if (url.protocol !== "http:" && url.protocol !== "https:") return false;
+  if (url.username || url.password) return false;
+  const host = url.hostname.toLowerCase().replace(/^\[|\]$/g, "");
+  if (!host) return false;
+  if (
+    host === "localhost" ||
+    host.endsWith(".localhost") ||
+    host.endsWith(".local") ||
+    host.endsWith(".internal")
+  ) {
+    return false;
+  }
+  // IPv4 私網、迴圈、link-local 與 CGNAT 網段（WHATWG URL 會正規化八進位／十進位 IP）
+  const ipv4 = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/.exec(host);
+  if (ipv4) {
+    const [a, b] = [Number(ipv4[1]), Number(ipv4[2])];
+    if (
+      a === 0 ||
+      a === 10 ||
+      a === 127 ||
+      (a === 100 && b >= 64 && b <= 127) ||
+      (a === 169 && b === 254) ||
+      (a === 172 && b >= 16 && b <= 31) ||
+      (a === 192 && b === 168) ||
+      a >= 224
+    ) {
+      return false;
+    }
+  }
+  // IPv6 迴圈、未指定、link-local（fe80::/10）、ULA（fc00::/7）與 IPv4 映射位址
+  if (host.includes(":")) {
+    if (
+      host === "::" ||
+      host === "::1" ||
+      /^fe[89ab][0-9a-f]:/.test(host) ||
+      /^f[cd][0-9a-f]{2}:/.test(host) ||
+      host.startsWith("::ffff:")
+    ) {
+      return false;
+    }
+  }
+  return true;
+}
+
+/** 從檔頭魔術位元組（Magic Bytes）判斷圖片副檔名，不依賴伺服器 Content-Type 或網址副檔名。 */
+export function detectImageExt(bytes: Uint8Array): string | null {
+  if (bytes.length < 12) return null;
+  if (bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) {
+    return ".png";
+  }
+  if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) {
+    return ".gif";
+  }
+  if (bytes[0] === 0xff && bytes[1] === 0xd8) {
+    return ".jpg";
+  }
+  const riff = String.fromCharCode(...bytes.slice(0, 4));
+  const webp = String.fromCharCode(...bytes.slice(8, 12));
+  if (riff === "RIFF" && webp === "WEBP") {
+    return ".webp";
+  }
+  return null;
+}
 
 /** 給同步紀錄與內容 PR 用：有標題就同時寫標題與頁面 ID。 */
 export function blockedPostLine(title: string, pageId: string, reason: string): string {
@@ -63,8 +138,11 @@ export function retainBlockedPost(
 ): void {
   blocked.push(blockedPostLine(post?.title ?? "", pageId, reason));
   if (previous) {
-    paths.add(`${previous.date}-${previous.slug}`);
-    posts.push(previous);
+    const path = `${previous.date}-${previous.slug}`;
+    if (!paths.has(path)) {
+      paths.add(path);
+      posts.push(previous);
+    }
   }
 }
 
@@ -163,64 +241,148 @@ async function fetchBlocks(blockId: string): Promise<NotionBlock[]> {
 
 /** 從檔頭讀出圖片尺寸（PNG／GIF／JPEG／WebP），用來預留版面比例。 */
 export function imageSize(bytes: Uint8Array): { width: number; height: number } | null {
+  if (bytes.length < 16) return null;
   const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
-  if (bytes[0] === 0x89 && bytes[1] === 0x50) {
-    if (bytes.length < 24) return null;
-    return { width: view.getUint32(16), height: view.getUint32(20) };
+  if (
+    bytes[0] === 0x89 &&
+    bytes[1] === 0x50 &&
+    bytes[2] === 0x4e &&
+    bytes[3] === 0x47 &&
+    bytes.length >= 24
+  ) {
+    const width = view.getUint32(16);
+    const height = view.getUint32(20);
+    return width > 0 && height > 0 ? { width, height } : null;
   }
-  if (bytes[0] === 0x47 && bytes[1] === 0x49) {
-    if (bytes.length < 10) return null;
-    return { width: view.getUint16(6, true), height: view.getUint16(8, true) };
+  if (bytes[0] === 0x47 && bytes[1] === 0x49 && bytes[2] === 0x46) {
+    const width = view.getUint16(6, true);
+    const height = view.getUint16(8, true);
+    return width > 0 && height > 0 ? { width, height } : null;
   }
   if (bytes[0] === 0xff && bytes[1] === 0xd8) {
     let offset = 2;
-    while (offset + 9 < bytes.length) {
-      const marker = bytes[offset + 1];
-      const length = view.getUint16(offset + 2);
-      // SOF0–SOF15（不含 DHT／JPG／DAC）帶有尺寸
-      if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) {
-        return { width: view.getUint16(offset + 7), height: view.getUint16(offset + 5) };
+    while (offset < bytes.length) {
+      while (offset < bytes.length && bytes[offset] !== 0xff) offset++;
+      while (offset < bytes.length && bytes[offset] === 0xff) offset++;
+      if (offset >= bytes.length) break;
+      const marker = bytes[offset];
+      offset++;
+      // EOI(D9) 結束圖片，無須繼續掃描
+      if (marker === 0xd9) break;
+      // 獨立 marker 與 byte stuffing（0x00）不含長度欄位
+      if (
+        marker === 0x00 ||
+        marker === 0xd8 ||
+        marker === 0x01 ||
+        (marker >= 0xd0 && marker <= 0xd7)
+      ) {
+        continue;
       }
-      offset += 2 + length;
+      if (offset + 2 > bytes.length) break;
+      const length = view.getUint16(offset);
+      if (length < 2 || offset + length > bytes.length) break;
+      // SOF0–SOF15（不含 DHT=C4、JPG=C8、DAC=CC）帶有尺寸
+      if (marker >= 0xc0 && marker <= 0xcf && ![0xc4, 0xc8, 0xcc].includes(marker)) {
+        if (length >= 7 && offset + 7 <= bytes.length) {
+          const width = view.getUint16(offset + 5);
+          const height = view.getUint16(offset + 3);
+          return width > 0 && height > 0 ? { width, height } : null;
+        }
+        break;
+      }
+      offset += length;
     }
     return null;
   }
+  const riff = String.fromCharCode(...bytes.slice(0, 4));
+  const webp = String.fromCharCode(...bytes.slice(8, 12));
+  if (riff !== "RIFF" || webp !== "WEBP") return null;
   const tag = String.fromCharCode(...bytes.slice(12, 16));
-  if (tag === "VP8X") {
-    if (bytes.length < 30) return null;
+  if (tag === "VP8X" && bytes.length >= 30) {
     const width = 1 + (bytes[24] | (bytes[25] << 8) | (bytes[26] << 16));
     const height = 1 + (bytes[27] | (bytes[28] << 8) | (bytes[29] << 16));
-    return { width, height };
+    return width > 0 && height > 0 ? { width, height } : null;
   }
-  if (tag === "VP8 ") {
-    if (bytes.length < 30) return null;
-    return { width: view.getUint16(26, true) & 0x3fff, height: view.getUint16(28, true) & 0x3fff };
+  if (tag === "VP8 " && bytes.length >= 30) {
+    const width = view.getUint16(26, true) & 0x3fff;
+    const height = view.getUint16(28, true) & 0x3fff;
+    return width > 0 && height > 0 ? { width, height } : null;
   }
-  if (tag === "VP8L") {
-    if (bytes.length < 25) return null;
+  if (tag === "VP8L" && bytes.length >= 25) {
     const bits = view.getUint32(21, true);
-    return { width: (bits & 0x3fff) + 1, height: ((bits >> 14) & 0x3fff) + 1 };
+    const width = (bits & 0x3fff) + 1;
+    const height = ((bits >> 14) & 0x3fff) + 1;
+    return width > 0 && height > 0 ? { width, height } : null;
   }
   return null;
 }
 
-/** 下載圖片時限制連線及內容讀取時間，錯誤不輸出可能含簽章的來源網址。 */
+/** 串流讀取回應位元組，超過上限即中止以避免大檔撐爆記憶體。 */
+async function readBodyWithLimit(res: Response, limit: number): Promise<Uint8Array | null> {
+  const contentLength = res.headers.get("content-length");
+  if (contentLength !== null && Number(contentLength) > limit) {
+    await res.body?.cancel();
+    return null;
+  }
+  if (!res.body) {
+    const buf = new Uint8Array(await res.arrayBuffer());
+    return buf.byteLength <= limit ? buf : null;
+  }
+  const reader = res.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      total += value.byteLength;
+      if (total > limit) {
+        await reader.cancel();
+        return null;
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const out = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    out.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return out;
+}
+
+/** 下載圖片時阻擋不安全網址並限制連線／讀取時間，錯誤不輸出可能含簽章的來源網址。 */
 export async function downloadImage(
   url: string,
   blockId: string,
   options: { timeoutMs?: number; fetcher?: typeof fetch } = {},
-): Promise<{ bytes: Uint8Array; type: string }> {
+): Promise<{ bytes: Uint8Array; type: string; ext: string }> {
+  if (!isSafeImageUrl(url)) {
+    throw new BlockError(blockId, "圖片網址不安全或格式錯誤");
+  }
   const controller = new AbortController();
-  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 15000);
+  const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? FETCH_TIMEOUT_MS);
   try {
     const response = await (options.fetcher ?? fetch)(url, { signal: controller.signal });
     if (!response.ok) throw new BlockError(blockId, `圖片下載失敗（HTTP ${response.status}）`);
-    const type = response.headers.get("content-type")?.split(";")[0] ?? "";
-    const ext = IMAGE_TYPES[type] ?? extname(new URL(url).pathname).toLowerCase();
-    if (!Object.values(IMAGE_TYPES).includes(ext)) {
+    const bytes = await readBodyWithLimit(response, MAX_IMAGE_BYTES);
+    if (!bytes) {
+      throw new BlockError(blockId, `圖片超過大小上限（上限 ${MAX_IMAGE_BYTES} bytes）`);
+    }
+    const type = response.headers.get("content-type")?.split(";")[0]?.trim().toLowerCase() ?? "";
+    const rawExt = extname(new URL(url).pathname).toLowerCase();
+    const normExt = rawExt === ".jpeg" ? ".jpg" : rawExt;
+    const ext =
+      detectImageExt(bytes) ??
+      IMAGE_TYPES[type] ??
+      (Object.values(IMAGE_TYPES).includes(normExt) ? normExt : "");
+    if (!ext) {
       throw new BlockError(blockId, "圖片格式不支援，請使用 PNG、JPEG、WebP 或 GIF");
     }
-    return { bytes: new Uint8Array(await response.arrayBuffer()), type };
+    return { bytes, type, ext };
   } catch (error) {
     if (error instanceof BlockError) throw error;
     throw new Error(
@@ -235,7 +397,7 @@ export async function downloadImage(
 
 /**
  * Notion 託管的圖片網址會過期：在有效期內下載，存成以內容雜湊命名的網站公開資產。
- * HTTP、格式或尺寸問題會阻擋該篇並回報區塊 ID；網路例外仍中止整批。
+ * HTTP、SSRF、格式、大小或尺寸問題會阻擋該篇並回報區塊 ID；網路例外仍中止整批。
  */
 export async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, ResolvedImage>> {
   const images = new Map<string, ResolvedImage>();
@@ -249,8 +411,7 @@ export async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, 
         };
         const url = data.type === "file" ? data.file?.url : data.external?.url;
         if (!url) throw new BlockError(block.id, "圖片缺少來源網址");
-        const { bytes, type } = await downloadImage(url, block.id);
-        const ext = IMAGE_TYPES[type] ?? extname(new URL(url).pathname).toLowerCase();
+        const { bytes, ext } = await downloadImage(url, block.id);
         const size = imageSize(bytes);
         if (!size || !size.width || !size.height) {
           throw new BlockError(block.id, "圖片損壞或無法讀取尺寸");
@@ -265,6 +426,37 @@ export async function resolveImages(blocks: NotionBlock[]): Promise<Map<string, 
   };
   await walk(blocks);
   return images;
+}
+
+/**
+ * 判斷一篇文章是否可直接沿用既有快照（頁面未修改、未封存、狀態為 Published、校驗通過且所有本地圖片皆存在）。
+ * 讓日常排程只針對新增或有編輯過的文章呼叫 Notion 區塊 API 與下載圖片。
+ */
+export async function canReusePrevious(
+  page: NotionPage,
+  previous: Post | undefined,
+  mediaExists: (src: string) => Promise<boolean>,
+): Promise<boolean> {
+  if (!previous) return false;
+  if (page.archived || page.in_trash) return false;
+  if (previous.status !== "Published") return false;
+  if (previous.updatedAt !== page.last_edited_time) return false;
+  if (validatePost(previous).length > 0) return false;
+  for (const block of previous.blocks) {
+    if (block.type === "image" && !(await mediaExists(block.src))) {
+      return false;
+    }
+  }
+  return true;
+}
+
+async function localMediaExists(src: string): Promise<boolean> {
+  try {
+    await access(join(ROOT, "public", src));
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 async function main(): Promise<void> {
@@ -288,16 +480,30 @@ async function main(): Promise<void> {
   const posts: Post[] = [];
   const blocked: string[] = [];
   const paths = new Set<string>();
+  const forceFull = process.argv.includes("--full");
+  let reusedCount = 0;
 
   for (const page of pages) {
+    const existing = previousById.get(page.id);
     try {
+      if (!forceFull && (await canReusePrevious(page, existing, localMediaExists)) && existing) {
+        const cachedPath = `${existing.date}-${existing.slug}`;
+        if (!hasPathConflict(cachedPath, existing.id, reservedPaths, paths)) {
+          paths.add(cachedPath);
+          posts.push(existing);
+          reusedCount++;
+          continue;
+        }
+      }
       const notionBlocks = selectPublicBlocks(await fetchBlocks(page.id));
       const images = await resolveImages(notionBlocks);
       const { blocks, warnings } = convertBlocks(notionBlocks, images);
-      const post = pageToPost(page, blocks, previousById.get(page.id));
+      const post = pageToPost(page, blocks, existing);
       const problems = validatePost(post);
       const path = `${post.date}-${post.slug}`;
-      if (hasPathConflict(path, post.id, reservedPaths, paths)) problems.push(`網址重複：${path}`);
+      if (hasPathConflict(path, post.id, reservedPaths, paths)) {
+        problems.push(`網址重複：${path}`);
+      }
       if (problems.length > 0) {
         retainBlockedPost(
           { title: post.title || pageTitle(page) },
@@ -306,7 +512,7 @@ async function main(): Promise<void> {
           posts,
           paths,
           blocked,
-          previousById.get(page.id),
+          existing,
         );
         continue;
       }
@@ -324,7 +530,7 @@ async function main(): Promise<void> {
         posts,
         paths,
         blocked,
-        previousById.get(page.id),
+        existing,
       );
     }
   }
@@ -335,7 +541,7 @@ async function main(): Promise<void> {
   await writeFile(SNAPSHOT_PATH, `${JSON.stringify(snapshot, null, 2)}\n`, "utf8");
 
   console.log(
-    `同步完成：${posts.length} 篇寫入快照，${removed.length} 篇移除，${blocked.length} 篇被阻擋`,
+    `同步完成：${posts.length} 篇寫入快照（${reusedCount} 篇沿用快取），${removed.length} 篇移除，${blocked.length} 篇被阻擋`,
   );
   for (const line of blocked) console.error(`阻擋 ${line}`);
   if (blocked.length > 0) process.exitCode = 2;

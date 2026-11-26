@@ -84,14 +84,14 @@ function safeHref(href: string | null, blockId: string): string | undefined {
 
 export function richTextToInlines(richText: NotionRichText[], blockId: string): Inline[] {
   return richText.map((part) => {
-    // mention（頁面、人員、日期等）只留顯示名稱，不做成 Notion 連結。
-    if (part.type !== "text" && part.type !== "mention") {
+    // mention（頁面、人員、日期等）只留顯示名稱；equation 轉為行內 code 保留公式文字。
+    if (part.type !== "text" && part.type !== "mention" && part.type !== "equation") {
       throw new BlockError(blockId, `行內含有不支援的內容（${part.type}）`);
     }
     const inline: Inline = { text: part.plain_text };
     if (part.annotations?.bold) inline.bold = true;
     if (part.annotations?.italic) inline.italic = true;
-    if (part.annotations?.code) inline.code = true;
+    if (part.annotations?.code || part.type === "equation") inline.code = true;
     if (part.type === "text") {
       const href = safeHref(part.href, blockId);
       if (href) inline.href = href;
@@ -138,7 +138,7 @@ function splitSource(inlines: Inline[]): { body: Inline[]; source?: string } {
 }
 
 function isListItem(type: string): boolean {
-  return type === "bulleted_list_item" || type === "numbered_list_item";
+  return type === "bulleted_list_item" || type === "numbered_list_item" || type === "to_do";
 }
 
 function toParagraph(block: NotionBlock): Extract<Block, { type: "paragraph" }> | null {
@@ -168,9 +168,15 @@ function toCode(block: NotionBlock): Extract<Block, { type: "code" }> {
   };
 }
 
+function toEquation(block: NotionBlock): Extract<Block, { type: "code" }> | null {
+  const expr = String(payload(block).expression ?? "").trim();
+  if (!expr) return null;
+  return { type: "code", code: expr, language: "math" };
+}
+
 /**
  * 清單項目的子區塊，依出現順序轉成巢狀內容。
- * 連續的同種類清單合併成一段；段落、引文、程式碼穿插其中。
+ * 連續的同種類清單合併成一段；段落、引文、程式碼、公式、分隔線穿插其中。
  * 這些區塊若自己還有子區塊，接在它後面，避免默默丟掉。
  */
 function listItemChildren(children: NotionBlock[]): ListChild[] {
@@ -204,17 +210,32 @@ function listItemChildren(children: NotionBlock[]): ListChild[] {
       out.push(...listItemChildren(childrenOf(child)));
       continue;
     }
+    if (child.type === "equation") {
+      const eq = toEquation(child);
+      if (eq) out.push(eq);
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
+    if (SKIPPED_TYPES.has(child.type)) {
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
     throw new BlockError(child.id, `清單項目底下含有不支援的區塊（${child.type}）`);
   }
   return out;
 }
 
 function toList(items: NotionBlock[], ordered: boolean): ListBlock {
+  const checklist = items[0]?.type === "to_do";
   return {
     type: "list",
     ordered,
+    ...(checklist ? { checklist: true } : {}),
     items: items.map((item): ListItem => {
-      const listItem: ListItem = { inlines: inlinesOf(item) };
+      const listItem: ListItem = {
+        inlines: inlinesOf(item),
+        ...(item.type === "to_do" ? { checked: Boolean(payload(item).checked) } : {}),
+      };
       const nested = listItemChildren(childrenOf(item));
       if (nested.length > 0) listItem.children = nested;
       return listItem;
@@ -306,11 +327,9 @@ function convertList(
       case "paragraph": {
         const paragraph = toParagraph(block);
         if (paragraph) out.push(paragraph);
-        break;
-      }
-      case "to_do": {
-        const marker = data.checked === true ? "☑ " : "☐ ";
-        out.push({ type: "paragraph", inlines: [{ text: marker }, ...inlinesOf(block)] });
+        if (block.has_children || block.children?.length) {
+          out.push(...convertList(childrenOf(block), images, shiftHeadings));
+        }
         break;
       }
       case "heading_1":
@@ -327,10 +346,14 @@ function convertList(
           id: `h-${block.id.replaceAll("-", "").slice(0, 10)}`,
           inlines: inlinesOf(block),
         });
+        if (block.has_children || block.children?.length) {
+          out.push(...convertList(childrenOf(block), images, shiftHeadings));
+        }
         break;
       }
       case "bulleted_list_item":
-      case "numbered_list_item": {
+      case "numbered_list_item":
+      case "to_do": {
         const run = [block];
         while (notionBlocks[i + 1]?.type === block.type) run.push(notionBlocks[++i]);
         out.push(toList(run, block.type === "numbered_list_item"));
@@ -338,13 +361,22 @@ function convertList(
       }
       case "quote":
         out.push(toQuote(block));
+        if (block.has_children || block.children?.length) {
+          out.push(...convertList(childrenOf(block), images, shiftHeadings));
+        }
         break;
       case "callout": {
         const icon = (data.icon as { emoji?: string } | null)?.emoji;
         const inlines = inlinesOf(block);
         if (icon !== SCRIPTURE_ICON) {
           out.push({ type: "callout", inlines });
+          if (block.has_children || block.children?.length) {
+            out.push(...convertList(childrenOf(block), images, shiftHeadings));
+          }
           break;
+        }
+        if (block.has_children || block.children?.length) {
+          throw new BlockError(block.id, "經文區塊不支援巢狀子區塊");
         }
         // 經文：必須在最後一行標「——書卷 章:節（版本）」，內文一字不改
         const { body, source } = splitSource(inlines);
@@ -377,9 +409,23 @@ function convertList(
       }
       case "code":
         out.push(toCode(block));
+        if (block.has_children || block.children?.length) {
+          out.push(...convertList(childrenOf(block), images, shiftHeadings));
+        }
         break;
+      case "equation": {
+        const eq = toEquation(block);
+        if (eq) out.push(eq);
+        if (block.has_children || block.children?.length) {
+          out.push(...convertList(childrenOf(block), images, shiftHeadings));
+        }
+        break;
+      }
       case "divider":
         out.push({ type: "divider" });
+        if (block.has_children || block.children?.length) {
+          out.push(...convertList(childrenOf(block), images, shiftHeadings));
+        }
         break;
       case "toggle": {
         // toggle 的內容預設可讀：標題當一段粗體，內容照順序展開
@@ -396,19 +442,6 @@ function convertList(
       default:
         if (SKIPPED_TYPES.has(block.type)) break;
         throw new BlockError(block.id, `不支援的區塊類型：${block.type}`);
-    }
-    // 這些區塊的子內容已在各自的轉換分支中處理。
-    if (
-      ![
-        "bulleted_list_item",
-        "numbered_list_item",
-        "table",
-        "toggle",
-        "column_list",
-        "column",
-      ].includes(block.type)
-    ) {
-      out.push(...convertList(childrenOf(block), images, shiftHeadings));
     }
   }
   return out;

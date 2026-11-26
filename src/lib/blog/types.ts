@@ -15,7 +15,7 @@ export type Inline = {
   href?: string;
 };
 
-/** 清單項目裡依出現順序接上的內容：巢狀清單、段落、引文或程式碼。 */
+/** 清單項目裡依出現順序接上的內容：巢狀清單、段落、引文、程式碼（含區塊公式）或分隔線。 */
 export type ListChild = Extract<
   Block,
   { type: "list" | "paragraph" | "quote" | "code" | "divider" }
@@ -23,11 +23,19 @@ export type ListChild = Extract<
 
 export type ListItem = {
   inlines: Inline[];
-  /** 巢狀內容，依出現順序。項目與編號清單可混用，也可穿插段落、引文、程式碼。 */
+  /** 待辦清單項目的勾選狀態；僅 checklist 為 true 時設定。 */
+  checked?: boolean;
+  /** 巢狀內容，依出現順序。項目與編號清單可混用，也可穿插段落、引文、程式碼（含公式）或分隔線。 */
   children?: ListChild[];
 };
 
-export type ListBlock = { type: "list"; ordered: boolean; items: ListItem[] };
+export type ListBlock = {
+  type: "list";
+  ordered: boolean;
+  /** true 表示來自 Notion to_do 待辦清單，渲染時隱藏圓點改顯示核取狀態。 */
+  checklist?: boolean;
+  items: ListItem[];
+};
 
 export type Block =
   | { type: "paragraph"; inlines: Inline[] }

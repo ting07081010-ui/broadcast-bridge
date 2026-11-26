@@ -1,4 +1,3 @@
-import { latestUpdatesBy } from "./sitemap";
 import { createServerFn } from "@tanstack/react-start";
 import snapshotJson from "@/content/blog/snapshot.json";
 import {
@@ -6,35 +5,59 @@ import {
   groupByMonth,
   isPublic,
   pickFeature,
-  relatedPosts,
   postPath,
+  relatedPosts,
   sortNewestFirst,
   tableOfContents,
   toSummary,
+  validatePost,
   weekDays,
   weekIndex,
   type Feature,
   type MonthGroup,
   type WeekDay,
 } from "./posts";
+import { latestUpdatesBy } from "./sitemap";
 import { addDays, isoWeekKey, taipeiDate, weekKeyToMonday, weekStart } from "./time";
 import { TOPIC_SLUGS } from "./types";
 import type { BlogSnapshot, Post, PostSummary, TopicSlug } from "./types";
 
 const LATEST_LIMIT = 10;
 const snapshot = snapshotJson as unknown as BlogSnapshot;
+const validSnapshotPosts = snapshot.posts.filter((post) => validatePost(post).length === 0);
+const summaryCache = new WeakMap<Post, PostSummary>();
+
+function getSummary(post: Post): PostSummary {
+  let cached = summaryCache.get(post);
+  if (!cached) {
+    cached = toSummary(post);
+    summaryCache.set(post, cached);
+  }
+  return cached;
+}
+
+// 模組載入時預先建立快照文章摘要，避免每次請求重複掃描正文計算閱讀時間
+for (const post of validSnapshotPosts) {
+  getSummary(post);
+}
 
 /**
  * 所有通過發布閘門的文章，新到舊。
  * 測試稿只在開發模式以動態 import 載入，正式 build 會把這段整個移除。
  */
 async function loadPublicPosts(now: Date): Promise<Post[]> {
-  const posts: Post[] = [...snapshot.posts];
+  const nowMs = now.getTime();
+  const posts = validSnapshotPosts.filter(
+    (post) =>
+      post.status === "Published" &&
+      !post.archived &&
+      new Date(post.publishedAt).getTime() <= nowMs,
+  );
   if (import.meta.env.DEV) {
     const { FIXTURE_POSTS } = await import("@/content/blog/fixtures");
-    posts.push(...FIXTURE_POSTS);
+    posts.push(...FIXTURE_POSTS.filter((post) => isPublic(post, now)));
   }
-  return sortNewestFirst(posts.filter((post) => isPublic(post, now)));
+  return sortNewestFirst(posts);
 }
 
 export type BlogIndex = {
@@ -49,7 +72,7 @@ export type BlogIndex = {
 export const getBlogIndex = createServerFn({ method: "GET" }).handler(
   async (): Promise<BlogIndex> => {
     const now = new Date();
-    const summaries = (await loadPublicPosts(now)).map(toSummary);
+    const summaries = (await loadPublicPosts(now)).map(getSummary);
     const feature = pickFeature(summaries, now);
     return {
       today: taipeiDate(now),
@@ -71,32 +94,37 @@ export type PostPage = {
   related: PostSummary[];
 };
 
+const asString = (value: unknown): string => (typeof value === "string" ? value : "");
+
 export const getPostPage = createServerFn({ method: "GET" })
-  .inputValidator((path: string) => path)
+  .inputValidator(asString)
   .handler(async ({ data: path }): Promise<PostPage | null> => {
+    if (!path) return null;
     const posts = await loadPublicPosts(new Date());
     const post = posts.find((candidate) => postPath(candidate) === path);
     if (!post) return null;
+    const summaries = posts.map(getSummary);
+    const summary = getSummary(post);
     return {
       post,
-      summary: toSummary(post),
+      summary,
       toc: tableOfContents(post.blocks),
-      ...adjacentPosts(posts.map(toSummary), path),
-      related: relatedPosts(posts.map(toSummary), toSummary(post)),
+      ...adjacentPosts(summaries, path),
+      related: relatedPosts(summaries, summary),
     };
   });
 
 export type TopicPage = { topic: TopicSlug; posts: PostSummary[] };
 
 export const getTopicPage = createServerFn({ method: "GET" })
-  .inputValidator((topic: string) => topic)
+  .inputValidator(asString)
   .handler(async ({ data: topic }): Promise<TopicPage | null> => {
     // 只有六個主題有頁面；rest 是週索引的標記，不是第七個主題
     if (!TOPIC_SLUGS.includes(topic as TopicSlug)) return null;
     const posts = await loadPublicPosts(new Date());
     return {
       topic: topic as TopicSlug,
-      posts: posts.filter((post) => post.topic === topic).map(toSummary),
+      posts: posts.filter((post) => post.topic === topic).map(getSummary),
     };
   });
 
@@ -105,7 +133,7 @@ export type ArchivePage = { groups: MonthGroup[] };
 export const getArchivePage = createServerFn({ method: "GET" }).handler(
   async (): Promise<ArchivePage> => {
     const posts = await loadPublicPosts(new Date());
-    return { groups: groupByMonth(posts.map(toSummary)) };
+    return { groups: groupByMonth(posts.map(getSummary)) };
   },
 );
 
@@ -121,7 +149,7 @@ export type WeekPage = {
 };
 
 export const getWeekPage = createServerFn({ method: "GET" })
-  .inputValidator((weekKey: string) => weekKey)
+  .inputValidator(asString)
   .handler(async ({ data: weekKey }): Promise<WeekPage | null> => {
     const monday = weekKeyToMonday(weekKey);
     if (!monday) return null;
@@ -129,7 +157,7 @@ export const getWeekPage = createServerFn({ method: "GET" })
     const currentMonday = weekStart(taipeiDate(now));
     // 未來的週還不存在
     if (monday > currentMonday) return null;
-    const summaries = (await loadPublicPosts(now)).map(toSummary);
+    const summaries = (await loadPublicPosts(now)).map(getSummary);
     return {
       weekKey,
       monday,

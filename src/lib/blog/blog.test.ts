@@ -7,11 +7,11 @@ import type { NotionBlock, NotionPage, NotionRichText } from "./notion.ts";
 import {
   adjacentPosts,
   estimateReadingMinutes,
+  groupByMonth,
   isPublic,
   pickFeature,
   plainText,
   tableOfContents,
-  groupByMonth,
   toSummary,
   validatePost,
   weekDays,
@@ -50,9 +50,11 @@ const basePost: Post = {
 };
 const NOW = new Date("2026-10-05T12:00:00+08:00");
 
-test("台北日期：UTC 前一天深夜算台北的隔天", () => {
+test("台北日期：UTC 前一天深夜算台北的隔天；無效日期回傳空字串", () => {
   assert.equal(taipeiDate("2026-10-04T16:30:00Z"), "2026-10-05");
   assert.equal(taipeiDate("2026-10-04T15:59:00Z"), "2026-10-04");
+  assert.equal(taipeiDate("not-a-date"), "");
+  assert.equal(taipeiDate(""), "");
 });
 
 test("ISO 週：週一為起點，跨年用 ISO week-year", () => {
@@ -342,7 +344,7 @@ test("Notion 轉換：不支援的區塊、內部連結、危險協定、未抓�
     block("child-1", "child_page", { title: "子頁" }),
     block("link-1", "paragraph", { rich_text: [rt("內部", { href: "/abc123" })] }),
     block("js-1", "paragraph", { rich_text: [rt("壞", { href: "javascript:alert(1)" })] }),
-    block("eq-1", "paragraph", { rich_text: [rt("E=mc²", { type: "equation" })] }),
+    block("bad-inline-1", "paragraph", { rich_text: [rt("未知", { type: "unsupported" })] }),
     { id: "partial-1", type: "toggle", has_children: true, toggle: { rich_text: [rt("展開")] } },
   ];
   for (const bad of cases) {
@@ -352,6 +354,93 @@ test("Notion 轉換：不支援的區塊、內部連結、危險協定、未抓�
       bad.id,
     );
   }
+});
+
+test("Notion 轉換：支援行內與區塊 equation、to_do 待辦清單，以及清單底下的 divider", () => {
+  const inlineEq = block("p-eq", "paragraph", {
+    rich_text: [rt("公式："), rt("E=mc^2", { type: "equation" })],
+  });
+  const blockEq = block("b-eq", "equation", { expression: "a^2 + b^2 = c^2" });
+  const todo1 = block("td-1", "to_do", { rich_text: [rt("第一項")], checked: true });
+  const todo2 = block("td-2", "to_do", { rich_text: [rt("第二項")], checked: false }, [
+    block("div-1", "divider", {}),
+    para("td-2-p", "補充說明"),
+  ]);
+  const { blocks } = convertBlocks([inlineEq, blockEq, todo1, todo2], new Map());
+  assert.deepEqual(blocks[0], {
+    type: "paragraph",
+    inlines: [{ text: "公式：" }, { text: "E=mc^2", code: true }],
+  });
+  assert.deepEqual(blocks[1], {
+    type: "code",
+    code: "a^2 + b^2 = c^2",
+    language: "math",
+  });
+  assert.deepEqual(blocks[2], {
+    type: "list",
+    ordered: false,
+    checklist: true,
+    items: [
+      { inlines: [{ text: "第一項" }], checked: true },
+      {
+        inlines: [{ text: "第二項" }],
+        checked: false,
+        children: [{ type: "divider" }, { type: "paragraph", inlines: [{ text: "補充說明" }] }],
+      },
+    ],
+  });
+  assert.match(plainText([blocks[2]]), /第一項第二項補充說明/);
+});
+
+test("Notion 轉換：頂層 paragraph、quote、callout、heading 子區塊依序展開且不支援子區塊會阻擋", () => {
+  const pWithChild = block("p-parent", "paragraph", { rich_text: [rt("父段落")] }, [
+    para("p-child", "縮排段落"),
+  ]);
+  const hWithChild = block("h2-parent", "heading_2", { rich_text: [rt("可收合標題")] }, [
+    para("h2-child", "標題內文"),
+  ]);
+  const qWithChild = block("q-parent", "quote", { rich_text: [rt("引文")] }, [
+    para("q-child", "引文子段"),
+  ]);
+  const cWithChild = block("c-parent", "callout", { rich_text: [rt("提醒")] }, [
+    para("c-child", "提醒子段"),
+  ]);
+  const { blocks } = convertBlocks([pWithChild, hWithChild, qWithChild, cWithChild], new Map());
+  assert.equal(blocks.length, 8);
+  assert.deepEqual(
+    blocks.map((b) => b.type),
+    [
+      "paragraph",
+      "paragraph",
+      "heading",
+      "paragraph",
+      "quote",
+      "paragraph",
+      "callout",
+      "paragraph",
+    ],
+  );
+
+  // 頂層段落底下藏有不支援區塊時應拋出該子區塊 ID 的 BlockError
+  const badChild = block("p-bad", "paragraph", { rich_text: [rt("父")] }, [
+    block("embed-child", "embed", { url: "https://example.com" }),
+  ]);
+  assert.throws(
+    () => convertBlocks([badChild], new Map()),
+    (err: unknown) => err instanceof BlockError && err.blockId === "embed-child",
+  );
+
+  // 經文 callout 若帶有子區塊應阻擋
+  const scriptureWithChild = block(
+    "s-child",
+    "callout",
+    { icon: { emoji: "📖" }, rich_text: [rt("經文。\n——詩篇 1:1（和合本）")] },
+    [para("sc-1", "子段")],
+  );
+  assert.throws(
+    () => convertBlocks([scriptureWithChild], new Map()),
+    (err: unknown) => err instanceof BlockError && err.blockId === "s-child",
+  );
 });
 
 test("Notion 轉換：heading_4 不再被阻擋，對應為 h3", () => {
@@ -433,17 +522,137 @@ test("同步腳本：阻擋紀錄同時帶標題與頁面 ID", async () => {
   assert.equal(blockedPostLine("  ", "page-1", "原因"), "頁面 page-1：原因");
 });
 
-test("同步腳本：從檔頭讀出 PNG 與 GIF 尺寸，無法辨識的格式回傳 null", async () => {
-  const { imageSize } = await import("../../../scripts/sync-blog.ts");
+test("同步腳本：從檔頭讀出 PNG／GIF／JPEG／WebP 尺寸與副檔名、防呆畸形圖與 SSRF、並判斷可否沿用快取快照", async () => {
+  const { canReusePrevious, detectImageExt, imageSize, isSafeImageUrl } =
+    await import("../../../scripts/sync-blog.ts");
+  const ascii = (value: string) => new TextEncoder().encode(value);
   const png = new Uint8Array(24);
   png.set([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
   new DataView(png.buffer).setUint32(16, 720);
   new DataView(png.buffer).setUint32(20, 360);
+  assert.equal(detectImageExt(png), ".png");
   assert.deepEqual(imageSize(png), { width: 720, height: 360 });
+
   const gif = new Uint8Array(16);
   gif.set([0x47, 0x49, 0x46, 0x38, 0x39, 0x61, 0x40, 0x01, 0xf0, 0x00]);
+  assert.equal(detectImageExt(gif), ".gif");
   assert.deepEqual(imageSize(gif), { width: 320, height: 240 });
+
+  // 含多重 0xFF 填充、standalone marker (0xD0) 與 0xFF 0x00 byte stuffing 的 JPEG SOF0
+  const jpg = new Uint8Array([
+    0xff, 0xd8, 0xff, 0xd0, 0xff, 0x00, 0xff, 0xff, 0xc0, 0x00, 0x11, 0x08, 0x01, 0xe0, 0x02, 0x80,
+    0x03, 0x01, 0x22, 0x00, 0x02, 0x11, 0x01, 0x03, 0x11, 0x01,
+  ]);
+  assert.equal(detectImageExt(jpg), ".jpg");
+  assert.deepEqual(imageSize(jpg), { width: 640, height: 480 });
+
+  // 畸形 JPEG：EOI 先出現、SOF length < 7、0x0 尺寸皆應回傳 null
+  assert.equal(
+    imageSize(
+      new Uint8Array([
+        0xff, 0xd8, 0xff, 0xd9, 0xff, 0xc0, 0x00, 0x11, 0x08, 0x00, 0x10, 0x00, 0x10, 0, 0, 0,
+      ]),
+    ),
+    null,
+  );
+  assert.equal(
+    imageSize(
+      new Uint8Array([
+        0xff, 0xd8, 0xff, 0xc0, 0x00, 0x04, 0x08, 0x01, 0x00, 0x01, 0x00, 0, 0, 0, 0, 0,
+      ]),
+    ),
+    null,
+  );
+  assert.equal(
+    imageSize(
+      new Uint8Array([
+        0xff, 0xd8, 0xff, 0xc0, 0x00, 0x11, 0x08, 0x00, 0x00, 0x00, 0x00, 0, 0, 0, 0, 0,
+      ]),
+    ),
+    null,
+  );
+
+  // WebP：VP8X / VP8 / VP8L，以及非 RIFF/WEBP 檔頭不可誤判
+  const makeWebp = (chunkTag: string, len: number) => {
+    const buf = new Uint8Array(len);
+    buf.set(ascii("RIFF"), 0);
+    buf.set(ascii("WEBP"), 8);
+    buf.set(ascii(chunkTag), 12);
+    return buf;
+  };
+  const vp8x = makeWebp("VP8X", 30);
+  // 寬 800 (799 = 0x00031f), 高 600 (599 = 0x000257)
+  vp8x[24] = 0x1f;
+  vp8x[25] = 0x03;
+  vp8x[26] = 0x00;
+  vp8x[27] = 0x57;
+  vp8x[28] = 0x02;
+  vp8x[29] = 0x00;
+  assert.equal(detectImageExt(vp8x), ".webp");
+  assert.deepEqual(imageSize(vp8x), { width: 800, height: 600 });
+
+  const vp8 = makeWebp("VP8 ", 30);
+  new DataView(vp8.buffer).setUint16(26, 640 | 0x4000, true);
+  new DataView(vp8.buffer).setUint16(28, 480 | 0x8000, true);
+  assert.deepEqual(imageSize(vp8), { width: 640, height: 480 });
+
+  const vp8l = makeWebp("VP8L", 25);
+  // (320 - 1) | ((240 - 1) << 14)
+  new DataView(vp8l.buffer).setUint32(21, 319 | (239 << 14), true);
+  assert.deepEqual(imageSize(vp8l), { width: 320, height: 240 });
+
+  const fakeWebp = new Uint8Array(30);
+  fakeWebp.set(ascii("VP8X"), 12);
+  assert.equal(detectImageExt(fakeWebp), null);
+  assert.equal(imageSize(fakeWebp), null);
   assert.equal(imageSize(new Uint8Array(32)), null);
+
+  // SSRF 防呆
+  assert.equal(isSafeImageUrl("https://images.example.com/a.png"), true);
+  assert.equal(isSafeImageUrl("http://cdn.example.com/a.jpg"), true);
+  assert.equal(isSafeImageUrl("data:image/png;base64,AA=="), false);
+  assert.equal(isSafeImageUrl("file:///etc/passwd"), false);
+  assert.equal(isSafeImageUrl("http://localhost:3000/a.png"), false);
+  assert.equal(isSafeImageUrl("http://127.0.0.1/a.png"), false);
+  assert.equal(isSafeImageUrl("http://169.254.169.254/latest/meta-data/"), false);
+  assert.equal(isSafeImageUrl("http://10.0.0.1/a.png"), false);
+  assert.equal(isSafeImageUrl("http://192.168.1.10/a.png"), false);
+  assert.equal(isSafeImageUrl("http://[::1]/a.png"), false);
+
+  const page: NotionPage = {
+    id: "p1",
+    last_edited_time: "2026-10-05T10:00:00.000Z",
+    properties: {},
+  };
+  const cached: Post = {
+    ...basePost,
+    id: "p1",
+    updatedAt: "2026-10-05T10:00:00.000Z",
+    blocks: [{ type: "image", src: "/blog/media/a.png", alt: "圖", width: 100, height: 100 }],
+  };
+  assert.equal(await canReusePrevious(page, cached, async () => true), true);
+  assert.equal(await canReusePrevious(page, cached, async () => false), false);
+  assert.equal(
+    await canReusePrevious({ ...page, archived: true }, cached, async () => true),
+    false,
+  );
+  assert.equal(
+    await canReusePrevious({ ...page, in_trash: true }, cached, async () => true),
+    false,
+  );
+  assert.equal(
+    await canReusePrevious(page, { ...cached, status: "Draft" }, async () => true),
+    false,
+  );
+  assert.equal(await canReusePrevious(page, { ...cached, title: "" }, async () => true), false);
+  assert.equal(
+    await canReusePrevious(
+      { ...page, last_edited_time: "2026-10-06T00:00:00.000Z" },
+      cached,
+      async () => true,
+    ),
+    false,
+  );
 });
 
 test("週碼換回週一：跨年正確，格式錯誤或不存在的週回傳 null", () => {
@@ -508,14 +717,6 @@ test("同步校驗失敗時保留已發布舊版並記錄阻擋原因", async ()
   assert.deepEqual(posts, [basePost]);
   assert.ok(paths.has("2026-10-05-test-post"));
   assert.match(blocked[0], /缺少標題/);
-});
-
-test("待辦區塊保留勾選狀態和文字", () => {
-  const blocks = [
-    block("todo1", "to_do", { rich_text: [rt("待完成")], checked: false }),
-    block("todo2", "to_do", { rich_text: [rt("已完成")], checked: true }),
-  ];
-  assert.equal(plainText(convertBlocks(blocks, new Map()).blocks), "☐ 待完成\n☑ 已完成");
 });
 
 test("清單項目中的分隔線保留順序", () => {
@@ -591,15 +792,32 @@ test("損壞或截斷的圖片不會讓同步程序因尺寸解析崩潰", async
   }
 });
 
-test("圖片擷取回報 HTTP 狀態與區塊 ID，避免暴露來源網址", async () => {
+test("圖片擷取回報 HTTP 狀態與區塊 ID，避免暴露來源網址，並阻擋 SSRF 目標", async () => {
   const { resolveImages } = await import("../../../scripts/sync-blog.ts");
   const image = block("image-id", "image", {
     type: "external",
     external: { url: "https://example.com/private" },
   });
+  const ssrfImage = block("ssrf-id", "image", {
+    type: "external",
+    external: { url: "http://127.0.0.1/secret.png" },
+  });
   const originalFetch = globalThis.fetch;
+  let calls = 0;
   try {
-    globalThis.fetch = async () => new Response(null, { status: 403 });
+    globalThis.fetch = async () => {
+      calls++;
+      return new Response(null, { status: 403 });
+    };
+    await assert.rejects(
+      () => resolveImages([ssrfImage]),
+      (error: Error) =>
+        error instanceof BlockError &&
+        error.blockId === "ssrf-id" &&
+        !error.message.includes("127.0.0.1"),
+    );
+    assert.equal(calls, 0);
+
     await assert.rejects(
       () => resolveImages([image]),
       (error: Error) =>

@@ -5,10 +5,11 @@ const TAIPEI_OFFSET_MS = 8 * 60 * 60 * 1000;
 const DAY_MS = 24 * 60 * 60 * 1000;
 const WEEKDAY_LABELS = ["週日", "週一", "週二", "週三", "週四", "週五", "週六"];
 
-/** 把時間點換算成台北日期字串 YYYY-MM-DD。 */
+/** 把時間點換算成台北日期字串 YYYY-MM-DD；無效時間回傳空字串避免拋出 RangeError。 */
 export function taipeiDate(at: Date | string): string {
-  const ms = (typeof at === "string" ? new Date(at) : at).getTime() + TAIPEI_OFFSET_MS;
-  return new Date(ms).toISOString().slice(0, 10);
+  const raw = typeof at === "string" ? new Date(at) : at;
+  if (Number.isNaN(raw.getTime())) return "";
+  return new Date(raw.getTime() + TAIPEI_OFFSET_MS).toISOString().slice(0, 10);
 }
 
 function utcFromYmd(ymd: string): Date {

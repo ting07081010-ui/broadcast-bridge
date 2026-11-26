@@ -10,6 +10,8 @@
     "build:dev": "vite build --mode development",
     "preview": "vite preview",
     "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "node --test src/lib/blog/blog.test.ts src/lib/enian/feed.test.ts",
     "format": "prettier --write .",
     "sync:blog": "node scripts/sync-blog.ts"
   },

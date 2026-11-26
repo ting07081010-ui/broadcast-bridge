@@ -1,7 +1,14 @@
 node_modules
 dist
+dist-ssr/
 .output
 .vinxi
+.tanstack/
+.wrangler/
+.nitro/
+.lovable/
+.audit/
+.claude/
 pnpm-lock.yaml
 package-lock.json
 routeTree.gen.ts

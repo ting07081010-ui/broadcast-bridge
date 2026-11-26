@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useRef, useState } from "react";
 import { Check, Copy } from "lucide-react";
 import type { Block, Inline, ListBlock, ListChild } from "@/lib/blog/types";
 
@@ -63,6 +63,36 @@ function ListChildView({ child }: { child: ListChild }) {
 }
 
 function List({ list }: { list: ListBlock }) {
+  if (list.checklist) {
+    return (
+      <ul className="checklist">
+        {list.items.map((item, i) => {
+          const checked = Boolean(item.checked);
+          return (
+            <li key={i} className="flex items-start gap-2.5">
+              <span
+                aria-hidden="true"
+                className={
+                  checked
+                    ? "mt-[0.35em] inline-flex h-[1.05em] w-[1.05em] shrink-0 items-center justify-center rounded border border-ink-accent bg-ink-accent text-paper"
+                    : "mt-[0.35em] inline-flex h-[1.05em] w-[1.05em] shrink-0 items-center justify-center rounded border border-ink-muted"
+                }
+              >
+                {checked && <Check className="h-[0.75em] w-[0.75em]" strokeWidth={2.5} />}
+              </span>
+              <div className="min-w-0 flex-1">
+                <span className="sr-only">{checked ? "已完成：" : "未完成："}</span>
+                <Inlines inlines={item.inlines} />
+                {item.children?.map((child, j) => (
+                  <ListChildView key={j} child={child} />
+                ))}
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  }
   const Tag = list.ordered ? "ol" : "ul";
   return (
     <Tag>
@@ -80,6 +110,9 @@ function List({ list }: { list: ListBlock }) {
 
 function CodeBlock({ block }: { block: Extract<Block, { type: "code" }> }) {
   const [state, setState] = useState<"idle" | "copied" | "failed">("idle");
+  const resetTimer = useRef<ReturnType<typeof setTimeout>>(undefined);
+  useEffect(() => () => clearTimeout(resetTimer.current), []);
+
   const copy = async () => {
     try {
       await navigator.clipboard.writeText(block.code);
@@ -87,6 +120,8 @@ function CodeBlock({ block }: { block: Extract<Block, { type: "code" }> }) {
     } catch {
       setState("failed");
     }
+    clearTimeout(resetTimer.current);
+    resetTimer.current = setTimeout(() => setState("idle"), 3000);
   };
   const label =
     state === "copied" ? "已複製" : state === "failed" ? "複製失敗，請手動選取" : "複製";
@@ -108,7 +143,10 @@ function CodeBlock({ block }: { block: Extract<Block, { type: "code" }> }) {
         </button>
       </div>
       {/* tabIndex 讓鍵盤使用者可以橫向捲動長程式碼 */}
-      <pre tabIndex={0} aria-label={block.caption ?? "程式碼"}>
+      <pre
+        tabIndex={0}
+        aria-label={block.caption ?? (block.language === "math" ? "數學公式" : "程式碼")}
+      >
         <code>{block.code}</code>
       </pre>
       {block.caption && (

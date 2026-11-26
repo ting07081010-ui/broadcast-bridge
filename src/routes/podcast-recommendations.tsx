@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import PodcastRecommendations from "@/components/enian/PodcastRecommendations";
 import { PODCAST } from "@/lib/enian/constants";
+import { serializeJsonLd } from "@/lib/seo";
 
 const SEO_TITLE = "Podcast 推薦｜科技、信仰、家庭類中文節目策展｜E 人 I 碎念";
 const SEO_DESC =
@@ -19,7 +20,7 @@ export const Route = createFileRoute("/podcast-recommendations")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: PAGE_URL },
       { property: "og:image", content: OG_IMAGE },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: SEO_TITLE },
       { name: "twitter:description", content: SEO_DESC },
       { name: "twitter:image", content: OG_IMAGE },
@@ -28,7 +29,7 @@ export const Route = createFileRoute("/podcast-recommendations")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
+        children: serializeJsonLd({
           "@context": "https://schema.org",
           "@type": "CollectionPage",
           name: "Podcast 推薦",

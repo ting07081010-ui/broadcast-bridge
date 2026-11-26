@@ -3,6 +3,7 @@ import EnianLanding from "@/components/enian/EnianLanding";
 import { getEpisodes } from "@/lib/enian/episodes.functions";
 import { getYouTubeVideos } from "@/lib/enian/youtube.functions";
 import { PODCAST, PLATFORMS } from "@/lib/enian/constants";
+import { serializeJsonLd } from "@/lib/seo";
 
 const SEO_TITLE = "E 人 I 碎念｜科技、信仰、家庭與生活觀察 Podcast";
 const SEO_DESC =
@@ -23,7 +24,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { property: "og:url", content: SITE_URL },
       { property: "og:image", content: new URL(PODCAST.avatarUrl, SITE_URL).href },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: SEO_TITLE },
       { name: "twitter:description", content: SEO_DESC },
       { name: "twitter:image", content: new URL(PODCAST.avatarUrl, SITE_URL).href },
@@ -32,7 +33,7 @@ export const Route = createFileRoute("/")({
     scripts: [
       {
         type: "application/ld+json",
-        children: JSON.stringify({
+        children: serializeJsonLd({
           "@context": "https://schema.org",
           "@type": "PodcastSeries",
           name: PODCAST.name,

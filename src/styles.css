@@ -11,8 +11,8 @@
  * The @theme inline block maps CSS custom properties to Tailwind utility
  * classes (e.g. --color-primary -> bg-primary, text-primary).
  *
- * The :root block defines the actual color values using oklch.
- * All colors MUST use oklch format. The site is dark-only.
+ * The :root block defines the "Night Radio Human" dark palette using oklch.
+ * Blog routes add a light paper / night-read reader layer in src/blog.css.
  *
  * To add a new semantic color:
  * 1. Add the variable to :root

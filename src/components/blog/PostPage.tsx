@@ -9,7 +9,8 @@ import { TOPICS } from "@/lib/blog/topics";
 import type { PostSummary } from "@/lib/blog/types";
 import { cn } from "@/lib/utils";
 import PostBody from "./PostBody";
-import ReaderTools, { READER_THEME_SCRIPT, useReaderTheme } from "./ReaderTools";
+import ReaderTools from "./ReaderTools";
+import { READER_THEME_SCRIPT, useReaderTheme } from "./readerTheme";
 import ReadingProgress from "./ReadingProgress";
 import { FixtureBadge, TopicMark, TopicTag } from "./TopicTag";
 
@@ -60,7 +61,7 @@ export default function PostPage({
         className="blog-reader min-h-screen"
       >
         <script dangerouslySetInnerHTML={{ __html: READER_THEME_SCRIPT }} />
-        <ReadingProgress targetRef={bodyRef} />
+        <ReadingProgress key={post.id} targetRef={bodyRef} />
 
         <article className="reading-col px-5 pb-16 pt-6 sm:pt-10 lg:pb-24">
           <Link to="/blog" className={cn(QUIET_LINK, "-ml-0.5")}>

@@ -3,6 +3,7 @@ import WeekPage from "@/components/blog/WeekPage";
 import { getWeekPage } from "@/lib/blog/posts.functions";
 import { formatDate, formatWeekKey } from "@/lib/blog/time";
 import { PODCAST } from "@/lib/enian/constants";
+import { serializeJsonLd } from "@/lib/seo";
 
 const SITE_URL = "https://emting.life";
 const OG_IMAGE = new URL(PODCAST.avatarUrl, SITE_URL).href;
@@ -44,7 +45,7 @@ export const Route = createFileRoute("/blog/week/$weekKey")({
           ? [
               {
                 type: "application/ld+json",
-                children: JSON.stringify({
+                children: serializeJsonLd({
                   "@context": "https://schema.org",
                   "@type": "CollectionPage",
                   name: `一週回顧・${label}`,

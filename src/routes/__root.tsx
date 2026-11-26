@@ -78,7 +78,7 @@ export const Route = createRootRoute({
       { property: "og:description", content: "一個有點宅、很愛講、但認真生活的 Podcast" },
       { property: "og:type", content: "website" },
       { property: "og:site_name", content: SITE_NAME },
-      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:card", content: "summary" },
       { name: "twitter:title", content: SITE_NAME },
       { name: "twitter:description", content: "一個有點宅、很愛講、但認真生活的 Podcast" },
       { name: "theme-color", content: "#121214" },

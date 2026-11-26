@@ -59,7 +59,7 @@
   --paper-surface: #ebe6dc;
   --paper-border: #d9d2c5; /* 裝飾分隔，不作唯一操作邊界 */
   --paper-text: #2a2825;
-  --paper-muted: #6f6a62;
+  --paper-muted: #67625a; /* 對 paper-surface 達 4.74:1，通過 WCAG AA */
   --paper-accent: #8a4f22; /* 連結／focus 墨色（紙底 5.78:1） */
   --paper-accent-decor: #d4894a;
   --primary-bg: #121214;
@@ -209,6 +209,10 @@
 }
 .prose ul {
   list-style: disc;
+}
+.prose ul.checklist {
+  list-style: none;
+  padding-inline-start: 0.25em;
 }
 .prose ul ul {
   list-style: circle;

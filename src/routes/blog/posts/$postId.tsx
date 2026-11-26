@@ -4,6 +4,7 @@ import PostPage from "@/components/blog/PostPage";
 import { getPostPage } from "@/lib/blog/posts.functions";
 import { TOPICS } from "@/lib/blog/topics";
 import { PODCAST } from "@/lib/enian/constants";
+import { serializeJsonLd } from "@/lib/seo";
 
 const SITE_URL = "https://emting.life";
 const postUrl = (postId: string) => `${SITE_URL}/blog/posts/${postId}`;
@@ -27,15 +28,16 @@ export const Route = createFileRoute("/blog/posts/$postId")({
     const { post } = loaderData;
     const url = postUrl(params.postId);
     const title = `${post.title}｜${PODCAST.name}`;
+    const description = post.excerpt || post.title;
     const topic = TOPICS[post.topic];
     const firstImage = post.blocks.find((b) => b.type === "image");
     const imageUrl = new URL(firstImage ? firstImage.src : PODCAST.avatarUrl, SITE_URL).href;
     return {
       meta: [
         { title },
-        { name: "description", content: post.excerpt },
+        { name: "description", content: description },
         { property: "og:title", content: post.title },
-        { property: "og:description", content: post.excerpt },
+        { property: "og:description", content: description },
         { property: "og:type", content: "article" },
         { property: "og:url", content: url },
         { property: "og:image", content: imageUrl },
@@ -44,7 +46,7 @@ export const Route = createFileRoute("/blog/posts/$postId")({
         { property: "article:section", content: topic.name },
         { name: "twitter:card", content: firstImage ? "summary_large_image" : "summary" },
         { name: "twitter:title", content: post.title },
-        { name: "twitter:description", content: post.excerpt },
+        { name: "twitter:description", content: description },
         { name: "twitter:image", content: imageUrl },
         // 測試稿只存在於開發模式，仍明確標示不可收錄
         ...(post.source === "fixture" ? [{ name: "robots", content: "noindex" }] : []),
@@ -53,11 +55,11 @@ export const Route = createFileRoute("/blog/posts/$postId")({
       scripts: [
         {
           type: "application/ld+json",
-          children: JSON.stringify({
+          children: serializeJsonLd({
             "@context": "https://schema.org",
             "@type": "BlogPosting",
             headline: post.title,
-            description: post.excerpt,
+            description,
             image: imageUrl,
             inLanguage: "zh-TW",
             datePublished: post.publishedAt,
@@ -69,7 +71,7 @@ export const Route = createFileRoute("/blog/posts/$postId")({
         },
         {
           type: "application/ld+json",
-          children: JSON.stringify({
+          children: serializeJsonLd({
             "@context": "https://schema.org",
             "@type": "BreadcrumbList",
             itemListElement: [

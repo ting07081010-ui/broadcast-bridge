@@ -877,3 +877,70 @@ test("Notion 分頁缺少游標或游標重複時中止，避免使用不完整�
     /分頁/,
   );
 });
+
+
+test("Notion 轉換：區塊及行內公式保留原始表示式，不執行 HTML", () => {
+  const expression = String.raw`\frac{a}{b} < c`;
+  const formula = block("eq-block", "equation", { expression });
+  const paragraph = block("eq-inline", "paragraph", {
+    rich_text: [rt("公式："), rt("display", { type: "equation", equation: { expression } })],
+  });
+  const result = convertBlocks([formula, paragraph], new Map());
+  assert.deepEqual(result.blocks, [
+    { type: "paragraph", inlines: [{ text: expression, code: true }] },
+    { type: "paragraph", inlines: [{ text: "公式：" }, { text: expression, code: true }] },
+  ]);
+  assert.ok(result.warnings.some((warning) => warning.includes("eq-block")));
+});
+
+test("Notion 轉換：無效公式仍阻擋文章並帶區塊 ID", () => {
+  for (const bad of [
+    block("eq-empty", "equation", { expression: " " }),
+    block("eq-invalid", "equation", { expression: 123 }),
+    block("inline-empty", "paragraph", {
+      rich_text: [rt("", { type: "equation", equation: { expression: "" } })],
+    }),
+  ]) {
+    assert.throws(
+      () => convertBlocks([bad], new Map()),
+      (err: unknown) => err instanceof BlockError && err.blockId === bad.id,
+    );
+  }
+});
+
+test("Notion 轉換：清單內標題及公式保留原始順序、巢狀內容與粗體", () => {
+  const list = block("list", "bulleted_list_item", { rich_text: [rt("項目")] }, [
+    para("before", "之前"),
+    block("nested-title", "heading_3", { rich_text: [rt("子標題")] }, [
+      para("under", "子標題內容"),
+    ]),
+    block("nested-equation", "equation", { expression: "a+b=c" }),
+    para("after", "之後"),
+  ]);
+  const { blocks } = convertBlocks([list], new Map());
+  assert.equal(blocks[0].type, "list");
+  if (blocks[0].type === "list") {
+    assert.deepEqual(blocks[0].items[0].children, [
+      { type: "paragraph", inlines: [{ text: "之前" }] },
+      { type: "paragraph", inlines: [{ text: "子標題", bold: true }] },
+      { type: "paragraph", inlines: [{ text: "子標題內容" }] },
+      { type: "paragraph", inlines: [{ text: "a+b=c", code: true }] },
+      { type: "paragraph", inlines: [{ text: "之後" }] },
+    ]);
+  }
+});
+
+test("Notion 轉換：清單內未知區塊與缺失圖片仍阻擋文章", () => {
+  const list = block("list", "numbered_list_item", { rich_text: [rt("項目")] }, [
+    block("unsafe-embed", "embed", { url: "https://example.com" }),
+  ]);
+  assert.throws(
+    () => convertBlocks([list], new Map()),
+    (err: unknown) => err instanceof BlockError && err.blockId === "unsafe-embed",
+  );
+  const image = block("missing-image", "image", { caption: [] });
+  assert.throws(
+    () => convertBlocks([image], new Map()),
+    (err: unknown) => err instanceof BlockError && err.blockId === "missing-image",
+  );
+});

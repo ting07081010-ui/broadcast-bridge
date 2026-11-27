@@ -20,6 +20,7 @@ export type NotionRichText = {
   plain_text: string;
   href: string | null;
   annotations?: { bold?: boolean; italic?: boolean; code?: boolean };
+  equation?: { expression?: string };
 };
 
 export type NotionBlock = {
@@ -85,6 +86,14 @@ function safeHref(href: string | null, blockId: string): string | undefined {
 export function richTextToInlines(richText: NotionRichText[], blockId: string): Inline[] {
   return richText.map((part) => {
     // mention（頁面、人員、日期等）只留顯示名稱，不做成 Notion 連結。
+    if (part.type === "equation") {
+      const expression = part.equation?.expression;
+      if (typeof expression !== "string" || !expression.trim()) {
+        throw new BlockError(blockId, "行內公式缺少原始表示式");
+      }
+      // 保留原始 LaTeX 為安全文字，不執行公式或插入 HTML。
+      return { text: expression, code: true };
+    }
     if (part.type !== "text" && part.type !== "mention") {
       throw new BlockError(blockId, `行內含有不支援的內容（${part.type}）`);
     }
@@ -147,6 +156,14 @@ function toParagraph(block: NotionBlock): Extract<Block, { type: "paragraph" }> 
   return { type: "paragraph", inlines };
 }
 
+function toEquation(block: NotionBlock): Extract<Block, { type: "paragraph" }> {
+  const expression = payload(block).expression;
+  if (typeof expression !== "string" || !expression.trim()) {
+    throw new BlockError(block.id, "公式缺少原始表示式");
+  }
+  return { type: "paragraph", inlines: [{ text: expression, code: true }] };
+}
+
 function toQuote(block: NotionBlock): Extract<Block, { type: "quote" }> {
   const { body, source } = splitSource(inlinesOf(block));
   return { type: "quote", inlines: body, ...(source ? { source } : {}) };
@@ -185,6 +202,18 @@ function listItemChildren(children: NotionBlock[]): ListChild[] {
     }
     if (child.type === "divider") {
       out.push({ type: "divider" });
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
+    if (/^heading_[1-4]$/.test(child.type)) {
+      // 清單內標題保留位置及文字，不升格為文章全域目錄標題。
+      const inlines = inlinesOf(child).map((inline) => ({ ...inline, bold: true }));
+      if (plain(inlines).trim()) out.push({ type: "paragraph", inlines });
+      out.push(...listItemChildren(childrenOf(child)));
+      continue;
+    }
+    if (child.type === "equation") {
+      out.push(toEquation(child));
       out.push(...listItemChildren(childrenOf(child)));
       continue;
     }
@@ -278,6 +307,9 @@ export function convertBlocks(
       return Object.values(object).flatMap(texts);
     };
     const text = texts(payload(block)).join("");
+    if (block.type === "equation") {
+      warnings.push(`公式以原始表示式呈現，請確認閱讀效果（block ${block.id}）`);
+    }
     if (/\[(?:web|file):\d+\]/i.test(text)) {
       warnings.push(`可能包含未解析引用，請確認來源（block ${block.id}）`);
     }
@@ -308,6 +340,9 @@ function convertList(
         if (paragraph) out.push(paragraph);
         break;
       }
+      case "equation":
+        out.push(toEquation(block));
+        break;
       case "to_do": {
         const marker = data.checked === true ? "☑ " : "☐ ";
         out.push({ type: "paragraph", inlines: [{ text: marker }, ...inlinesOf(block)] });
